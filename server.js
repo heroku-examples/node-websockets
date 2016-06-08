@@ -15,9 +15,11 @@ const wss = new SocketServer({ server });
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
-  ws.on('message', (data, flags) => {
-    console.log('Message received');
-    if (data === 'getTime') ws.send(new Date().toTimeString());
-  });
   ws.on('close', () => console.log('Client disconnected'));
 });
+
+setInterval(() => {
+  wss.clients.forEach((client) => {
+    client.send(new Date().toTimeString());
+  });
+}, 1000);

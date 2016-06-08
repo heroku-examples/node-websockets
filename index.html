@@ -9,8 +9,6 @@
       ws.onmessage = function (event) {
         el.innerHTML = 'Server time: ' + event.data;
       };
-
-      setInterval(ws.send.bind(ws, 'getTime'), 1000);
     </script>
   </body>
 </html>
