@@ -1,6 +1,6 @@
 {
   "name": "node-websockets",
-  "version": "1.00",
+  "version": "1.1.77",
   "resourceVersion": "1",
   "description": "websockets: project",
   "dependencies": {
@@ -26,5 +26,9 @@
     "gulp-util": "^2.2.14",
     "require-dir": "^0.3.0",
     "shelljs": "^0.3.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint src"
   }
 }
