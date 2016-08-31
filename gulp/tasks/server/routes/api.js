@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://localhost/jsonAPI');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 var User       = require('../models/user');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
