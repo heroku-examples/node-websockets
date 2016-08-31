@@ -2,15 +2,22 @@ console.log('sever start');
 var app = require('express')();
 var socket = require('./routes/socket');
 app = socket.set(app);
+var bodyParser = require('body-parser');
 var partials = require('express-partials');
-var routes = require('./routes/index');
-
+var index = require('./routes/index');
+var api = require('./routes/api');
 var path = require ('path');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(partials());
-app.use('/index', routes);
+app.use('/index', index);
+app.use('/api', api);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
