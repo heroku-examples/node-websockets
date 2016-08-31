@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://localhost/jsonAPI');
 var User       = require('../models/user');
@@ -15,8 +16,6 @@ router.route('/users')
 
         // 新しいユーザのモデルを作成する．
         var user = new User();
-
-        console.log(req)
 
         // ユーザの各カラムの情報を取得する．
         user.twitter_id = req.body.twitter_id;
