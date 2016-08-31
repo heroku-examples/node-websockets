@@ -1,24 +1,16 @@
 console.log('sever start');
-var express = require('express');
+var app = require('express')();
+var socket = require('./routes/socket');
+app = socket.set(app);
 var partials = require('express-partials');
 var routes = require('./routes/index');
-var io = require('./routes/socket');
-var app = express();
+
 var path = require ('path');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(partials());
-
-// // uncomment after placing your favicon in /public
-// //app.use(favicon(__dirname + '/public/favicon.ico'));
-// app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
+app.use('/index', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -52,8 +44,9 @@ app.use(function(err, req, res, next) {
 });
 
 app.set('port', process.env.PORT || 8000);
-app.listen(app.get('port'), function () {
-    console.log('Express server (server side) listening on port ' + app.get('port'));
+
+socket.getServer().listen(app.get('port'), function () {
+    console.log('Express socket server (server side) listening on port ' + app.get('port'));
 });
 
 module.exports = app;

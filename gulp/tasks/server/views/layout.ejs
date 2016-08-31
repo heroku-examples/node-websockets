@@ -1,47 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
   <head>
-    <meta charset="utf-8">
-    <title>Server</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- styles -->
-    <link href="stylesheets/style.css" rel="stylesheet">
-    <script type="text/javascript" src="http://localhost:8888/socket.io/socket.io.js"></script>
-    <script type="text/javascript">
-      var socket, emit;
-      (function(){
-          socket = io.connect("http://localhost:8888");
-          emit = function (name, data){
-              // json → 文字列に変換して送信する関数
-              socket.emit(name, JSON.stringify(data));
-          }
-      })();
-      window.onload = function(){
-          var sendBtn = document.getElementById('send');
-          sendBtn.addEventListener("click", function(){
-              emit('message', {text: message.value});
-          });
-          socket.on('receiveMessage', function(d){
-              var data = JSON.parse(d), // 文字列→JSON
-                  li = document.createElement('li'), // liタグ作成
-                  list = document.getElementById('messageList'); // ulタグの取得
-              li.textContent = data.text; // liタグに値を入れる
-              list.appendChild(li); // ulタグの子ノードとして作成したliタグを追加
-          });
-      };
-    </script>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
   </head>
   <body>
-    <textarea id="message" rows="4" cols="40"></textarea>
-    <button type="button" id="send">Send</button>
-    <ul id="messageList"></ul>
     <%- body %>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+
   </body>
 </html>
