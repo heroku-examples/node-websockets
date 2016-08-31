@@ -13,9 +13,35 @@
 
     <!-- styles -->
     <link href="stylesheets/style.css" rel="stylesheet">
-
+    <script type="text/javascript" src="http://localhost:8888/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      var socket, emit;
+      (function(){
+          socket = io.connect("http://localhost:8888");
+          emit = function (name, data){
+              // json → 文字列に変換して送信する関数
+              socket.emit(name, JSON.stringify(data));
+          }
+      })();
+      window.onload = function(){
+          var sendBtn = document.getElementById('send');
+          sendBtn.addEventListener("click", function(){
+              emit('message', {text: message.value});
+          });
+          socket.on('receiveMessage', function(d){
+              var data = JSON.parse(d), // 文字列→JSON
+                  li = document.createElement('li'), // liタグ作成
+                  list = document.getElementById('messageList'); // ulタグの取得
+              li.textContent = data.text; // liタグに値を入れる
+              list.appendChild(li); // ulタグの子ノードとして作成したliタグを追加
+          });
+      };
+    </script>
   </head>
   <body>
+    <textarea id="message" rows="4" cols="40"></textarea>
+    <button type="button" id="send">Send</button>
+    <ul id="messageList"></ul>
     <%- body %>
   </body>
 </html>

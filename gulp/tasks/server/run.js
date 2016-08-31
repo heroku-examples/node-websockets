@@ -2,6 +2,7 @@ console.log('sever start');
 var express = require('express');
 var partials = require('express-partials');
 var routes = require('./routes/index');
+var io = require('./routes/socket');
 var app = express();
 var path = require ('path');
 
