@@ -28,7 +28,7 @@
       #messages li:nth-child(odd) { background: #eee; }*/
     </style>
   </head>
-  <body layout="row" ng-controller="AppCtrl">
+  <body layout="row" ng-controller="AppCtrl" ng-cloak>
       <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
         <md-toolbar class="md-tall md-hue-2">
           <span flex></span>
@@ -87,8 +87,32 @@
             </md-button>
           </div>
         </md-toolbar>
-        <md-content flex md-scroll-y>
+        <md-content ng-controller="ApiCtrl" flex md-scroll-y>
           <%- body %>
+          <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card ng-repeat="user in users" md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
+                    <md-card-title>
+                      <md-card-title-text>
+                        <span class="md-headline">{{user.twitter_id}}</span>
+                        <span class="md-subhead">{{user.name}} {{user.age}}</span>
+                      </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row" layout-align="space-between">
+                      <div class="md-media-xl card-media" style="background-color: #999999;"></div>
+                      <md-card-actions layout="column">
+                        <md-button class="md-icon-button" aria-label="Favorite">
+                          <ng-md-icon icon="favarite"></ng-md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Settings">
+                          <ng-md-icon icon="setting"></ng-md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Share">
+                          <ng-md-icon icon="share"></ng-md-icon>
+                        </md-button>
+                      </md-card-actions>
+                    </md-card-content>
+                  </md-card>
+      </div>
           <ul id="messages"></ul>
         </md-content>
       </div>
@@ -99,6 +123,7 @@
       <script src="/js/angular/angular-animate.min.js"></script>
       <script src="/js/angular/angular-aria.min.js"></script>
       <script src="/js/angular/angular-material.min.js"></script>
+      <script src="/js/angular/angular-resource.min.js"></script>
       <script src="/js/angular/angular-material-icons.min.js"></script>
       <script src="/js/main.js"></script>
   </body>

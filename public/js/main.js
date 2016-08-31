@@ -1,4 +1,4 @@
-var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons']);
+var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons','ngResource']);
 
 app.controller('AppCtrl', ['$scope', '$mdBottomSheet','$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog){
   $scope.toggleSidenav = function(menuId) {
@@ -153,3 +153,23 @@ app.config(function($mdThemingProvider) {
         .primaryPalette('grey');
 });
 
+app.factory('User', function($resource) {
+  return $resource('/api/users/:id',
+    {id: '@id'},
+    {
+      get: {method: 'GET', isArray: true}, // apiの戻り値が配列の場合は「isArray: true」を指定する
+      find: {method: 'GET'},
+      create: {method: 'POST'}
+    }
+    )
+});
+
+app.controller('ApiCtrl', function($scope, User ) {
+    $scope.users = User.query();
+    User.get().$promise.then(function(users) {
+      $scope.users = users;
+      console.log($scope.users)
+    }).catch(function(data, status) {
+      alert('error');
+    });
+    });
