@@ -34,3 +34,9 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.material-icons, .md-button {
+    line-height: inherit !important;
+    color: rgba(255, 255, 255, 1) !important;
+    ;
+}
