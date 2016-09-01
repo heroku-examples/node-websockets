@@ -5,6 +5,7 @@ app = socket.set(app);
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var index = require('./routes/index');
+var main = require('./routes/main');
 var api = require('./routes/api');
 var firebase = require('./routes/firebase');
 var path = require ('path');
@@ -17,6 +18,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(partials());
 app.use('/index', index);
+app.use('/main', main);
 app.use('/api', api);
 app.use('/firebase', firebase);
 

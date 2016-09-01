@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="StarterApp">
-  <head>
+
+<head>
     <title>Socket.IO chat</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,116 +19,20 @@
     <link rel="stylesheet" href="/css/angular-material.css">
     <link rel="stylesheet" href="/css/material_icon.css">
     <link rel="stylesheet" href="/css/main.css">
-    <style>
-/*      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }*/
-    </style>
-  </head>
-  <body layout="row" ng-controller="AppCtrl" ng-cloak>
-      <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-        <md-toolbar class="md-tall md-hue-2">
-          <span flex></span>
-          <div layout="column" class="md-toolbar-tools-bottom inset">
-            <user-avatar></user-avatar>
-            <span></span>
-            <div>Firstname Lastname</div>
-            <div>email@domainname.com</div>
-          </div>
-        </md-toolbar>
-        <md-list>
-        <md-item ng-repeat="item in menu">
-          <a>
-            <md-item-content md-ink-ripple layout="row" layout-align="start center">
-              <div class="inset">
-                <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-              </div>
-              <div class="inset">{{item.title}}
-              </div>
-            </md-item-content>
-          </a>
-        </md-item>
-        <md-divider></md-divider>
-        <md-subheader>Management</md-subheader>
-        <md-item ng-repeat="item in admin">
-          <a>
-            <md-item-content md-ink-ripple layout="row" layout-align="start center">
-              <div class="inset">
-                <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-              </div>
-              <div class="inset">{{item.title}}
-              </div>
-            </md-item-content>
-          </a>
-        </md-item>
-      </md-list>
-      </md-sidenav>
-      <div layout="column" class="relative" layout-fill role="main">
-        <md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="showAdd($event)">
-          <ng-md-icon icon="add"></ng-md-icon>
-        </md-button>
-        <md-toolbar ng-show="!showSearch">
-          <div class="md-toolbar-tools">
-            <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
-              <ng-md-icon icon="menu"></ng-md-icon>
-            </md-button>
-            <h3>
-              Dashboard
-            </h3>
-            <span flex></span>
-            <md-button aria-label="Search" ng-click="showSearch = !showSearch">
-              <ng-md-icon icon="search"></ng-md-icon>
-            </md-button>
-            <md-button aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-              <ng-md-icon icon="more_vert"></ng-md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-        <md-content ng-controller="ApiCtrl" flex md-scroll-y>
-          <%- body %>
-          <div flex-xs flex-gt-xs="50" layout="column">
-            <md-card ng-repeat="user in users" md-theme="{{ showDarkTheme ? 'dark-orange' : 'default' }}" md-theme-watch>
-                    <md-card-title>
-                      <md-card-title-text>
-                        <span class="md-headline">{{user.uid}}</span>
-                        <span class="md-subhead">{{user.name}} {{user.age}}</span>
-                      </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content layout="row" layout-align="space-between">
-                      <div class="md-media-xl card-media" style="background-color: #999999;">
-                        <img ng-src="{{user.photoURL}}" class="md-card-image" />
-                      </div>
-                      <md-card-actions layout="column">
-                        <md-button class="md-icon-button" aria-label="Favorite">
-                          <ng-md-icon icon="favarite"></ng-md-icon>
-                        </md-button>
-                        <md-button class="md-icon-button" aria-label="Settings">
-                          <ng-md-icon icon="setting"></ng-md-icon>
-                        </md-button>
-                        <md-button class="md-icon-button" aria-label="Share">
-                          <ng-md-icon icon="share"></ng-md-icon>
-                        </md-button>
-                      </md-card-actions>
-                    </md-card-content>
-                  </md-card>
-      </div>
-          <ul id="messages"></ul>
-        </md-content>
-      </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/js/angular/angular.min.js"></script>
+    <script src="/js/angular/angular-animate.min.js"></script>
+    <script src="/js/angular/angular-aria.min.js"></script>
+    <script src="/js/angular/angular-material.min.js"></script>
+    <script src="/js/angular/angular-resource.min.js"></script>
+    <script src="/js/angular/angular-material-icons.min.js"></script>
+    <script src="/js/base.js"></script>
+</head>
 
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-      <script src="/js/angular/angular.min.js"></script>
-      <script src="/js/angular/angular-animate.min.js"></script>
-      <script src="/js/angular/angular-aria.min.js"></script>
-      <script src="/js/angular/angular-material.min.js"></script>
-      <script src="/js/angular/angular-resource.min.js"></script>
-      <script src="/js/angular/angular-material-icons.min.js"></script>
-      <script src="/js/main.js"></script>
-  </body>
+<body layout="row" ng-controller="AppCtrl" ng-cloak>
+     <span ng-include="'/templates/sidenav.html'" include-replace></span>
+     <%- body %>
+</body>
+
 </html>

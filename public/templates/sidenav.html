@@ -1,0 +1,27 @@
+<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar class="md-tall md-hue-2">
+        <span flex></span>
+        <div layout="column" class="md-toolbar-tools-bottom inset">
+            <user-avatar></user-avatar>
+            <span></span>
+            <div>Firstname Lastname</div>
+            <div>email@domainname.com</div>
+        </div>
+    </md-toolbar>
+    <md-list>
+        <span ng-repeat="item in menu" ng-link="{{item.link}}">
+            <md-list-item  md-ink-ripple>
+                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                    <p>{{item.title}}</p>
+            </md-list-item>
+        </span>
+        <md-divider></md-divider>
+        <md-subheader>Management</md-subheader>
+        <span ng-repeat="item in admin" ng-link="{{item.link}}">
+            <md-list-item  md-ink-ripple>
+                    <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                    <p>{{item.title}}</p>
+            </md-list-item>
+        </span>
+    </md-list>
+</md-sidenav>
