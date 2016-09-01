@@ -17,6 +17,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
     <link rel="stylesheet" href="/css/angular-material.css">
     <link rel="stylesheet" href="/css/material_icon.css">
+    <link rel="stylesheet" href="/css/main.css">
     <style>
 /*      * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -98,7 +99,9 @@
                       </md-card-title-text>
                     </md-card-title>
                     <md-card-content layout="row" layout-align="space-between">
-                      <div class="md-media-xl card-media" style="background-color: #999999;"></div>
+                      <div class="md-media-xl card-media" style="background-color: #999999;">
+                        <img ng-src="{{user.photoURL}}" class="md-card-image" />
+                      </div>
                       <md-card-actions layout="column">
                         <md-button class="md-icon-button" aria-label="Favorite">
                           <ng-md-icon icon="favarite"></ng-md-icon>
