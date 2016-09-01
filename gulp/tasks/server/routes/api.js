@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var firebase = require("firebase");
 
-var mongoose   = require('mongoose');
+var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
-var User       = require('../models/user');
+var User = require('../models/user');
 
 
 /* GET home page. */
@@ -11,13 +12,26 @@ router.get('/', function(req, res, next) {
     res.status(200).json({ title: 'Express' });
 });
 
+router.route('/users/sync_by_fireBase')
+    // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users_sync_by_fireBase)
+    .post(function(req, res) {
+        var ref = firebase.database().ref('users');
+        ref.once('value').then(function(snapshot) {
+            Object.keys(snapshot.val()).forEach(function(key) {
+                var user = new User(snapshot.val()[key]);
+                user.save(function(err) {});
+            });
+        });
+
+    });
+
 router.route('/users')
-// 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
+    // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
     .get(function(req, res) {
         User.find(function(err, users) {
             if (err) {
                 res.send(err);
-            }else{
+            } else {
                 res.status(200).json(users);
             }
         });
@@ -26,7 +40,7 @@ router.route('/users')
 router.route('/users/:uid')
 
 // ユーザの作成 (POST http://localhost:3000/api/users)
-    .post(function(req, res) {
+.post(function(req, res) {
 
         // 新しいユーザのモデルを作成する．
         var user = new User();
@@ -40,23 +54,23 @@ router.route('/users/:uid')
         user.save(function(err) {
             if (err) {
                 res.send(err);
-            }else{
+            } else {
                 res.status(200).json({ message: 'User created!' });
             }
         });
     })
-// 1人のユーザの情報を取得 (GET http://localhost:3000/api/users/:user_id)
+    // 1人のユーザの情報を取得 (GET http://localhost:3000/api/users/:user_id)
     .get(function(req, res) {
         //user_idが一致するデータを探す．
-        User.find({uid :req.params.uid}, function(err, user) {
+        User.find({ uid: req.params.uid }, function(err, user) {
             if (err)
                 res.send(err);
             res.json(user);
         });
     })
-// 1人のユーザの情報を更新 (PUT http://localhost:3000/api/users/:user_id)
+    // 1人のユーザの情報を更新 (PUT http://localhost:3000/api/users/:user_id)
     .put(function(req, res) {
-        User.find({uid :req.params.uid}, function(err, user) {
+        User.find({ uid: req.params.uid }, function(err, user) {
             if (err)
                 res.send(err);
             // ユーザの各カラムの情報を更新する．
@@ -73,15 +87,15 @@ router.route('/users/:uid')
     })
 
 // 1人のユーザの情報を削除 (DELETE http://localhost:3000/api/users/:uid)
-    .delete(function(req, res) {
-        User.remove({
-            uid: req.params.uid
-        }, function(err, user) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Successfully deleted' });
-        });
+.delete(function(req, res) {
+    User.remove({
+        uid: req.params.uid
+    }, function(err, user) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Successfully deleted' });
     });
+});
 
 // ルーティング登録
 module.exports = router;
