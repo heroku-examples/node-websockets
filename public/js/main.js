@@ -1,7 +1,6 @@
 var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons', 'ngResource']);
 
-app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog',
-    function($scope, $mdBottomSheet, $mdSidenav, $mdDialog) {
+app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidenav, $mdDialog) {
         $scope.toggleSidenav = function(menuId) {
             $mdSidenav(menuId).toggle();
         };
@@ -72,13 +71,26 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
                     targetEvent: ev,
                 })
                 .then(function(answer) {
-                    $scope.alert = 'You said the information was "' + answer + '".';
+                    $rootScope.$broadcast('xxxxxEvent', answer);
+                }, function() {
+                    $scope.alert = 'You cancelled the dialog.';
+                });
+        };
+
+        $scope.showSearch = function(ev) {
+            $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: 'templates/user_condition.html',
+                    targetEvent: ev,
+                })
+                .then(function(answer) {
+                    $rootScope.$broadcast('UserSearchEvent', answer);
                 }, function() {
                     $scope.alert = 'You cancelled the dialog.';
                 });
         };
     }
-]);
+);
 
 app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
     $scope.items = [{
@@ -111,7 +123,10 @@ function DialogController($scope, $mdDialog) {
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
-
+    $scope.search = function() {
+        console.log($scope.userCondition);
+        $mdDialog.hide($scope.userCondition);
+    };
     var socket = io();
 
     $scope.send = function() {
@@ -175,7 +190,16 @@ app.factory('User', function($resource) {
     });
 });
 
-app.controller('ApiCtrl', function($scope, User) {
+app.factory('UserFind', function($resource) {
+    return $resource('/api/users/find', {}, {
+        find: {
+            method: 'POST',
+            isArray: true
+        }
+    });
+});
+
+app.controller('ApiCtrl', function($scope, $rootScope, User, UserFind) {
 
     var getRandomArbitary = function(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
@@ -225,6 +249,14 @@ app.controller('ApiCtrl', function($scope, User) {
         });
     };
 
+    $scope.searchUser = function(conditions) {
+        UserFind.find(conditions).$promise.then(function(users) {
+            $scope.users = users.reverse();
+            console.log($scope.users);
+        }).catch(function(data, status) {
+            alert('error');
+        });
+    };
     $scope.deleteUser = function(uid) {
         User.$delete({ uid: uid }).then(function(users) {
             getUsers();
@@ -233,4 +265,8 @@ app.controller('ApiCtrl', function($scope, User) {
             alert('error');
         });
     };
+
+    $rootScope.$on('UserSearchEvent', function (event, data) {
+        $scope.searchUser(data);
+    });
 });
