@@ -162,8 +162,7 @@ app.factory('User', function($resource) {
             isArray: true
         },
         create: {
-            method: 'POST',
-            isArray: true
+            method: 'POST'
         },
         update: {
             method: 'PUT',
@@ -195,7 +194,8 @@ app.controller('ApiCtrl', function($scope, User) {
 
     $scope.createUser = function(userData) {
         userData.uid = getRandomArbitary(1, 100);
-        User.create(userData).$promise.then(function(users) {
+        var user = new User(userData);
+        user.$create({uid :userData.uid}).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -204,7 +204,7 @@ app.controller('ApiCtrl', function($scope, User) {
     };
 
     $scope.findUser = function(uid) {
-        User.find({ 'uid': uid }).$promise.then(function(users) {
+        User.find({ uid: uid }).$promise.then(function(users) {
             $scope.users = users.reverse();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -213,7 +213,7 @@ app.controller('ApiCtrl', function($scope, User) {
     };
 
     $scope.deleteUser = function(uid) {
-        User.delete({ 'uid': uid }).$promise.then(function(users) {
+        User.$delete({ uid: uid }).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {

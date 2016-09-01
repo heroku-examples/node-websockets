@@ -12,6 +12,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.route('/users')
+// 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
+    .get(function(req, res) {
+        User.find(function(err, users) {
+            if (err) {
+                res.send(err);
+            }else{
+                res.status(200).json(users);
+            }
+        });
+    });
+
+router.route('/users/:uid')
+
 // ユーザの作成 (POST http://localhost:3000/api/users)
     .post(function(req, res) {
 
@@ -32,20 +45,6 @@ router.route('/users')
             }
         });
     })
-
-// 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
-    .get(function(req, res) {
-        User.find(function(err, users) {
-            if (err) {
-                res.send(err);
-            }else{
-                res.status(200).json(users);
-            }
-        });
-    });
-
-router.route('/users/:uid')
-
 // 1人のユーザの情報を取得 (GET http://localhost:3000/api/users/:user_id)
     .get(function(req, res) {
         //user_idが一致するデータを探す．
