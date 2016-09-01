@@ -67,10 +67,10 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
 
         $scope.showAdd = function(ev) {
             $mdDialog.show({
-                controller: DialogController,
-                template: '<input id="m" autocomplete="off" /><button ng-click="send()">Send</button>',
-                targetEvent: ev,
-            })
+                    controller: DialogController,
+                    template: '<input id="m" autocomplete="off" /><button ng-click="send()">Send</button>',
+                    targetEvent: ev,
+                })
                 .then(function(answer) {
                     $scope.alert = 'You said the information was "' + answer + '".';
                 }, function() {
@@ -150,47 +150,74 @@ app.config(function($mdThemingProvider) {
 });
 
 app.factory('User', function($resource) {
-    return $resource('/api/users/:id', {
-        id: '@id'
+    return $resource('/api/users/:uid', {
+        uid: '@uid'
     }, {
         get: {
             method: 'GET',
             isArray: true
         }, // apiの戻り値が配列の場合は「isArray: true」を指定する
         find: {
-            method: 'GET'
+            method: 'GET',
+            isArray: true
         },
         create: {
-            method: 'POST'
+            method: 'POST',
+            isArray: true
+        },
+        update: {
+            method: 'PUT',
+            isArray: true
+        },
+        delete: {
+            method: 'DELETE',
+            isArray: true
         }
-    })
+    });
 });
 
 app.controller('ApiCtrl', function($scope, User) {
 
-var getRandomArbitary =function (min, max) {
-  return Math.floor( Math.random() * (max - min) + min);
-}
+    var getRandomArbitary = function(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    };
 
-    var getUsers = function(){
-      User.get().$promise.then(function(users) {
-          $scope.users = users.reverse();
-          console.log($scope.users)
-      }).catch(function(data, status) {
-          alert('error');
-      });
-    }
+    var getUsers = function() {
+        User.get().$promise.then(function(users) {
+            $scope.users = users.reverse();
+            console.log($scope.users);
+        }).catch(function(data, status) {
+            alert('error');
+        });
+    };
     $scope.users = User.query();
     getUsers();
 
     $scope.createUser = function(userData) {
-      userData.twitter_id = getRandomArbitary(1, 100);
+        userData.uid = getRandomArbitary(1, 100);
         User.create(userData).$promise.then(function(users) {
             getUsers();
-            console.log($scope.users)
+            console.log($scope.users);
         }).catch(function(data, status) {
             alert('error');
         });
-    }
+    };
 
+    $scope.findUser = function(uid) {
+        User.find({ 'uid': uid }).$promise.then(function(users) {
+            $scope.users = users.reverse();
+            console.log($scope.users);
+        }).catch(function(data, status) {
+            alert('error');
+        });
+    };
+
+    $scope.deleteUser = function(uid) {
+        User.delete({ 'uid': uid }).$promise.then(function(users) {
+            getUsers();
+            console.log($scope.users);
+        }).catch(function(data, status) {
+            alert('error');
+        });
+    };
 });
