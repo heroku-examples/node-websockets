@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var index = require('./routes/index');
 var api = require('./routes/api');
+var firebase = require('./routes/firebase');
 var path = require ('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(partials());
 app.use('/index', index);
 app.use('/api', api);
-
+app.use('/firebase', firebase);
 
 
 // catch 404 and forward to error handler

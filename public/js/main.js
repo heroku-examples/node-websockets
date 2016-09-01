@@ -193,7 +193,20 @@ app.controller('ApiCtrl', function($scope, User) {
     getUsers();
 
     $scope.createUser = function(userData) {
-        userData.uid = getRandomArbitary(1, 100);
+        userData = {
+            uid : getRandomArbitary(1, 100),
+            name: "test" + getRandomArbitary(1, 100),
+            age: getRandomArbitary(1, 100),
+            currentPlatform: "test",
+            currentPlatformVersion: getRandomArbitary(1, 100),
+            date: Math.round(new Date().getTime() / 1000),
+            message: "test",
+            photoURL: "test",
+            photos: ["test","test"],
+            cityId: getRandomArbitary(1, 100),
+            prefectureId: getRandomArbitary(1, 100),
+            sexType: getRandomArbitary(1, 2)
+        };
         var user = new User(userData);
         user.$create({uid :userData.uid}).then(function(users) {
             getUsers();
