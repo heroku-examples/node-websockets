@@ -5,13 +5,12 @@ var firebase = require("firebase");
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 var User = require('../../models/user');
-
+var errors = require('../.././json/error/error_code_names.json');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.status(200).json({
-        title: 'User'
-    });
+    console.log(errors.INTERNAL_SERVER_ERROR.code)
+    res.status(errors.INTERNAL_SERVER_ERROR.code).json({'error' : 'test'});
 });
 
 router.route('/users/sync_by_fireBase')
@@ -23,7 +22,7 @@ router.route('/users/sync_by_fireBase')
             var user = new User(snapshot.val()[key]);
             user.save(function(err) {
             if (err) {
-                res.send(err);
+                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
             }
             });
         });
@@ -36,7 +35,7 @@ router.route('/users/find')
 .post(function(req, res) {
     User.find(req.body, function(err, users) {
         if (err) {
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
             res.status(200).json(users);
         }
@@ -48,7 +47,7 @@ router.route('/users')
 .get(function(req, res) {
     User.find(function(err, users) {
         if (err) {
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
             res.status(200).json(users);
         }
@@ -71,7 +70,7 @@ router.route('/users/:uid')
     // ユーザ情報をセーブする．
     user.save(function(err) {
         if (err) {
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
             res.status(200).json({
                 message: 'User created!'
@@ -86,7 +85,7 @@ router.route('/users/:uid')
         uid: req.params.uid
     }, function(err, user) {
         if (err)
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         res.json(user);
     });
 })
@@ -96,7 +95,7 @@ router.route('/users/:uid')
         uid: req.params.uid
     }, function(err, user) {
         if (err)
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         // ユーザの各カラムの情報を更新する．
         user.uid = req.body.uid;
         user.name = req.body.name;
@@ -104,7 +103,7 @@ router.route('/users/:uid')
 
         user.save(function(err) {
             if (err)
-                res.send(err);
+                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
             res.json({
                 message: 'User updated!'
             });
@@ -118,7 +117,7 @@ router.route('/users/:uid')
         uid: req.params.uid
     }, function(err, user) {
         if (err)
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         res.json({
             message: 'Successfully deleted'
         });

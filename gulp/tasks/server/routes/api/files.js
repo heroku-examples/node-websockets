@@ -8,12 +8,14 @@ var profiles = require('../.././json/profile/profiles.json');
 var Lang = require('../../models/lang_ja');
 var langs = require('../.././json/lang/lang_ja.json');
 
+var errors = require('../.././json/error/error_code_names.json');
+
 router.route('/files/location')
 // 全てのprefecture一覧を取得 (GET http://localhost:8000/api/files/location)
 .get(function(req, res) {
     Prefecture.find(function(err, prefectures) {
         if (err) {
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
             res.status(200).json(prefectures);
         }
@@ -25,7 +27,7 @@ router.route('/files/profile')
 .get(function(req, res) {
     Profile.find(function(err, profiles) {
         if (err) {
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
             res.status(200).json(profiles);
         }
@@ -37,7 +39,7 @@ router.route('/files/lang/ja')
 .get(function(req, res) {
     Lang.find(function(err, profiles) {
         if (err) {
-            res.send(err);
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
             res.status(200).json(profiles);
         }
@@ -51,7 +53,7 @@ router.route('/files/location/sync_by_json')
         var prefecture = new Prefecture(record);
         prefecture.save(function(err) {
              if (err) {
-                res.send(err);
+                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
             }
         });
     });
@@ -67,7 +69,7 @@ router.route('/files/profile/sync_by_json')
         var profile = new Profile(record);
         profile.save(function(err) {
              if (err) {
-                res.send(err);
+                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
             }
         });
     });
@@ -82,7 +84,7 @@ router.route('/files/lang/ja/sync_by_json')
         var lang = new Lang(record);
         lang.save(function(err) {
              if (err) {
-                res.send(err);
+                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
             }
         });
     });

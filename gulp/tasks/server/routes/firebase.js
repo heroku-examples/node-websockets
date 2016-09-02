@@ -52,7 +52,7 @@ router.route('/users/:uid')
         // // ユーザ情報をセーブする．
         // user.save(function(err) {
         //     if (err) {
-        //         res.send(err);
+        //         res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         //     }else{
         //         res.status(200).json({ message: 'User created!' });
         //     }
@@ -63,7 +63,7 @@ router.route('/users/:uid')
         // //user_idが一致するデータを探す．
         // User.find({uid :req.params.uid}, function(err, user) {
         //     if (err)
-        //         res.send(err);
+        //         res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         //     res.json(user);
         // });
     })
@@ -71,7 +71,7 @@ router.route('/users/:uid')
     .put(function(req, res) {
         // User.find({uid :req.params.uid}, function(err, user) {
         //     if (err)
-        //         res.send(err);
+        //         res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         //     // ユーザの各カラムの情報を更新する．
         //     user.uid = req.body.uid;
         //     user.name = req.body.name;
@@ -79,7 +79,7 @@ router.route('/users/:uid')
 
         //     user.save(function(err) {
         //         if (err)
-        //             res.send(err);
+        //             res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         //         res.json({ message: 'User updated!' });
         //     });
         // });
@@ -91,7 +91,7 @@ router.route('/users/:uid')
         //     uid: req.params.uid
         // }, function(err, user) {
         //     if (err)
-        //         res.send(err);
+        //         res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
         //     res.json({ message: 'Successfully deleted' });
         // });
     });
