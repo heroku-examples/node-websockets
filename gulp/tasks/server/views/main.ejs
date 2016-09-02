@@ -19,22 +19,7 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content ng-controller="ApiCtrl" flex md-scroll-y>
-        <md-subheader class="md-primary">
-                <span flex></span>
-                <md-button ng-click="createUser({uid : 3, name : 'test', age : 10})" aria-label="Menu">
-                    <ng-md-icon icon="menu"></ng-md-icon>
-                </md-button>
-                <md-button ng-click="findUser(9)" aria-label="Menu">
-                    <ng-md-icon icon="menu"></ng-md-icon>
-                </md-button>
-                <md-button ng-click="openSearch()" aria-label="Menu">
-                    <ng-md-icon icon="menu"></ng-md-icon>
-                </md-button>
-        </md-subheader>
-        <div flex-xs flex-gt-xs="50" layout="column">
-        </div>
-        <ul id="messages"></ul>
-    </md-content>
+    <md-content layout="column" flex ui-view="main"></md-content>
 </div>
-<script src="/js/index.js"></script>
+<script src="/js/routes/main.js"></script>
+<script src="/js/main.js"></script>
