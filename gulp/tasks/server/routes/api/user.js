@@ -4,7 +4,7 @@ var firebase = require("firebase");
 
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
-var User = require('../models/user');
+var User = require('../../models/user');
 
 
 /* GET home page. */
@@ -21,10 +21,14 @@ router.route('/users/sync_by_fireBase')
     ref.once('value').then(function(snapshot) {
         Object.keys(snapshot.val()).forEach(function(key) {
             var user = new User(snapshot.val()[key]);
-            user.save(function(err) {});
+            user.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            });
         });
     });
-
+    res.status(200).json({success :true});
 });
 
 router.route('/users/find')
@@ -75,7 +79,7 @@ router.route('/users/:uid')
         }
     });
 })
-// 1人のユーザの情報を取得 (GET http://localhost:3000/api/users/:user_id)
+// 1人のユーザの情報を取得 (GET http://localhost:8000/api/users/:user_id)
 .get(function(req, res) {
     //user_idが一致するデータを探す．
     User.find({
@@ -86,7 +90,7 @@ router.route('/users/:uid')
         res.json(user);
     });
 })
-// 1人のユーザの情報を更新 (PUT http://localhost:3000/api/users/:user_id)
+// 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
 .put(function(req, res) {
     User.find({
         uid: req.params.uid
@@ -108,7 +112,7 @@ router.route('/users/:uid')
     });
 })
 
-// 1人のユーザの情報を削除 (DELETE http://localhost:3000/api/users/:uid)
+// 1人のユーザの情報を削除 (DELETE http://localhost:8000/api/users/:uid)
 .delete(function(req, res) {
     User.remove({
         uid: req.params.uid

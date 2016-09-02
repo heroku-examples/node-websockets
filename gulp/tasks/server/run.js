@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var index = require('./routes/index');
 var main = require('./routes/main');
-var api = require('./routes/api');
+var user = require('./routes/api/user');
+var files = require('./routes/api/files');
 var firebase = require('./routes/firebase');
 var path = require ('path');
 
@@ -19,7 +20,8 @@ app.set('view engine', 'ejs');
 app.use(partials());
 app.use('/index', index);
 app.use('/main', main);
-app.use('/api', api);
+app.use('/api', user);
+app.use('/api', files);
 app.use('/firebase', firebase);
 
 
