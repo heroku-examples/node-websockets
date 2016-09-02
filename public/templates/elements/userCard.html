@@ -1,0 +1,35 @@
+<div flex-xs="50" flex-sm="25" flex-md="25" flex-lg="20" layout layout-align="center center">
+  <md-card layout-fill class="card-box" style="position: relative;overflow: hidden">
+    <div ng-if="user.isDebug" class="side-corner-tag">Debug</div>
+    <md-card-header style="padding-bottom: inherit;height: 50px;">
+      <md-card-header-text>
+        <div class="md-title ellipsis">{{user.name}}</div>
+        <div class="md-subhead ellipsis">{{user.age}} {{prefectures[user.prefectureId].name}} {{prefectures[user.prefectureId].cities[user.cityId].name}}</div>
+      </md-card-header-text>
+    </md-card-header>
+    <div class="avatar-wrapper" ng-click="link.goFriend(user)">
+      <img ng-if="user.photoURL" ng-src="{{user.photoURL}}" class="md-card-image" />
+    	<img ng-if="!user.photoURL" ng-src="{{'/images/test.jpg'}}" class="md-card-image" />
+    </div>
+    <md-card-content  style="height: 25px;" class="ellipsis">
+      {{user.message}}
+    </md-card-content>
+    <md-grid-tile-footer class="ng-scope" layout="row" layout-align="center center"><figcaption>
+        <md-button style="min-width:60px;" flex="50" ng-if="mode == modeTypes.debug" class="md-icon-button-square square md-warn" ng-click="showUpdateUserDialog(user)">
+            <i class="material-icons">edit</i>
+        </md-button>
+        <md-button style="min-width:60px;" flex="50" ng-if="mode == modeTypes.debug" class="md-icon-button-square md-primary" ng-click="deleteUser(user)">
+            <i class="material-icons">delete</i>
+        </md-button>
+        <md-button style="min-width:60px;" flex="50" class="md-icon-button-square md-primary" ng-click="goChat(userKey, user)">
+          <i class="material-icons">chat</i>
+        </md-button>
+        <md-button style="min-width:60px;" flex="50" class="md-icon-button-square md-primary" ng-click="goFriend(userKey, user)">
+          <i class="material-icons">account_box</i>
+        </md-button>
+        <md-button style="min-width:60px;" flex="50" ng-if="mode == modeTypes.search" class="md-icon-button-square md-primary" ng-click="sendRequest(user.uid)">
+          <i class="material-icons">thumb_up</i>
+        </md-button>
+      </figcaption></md-grid-tile-footer>
+  </md-card>
+</div>

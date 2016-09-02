@@ -1,0 +1,16 @@
+<md-input-container flex="50" class="layout-fill">
+  <label translate="subTitle.prefecture.read"></label>
+  <md-select ng-model="targetUserCondition.prefectureId">
+    <md-option ng-repeat="prefecture in prefectures" value="{{$index}}">
+      {{prefecture.name}}
+    </md-option>
+  </md-select>
+</md-input-container>
+<md-input-container flex="50" class="layout-fill">
+  <label translate="subTitle.city.read"></label>
+  <md-select ng-model="targetUserCondition.cityId">
+    <md-option ng-repeat="city in prefectures[targetUserCondition.prefectureId].cities" value="{{$index}}">
+      {{city.name}}
+    </md-option>
+  </md-select>
+</md-input-container>
