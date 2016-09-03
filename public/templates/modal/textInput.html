@@ -1,0 +1,29 @@
+<div role="dialog" layout="column" layout-align="center center" layout-fill md-theme="grey">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="font_white">Location select</h2>
+      <span flex></span>
+      <md-button ng-click="closeDialog()" class="md-icon-button">
+        <i class="md-fab material-icons">cancel</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content class="slide-up-dialog-content" flex layout-padding style="padding-top:56px">
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>Prefecture</label>
+      <md-select ng-model="user.prefectureId">
+        <md-option ng-repeat="prefecture in prefectures" value="{{$index}}">
+          {{prefecture.name}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>City</label>
+      <md-select ng-model="user.cityId">
+        <md-option ng-repeat="city in prefectures[user.prefectureId].cities" value="{{$index}}">
+          {{city.name}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+  </md-content>
+</div>

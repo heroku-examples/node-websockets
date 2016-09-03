@@ -1,0 +1,33 @@
+<div role="dialog" layout="column" layout-align="center center" layout-fill="" md-theme="grey">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 class="font_white">Blog</h2>
+      <span flex=""></span>
+      <md-button ng-click="inputFile($event)" class="md-icon-button">
+          <i class="md-fab material-icons">insert_photo</i>
+      </md-button>
+      <md-button ng-click="closeDialog()" class="md-icon-button">
+        <i class="md-fab material-icons">cancel</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+  <div layout-padding="" layout-align="center center">
+          <md-card-avatar style="display: flex;">
+            <img ng-src="{{uploadFileUrl}}" class="md-avatar">
+          </md-card-avatar>
+  </div>
+
+    <md-input-container class="md-block" flex-gt-sm="">
+      <label>Title</label>
+      <input ng-model="blog.title">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+      <label>Text</label>
+      <textarea ng-model="blog.text" md-maxlength="1000" rows="10"></textarea>
+    </md-input-container>
+    <md-button class="md-warn md-raised full" ng-click="addBlog()" translate="subTitle.save.read"></md-button>
+    <md-button class="md-accent  md-raised full" ng-click="closeDialog()" translate="subTitle.cancel.read"></md-button>
+    <input type="file" file-model="file" id="upload_photo" style="display:none">
+  </md-content>
+</div>
