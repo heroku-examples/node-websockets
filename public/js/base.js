@@ -1,1 +1,1 @@
-var app = angular.module('StarterApp', ['ui.router', 'ngMaterial', 'ngMdIcons', 'ngResource']);
+var app = angular.module('StarterApp', ['ui.router', 'ngMaterial', 'ngMdIcons', 'ngResource', 'ngStorage']);

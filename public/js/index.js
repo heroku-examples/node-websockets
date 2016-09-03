@@ -33,8 +33,104 @@ app.factory('UserFind', function($resource) {
     });
 });
 
-app.controller('ApiCtrl', function($scope, $rootScope, User, UserFind) {
+function DialogController($scope, $mdDialog, locals) {
 
+    var setUser = function() {
+        $scope.targetUserCondition = {};
+        angular.forEach($scope.selects, function(value, key) {
+            $scope.targetUserCondition[key] = value.default;
+        });
+    };
+
+    $scope.targetUserCondition = {};
+    $scope.mode = locals.type;
+    $scope.selects = locals.selects;
+    $scope.myImage = '';
+
+    setUser();
+
+    $scope.selectAvatar = function(avatarNo) {
+        $scope.targetUserCondition.avatarNo = avatarNo;
+    };
+
+    $scope.profiles = locals.profiles;
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+    $scope.search = function() {
+        console.log($scope.userCondition);
+        $mdDialog.hide($scope.userCondition);
+    };
+
+}
+
+app.controller('ApiCtrl', function($scope, $rootScope, $mdDialog, User, UserFind, Json) {
+
+    var _profiles;
+    Json.get('/api/files/profile').then(function(profiles) {
+        _profiles = profiles;
+    });
+
+    var modeTypes = {
+        search: 1
+    };
+
+    var _selects = {
+        name: {
+            type: "text",
+            default: "debug_" + Math.floor(Math.random() * (100 - 1) + 1)
+        },
+        age: {
+            type: "number",
+            default: Math.floor(Math.random() * (100 - 1) + 1)
+        },
+        sexType: {
+            type: "number",
+            default: 1
+        },
+        message: {
+            type: "number",
+            default: "I am a debug user."
+        },
+        date: {
+            type: "date",
+            default: Math.round(new Date().getTime() / 1000)
+        },
+        uid: {
+            type: "text",
+            default: "debug_" + Math.round(new Date().getTime() / 1000)
+        },
+        photoURL: {
+            type: "text",
+            default: ""
+        },
+        avatarNo: {
+            type: "number",
+            default: 1
+        },
+        imageUrl: {
+            type: "text",
+            default: false
+        },
+        platform: {
+            type: "text",
+            default: "none"
+        },
+        platformVersion: {
+            type: "number",
+            default: 1
+        },
+        isDebug: {
+            type: "bool",
+            default: true
+        },
+    };
     var getRandomArbitary = function(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     };
@@ -50,9 +146,28 @@ app.controller('ApiCtrl', function($scope, $rootScope, User, UserFind) {
     $scope.users = User.query();
     getUsers();
 
+    $scope.openSearch = function(ev) {
+        $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/templates/modal/userSerch.html',
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                locals: {
+                    profiles: _profiles,
+                    selects: _selects,
+                    type: modeTypes.search
+                }
+            })
+            .then(function(answer) {
+                $rootScope.$broadcast('UserSearchEvent', answer);
+            }, function() {
+                $scope.alert = 'You cancelled the dialog.';
+            });
+    };
+
     $scope.createUser = function(userData) {
         userData = {
-            uid : getRandomArbitary(1, 100),
+            uid: getRandomArbitary(1, 100),
             name: "test" + getRandomArbitary(1, 100),
             age: getRandomArbitary(1, 100),
             currentPlatform: "test",
@@ -60,13 +175,13 @@ app.controller('ApiCtrl', function($scope, $rootScope, User, UserFind) {
             date: Math.round(new Date().getTime() / 1000),
             message: "test",
             photoURL: "test",
-            photos: ["test","test"],
+            photos: ["test", "test"],
             cityId: getRandomArbitary(1, 100),
             prefectureId: getRandomArbitary(1, 100),
             sexType: getRandomArbitary(1, 2)
         };
         var user = new User(userData);
-        user.$create({uid :userData.uid}).then(function(users) {
+        user.$create({ uid: userData.uid }).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -100,7 +215,7 @@ app.controller('ApiCtrl', function($scope, $rootScope, User, UserFind) {
         });
     };
 
-    $rootScope.$on('UserSearchEvent', function (event, data) {
+    $rootScope.$on('UserSearchEvent', function(event, data) {
         $scope.searchUser(data);
     });
 });

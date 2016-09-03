@@ -62,31 +62,18 @@ app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidena
             });
         };
 
-        $scope.openAdd = function(ev) {
-            $mdDialog.show({
-                    controller: DialogController,
-                    template: '<input id="m" autocomplete="off" /><button ng-click="send()">Send</button>',
-                    targetEvent: ev,
-                })
-                .then(function(answer) {
-                    $rootScope.$broadcast('xxxxxEvent', answer);
-                }, function() {
-                    $scope.alert = 'You cancelled the dialog.';
-                });
-        };
-
-        $scope.openSearch = function(ev) {
-            $mdDialog.show({
-                    controller: DialogController,
-                    templateUrl: 'templates/user_condition.html',
-                    targetEvent: ev,
-                })
-                .then(function(answer) {
-                    $rootScope.$broadcast('UserSearchEvent', answer);
-                }, function() {
-                    $scope.alert = 'You cancelled the dialog.';
-                });
-        };
+        // $scope.openAdd = function(ev) {
+        //     $mdDialog.show({
+        //             controller: DialogController,
+        //             template: '<input id="m" autocomplete="off" /><button ng-click="send()">Send</button>',
+        //             targetEvent: ev,
+        //         })
+        //         .then(function(answer) {
+        //             $rootScope.$broadcast('xxxxxEvent', answer);
+        //         }, function() {
+        //             $scope.alert = 'You cancelled the dialog.';
+        //         });
+        // };
     }
 );
 
@@ -110,30 +97,3 @@ app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
         $mdBottomSheet.hide(clickedItem);
     };
 });
-
-function DialogController($scope, $mdDialog) {
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
-    };
-    $scope.search = function() {
-        console.log($scope.userCondition);
-        $mdDialog.hide($scope.userCondition);
-    };
-    var socket = io();
-
-    $scope.send = function() {
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        $mdDialog.hide();
-    };
-
-    socket.on('chat message', function(msg) {
-        $('#messages').append($('<li>').text(msg));
-    });
-}
