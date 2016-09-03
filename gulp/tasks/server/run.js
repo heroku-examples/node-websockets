@@ -56,7 +56,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 3000);
 
 socket.getServer().listen(app.get('port'), function () {
     console.log('Express socket server (server side) listening on port ' + app.get('port'));
