@@ -35,11 +35,15 @@
     <script src="/js/services/base.js"></script>
     <script src="/js/directives/base.js"></script>
     <script src="/js/controllers/base.js"></script>
+
 </head>
 
 <body layout="row" ng-controller="AppCtrl" ng-cloak>
      <span ng-include="'/templates/sidenav.html'" include-replace></span>
      <%- body %>
+    <script id="__bs_script__">//<![CDATA[
+        document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.2.14.3.js'><\/script>".replace("HOST", location.hostname));
+    //]]></script>
 </body>
 
 </html>

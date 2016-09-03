@@ -32,5 +32,9 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.14.3",
+    "gulp": "^3.9.1"
   }
 }

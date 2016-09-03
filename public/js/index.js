@@ -75,6 +75,7 @@ app.controller('ApiCtrl', function($scope, $rootScope, $mdDialog, User, UserFind
     var _profiles;
     Json.get('/api/files/profile').then(function(profiles) {
         _profiles = profiles;
+
     });
 
     var modeTypes = {
