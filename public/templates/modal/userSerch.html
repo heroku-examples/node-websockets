@@ -14,7 +14,7 @@
         </div>
         <md-input-container ng-repeat="(key, select) in selects" ng-hide="select.isHide" class="md-block">
             <label key="{{key}}">{{subTitles[key].read}}</label>
-            <input type="select.type" ng-model="targetUserCondition[key]" type="{{type}}">
+            <input type="{{select.type}}" ng-model="targetUserCondition[key]" type="{{type}}">
         </md-input-container>
     </md-content>
     <md-button class="md-warn md-raised full" ng-click="search()" translate="subTitle.search.read"></md-button>
