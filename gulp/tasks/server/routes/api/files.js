@@ -35,7 +35,7 @@ router.route('/files/profile')
 });
 
 router.route('/files/lang/ja')
-// 全てのprefecture一覧を取得 (GET http://localhost:8000/api/files/profile)
+// 全てのprefecture一覧を取得 (GET http://localhost:8000/api/files/lang/ja)
 .get(function(req, res) {
     Lang.find(function(err, profiles) {
         if (err) {

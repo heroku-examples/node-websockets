@@ -64,8 +64,8 @@ function DialogController($scope, $mdDialog, locals) {
         $mdDialog.hide(answer);
     };
     $scope.search = function() {
-        console.log($scope.userCondition);
-        $mdDialog.hide($scope.userCondition);
+        console.log($scope.targetUserCondition);
+        $mdDialog.hide($scope.targetUserCondition);
     };
 
 }

@@ -14,3 +14,21 @@ app.config(function($mdThemingProvider) {
     $mdThemingProvider.theme('input', 'default')
         .primaryPalette('grey');
 });
+
+app.config(['$translateProvider', function($translateProvider, $window) {
+
+        var findLanguage = function() {
+            try {
+                return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
+            } catch (e) {
+                return "en";
+            }
+        };
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/json/lang_',
+            suffix: '.json'
+        });
+        $translateProvider.preferredLanguage(findLanguage());
+        lang = findLanguage();
+        // $translateProvider.useLocalStorage();
+    }]);

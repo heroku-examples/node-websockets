@@ -22,7 +22,7 @@
             <input ng-model="user[key]" type="{{type}}">
         </md-input-container>
         <div layout="row" style="margin-bottom: 20px;">
-            <span ng-include="'elements/userSelectPrefectures.html'" include-replace></span>
+            <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
         </div>
         <button ng-if="mode == modeTypes.add" class="button button-block button-positive" translate="subTitle.save.read" ng-click="saveUser()">
         </button>
