@@ -9,7 +9,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
                 templateUrl : '/templates/main/index.html',
-                controller: 'MainCtrl'
+                controller: 'LoginCtrl'
             }
         };
         $stateProvider

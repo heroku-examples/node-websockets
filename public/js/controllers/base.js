@@ -1,4 +1,4 @@
-app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidenav, $mdDialog) {
+app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidenav, $mdDialog, FireBaseService) {
         $scope.toggleSidenav = function(menuId) {
             $mdSidenav(menuId).toggle();
         };

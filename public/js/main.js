@@ -1,2 +1,2 @@
-app.controller('MainCtrl', function($scope) {
+app.controller('MainCtrl', function($scope, Login) {
 });

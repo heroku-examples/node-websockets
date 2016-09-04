@@ -35,8 +35,7 @@
   font-feature-settings: 'liga';
 }
 
-.material-icons, .md-button {
+.material-icons{
     line-height: inherit !important;
     color: rgba(255, 255, 255, 1) !important;
-    ;
 }
