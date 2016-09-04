@@ -16,7 +16,8 @@ var UserSchema   = new Schema({
     photos: [String],
     cityId: Number,
     prefectureId: Number,
-    sexType: Number
+    sexType: Number,
+    isDebug : Boolean
 });
 
 module.exports = mongoose.model('User', UserSchema);

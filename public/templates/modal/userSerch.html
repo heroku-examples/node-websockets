@@ -12,7 +12,7 @@
         <div layout="row" style="margin-bottom: 20px;">
             <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
         </div>
-        <md-input-container ng-repeat="(key, select) in selects" class="md-block">
+        <md-input-container ng-repeat="(key, select) in selects" ng-hide="select.isHide" class="md-block">
             <label key="{{key}}">{{subTitles[key].read}}</label>
             <input ng-model="targetUserCondition[key]" type="{{type}}">
         </md-input-container>

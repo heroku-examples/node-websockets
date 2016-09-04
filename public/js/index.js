@@ -71,7 +71,7 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
 
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $mdDialog, User, UserFind, Json) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, User, UserFind, Json) {
 
     var _profiles;
     Json.get('/api/files/profile').then(function(profiles) {
@@ -90,20 +90,32 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $mdDialog, User,
         search: 1
     };
 
-    var _selects = {
-        age: {
-            type: "number",
-            default: Math.floor(Math.random() * (100 - 1) + 1)
-        },
-        sexType: {
-            type: "number",
-            default: 1
-        },
-        isDebug: {
-            type: "bool",
-            default: true
-        },
-    };
+var _selects;
+    if($localStorage.targetUserCondition){
+        _selects = $localStorage.targetUserCondition;
+    }else{
+        _selects = {
+            age: {
+                type: "number",
+                default: Math.floor(Math.random() * (100 - 1) + 1)
+            },
+            sexType: {
+                type: "number",
+                default: null
+            },
+            cityId: {
+                type: "number",
+                default: null,
+                isHide:true
+            },
+            prefectureId: {
+                type: "number",
+                default: null,
+                isHide:true
+            },
+        };
+    }
+
     var getRandomArbitary = function(min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     };
@@ -134,6 +146,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $mdDialog, User,
                 }
             })
             .then(function(answer) {
+                angular.forEach(answer,  function(value, key) {
+                    _selects[key].default = value;
+                });
+                $localStorage.targetUserCondition = _selects;
                 $rootScope.$broadcast('UserSearchEvent', answer);
             }, function() {
                 $scope.alert = 'You cancelled the dialog.';
