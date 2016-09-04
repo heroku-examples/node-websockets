@@ -120,4 +120,8 @@ app.controller('DebugCtrl', function($scope, Profile, SyncProfile, Location, Syn
     $scope.deleteApiStorageAll = function(){
     	Json.deleteStorageAll();
     };
+
+    $scope.deleteTargetUserCondition = function(){
+    	Json.deleteTargetUserCondition();
+    };
 });

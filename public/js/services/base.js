@@ -21,5 +21,8 @@ app.factory('Json', function($http, $q, $localStorage) {
         _this.deleteStorageAll = function(){
             $localStorage.json = {};
         };
+        _this.deleteTargetUserCondition = function(){
+            $localStorage.targetUserCondition = {};
+        };
         return _this;
     });
