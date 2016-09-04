@@ -21,7 +21,7 @@ app.config(['$translateProvider', function($translateProvider, $window) {
             try {
                 return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
             } catch (e) {
-                return "en";
+                return "ja";
             }
         };
         $translateProvider.useStaticFilesLoader({
