@@ -33,7 +33,7 @@ app.factory('UserFind', function($resource) {
     });
 });
 
-function DialogController($scope, $mdDialog, locals) {
+function DialogController($scope, $mdDialog, locals, $translate) {
 
     var setUser = function() {
         $scope.targetUserCondition = {};
@@ -45,6 +45,8 @@ function DialogController($scope, $mdDialog, locals) {
     $scope.targetUserCondition = {};
     $scope.mode = locals.type;
     $scope.selects = locals.selects;
+    $scope.prefectures = locals.prefectures;
+    $scope.subTitles = locals.subTitles;
     $scope.myImage = '';
 
     setUser();
@@ -70,12 +72,19 @@ function DialogController($scope, $mdDialog, locals) {
 
 }
 
-app.controller('ApiCtrl', function($scope, $rootScope, $mdDialog, User, UserFind, Json) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $mdDialog, User, UserFind, Json) {
 
     var _profiles;
     Json.get('/api/files/profile').then(function(profiles) {
         _profiles = profiles;
+    });
 
+    Json.get('/api/files/location').then(function(prefectures) {
+        _prefectures = prefectures;
+    });
+
+    Json.get("/json/lang_" + $window.lang + ".json").then(function(translations) {
+        _subTitles = translations.subTitle;
     });
 
     var modeTypes = {
@@ -156,7 +165,9 @@ app.controller('ApiCtrl', function($scope, $rootScope, $mdDialog, User, UserFind
                 locals: {
                     profiles: _profiles,
                     selects: _selects,
-                    type: modeTypes.search
+                    type: modeTypes.search,
+                    prefectures : _prefectures,
+                    subTitles : _subTitles
                 }
             })
             .then(function(answer) {
