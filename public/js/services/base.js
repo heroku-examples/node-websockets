@@ -18,5 +18,8 @@ app.factory('Json', function($http, $q, $localStorage) {
                 }
             return d.promise;
         };
+        _this.deleteStorageAll = function(){
+            $localStorage.json = {};
+        };
         return _this;
     });

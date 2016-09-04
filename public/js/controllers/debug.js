@@ -67,7 +67,7 @@ app.factory('SyncLangJa', function($resource) {
     });
 });
 
-app.controller('DebugCtrl', function($scope, Profile, SyncProfile, Location, SyncLocation, LangJa, SyncLangJa) {
+app.controller('DebugCtrl', function($scope, Profile, SyncProfile, Location, SyncLocation, LangJa, SyncLangJa, Json) {
 
     $scope.deleteProfile = function() {
         Profile.delete().$promise.then(function(tests) {
@@ -115,5 +115,9 @@ app.controller('DebugCtrl', function($scope, Profile, SyncProfile, Location, Syn
         }).catch(function(data, status) {
             alert('error');
         });
+    };
+
+    $scope.deleteApiStorageAll = function(){
+    	Json.deleteStorageAll();
     };
 });
