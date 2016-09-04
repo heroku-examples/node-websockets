@@ -16,9 +16,9 @@ app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidena
             icon: 'message'
         }];
         $scope.admin = [{
-            link: '',
-            title: 'Trash',
-            icon: 'delete'
+            link: '/debug',
+            title: 'Debug',
+            icon: 'adb'
         }, {
             link: 'showListBottomSheet($event)',
             title: 'Settings',

@@ -20,6 +20,15 @@ router.route('/files/location')
             res.status(200).json(prefectures);
         }
     });
+})// 一覧を削除 (DELETE http://localhost:8000/api/files/profile/ja)
+.delete(function(req, res) {
+    Lang.remove({}, function(err, langs) {
+        if (err)
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+        res.json({
+            message: 'Successfully deleted'
+        });
+    });
 });
 
 router.route('/files/profile')
@@ -32,6 +41,16 @@ router.route('/files/profile')
             res.status(200).json(profiles);
         }
     });
+})
+// 一覧を削除 (DELETE http://localhost:8000/api/files/profile/ja)
+.delete(function(req, res) {
+    Lang.remove({}, function(err, langs) {
+        if (err)
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+        res.json({
+            message: 'Successfully deleted'
+        });
+    });
 });
 
 router.route('/files/lang/ja')
@@ -43,6 +62,16 @@ router.route('/files/lang/ja')
         } else {
             res.status(200).json(profiles);
         }
+    });
+})
+// 一覧を削除(DELETE http://localhost:8000/api/files/lang/ja)
+.delete(function(req, res) {
+    Lang.remove({}, function(err, langs) {
+        if (err)
+            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+        res.json({
+            message: 'Successfully deleted'
+        });
     });
 });
 
@@ -90,6 +119,8 @@ router.route('/files/lang/ja/sync_by_json')
     });
     res.status(200).json({success :true});
 });
+
+
 
 // ルーティング登録
 module.exports = router;
