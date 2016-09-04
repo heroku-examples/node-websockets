@@ -33,7 +33,7 @@ app.factory('UserFind', function($resource) {
     });
 });
 
-function DialogController($scope, $mdDialog, locals, $translate) {
+function DialogController($scope, $filter, $mdDialog, locals, $translate) {
 
     var setUser = function() {
         $scope.targetUserCondition = {};
@@ -66,8 +66,7 @@ function DialogController($scope, $mdDialog, locals, $translate) {
         $mdDialog.hide(answer);
     };
     $scope.search = function() {
-        console.log($scope.targetUserCondition);
-        $mdDialog.hide($scope.targetUserCondition);
+        $mdDialog.hide($filter('removeEmptyInObject')($scope.targetUserCondition));
     };
 
 }
@@ -92,47 +91,11 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $mdDialog, User,
     };
 
     var _selects = {
-        name: {
-            type: "text",
-            default: "debug_" + Math.floor(Math.random() * (100 - 1) + 1)
-        },
         age: {
             type: "number",
             default: Math.floor(Math.random() * (100 - 1) + 1)
         },
         sexType: {
-            type: "number",
-            default: 1
-        },
-        message: {
-            type: "number",
-            default: "I am a debug user."
-        },
-        date: {
-            type: "date",
-            default: Math.round(new Date().getTime() / 1000)
-        },
-        uid: {
-            type: "text",
-            default: "debug_" + Math.round(new Date().getTime() / 1000)
-        },
-        photoURL: {
-            type: "text",
-            default: ""
-        },
-        avatarNo: {
-            type: "number",
-            default: 1
-        },
-        imageUrl: {
-            type: "text",
-            default: false
-        },
-        platform: {
-            type: "text",
-            default: "none"
-        },
-        platformVersion: {
             type: "number",
             default: 1
         },

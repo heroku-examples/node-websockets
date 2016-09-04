@@ -13,8 +13,8 @@
             <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
         </div>
         <md-input-container ng-repeat="(key, select) in selects" class="md-block">
-            <label>{{subTitles[key].read}}</label>
-            <input ng-model="user[key]" type="{{type}}">
+            <label key="{{key}}">{{subTitles[key].read}}</label>
+            <input ng-model="targetUserCondition[key]" type="{{type}}">
         </md-input-container>
     </md-content>
     <md-button class="md-warn md-raised full" ng-click="search()" translate="subTitle.search.read"></md-button>
