@@ -22,7 +22,7 @@ app.factory('Json', function($http, $q, $localStorage) {
             $localStorage.json = {};
         };
         _this.deleteTargetUserCondition = function(){
-            $localStorage.targetUserCondition = {};
+            $localStorage.targetUserCondition = false;
         };
         return _this;
     });

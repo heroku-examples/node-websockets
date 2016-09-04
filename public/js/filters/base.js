@@ -81,7 +81,7 @@ app.filter('find', function() {
     .filter('removeEmptyInObject', function() {
         return function(input) {
             angular.forEach(input, function(value, key) {
-                if(value==""||value==null){
+                if(value==""||value==null||value=="0"){
                     delete input[key];
                 }
             });
