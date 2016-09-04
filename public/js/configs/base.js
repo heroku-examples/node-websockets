@@ -18,11 +18,12 @@ app.config(function($mdThemingProvider) {
 app.config(['$translateProvider', function($translateProvider, $window) {
 
         var findLanguage = function() {
-            try {
-                return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
-            } catch (e) {
-                return "ja";
-            }
+             return "ja";
+            // try {
+            //     return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
+            // } catch (e) {
+            //     return "ja";
+            // }
         };
         $translateProvider.useStaticFilesLoader({
             prefix: '/json/lang_',
