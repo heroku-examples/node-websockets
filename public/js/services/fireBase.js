@@ -6,7 +6,7 @@ app
             app: {},
             objRef: {},
             arrayRef: {},
-            arrayRefKeys: {},
+            arrayRefKeys: {}
         };
 
         // Initialize Firebase
