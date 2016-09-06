@@ -847,3 +847,45 @@ md-grid-tile-footer h3, md-grid-tile-footer h4, md-grid-tile-header h3, md-grid-
 .nav-content{
     padding-bottom : 56px;
 }
+
+//animate
+@-webkit-keyframes hide {
+  0% {
+    display: block
+  }
+  to {
+    display: none
+  }
+}
+
+@keyframes hide {
+  0% {
+    display: block
+  }
+  to {
+    display: none
+  }
+}
+
+.hide {
+  -webkit-animation-name: hide;
+  animation-name: hide
+}
+
+@-webkit-keyframes hideDown {
+  0% {
+    display: block
+  }
+  to {
+    display: none;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0)
+  }
+}
+
+
+md-bottom-sheet .md-subheader {
+    line-height: 30px;
+    height: 45px;
+    text-align: center;
+}

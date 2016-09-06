@@ -6,6 +6,9 @@
         <div class="md-title ellipsis">{{user.name}}</div>
         <div class="md-subhead ellipsis">{{user.age}} {{prefectures[user.prefectureId].name}} {{prefectures[user.prefectureId].cities[user.cityId].name}}</div>
       </md-card-header-text>
+               <md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+                <ng-md-icon icon="more_vert"></ng-md-icon>
+            </md-button>
     </md-card-header>
     <div class="avatar-wrapper" ng-click="link.goFriend(user)">
       <img ng-if="user.photoURL" ng-src="{{user.photoURL}}" class="md-card-image" />
@@ -14,22 +17,5 @@
     <md-card-content  style="height: 25px;" class="ellipsis">
       {{user.message}}
     </md-card-content>
-    <md-grid-tile-footer class="ng-scope" layout="row" layout-align="center center"><figcaption>
-        <md-button style="min-width:60px;" flex="50" ng-if="mode == modeTypes.debug" class="md-icon-button-square square md-warn" ng-click="showUpdateUserDialog(user)">
-            <i class="material-icons">edit</i>
-        </md-button>
-        <md-button style="min-width:60px;" flex="50" ng-if="mode == modeTypes.debug" class="md-icon-button-square md-primary" ng-click="deleteUser(user)">
-            <i class="material-icons">delete</i>
-        </md-button>
-        <md-button style="min-width:60px;" flex="50" class="md-icon-button-square md-primary" ng-click="goChat(userKey, user)">
-          <i class="material-icons">chat</i>
-        </md-button>
-        <md-button style="min-width:60px;" flex="50" class="md-icon-button-square md-primary" ng-click="goFriend(userKey, user)">
-          <i class="material-icons">account_box</i>
-        </md-button>
-        <md-button style="min-width:60px;" flex="50" ng-if="mode == modeTypes.search" class="md-icon-button-square md-primary" ng-click="sendRequest(user.uid)">
-          <i class="material-icons">thumb_up</i>
-        </md-button>
-      </figcaption></md-grid-tile-footer>
   </md-card>
 </div>
