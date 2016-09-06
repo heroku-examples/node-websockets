@@ -71,7 +71,7 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
 
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, User, UserFind, Json) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, User, UserFind, Json, Loading) {
 
     var _profiles;
     Json.get('/api/files/profile').then(function(profiles) {
@@ -121,10 +121,13 @@ var _selects;
     };
 
     var getUsers = function() {
+        Loading.isLoding = true;
         User.get().$promise.then(function(users) {
             $scope.users = users.reverse();
+            Loading.isLoding = false;
             console.log($scope.users);
         }).catch(function(data, status) {
+            Loading.isLoding = false;
             alert('error');
         });
     };
@@ -190,19 +193,24 @@ var _selects;
     };
 
     $scope.searchUser = function(conditions) {
+        Loading.isLoding = true;
         UserFind.find(conditions).$promise.then(function(users) {
             $scope.users = users.reverse();
+            Loading.isLoding = false;
             console.log($scope.users);
         }).catch(function(data, status) {
+            Loading.isLoding = false;
             alert('error');
         });
     };
     $scope.deleteUser = function(uid) {
+        Loading.isLoding = true;
         User.$delete({ uid: uid }).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
             alert('error');
+            Loading.isLoding = false;
         });
     };
 
