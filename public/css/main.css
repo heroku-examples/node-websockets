@@ -2,14 +2,6 @@
     width: 100%;
 }
 
-// .md-button{
-//     background :buttonface;
-// }
-
-
-
-// chatApp
-
 md-tooltip {
     user-select: none;
     -webkit-user-select: none;
@@ -848,39 +840,55 @@ md-grid-tile-footer h3, md-grid-tile-footer h4, md-grid-tile-header h3, md-grid-
     padding-bottom : 56px;
 }
 
-//animate
-@-webkit-keyframes hide {
+/*animate*/
+@-webkit-keyframes loadingFadeIn {
   0% {
-    display: block
+    display: block;
+    opacity: 0
   }
   to {
-    display: none
+    opacity: .48;
   }
 }
 
-@keyframes hide {
+@keyframes loadingFadeIn {
   0% {
-    display: block
+    display: block;
+    opacity: 0
   }
   to {
-    display: none
+    opacity: .48;
   }
 }
 
-.hide {
-  -webkit-animation-name: hide;
-  animation-name: hide
+.loadingFadeOut {
+  -webkit-animation-name: loadingFadeOut;
+  animation-name: loadingFadeOut
 }
 
-@-webkit-keyframes hideDown {
+@-webkit-keyframes loadingFadeOut {
   0% {
-    display: block
+    opacity: .48
   }
   to {
+    opacity: 0;
     display: none;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0)
   }
+}
+
+@keyframes loadingFadeOut {
+  0% {
+    opacity: .48
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.loadingFadeOut {
+  -webkit-animation-name: loadingFadeOut;
+  animation-name: loadingFadeOut
 }
 
 
