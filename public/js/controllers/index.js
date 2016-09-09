@@ -56,6 +56,7 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
     };
 
     $scope.profiles = locals.profiles;
+    console.log($scope.profiles, $scope.subTitles)
     $scope.hide = function() {
         $mdDialog.hide();
     };
@@ -69,6 +70,12 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
         $mdDialog.hide($filter('removeEmptyInObject')($scope.targetUserCondition));
     };
 
+    $scope.addHobbyToTargetUserCondition = function(value) {
+        if (!$scope.targetUserCondition.hobbies) $scope.targetUserCondition.hobbies = [];
+        if(!$filter('inArray')($scope.targetUserCondition.hobbies,value)){
+            $scope.targetUserCondition.hobbies.push(value);
+        }
+    };
 }
 
 app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, User, UserFind, Json, Loading) {
