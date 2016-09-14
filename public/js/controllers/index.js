@@ -72,13 +72,13 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
 
     $scope.addHobbyToTargetUserCondition = function(value) {
         if (!$scope.targetUserCondition.hobbies) $scope.targetUserCondition.hobbies = [];
-        if(!$filter('inArray')($scope.targetUserCondition.hobbies,value)){
+        if (!$filter('inArray')($scope.targetUserCondition.hobbies, value)) {
             $scope.targetUserCondition.hobbies.push(value);
         }
     };
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, User, UserFind, Json, Loading) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, $mdBottomSheet, User, UserFind, Json, Loading) {
 
     var _profiles;
     Json.get('/api/files/profile').then(function(profiles) {
@@ -97,10 +97,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $
         search: 1
     };
 
-var _selects;
-    if($localStorage.targetUserCondition){
+    var _selects;
+    if ($localStorage.targetUserCondition) {
         _selects = $localStorage.targetUserCondition;
-    }else{
+    } else {
         _selects = {
             age: {
                 type: "number",
@@ -113,12 +113,12 @@ var _selects;
             cityId: {
                 type: "number",
                 default: null,
-                isHide:true
+                isHide: true
             },
             prefectureId: {
                 type: "number",
                 default: null,
-                isHide:true
+                isHide: true
             },
         };
     }
@@ -151,12 +151,12 @@ var _selects;
                     profiles: _profiles,
                     selects: _selects,
                     type: modeTypes.search,
-                    prefectures : _prefectures,
-                    subTitles : _subTitles
+                    prefectures: _prefectures,
+                    subTitles: _subTitles
                 }
             })
             .then(function(answer) {
-                angular.forEach(answer,  function(value, key) {
+                angular.forEach(answer, function(value, key) {
                     _selects[key].default = value;
                 });
                 $localStorage.targetUserCondition = _selects;
@@ -221,7 +221,39 @@ var _selects;
         });
     };
 
+    $scope.showListBottomSheet = function($event) {
+        $scope.alert = '';
+        $mdBottomSheet.show({
+            templateUrl: '/templates/bottomSheets/user.html',
+            controller: 'ListBottomSheetCtrl',
+            targetEvent: $event
+        }).then(function(clickedItem) {
+            $scope.alert = clickedItem.name + ' clicked!';
+        });
+    };
+
     $rootScope.$on('UserSearchEvent', function(event, data) {
         $scope.searchUser(data);
     });
+});
+
+app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
+    $scope.items = [{
+        name: 'Share',
+        icon: 'share'
+    }, {
+        name: 'Upload',
+        icon: 'upload'
+    }, {
+        name: 'Copy',
+        icon: 'copy'
+    }, {
+        name: 'Print this page',
+        icon: 'print'
+    }, ];
+
+    $scope.listItemClick = function($index) {
+        var clickedItem = $scope.items[$index];
+        $mdBottomSheet.hide(clickedItem);
+    };
 });

@@ -1,9 +1,12 @@
 <md-bottom-sheet class="md-list md-has-header">
-    <md-subheader >メニュー</md-subheader>
+    <md-subheader>メニュー</md-subheader>
     <md-list>
         <md-item ng-repeat="item in items">
-            <md-item-content flex >
-<md-button class="md-warn md-raised full" type="button" translate="subTitle.search.read" ng-click="listItemClick($index)">{{ item.name }}<div class="md-ripple-container"></div></md-button>
+            <md-item-content flex>
+                <md-button class="material-icons md-fab" ng-click="listItemClick($index)">
+                    <ng-md-icon icon="{{ item.icon }}"></ng-md-icon>
+                </md-button>
+                {{ item.name }}
             </md-item-content>
         </md-item>
     </md-list>
