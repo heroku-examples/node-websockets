@@ -1,5 +1,12 @@
 console.log('sever start');
 var app = require('express')();
+var session = require('express-session');
+app.use(session({
+  secret: 'anal fuck',
+  resave: false,
+  saveUninitialized: true
+}));
+
 var socket = require('./routes/socket');
 app = socket.set(app);
 
