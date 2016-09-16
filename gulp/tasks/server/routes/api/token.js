@@ -12,7 +12,7 @@ router.route('/token/check')
 .post(function(req, res) {
     var firebase = require("firebase");
     if (req.session.token) {
-        res.status(resCodes.OK.code).json({loged : true});
+        res.status(resCodes.OK.code).json(req.session.token);
     }else{
         firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
             User.find({
@@ -21,7 +21,7 @@ router.route('/token/check')
                 if (err){
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 }else if(Object.keys(user).length){
-                    req.session.token = req.body.token;
+                    req.session.token = decodedToken;
                     res.status(resCodes.OK.code).json(decodedToken);
                 }else{
                     var token = new Token();
@@ -31,7 +31,7 @@ router.route('/token/check')
                         if (err) {
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         } else {
-                            req.session.token = req.body.token;
+                            req.session.token = decodedToken;
                             res.status(resCodes.OK.code).json(decodedToken);
                         }
                     });
