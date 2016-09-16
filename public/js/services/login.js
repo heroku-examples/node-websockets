@@ -1,5 +1,18 @@
+app.factory('Token', function($resource) {
+    return $resource('/api/token/check', {}, {
+        find: {
+            method: 'POST',
+            isArray: false
+        },
+        update: {
+            method: 'PUT',
+            isArray: true
+        },
+    });
+});
+
 app
-    .factory('Login', function($window, $localStorage, $sessionStorage, $firebaseAuth, Link, User) {
+    .factory('Login', function($window, $localStorage, $sessionStorage, $firebaseAuth, Link, User, Token) {
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
 
@@ -49,12 +62,25 @@ app
                     }
                     _this.isLoading = false;
                 });
-
+                
+                alert("login")
 
             }else{
                 console.log( _this.user );
             }
-            alert("login")
+            var user = firebase.auth().currentUser;
+            var token = '';
+            user.getToken().then(function(idToken) {
+                Token.find({ token: idToken }).$promise.then(function(res) {
+                    console.log(2, res);
+                }).catch(function(data, status) {
+                    alert('error');
+                });
+            }).catch(function(error) {
+                alert("error");
+            });
+
+
         });
 
 

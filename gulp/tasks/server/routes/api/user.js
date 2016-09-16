@@ -2,15 +2,12 @@ var express = require('express');
 var router = express.Router();
 var firebase = require("firebase");
 
-var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 var User = require('../../models/user');
-var errors = require('../.././json/error/error_code_names.json');
+var resCodes = require('../.././json/error/error_code_names.json');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(errors.INTERNAL_SERVER_ERROR.code)
-    res.status(errors.INTERNAL_SERVER_ERROR.code).json({'error' : 'test'});
+    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({'error' : 'test'});
 });
 
 router.route('/users/sync_by_fireBase')
@@ -22,12 +19,12 @@ router.route('/users/sync_by_fireBase')
             var user = new User(snapshot.val()[key]);
             user.save(function(err) {
             if (err) {
-                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             }
             });
         });
     });
-    res.status(200).json({success :true});
+    res.status(resCodes.OK.code).json({success :true});
 });
 
 router.route('/users/find')
@@ -35,9 +32,9 @@ router.route('/users/find')
 .post(function(req, res) {
     User.find(req.body, function(err, users) {
         if (err) {
-            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
-            res.status(200).json(users);
+            res.status(resCodes.OK.code).json(users);
         }
     });
 });
@@ -47,12 +44,28 @@ router.route('/users')
 .get(function(req, res) {
     User.find(function(err, users) {
         if (err) {
-            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
-            res.status(200).json(users);
+            res.status(resCodes.OK.code).json(users);
         }
     });
 });
+
+router.route('/users/get-token/:uid')
+
+// ユーザの作成 (POST http://localhost:3000/api/users)
+.post(function(req, res) {
+
+// find the user starlord55
+// update him to starlord 88
+    var randtoken = require('rand-token');
+    User.findOneAndUpdate({ uid: req.params.uid }, { token: randtoken.generate(16) }, function(err, user) {
+        if (err)
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        res.status(resCodes.OK.code).json(user);
+    });
+});
+
 
 router.route('/users/:uid')
 
@@ -70,9 +83,9 @@ router.route('/users/:uid')
     // ユーザ情報をセーブする．
     user.save(function(err) {
         if (err) {
-            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
         } else {
-            res.status(200).json({
+            res.status(resCodes.OK.code).json({
                 message: 'User created!'
             });
         }
@@ -85,8 +98,8 @@ router.route('/users/:uid')
         uid: req.params.uid
     }, function(err, user) {
         if (err)
-            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
-        res.json(user);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        res.status(resCodes.OK.code).json(user);
     });
 })
 // 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
@@ -95,7 +108,7 @@ router.route('/users/:uid')
         uid: req.params.uid
     }, function(err, user) {
         if (err)
-            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
         // ユーザの各カラムの情報を更新する．
         user.uid = req.body.uid;
         user.name = req.body.name;
@@ -103,8 +116,8 @@ router.route('/users/:uid')
 
         user.save(function(err) {
             if (err)
-                res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
-            res.json({
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            res.status(resCodes.OK.code).json({
                 message: 'User updated!'
             });
         });
@@ -117,8 +130,8 @@ router.route('/users/:uid')
         uid: req.params.uid
     }, function(err, user) {
         if (err)
-            res.status(errors.INTERNAL_SERVER_ERROR.code).json(err);
-        res.json({
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        res.status(resCodes.OK.code).json({
             message: 'Successfully deleted'
         });
     });

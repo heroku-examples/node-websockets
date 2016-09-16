@@ -2,14 +2,20 @@ console.log('sever start');
 var app = require('express')();
 var socket = require('./routes/socket');
 app = socket.set(app);
+
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
+
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var index = require('./routes/index');
 var main = require('./routes/main');
 var debug = require('./routes/debug');
-var user = require('./routes/api/user');
-var files = require('./routes/api/files');
 var firebase = require('./routes/firebase');
+var user = require('./routes/api/user');
+var token = require('./routes/api/token');
+var files = require('./routes/api/files');
+
 var path = require ('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,9 +28,12 @@ app.use(partials());
 app.use('/index', index);
 app.use('/main', main);
 app.use('/debug', debug);
-app.use('/api', user);
-app.use('/api', files);
 app.use('/firebase', firebase);
+app.use('/api', user);
+app.use('/api', token);
+app.use('/api', files);
+
+
 
 
 // catch 404 and forward to error handler

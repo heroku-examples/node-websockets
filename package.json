@@ -25,6 +25,7 @@
     "gulp-util": "^2.2.14",
     "mongoose": "^4.5.10",
     "node-sass": "^3.8.0",
+    "rand-token": "^0.2.1",
     "require-dir": "^0.3.0",
     "shelljs": "^0.3.0",
     "socket.io": "1.2.0"
