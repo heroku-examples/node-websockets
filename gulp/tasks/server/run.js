@@ -22,6 +22,7 @@ var firebase = require('./routes/firebase');
 var user = require('./routes/api/user');
 var token = require('./routes/api/token');
 var files = require('./routes/api/files');
+var say = require('./routes/api/say');
 
 var path = require ('path');
 
@@ -39,6 +40,7 @@ app.use('/firebase', firebase);
 app.use('/api', user);
 app.use('/api', token);
 app.use('/api', files);
+app.use('/api', say);
 
 
 
