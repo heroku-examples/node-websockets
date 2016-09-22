@@ -12,11 +12,15 @@ app.factory('Token', function($resource) {
 });
 
 app
-    .factory('Login', function($window, $localStorage, $sessionStorage, $firebaseAuth, Link, User, Token) {
+    .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Link, User, Token) {
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
 
-
+        var checkUserToRedirect = function(){
+            if (!$sessionStorage.token && (location.pathname != "/main" && location.pathname != "/"  && location.pathname != "")) {
+                location.href = "main";
+            }
+        }
 
         auth.$onAuthStateChanged(function(firebaseUser) {
             if ( firebaseUser ) {
@@ -67,16 +71,20 @@ app
                 user.getToken().then(function(idToken) {
                     Token.find({ token: idToken }).$promise.then(function(res) {
                         console.log(2, res);
-                        alert("login 2")
+                        alert("login 2");
+                         $sessionStorage.token =  idToken;
                     }).catch(function(data, status) {
                         alert('error');
+                        checkUserToRedirect();
                     });
                 }).catch(function(error) {
                     alert("error");
+                    checkUserToRedirect();
                 });
             }else{
                 console.log( _this.user );
                 alert("error");
+                checkUserToRedirect();
             }
 
 
@@ -108,10 +116,14 @@ app
         };
         _this.logOut = function() {
             auth.$signOut();
-            $sessionStorage.user.isLogedIn = false;
+            //$sessionStorage.user.isLogedIn = false;
+            $sessionStorage.token =  false;
         };
         _this.getAuth = function() {
             return auth.$getAuth();
+        };
+        _this.checkUserToRedirect = function() {
+            checkUserToRedirect();
         };
         _this.checkUser = function() {
             if (!$sessionStorage.user) {

@@ -1,4 +1,6 @@
-app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService) {
+app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+        Login.checkUserToRedirect();
+        $scope.sessionStorage = $sessionStorage;
         $scope.toggleSidenav = function(menuId) {
             $mdSidenav(menuId).toggle();
         };
