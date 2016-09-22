@@ -1,5 +1,6 @@
 <md-content flex md-scroll-y>
     main
-    <md-button md-no-ink class="md-primary full" ng-click="login('google')">Google Login</md-button>
-    <md-button md-no-ink class="md-primary full" ng-click="logout()">Log out</md-button>
+    <md-button ng-if="!firebaseUser" md-no-ink class="md-primary full" ng-click="login('google')">Google Login</md-button>
+    <md-button ng-if="firebaseUser" md-no-ink class="md-primary full" ng-click="logOut()">Log out</md-button>
+
 </md-content>
