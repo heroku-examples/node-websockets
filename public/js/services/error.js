@@ -2,8 +2,8 @@ app
     .factory('Error', function(Toast) {
         var _this = {
             codes: {
-                "1xx": {
-                    "code": "1xx",
+                "199": {
+                    "code": "199",
                     "phrase": "**Informational**",
                     "key": "INFORMATIONAL",
                     "description": "\"indicates an interim response for communicating connection status or request progress prior to completing the requested action and sending a final response.\" ~ [sure](http://www.urbandictionary.com/define.php?term=sure)",
@@ -26,8 +26,8 @@ app
                     "spec_title": "RFC7231#6.2.2",
                     "spec_href": "https://tools.ietf.org/html/rfc7231#section-6.2.2"
                 },
-                "2xx": {
-                    "code": "2xx",
+                "299": {
+                    "code": "299",
                     "phrase": "**Successful**",
                     "key": "SUCCESSFUL",
                     "description": "\"indicates that the client's request was successfully received, understood, and accepted.\" ~ [cool](https://twitter.com/DanaDanger/status/183316183494311936)",
@@ -90,8 +90,8 @@ app
                     "spec_title": "RFC7233#4.1",
                     "spec_href": "https://tools.ietf.org/html/rfc7233#section-4.1"
                 },
-                "3xx": {
-                    "code": "3xx",
+                "399": {
+                    "code": "399",
                     "phrase": "**Redirection**",
                     "key": "REDIRECTION",
                     "description": "\"indicates that further action needs to be taken by the user agent in order to fulfill the request.\" ~ [ask that dude over there](https://twitter.com/DanaDanger/status/183316183494311936)",
@@ -154,8 +154,8 @@ app
                     "spec_title": "RFC7231#6.4.7",
                     "spec_href": "https://tools.ietf.org/html/rfc7231#section-6.4.7"
                 },
-                "4xx": {
-                    "code": "4xx",
+                "499": {
+                    "code": "499",
                     "phrase": "**Client Error**",
                     "key": "CLIENT_ERROR",
                     "description": "\"indicates that the client seems to have erred.\" ~ [*you* fucked up](https://twitter.com/DanaDanger/status/183316183494311936)",
@@ -322,8 +322,8 @@ app
                     "spec_title": "RFC7231#6.5.15",
                     "spec_href": "https://tools.ietf.org/html/rfc7231#section-6.5.15"
                 },
-                "5xx": {
-                    "code": "5xx",
+                "599": {
+                    "code": "599",
                     "phrase": "**Server Error**",
                     "key": "SERVER_ERROR",
                     "description": "\"indicates that the server is aware that it has erred or is incapable of performing the requested method.\" ~ [*we* fucked up](https://twitter.com/DanaDanger/status/183316183494311936)",
@@ -490,8 +490,8 @@ app
                     "spec_title": "RFC6585#6",
                     "spec_href": "https://tools.ietf.org/html/rfc6585#section-6"
                 },
-                "7xx": {
-                    "code": "7xx",
+                "799": {
+                    "code": "799",
                     "phrase": "**Developer Error**",
                     "key": "DEVELOPER_ERROR",
                     "description": "[err](http://www.urbandictionary.com/define.php?term=err)",
