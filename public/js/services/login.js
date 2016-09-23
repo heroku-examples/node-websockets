@@ -24,7 +24,7 @@ app
 
         auth.$onAuthStateChanged(function(firebaseUser) {
             if ( firebaseUser ) {
-
+                $sessionStorage.firebaseUser = firebaseUser;
                 // $sessionStorage.user = {
                 //     displayName: firebaseUser.displayName,
                 //     email: firebaseUser.email,
