@@ -510,8 +510,7 @@ app
             }
         };
 
-        _this.openMessage = function(error) {
-            console.log(error)
+        _this.openMessage = function(errorCode) {
             if(_this.codes[errorCode]){
                 Toast.show(_this.codes[errorCode].phrase);
             }else{

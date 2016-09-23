@@ -27,18 +27,18 @@ router.route('/token/check')
                         var token = new Token({uid : decodedToken.uid, token : req.body.token, isDebug: _token.isDebug});
                         if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         token.token = req.body.token;
-                        token.save(function(err) {
-                            if (err){
-                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                            }else{
-                                req.session.token = decodedToken;
-                                if (token.isDebug){
-                                    req.session.isDebug = true;
-                                    decodedToken.isDebug = true;
-                                }
+                        // token.save(function(err) {
+                        //     if (err){
+                        //         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                        //     }else{
+                        //         req.session.token = decodedToken;
+                        //         if (token.isDebug){
+                        //             req.session.isDebug = true;
+                        //             decodedToken.isDebug = true;
+                        //         }
                                 res.status(resCodes.OK.code).json(decodedToken);
-                            }
-                        });
+                        //     }
+                        // });
                     });
                 } else {
                     var token = new Token();

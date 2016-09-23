@@ -1,0 +1,5 @@
+<md-content flex md-scroll-y>
+    singUp
+    <md-button ng-if="!sessionStorage.token" md-no-ink class="md-primary full" ng-click="login('google')">Google Login</md-button>
+    <md-button ng-if="sessionStorage.token" md-no-ink class="md-primary full" ng-click="logOut()">Log out</md-button>
+</md-content>

@@ -1,5 +1,5 @@
 app
-   .factory('User', function($filter, FireBaseService, $firebaseObject, $firebaseArray, $localStorage) {
+   .factory('User', function($filter, FireBaseService, $firebaseObject, $firebaseArray, $localStorage, $sessionStorage) {
         var _this = {
             users: {},
             indexs : {
@@ -28,8 +28,7 @@ app
         if (!FireBaseService.arrayRef.users) FireBaseService.setArrayRef('users', 'users');
 
         _this.getCurrent = function() {
-            if (!_this.users[$localStorage.user.uid]) _this.users[$localStorage.user.uid] = FireBaseService.arrayRef.users.child($localStorage.user.uid);
-            return $firebaseObject(_this.users[$localStorage.user.uid]);
+            return $firebaseObject(_this.users[$sessionStorage.firebaseUser.uid]);
         };
 
         _this.getById = function(uid) {

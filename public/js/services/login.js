@@ -19,8 +19,17 @@ app
         var checkUserToRedirect = function(){
             if (!$sessionStorage.token && (location.pathname != "/main" && location.pathname != "/"  && location.pathname != "")) {
                 location.href = "main";
+            }else{
+                _this.user = User.getCurrent();
+                 _this.user.$loaded().then(function(user) {
+                    if(!user){
+                        $state.go('signUp');
+                    }else{
+                        location.href = "index";
+                    }
+                 });
             }
-        }
+        };
 
         auth.$onAuthStateChanged(function(firebaseUser) {
             if ( firebaseUser ) {
@@ -70,8 +79,8 @@ app
                     Token.find({ token: idToken }).$promise.then(function(res) {
                          $sessionStorage.token =  idToken;
                          Error.openMessageByCode(299);
-                    }).catch(function(data, status) {
-                        Error.openMessage(status);
+                    }).catch(function(data) {
+                        Error.openMessage(data.status);
                         checkUserToRedirect();
                     });
                 }).catch(function(error) {
