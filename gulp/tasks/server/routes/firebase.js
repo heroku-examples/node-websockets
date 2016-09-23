@@ -21,6 +21,17 @@ firebase.auth().verifyIdToken(token).catch(function(error) {
 });
 
 
+var resCodes = require('.././json/http/http_code_names.json');
+
+router.use(function(req, res, next) {
+if (req.session.token) {
+        next();
+    } else {
+        //Return a response immediately
+        res.redirect("../main");
+    }
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.status(200).json({ token: token });
