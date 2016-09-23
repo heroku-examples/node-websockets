@@ -15,15 +15,19 @@ app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidena
             link: '',
             title: 'Messages',
             icon: 'message'
+        }, {
+            link: '',
+            title: 'Settings',
+            icon: 'settings'
         }];
         $scope.admin = [{
             link: '/debug',
             title: 'Debug',
             icon: 'adb'
         }, {
-            link: 'showListBottomSheet($event)',
-            title: 'Settings',
-            icon: 'settings'
+            link: '/debug#/memo',
+            title: 'Memo',
+            icon: 'adb'
         }];
 
         $scope.alert = '';

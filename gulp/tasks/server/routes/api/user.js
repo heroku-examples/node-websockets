@@ -88,6 +88,7 @@ router.route('/users/:uid')
         user.uid = req.body.uid;
         user.name = req.body.name;
         user.age = req.body.age;
+        user.createDate = new Date();
 
         // ユーザ情報をセーブする．
         user.save(function(err) {
@@ -113,12 +114,11 @@ router.route('/users/:uid')
     })
     // 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
     .put(function(req, res) {
-        User.find({
+        User.findOne({
             uid: req.params.uid
-        }, function(err, _user) {
+        }, function(err, user) {
             if (err)
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            var user = new User(_user);
             // ユーザの各カラムの情報を更新する．
             user.uid = req.body.uid;
             user.name = req.body.name;
