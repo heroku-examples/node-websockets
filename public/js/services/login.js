@@ -69,7 +69,7 @@ app
                 user.getToken().then(function(idToken) {
                     Token.find({ token: idToken }).$promise.then(function(res) {
                          $sessionStorage.token =  idToken;
-                         Error.openMessageByCode('2xx');
+                         Error.openMessageByCode(299);
                     }).catch(function(data, status) {
                         Error.openMessage(status);
                         checkUserToRedirect();

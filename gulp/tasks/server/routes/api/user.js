@@ -115,15 +115,16 @@ router.route('/users/:uid')
     .put(function(req, res) {
         User.find({
             uid: req.params.uid
-        }, function(err, user) {
+        }, function(err, _user) {
             if (err)
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            var user = new User(_user);
             // ユーザの各カラムの情報を更新する．
             user.uid = req.body.uid;
             user.name = req.body.name;
             user.age = req.body.age;
 
-            user.save(function(err) {
+            user.update(function(err) {
                 if (err)
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 res.status(resCodes.OK.code).json({
