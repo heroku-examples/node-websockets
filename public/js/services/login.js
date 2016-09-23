@@ -83,8 +83,6 @@ app
                 checkUserToRedirect();
             }
 
-
-
         });
 
 
