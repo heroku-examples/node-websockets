@@ -9,6 +9,8 @@ var resCodes = require('../.././json/http/http_code_names.json');
 router.use(function(req, res, next) {
     if (process.env.NODE_ENV != 'production') {
         next();
+    } else if (req.originalUrl == '/api/token/check') {
+        next();
     } else if (req.session.token) {
         next();
     } else {

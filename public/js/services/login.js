@@ -12,7 +12,7 @@ app.factory('Token', function($resource) {
 });
 
 app
-    .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Link, User, Token) {
+    .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, Token) {
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
 
@@ -64,26 +64,22 @@ app
                 //     }
                 //     _this.isLoading = false;
                 // });
-
-                alert("login")
                 var user = firebase.auth().currentUser;
                 var token = '';
                 user.getToken().then(function(idToken) {
                     Token.find({ token: idToken }).$promise.then(function(res) {
-                        console.log(2, res);
-                        alert("login 2");
                          $sessionStorage.token =  idToken;
+                         Error.openMessageByCode('2xx');
                     }).catch(function(data, status) {
-                        alert('error');
+                        Error.openMessage(status);
                         checkUserToRedirect();
                     });
                 }).catch(function(error) {
-                    alert("error");
+                    Error.openMessage(error);
                     checkUserToRedirect();
                 });
             }else{
-                console.log( _this.user );
-                alert("error");
+                Error.openMessageByCode(401);
                 checkUserToRedirect();
             }
 
