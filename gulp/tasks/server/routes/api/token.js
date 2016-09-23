@@ -23,22 +23,21 @@ router.route('/token/check')
                 } else if (Object.keys(user).length) {
                     Token.find({
                         uid: decodedToken.uid
-                    }, function(err, _token) {
-                        var token = new Token({uid : decodedToken.uid, token : req.body.token, isDebug: _token.isDebug});
+                    }, function(err, tokens) {
+                        var  token = tokens[0];
+                        token.uid = decodedToken.uid;
+                        token.token = req.body.token;
+                        token.isDebug = token.isDebug;
                         if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         token.token = req.body.token;
-                        // token.save(function(err) {
-                        //     if (err){
-                        //         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                        //     }else{
-                        //         req.session.token = decodedToken;
-                        //         if (token.isDebug){
-                        //             req.session.isDebug = true;
-                        //             decodedToken.isDebug = true;
-                        //         }
-                                res.status(resCodes.OK.code).json(decodedToken);
-                        //     }
-                        // });
+                        token.save(function(err) {
+                            if (err){
+                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                            }else{
+                                req.session.token = token;
+                                res.status(resCodes.OK.code).json(token);
+                            }
+                        });
                     });
                 } else {
                     var token = new Token();
@@ -49,7 +48,7 @@ router.route('/token/check')
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         } else {
                             req.session.token = decodedToken;
-                            res.status(resCodes.OK.code).json(decodedToken);
+                            res.status(resCodes.OK.code).json(token);
                         }
                     });
                 }

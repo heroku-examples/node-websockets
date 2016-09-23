@@ -74,10 +74,9 @@ app
                 //     _this.isLoading = false;
                 // });
                 var user = firebase.auth().currentUser;
-                var token = '';
                 user.getToken().then(function(idToken) {
-                    Token.find({ token: idToken }).$promise.then(function(res) {
-                         $sessionStorage.token =  idToken;
+                    Token.find({ token: idToken }).$promise.then(function(_token) {
+                         $sessionStorage.token =  _token;
                          Error.openMessageByCode(299);
                     }).catch(function(data) {
                         Error.openMessage(data.status);
