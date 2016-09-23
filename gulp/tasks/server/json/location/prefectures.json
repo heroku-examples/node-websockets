@@ -1,21 +1,6 @@
 [{
-    "name": "",
-    "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }]
-}, {
     "name": "群馬県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "前橋市",
         "latitude": "36.2322",
         "longitude": "139.0347"
@@ -343,10 +328,6 @@
 }, {
     "name": "埼玉県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "さいたま市",
         "latitude": "35.513",
         "longitude": "139.3855"
@@ -782,10 +763,6 @@
 }, {
     "name": "千葉県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "千葉市",
         "latitude": "35.3627",
         "longitude": "140.0623"
@@ -1165,10 +1142,6 @@
 }, {
     "name": "東京都",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "千代田区",
         "latitude": "35.4138",
         "longitude": "139.4505"
@@ -1448,10 +1421,6 @@
 }, {
     "name": "神奈川県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "横浜市",
         "latitude": "35.2638",
         "longitude": "139.3817"
@@ -1731,10 +1700,6 @@
 }, {
     "name": "新潟県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "新潟市",
         "latitude": "37.5459",
         "longitude": "139.021"
@@ -2194,10 +2159,6 @@
 }, {
     "name": "富山県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "富山市",
         "latitude": "36.4136",
         "longitude": "137.1302"
@@ -2369,10 +2330,6 @@
 }, {
     "name": "石川県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "金沢市",
         "latitude": "36.3341",
         "longitude": "136.3919"
@@ -2564,10 +2521,6 @@
 }, {
     "name": "福井県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "福井市",
         "latitude": "36.0349",
         "longitude": "136.1306"
@@ -2747,10 +2700,6 @@
 }, {
     "name": "山梨県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "甲府市",
         "latitude": "35.3945",
         "longitude": "138.3404"
@@ -3014,10 +2963,6 @@
 }, {
     "name": "青森県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "青森市",
         "latitude": "40.4911",
         "longitude": "140.4456"
@@ -3321,10 +3266,6 @@
 }, {
     "name": "長野県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "長野市",
         "latitude": "36.3856",
         "longitude": "138.1137"
@@ -3860,10 +3801,6 @@
 }, {
     "name": "岐阜県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "岐阜市",
         "latitude": "35.254",
         "longitude": "136.4511"
@@ -4243,10 +4180,6 @@
 }, {
     "name": "静岡県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "静岡市",
         "latitude": "34.583",
         "longitude": "138.2258"
@@ -4574,10 +4507,6 @@
 }, {
     "name": "愛知県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "名古屋市",
         "latitude": "35.1036",
         "longitude": "136.5439"
@@ -5053,10 +4982,6 @@
 }, {
     "name": "三重県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "津市",
         "latitude": "34.432",
         "longitude": "136.3026"
@@ -5380,10 +5305,6 @@
 }, {
     "name": "滋賀県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "大津市",
         "latitude": "35.0022",
         "longitude": "135.5229"
@@ -5635,10 +5556,6 @@
 }, {
     "name": "京都府",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "京都市",
         "latitude": "35.0042",
         "longitude": "135.4601"
@@ -5878,10 +5795,6 @@
 }, {
     "name": "大阪府",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "大阪市",
         "latitude": "34.4112",
         "longitude": "135.2946"
@@ -6177,10 +6090,6 @@
 }, {
     "name": "兵庫県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "神戸市",
         "latitude": "34.4124",
         "longitude": "135.1138"
@@ -6636,10 +6545,6 @@
 }, {
     "name": "奈良県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "奈良市",
         "latitude": "34.4056",
         "longitude": "135.4841"
@@ -6863,10 +6768,6 @@
 }, {
     "name": "岩手県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "盛岡市",
         "latitude": "39.4152",
         "longitude": "141.0926"
@@ -7150,10 +7051,6 @@
 }, {
     "name": "和歌山県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "和歌山市",
         "latitude": "34.14",
         "longitude": "135.102"
@@ -7385,10 +7282,6 @@
 }, {
     "name": "鳥取県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "鳥取市",
         "latitude": "35.2912",
         "longitude": "134.1346"
@@ -7572,10 +7465,6 @@
 }, {
     "name": "島根県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "松江市",
         "latitude": "35.2751",
         "longitude": "133.0306"
@@ -7863,10 +7752,6 @@
 }, {
     "name": "岡山県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "岡山市",
         "latitude": "34.3911",
         "longitude": "133.5519"
@@ -8254,10 +8139,6 @@
 }, {
     "name": "広島県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "広島市",
         "latitude": "34.2307",
         "longitude": "132.271"
@@ -8621,10 +8502,6 @@
 }, {
     "name": "山口県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "下関市",
         "latitude": "33.5723",
         "longitude": "130.5612"
@@ -8880,10 +8757,6 @@
 }, {
     "name": "徳島県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "徳島市",
         "latitude": "34.0406",
         "longitude": "134.3303"
@@ -9127,10 +9000,6 @@
 }, {
     "name": "香川県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "高松市",
         "latitude": "34.2032",
         "longitude": "134.0246"
@@ -9306,10 +9175,6 @@
 }, {
     "name": "愛媛県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "松山市",
         "latitude": "33.5008",
         "longitude": "132.4558"
@@ -9625,10 +9490,6 @@
 }, {
     "name": "高知県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "高知市",
         "latitude": "33.3317",
         "longitude": "133.3149"
@@ -9872,10 +9733,6 @@
 }, {
     "name": "宮城県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "仙台市",
         "latitude": "38.1605",
         "longitude": "140.521"
@@ -10235,10 +10092,6 @@
 }, {
     "name": "福岡県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "北九州市",
         "latitude": "33.5255",
         "longitude": "130.5235"
@@ -10750,10 +10603,6 @@
 }, {
     "name": "佐賀県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "佐賀市",
         "latitude": "33.1546",
         "longitude": "130.1808"
@@ -10985,10 +10834,6 @@
 }, {
     "name": "長崎県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "長崎市",
         "latitude": "32.4459",
         "longitude": "129.5256"
@@ -11300,10 +11145,6 @@
 }, {
     "name": "熊本県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "熊本市",
         "latitude": "32.4813",
         "longitude": "130.4244"
@@ -11699,10 +11540,6 @@
 }, {
     "name": "大分県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "大分市",
         "latitude": "33.1418",
         "longitude": "131.3649"
@@ -11986,10 +11823,6 @@
 }, {
     "name": "宮崎県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "宮崎市",
         "latitude": "31.5421",
         "longitude": "131.2526"
@@ -12201,10 +12034,6 @@
 }, {
     "name": "鹿児島県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "鹿児島市",
         "latitude": "31.355",
         "longitude": "130.3329"
@@ -12640,10 +12469,6 @@
 }, {
     "name": "沖縄県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "那覇市",
         "latitude": "26.1312",
         "longitude": "127.4048"
@@ -12875,10 +12700,6 @@
 }, {
     "name": "秋田県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "秋田市",
         "latitude": "39.4322",
         "longitude": "140.061"
@@ -13194,10 +13015,6 @@
 }, {
     "name": "山形県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "山形市",
         "latitude": "38.1519",
         "longitude": "140.2024"
@@ -13413,10 +13230,6 @@
 }, {
     "name": "福島県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "福島市",
         "latitude": "37.4539",
         "longitude": "140.2825"
@@ -13836,10 +13649,6 @@
 }, {
     "name": "茨城県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "水戸市",
         "latitude": "36.2156",
         "longitude": "140.2817"
@@ -14235,10 +14044,6 @@
 }, {
     "name": "栃木県",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "宇都宮市",
         "latitude": "36.3318",
         "longitude": "139.5257"
@@ -14466,10 +14271,6 @@
 }, {
     "name": "北海道",
     "cities": [{
-        "name": "",
-        "latitude": "",
-        "longitude": ""
-    }, {
         "name": "札幌市",
         "latitude": "43.0344",
         "longitude": "141.2116"

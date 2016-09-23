@@ -3,7 +3,7 @@ var router = express.Router();
 var firebase = require("firebase");
 
 var User = require('../../models/user');
-var resCodes = require('../.././json/error/error_code_names.json');
+var resCodes = require('../.././json/http/http_code_names.json');
 
 //before filter
 router.use(function(req, res, next) {

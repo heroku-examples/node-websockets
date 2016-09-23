@@ -5,7 +5,7 @@ var apiai = require('apiai');
 var apiApp = apiai("2da7378c9dd148ccbb56e6cd10e3f93b");
 
 
-var resCodes = require('../.././json/error/error_code_names.json');
+var resCodes = require('../.././json/http/http_code_names.json');
 
 router.route('/say')
 
@@ -14,7 +14,7 @@ router.route('/say')
     request.on('response', function(response) {
         res.status(resCodes.OK.code).json(response);
     });
-     
+
     request.on('error', function(error) {
         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(error);
     });
@@ -29,7 +29,7 @@ router.route('/say/1')
     request.on('response', function(response) {
         res.status(resCodes.OK.code).json(response);
     });
-     
+
     request.on('error', function(error) {
         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(error);
     });
