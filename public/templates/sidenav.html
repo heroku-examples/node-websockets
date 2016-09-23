@@ -1,11 +1,13 @@
 <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
     <md-toolbar class="md-tall md-hue-2">
         <span flex></span>
+        <div layout="row" style="padding: 5px">
+            <img ng-src="{{sessionStorage.firebaseUser.photoURL}}" class="user-avatar" />
+        </div>
         <div layout="column" class="md-toolbar-tools-bottom inset">
-            <user-avatar></user-avatar>
-            <span></span>
             <div ng-if="sessionStorage.firebaseUser">{{sessionStorage.firebaseUser.displayName}}</div>
             <div ng-if="sessionStorage.firebaseUser">{{sessionStorage.firebaseUser.email}}</div>
+        </div>
         </div>
     </md-toolbar>
     <md-list>
@@ -25,4 +27,3 @@
         </span>
     </md-list>
 </md-sidenav>
-

@@ -12,7 +12,7 @@ app.factory('Token', function($resource) {
 });
 
 app
-    .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, Token) {
+    .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, Token, Json) {
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
 
@@ -33,7 +33,12 @@ app
 
         auth.$onAuthStateChanged(function(firebaseUser) {
             if ( firebaseUser ) {
-                $sessionStorage.firebaseUser = firebaseUser;
+                $sessionStorage.firebaseUser = {
+                    displayName : firebaseUser.displayName,
+                    email : firebaseUser.email,
+                    emailVerified : firebaseUser.emailVerified,
+                    photoURL : firebaseUser.photoURL
+                }
                 // $sessionStorage.user = {
                 //     displayName: firebaseUser.displayName,
                 //     email: firebaseUser.email,
