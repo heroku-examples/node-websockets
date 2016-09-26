@@ -80,35 +80,46 @@ router.route('/users')
 
 // ユーザの作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
+        if(!req.session.token){
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({message: 'error'});
+            return;
+        }
+        User.findOne({
+            uid: req.session.token.uid
+        }, function(err, user) {
+            if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
 
-        // 新しいユーザのモデルを作成する．
-        var user = new User();
+            // 新しいユーザのモデルを作成する．
+            var user = new User();
 
-        // ユーザの各カラムの情報を取得する
-        req.session.token = {};
-        user.uid = req.session.token;
-        user.name = req.body.name;
-        user.age = req.body.age;
-        user.createDate = new Date();
+            // ユーザの各カラムの情報を取得する
+            req.session.token = {};
+            user.uid = req.session.token.uid;
+            user.name = req.body.name;
+            user.age = req.body.age;
+            user.createDate = new Date();
 
-        var ref = firebase.database().ref('users/' + req.session.token.uid);
-        ref.set({
-            "uid": req.session.token.uid,
-            "name": req.body.name,
-            "age": req.body.age,
-            "createDate": new Date()
-        }).then(function() {
-            user.save(function(err) {
-                    if (err) {
+            var ref = firebase.database().ref('users/' + req.session.token.uid);
+            ref.set({
+                "uid": req.session.token.uid,
+                "name": req.body.name,
+                "age": req.body.age,
+                "createDate": new Date()
+            }).then(function() {
+                user.save(function(err) {
+                        if (err) {
+                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                        } else {
+                            res.status(resCodes.OK.code).json(user);
+                        }
+                    })
+                    .catch(function(error) {
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                    } else {
-                        res.status(resCodes.OK.code).json(user);
-                    }
-                })
-                .catch(function(error) {
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                });
+                    });
+            });
         });
+
+
     })
     // 1人のユーザの情報を取得 (GET http://localhost:8000/api/users/:user_id)
     .get(function(req, res) {
