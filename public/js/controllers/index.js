@@ -145,7 +145,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $
         $mdDialog.show({
                 controller: DialogController,
                 templateUrl: '/templates/modal/userSerch.html',
-                targetEvent: ev,
+                targetEvent: '#bottom',
                 clickOutsideToClose: true,
                 locals: {
                     profiles: _profiles,
@@ -153,8 +153,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $
                     type: modeTypes.search,
                     prefectures: _prefectures,
                     subTitles: _subTitles
-                }
+                },
+                fullscreen : true
             })
+
             .then(function(answer) {
                 angular.forEach(answer, function(value, key) {
                     _selects[key].default = value;
