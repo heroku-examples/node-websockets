@@ -15,16 +15,15 @@ router.route('/token/check')
         res.status(resCodes.OK.code).json(req.session.token);
     } else {
         firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
-            User.find({
+            User.findOne({
                 uid: decodedToken.uid
             }, function(err, user) {
                 if (err) {
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                } else if (Object.keys(user).length) {
-                    Token.find({
+                } else if (user) {
+                    Token.findOne({
                         uid: decodedToken.uid
-                    }, function(err, tokens) {
-                        var  token = tokens[0];
+                    }, function(err, token) {
                         token.uid = decodedToken.uid;
                         token.token = req.body.token;
                         token.isDebug = token.isDebug;

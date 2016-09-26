@@ -135,12 +135,11 @@ router.route('/users')
     // 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
     .put(function(req, res) {
         User.findOne({
-            uid: req.params.uid
+            uid: req.session.token.uid
         }, function(err, user) {
             if (err)
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             // ユーザの各カラムの情報を更新する．
-            user.uid = req.body.uid;
             user.name = req.body.name;
             user.age = req.body.age;
 
