@@ -76,7 +76,7 @@ router.route('/users/get-token/:uid')
 });
 
 
-router.route('/users/:uid')
+router.route('/users')
 
 // ユーザの作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
@@ -84,21 +84,30 @@ router.route('/users/:uid')
         // 新しいユーザのモデルを作成する．
         var user = new User();
 
-        // ユーザの各カラムの情報を取得する．
-        user.uid = req.body.uid;
+        // ユーザの各カラムの情報を取得する
+        req.session.token = {};
+        user.uid = req.session.token;
         user.name = req.body.name;
         user.age = req.body.age;
         user.createDate = new Date();
 
-        // ユーザ情報をセーブする．
-        user.save(function(err) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else {
-                res.status(resCodes.OK.code).json({
-                    message: 'User created!'
+        var ref = firebase.database().ref('users/' + req.session.token.uid);
+        ref.set({
+            "uid": req.session.token.uid,
+            "name": req.body.name,
+            "age": req.body.age,
+            "createDate": new Date()
+        }).then(function() {
+            user.save(function(err) {
+                    if (err) {
+                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                    } else {
+                        res.status(resCodes.OK.code).json(user);
+                    }
+                })
+                .catch(function(error) {
+                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 });
-            }
         });
     })
     // 1人のユーザの情報を取得 (GET http://localhost:8000/api/users/:user_id)
