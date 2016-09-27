@@ -80,6 +80,7 @@ router.route('/users')
 
 // ユーザの作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
+    console.log(req.session)
         if(!req.session.token){
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({message: 'error'});
             return;
@@ -87,36 +88,37 @@ router.route('/users')
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
+            console.log(err, user)
             if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-
+            if (user) res.status(resCodes.IM_USED.code).json(user);
             // 新しいユーザのモデルを作成する．
-            var user = new User();
+            var _user = new User();
 
             // ユーザの各カラムの情報を取得する
             req.session.token = {};
-            user.uid = req.session.token.uid;
-            user.name = req.body.name;
-            user.age = req.body.age;
-            user.createDate = new Date();
+            _user.uid = req.session.token.uid;
+            _user.name = req.body.name;
+            _user.age = req.body.age;
+            _user.createDate = new Date();
 
-            var ref = firebase.database().ref('users/' + req.session.token.uid);
-            ref.set({
-                "uid": req.session.token.uid,
-                "name": req.body.name,
-                "age": req.body.age,
-                "createDate": new Date()
-            }).then(function() {
-                user.save(function(err) {
+            // var ref = firebase.database().ref('users/' + req.session.token.uid);
+            // ref.set({
+            //     "uid": req.session.token.uid,
+            //     "name": req.body.name,
+            //     "age": req.body.age,
+            //     "createDate": new Date()
+            // }).then(function() {
+                _user.save(function(err) {
                         if (err) {
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         } else {
-                            res.status(resCodes.OK.code).json(user);
+                            res.status(resCodes.OK.code).json(_user);
                         }
                     })
                     .catch(function(error) {
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                     });
-            });
+            // });
         });
 
 
