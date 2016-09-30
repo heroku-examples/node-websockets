@@ -8,7 +8,7 @@ var resCodes = require('../.././json/http/http_code_names.json');
 
 router.route('/token/check')
 
-// ユーザの作成 (POST http://localhost:3000/api/users)
+// 作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
     var firebase = require("firebase");
     if (req.session.token) {
@@ -46,8 +46,22 @@ router.route('/token/check')
                         if (err) {
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         } else {
-                            req.session.token = decodedToken;
-                            res.status(resCodes.OK.code).json(token);
+                            var _user = new User();
+                            _user.uid = decodedToken.uid;
+                            _user.name = "name";
+                            _user.age = 0;
+                            _user.createDate = new Date();
+                            _user.save(function(err) {
+                                    if (err) {
+                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                                    } else {
+                                        req.session.token = decodedToken;
+                                        res.status(resCodes.OK.code).json(token);
+                                    }
+                                })
+                                .catch(function(error) {
+                                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                                });
                         }
                     });
                 }

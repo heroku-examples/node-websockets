@@ -314,14 +314,14 @@
         "spec_title": "RFC7231#6.6.4",
         "spec_href": "https://tools.ietf.org/html/rfc7231#section-6.6.4"
     },
-    "GATEWAY_TIME-OUT" : {
+    "GATEWAY_TIME_OUT" : {
         "code": 504,
         "phrase": "Gateway Time-out",
         "description": "\"indicates that the server, while acting as a gateway or proxy, did not receive a timely response from an upstream server it needed to access in order to complete the request.\"",
         "spec_title": "RFC7231#6.6.5",
         "spec_href": "https://tools.ietf.org/html/rfc7231#section-6.6.5"
     },
-    "HTTP_VERSION_NOT SUPPORTED" : {
+    "HTTP_VERSION_NOT_SUPPORTED" : {
         "code": 505,
         "phrase": "HTTP Version Not Supported",
         "description": "\"indicates that the server does not support, or refuses to support, the protocol version that was used in the request message.\"",
@@ -335,7 +335,7 @@
         "spec_title": "RFC5218#10.1",
         "spec_href": "https://tools.ietf.org/html/rfc2518#section-10.1"
     },
-    "MULTI-STATUS" : {
+    "MULTI_STATUS" : {
         "code": 207,
         "phrase": "Multi-Status",
         "description": "\"provides status for multiple independent operations.\"",
@@ -384,7 +384,7 @@
         "spec_title": "RFC6585#3",
         "spec_href": "https://tools.ietf.org/html/rfc6585#section-3"
     },
-    "TOO MANY_REQUESTS" : {
+    "TOO_MANY_REQUESTS" : {
         "code": 429,
         "phrase": "Too Many Requests",
         "description": "\"indicates that the user has sent too many requests in a given amount of time (\"rate limiting\").\"",
