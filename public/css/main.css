@@ -50,7 +50,8 @@ md-sidenav {
 
 md-sidenav ng-md-icon {
     position: relative;
-    top: 5px;
+    top: 0px;
+    padding-right: 10px;
 }
 
 .md-headline {
