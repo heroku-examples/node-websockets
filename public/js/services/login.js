@@ -25,7 +25,9 @@ app
                     console.log(_user);
                     if (!_user) {
                         $state.go('signUp');
-                    } else {
+                    } else if(_user.isEntry){
+                        $state.go('userUpdate');
+                    } else if(location.pathname != "/index"){
                         location.href = "index";
                     }
                 }).catch(function(data) {
@@ -47,7 +49,8 @@ app
                 user.getToken().then(function(idToken) {
                     Token.find({ token: idToken }).$promise.then(function(_token) {
                         $sessionStorage.token = _token;
-                        Error.openMessageByCode(299);
+                        checkUserToRedirect();
+                        //Error.openMessageByCode(299);
                     }).catch(function(data) {
                         Error.openMessage(data.status);
                         checkUserToRedirect();
@@ -90,6 +93,7 @@ app
             auth.$signOut();
             //$sessionStorage.user.isLogedIn = false;
             $sessionStorage.token = false;
+            $sessionStorage.firebaseUser = false;
         };
         _this.getAuth = function() {
             return auth.$getAuth();

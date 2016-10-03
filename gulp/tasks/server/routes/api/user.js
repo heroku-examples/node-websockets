@@ -89,8 +89,13 @@ router.route('/users')
             uid: req.session.token.uid
         }, function(err, user) {
             console.log(err, user)
-            if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            if (user) res.status(resCodes.IM_USED.code).json(user);
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                return;
+            }else if (user) {
+                res.status(resCodes.IM_USED.code).json(user);
+                return;
+            }
             // 新しいユーザのモデルを作成する．
             var _user = new User();
 

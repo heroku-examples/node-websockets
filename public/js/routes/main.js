@@ -12,13 +12,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 controller: 'LoginCtrl'
             },
             signUp: {
-                // templateProvider: function($templateCache) {
-                //     // simplified, expecting that the cache is filled
-                //     // there should be some checking... and async $http loading if not found
-                //     return $templateCache.get('/templates/index/index.html');
-                // },
                 templateUrl : '/templates/main/signUp.html',
                 controller: 'LoginCtrl'
+            },
+            userUpdate : {
+                templateUrl : '/templates/main/userUpdate.html',
+                controller: 'UserUpdateCtrl'
             }
         };
         $stateProvider
@@ -32,6 +31,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 url: "/signUp",
                 views: {
                     "main": states.signUp,
+                }
+            })
+            .state('userUpdate', {
+                url: "/userUpdate",
+                views: {
+                    "main": states.userUpdate,
                 }
             });
         $urlRouterProvider.otherwise('/index');
