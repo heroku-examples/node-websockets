@@ -17,16 +17,17 @@ app
         var _this = { isLoading: true, user: {} };
 
         var checkUserToRedirect = function() {
-            if (!$sessionStorage.token && (location.pathname != "/main" && location.pathname != "/" && location.pathname != "")) {
+            if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
                 location.href = "main";
             } else {
                 if(!$sessionStorage.token) return;
                 User.create().$promise.then(function(_user) {
-                    console.log(_user);
                     if (!_user) {
-                        $state.go('signUp');
-                    } else if(_user.isEntry){
-                        $state.go('userUpdate');
+                        if($state.current.name !== 'signUp' ) $state.go('signUp');
+                        return;
+                    } else if(_user.isEntry ){
+                        if($state.current.name !== 'userUpdate' ) $state.go('userUpdate');
+                        return;
                     } else if(location.pathname != "/index"){
                         location.href = "index";
                     }

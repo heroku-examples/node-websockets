@@ -1,0 +1,24 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+    <div layout-gt-xs="row">
+      <form name="myForm" flex-gt-xs>
+        <md-datepicker name="dateField" ng-model="myDate" md-placeholder="Enter date" required md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+        <div class="validation-messages" ng-messages="myForm.dateField.$error">
+          <div ng-message="valid">The entered value is not a date!</div>
+          <div ng-message="required">This date is required!</div>
+          <div ng-message="mindate">Date is too early!</div>
+          <div ng-message="maxdate">Date is too late!</div>
+          <div ng-message="filtered">Only weekends are allowed!</div>
+        </div>
+      </form>
+    </div>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!user.firstName || !user.secondName" ng-click="next()">Action 1</md-button>
+    </md-card-actions>
+</md-card>

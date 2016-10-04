@@ -1,3 +1,10 @@
-<md-content flex md-scroll-y>
-    update
+<md-content class="md-padding">
+    <md-tabs class="md-accent" md-selected="data.selectedIndex">
+        <md-tab ng-repeat="(tabKey, tab) in tabs" id="{{tab.id}}">
+            <md-tab-label>{{tab.name}}</md-tab-label>
+            <md-tab-body>
+                <span ng-include="tab.tempateUrl" include-replace></span>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
 </md-content>

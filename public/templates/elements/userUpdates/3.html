@@ -1,0 +1,20 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input ng-model="user.firstName">
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Second name</label>
+            <input ng-model="user.secondName">
+        </md-input-container>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!user.firstName || !user.secondName" ng-click="next()">Action 1</md-button>
+    </md-card-actions>
+</md-card>
