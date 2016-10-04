@@ -1,0 +1,26 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+<md-button class="md-primary md-raised full" translate="subTitle.select.read" ng-click="upload()"></md-button>
+<input type="file" class="upload_photo_modal" ng-model="selectedFile" style="display:none" />
+<div class="cropArea" >
+    <img-crop image="myImage" result-image="file" area-type="square" result-image-size='{w: cropper[imageType].w, h: cropper[imageType].h}'></img-crop>
+</div>
+<md-subheader class="md-warn md-no-sticky" translate="subTitle.crop.read"></md-subheader>
+<div class="cropAreaResult" layout="row" layout-align="center center">
+    <img ng-src="{{file}}" />
+</div>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button class="md-warn md-raised full" ng-click="imageCroped(file)" translate="subTitle.save.read">
+        </md-button>
+        <md-button class="md-accent  md-raised full" ng-click="closeDialog()" translate="subTitle.cancel.read"></md-button>
+    </md-card-actions>
+</md-card>
+
+
+
