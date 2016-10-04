@@ -610,8 +610,8 @@ md-sidenav {
 .avatar {
     width: 100%;
     height: 100%;
-    background: url(../images/avatar.png);
-    background-size: 1100%;
+    background: url(../images/avatar2.png);
+    background-size: 610%;
     display: inline-block;
     background-repeat: no-repeat;
 }
@@ -626,6 +626,7 @@ md-sidenav {
     content: "";
     display: block;
     padding-top: 100%;
+    border-radius: 100%;
 }
 
 .avatar-wrapper div,
@@ -636,6 +637,7 @@ md-sidenav {
     bottom: 0;
     right: 0;
     height:inherit !important;
+    background-color: #ebffd9;
 }
 
 .avatar-wrapper .avatar-crip {
@@ -662,47 +664,51 @@ md-sidenav {
 }
 
 .avatar-1 {
-    background-position: 0.1% center;
+    background-position: 0% -2.5%;
 }
 
 .avatar-2 {
-    background-position: 9.7% center;
+    background-position: 20% -2.5%;
 }
 
 .avatar-3 {
-    background-position: 19.8% center;
+    background-position: 40% -2.5%;
 }
 
 .avatar-4 {
-    background-position: 29.9% center;
+    background-position: 60% -2.5%;
 }
 
 .avatar-5 {
-    background-position: 39.9% center;
+    background-position: 80% -2.5%;
 }
 
 .avatar-6 {
-    background-position: 50.3% center;
+    background-position: 99.5% -2.5%;
 }
 
 .avatar-7 {
-    background-position: 60.3% center;
+    background-position: 00% 98%;
 }
 
 .avatar-8 {
-    background-position: 70.1% center;
+    background-position: 20% 98%;
 }
 
 .avatar-9 {
-    background-position: 80.2% center;
+    background-position: 40.4% 98%;
 }
 
 .avatar-10 {
-    background-position: 90.3% center;
+    background-position: 59.5% 98%;
 }
 
 .avatar-11 {
-    background-position: 100.4% center;
+    background-position: 80% 98%;
+}
+
+.avatar-12 {
+    background-position: 100% 98%;
 }
 
 md-sidenav {
@@ -897,94 +903,4 @@ md-bottom-sheet .md-subheader {
     line-height: 30px;
     height: 45px;
     text-align: center;
-}
-
-/*avatar*/
-.avatar {
-    width: 100%;
-    height: 100%;
-    background: url(../images/avatar.png);
-    background-size: 1100%;
-    display: inline-block;
-    background-repeat: no-repeat;
-}
-
-.avatar-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.avatar-wrapper {
-    content: "";
-    display: block;
-    padding-top: 100%;
-}
-
-.avatar-wrapper div,
-.avatar-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height:inherit !important;
-}
-
-.avatar-wrapper .avatar-crip {
-    height: 100% !important;
-    width: 102%;
-    left: -2px;
-
-}
-
-.avatar-1 {
-    background-position: 0.1% center;
-}
-
-.avatar-2 {
-    background-position: 9.7% center;
-}
-
-.avatar-3 {
-    background-position: 19.8% center;
-}
-
-.avatar-4 {
-    background-position: 29.9% center;
-}
-
-.avatar-5 {
-    background-position: 39.9% center;
-}
-
-.avatar-6 {
-    background-position: 50.3% center;
-}
-
-.avatar-7 {
-    background-position: 60.3% center;
-}
-
-.avatar-8 {
-    background-position: 70.1% center;
-}
-
-.avatar-9 {
-    background-position: 80.2% center;
-}
-
-.avatar-10 {
-    background-position: 90.3% center;
-}
-
-.avatar-11 {
-    background-position: 100.4% center;
-}
-.grayOut {
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -o-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    filter: grayscale(100%);
 }
