@@ -21,6 +21,13 @@ app.controller('UserUpdateCtrl', function($scope, Login) {
             explain: 'Prefecture',
             tempateUrl: '/templates/elements/userUpdates/3.html',
             params :{}
+        },
+        {
+            id : 4,
+            name: 'tab4',
+            explain: 'avatar',
+            tempateUrl: '/templates/elements/userUpdates/4.html',
+            params :{}
         }
     ];
     $scope.data = {

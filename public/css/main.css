@@ -938,6 +938,49 @@ md-bottom-sheet .md-subheader {
 
 }
 
+.avatar-1 {
+    background-position: 0.1% center;
+}
+
+.avatar-2 {
+    background-position: 9.7% center;
+}
+
+.avatar-3 {
+    background-position: 19.8% center;
+}
+
+.avatar-4 {
+    background-position: 29.9% center;
+}
+
+.avatar-5 {
+    background-position: 39.9% center;
+}
+
+.avatar-6 {
+    background-position: 50.3% center;
+}
+
+.avatar-7 {
+    background-position: 60.3% center;
+}
+
+.avatar-8 {
+    background-position: 70.1% center;
+}
+
+.avatar-9 {
+    background-position: 80.2% center;
+}
+
+.avatar-10 {
+    background-position: 90.3% center;
+}
+
+.avatar-11 {
+    background-position: 100.4% center;
+}
 .grayOut {
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
