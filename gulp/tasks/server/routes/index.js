@@ -5,7 +5,8 @@ var User       = require('../models/user');
 var resCodes = require('.././json/http/http_code_names.json');
 
 router.use(function(req, res, next) {
-if (req.session.token) {
+// トークンとエントリ済みがセッションに保存されていた場合のみアクセス可能
+if (req.session.token && !req.session.isEntry) {
         next();
     } else {
         //Return a response immediately

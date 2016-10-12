@@ -22,12 +22,7 @@ app.config(function($mdThemingProvider) {
 app.config(['$translateProvider', function($translateProvider, $window) {
 
         var findLanguage = function() {
-             return "ja";
-            // try {
-            //     return (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
-            // } catch (e) {
-            //     return "ja";
-            // }
+             document.documentElement.lang;
         };
         $translateProvider.useStaticFilesLoader({
             prefix: '/json/lang_',

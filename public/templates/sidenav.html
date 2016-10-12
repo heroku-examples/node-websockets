@@ -18,8 +18,8 @@
             </md-list-item>
         </span>
         <md-divider></md-divider>
-        <md-subheader ng-if="sessionStorage.token.isDebug">Management</md-subheader>
-        <span ng-if="sessionStorage.token.isDebug" ng-repeat="item in admin" ng-link="{{item.link}}">
+        <md-subheader ng-if="sessionStorage.user.isDebug">Management</md-subheader>
+        <span ng-if="sessionStorage.user.isDebug" ng-repeat="item in admin" ng-link="{{item.link}}">
             <md-list-item  md-ink-ripple>
                     <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
                     <p>{{item.title}}</p>

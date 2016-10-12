@@ -17,6 +17,7 @@ var UserSchema   = new Schema({
     prefectureId: { type: Number, default: 0 },
     sexType: { type: Number, default: 0 },
     isEntry : { type: Boolean, default: true },
+    isDebug : { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model('User', UserSchema);

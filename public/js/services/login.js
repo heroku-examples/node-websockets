@@ -26,9 +26,11 @@ app
                         if($state.current.name !== 'signUp' ) $state.go('signUp');
                         return;
                     } else if(_user.isEntry ){
+                        $sessionStorage.user = _user;
                         if($state.current.name !== 'userUpdate' ) $state.go('userUpdate');
                         return;
                     } else if(location.pathname != "/index"){
+                        $sessionStorage.user = _user;
                         location.href = "index";
                     }
                 }).catch(function(data) {

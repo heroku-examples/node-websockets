@@ -92,8 +92,8 @@ router.route('/files/location/sync_by_json')
 router.route('/files/profile/sync_by_json')
 // 全てのユーザ一覧を取得 (GET http://localhost:8000/api/files/profile/sync_by_json)
 .post(function(req, res) {
-    Object.keys(profiles).forEach(function( key ) {
-        var record = profiles[key];
+    Object.keys(profiles.values).forEach(function( key ) {
+        var record = profiles.values[key];
         record.name = key;
         var profile = new Profile(record);
         profile.save(function(err) {

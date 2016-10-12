@@ -1,89 +1,92 @@
 {
-    "height": {
-    	"type" : "range",
-        "values": {
-            "max": 220,
-            "min": 120
+    "version" : 1,
+    "values" : {
+        "height": {
+            "type": "range",
+            "values": {
+                "max": 220,
+                "min": 120
+            },
+            "unit": "cm"
         },
-        "unit" : "cm"
-    },
-    "weight": {
-    	"type" : "range",
-        "values": {
-            "max": 150,
-            "min": 30
+        "weight": {
+            "type": "range",
+            "values": {
+                "max": 150,
+                "min": 30
+            },
+            "unit": "kg"
         },
-        "unit" : "kg"
-    },
-    "maritalStatus": {
-    	"type" : "select",
-        "values": {
-            "married": 1,
-            "unmarried": 2,
-            "divorce": 3
-        }
-    },
-    "child": {
-    	"type" : "select",
-        "values": {
-            "exist": 1,
-            "noExist": 2
-        }
-    },
-    "smoking": {
-    	"type" : "select",
-        "values": {
-            "yes": 1,
-            "no": 2
-        }
-    },
-    "drinking": {
-    	"type" : "select",
-        "values": {
-            "yes": 1,
-            "no": 2
-        }
-    },
-    "study": {
-    	"type" : "select",
-        "values": {
-            "juniorHigh": 1,
-            "high": 2,
-            "college": 3,
-            "ocational": 4
-        }
+        "maritalStatus": {
+            "type": "select",
+            "values": {
+                "married": 1,
+                "unmarried": 2,
+                "divorce": 3
+            }
+        },
+        "child": {
+            "type": "select",
+            "values": {
+                "exist": 1,
+                "noExist": 2
+            }
+        },
+        "smoking": {
+            "type": "select",
+            "values": {
+                "yes": 1,
+                "no": 2
+            }
+        },
+        "drinking": {
+            "type": "select",
+            "values": {
+                "yes": 1,
+                "no": 2
+            }
+        },
+        "study": {
+            "type": "select",
+            "values": {
+                "juniorHigh": 1,
+                "high": 2,
+                "college": 3,
+                "ocational": 4
+            }
 
-    },
-    "dayOff": {
-    	"type" : "select",
-        "values": {
-            "sunday": 1,
-            "monday": 2,
-            "tuesday": 3,
-            "wensday": 4,
-            "thursday": 5,
-            "friday" : 6,
-            "saturday" : 7,
-            "variably" : 8
+        },
+        "dayOff": {
+            "type": "select",
+            "values": {
+                "sunday": 1,
+                "monday": 2,
+                "tuesday": 3,
+                "wensday": 4,
+                "thursday": 5,
+                "friday": 6,
+                "saturday": 7,
+                "variably": 8
+            }
+        },
+        "hoby": {
+            "type": "multi_select",
+            "values": [
+                "football",
+                "baseball",
+                "surf",
+                "skate",
+                "inline skate",
+                "karate",
+                "boxing",
+                "swimming",
+                "judo",
+                "golf",
+                "kendo",
+                "bicycle",
+                "rannning",
+                "snow board"
+            ]
         }
-    },
-    "hoby": {
-    	"type" : "multi_select",
-        "values": [
-            "football",
-            "baseball",
-            "surf",
-            "skate",
-            "inline skate",
-            "karate" ,
-            "boxing" ,
-            "swimming",
-            "judo",
-            "golf",
-            "kendo",
-            "bicycle",
-            "rannning",
-            "snow board"
-        ]
     }
 }

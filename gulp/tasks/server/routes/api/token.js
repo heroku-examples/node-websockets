@@ -34,6 +34,8 @@ router.route('/token/check')
                                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                             }else{
                                 req.session.token = token;
+                                req.session.isEntry = user.isEntry;
+                                req.session.isDebug = user.isDebug;
                                 res.status(resCodes.OK.code).json(token);
                             }
                         });
