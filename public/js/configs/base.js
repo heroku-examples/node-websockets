@@ -22,7 +22,7 @@ app.config(function($mdThemingProvider) {
 app.config(['$translateProvider', function($translateProvider, $window) {
 
         var findLanguage = function() {
-             document.documentElement.lang;
+             return document.documentElement.lang;
         };
         $translateProvider.useStaticFilesLoader({
             prefix: '/json/lang_',

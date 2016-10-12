@@ -9,7 +9,7 @@ app.factory('Json', function($http, $q, $localStorage) {
             preloadUrls: [
                 '/api/files/profile',
                 '/api/files/location',
-                "/api/files/lang/" + document.documentElement.lang
+                "/json/lang_" + document.documentElement.lang + '.json'
             ],
         }
      _this.get = function(path) {
