@@ -8,8 +8,6 @@ var UserSchema   = new Schema({
     uid : { type: String, required: true, unique: true },
     name: { type: String, default: '' },
     age: { type: Number, default: 0 },
-    createDate: { type: Date, default: Date.now },
-    updateDate: { type: Date, default: Date.now },
     message: { type: String, default: '' },
     photoURL: { type: String, default: '' },
     photos: { type: [String], default: [''] },
@@ -18,6 +16,8 @@ var UserSchema   = new Schema({
     sexType: { type: Number, default: 0 },
     isEntry : { type: Boolean, default: true },
     isDebug : { type: Boolean, default: false },
+    createDate: { type: Date, default: Date.now },
+    updateDate: { type: Date, default: Date.now },
 });
 
 // on every save, add the date

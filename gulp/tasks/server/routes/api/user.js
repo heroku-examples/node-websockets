@@ -151,7 +151,7 @@ router.route('/users')
 
 
                 // ユーザの各カラムの情報を更新する．
-                user.name = req.body.firstName + "  " + req.body.lastName;
+                user.name = req.body.firstName + " " + req.body.lastName;
                 // user.age = req.body.age;
                 user.prefectureId = req.body.prefectureId;
                 user.cityId = req.body.cityId;
