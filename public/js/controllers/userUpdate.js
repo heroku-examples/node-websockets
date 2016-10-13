@@ -1,4 +1,4 @@
-app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, User, Error) {
+app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast, Login, File, User, Error) {
     $scope.myDate = new Date();
 
     console.log('getUser', Login.getUser());
@@ -8,6 +8,8 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         console.log(prefectures)
         $scope.prefectures = prefectures;
     });
+
+    var user = Login.getUser();
 
     var minDate = new Date(
         $scope.myDate.getFullYear() - 100,
@@ -26,50 +28,71 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         id: 1,
         name: 'Name',
         explain: 'Name',
-        tempateUrl: '/templates/elements/userUpdates/1.html',
+        tempateUrl: '/templates/elements/userUpdates/name.html',
         params: {
             firstName : { type : "String", max : 10, min : 1},
             lastName : { type : "String", max : 10, min : 1}
         },
-        values : { name : false }
-    }, {
+        values : {
+            firstName : user.firstName? user.firstName : false,
+            lastName : user.lastName? user.lastName : false
+        }
+    },
+    // {
+    //     id: 2,
+    //     name: 'Birthday',
+    //     explain: 'Birthday',
+    //     tempateUrl: '/templates/elements/userUpdates/age.html',
+    //     params: {
+    //         "birthday" : { type : "Date", max : maxDate, min : minDate},
+    //         "sexType" : { type : "Number", max : 2, min : 1}
+    //     },
+    //     values : { birthday : false }
+    // },
+     {
         id: 2,
-        name: 'Birthday',
-        explain: 'Birthday',
-        tempateUrl: '/templates/elements/userUpdates/2.html',
+        name: 'Age',
+        explain: 'Age',
+        tempateUrl: '/templates/elements/userUpdates/age.html',
         params: {
-            "birthday" : { type : "Date", max : maxDate, min : minDate},
-            "sexType" : { type : "Number", max : 2, min : 1}
+            age : { type : "Number", max : 100, min : 20},
+            sexType : { type : "Number", max : 2, min : 1}
         },
-        values : { birthday : false }
+        values : {
+            age : user.age? user.age : false,
+            sexType : user.sexType? user.sexType : false,
+        }
     }, {
         id: 3,
         name: 'Prefecture',
         explain: 'Prefecture',
-        tempateUrl: '/templates/elements/userUpdates/3.html',
+        tempateUrl: '/templates/elements/userUpdates/prefecture.html',
         params: {
-            "prefectureId" : { type : "Mumber", max : 100, min : 1},
-            "cityId" : { type : "Mumber", max : 100, min : 1}
+            refectureId : { type : "Mumber", max : 100, min : 1},
+            cityId : { type : "Mumber", max : 100, min : 1}
         },
-        values : { cityId : false }
+        values : {
+            cityId : user.cityId? user.cityId : false,
+            prefectureId : user.prefectureId? user.prefectureId : false
+        }
     }, {
         id: 4,
         name: 'Avatar',
         explain: 'avatar',
-        tempateUrl: '/templates/elements/userUpdates/4.html',
+        tempateUrl: '/templates/elements/userUpdates/avatar.html',
         params: {
-            "avatarId" : { type : "Mumber", max : 100, min : 1}
+            avatarId : { type : "Mumber", max : 100, min : 1}
         },
-        values : { avatarId : false }
+        values : { avatarId : user.avatarId? user.avatarId : false }
     }, {
         id: 5,
         name: 'Image',
         explain: 'image',
-        tempateUrl: '/templates/elements/userUpdates/5.html',
+        tempateUrl: '/templates/elements/userUpdates/photo.html',
         params: {
-            "photoURL" : { type : "String" }
+            photoURL : { type : "String" }
         },
-        values : { photoURL : false }
+        values : { photoURL : user.photoURL? user.photoURL : false }
     }];
 
     //tabs
@@ -120,16 +143,19 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
     };
 
     var update = function(){
+        Loading.isLoding = true;
         var params = {};
         angular.forEach($scope.tabs, function(tab, key){
             angular.forEach(tab.values, function(value, key){
                 params[key] = value;
             });
         });
-        User.update(params).$promise.then(function(data) {
-            Error.openMessage(data.status);
+        User.update(params).$promise.then(function(_user) {
+            Loading.isLoding = false;
+            Login.updateUser(_user);
+            Toast.show("success");
         }).catch(function(data) {
-            Error.openMessage(data.status);
+            Error.openMessage(_user.status);
         });
     };
 

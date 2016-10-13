@@ -14,12 +14,9 @@ app
                         if($state.current.name !== 'signUp' ) $state.go('signUp');
                         return;
                     } else if(_user.isEntry ){
-                        $sessionStorage.user = _user;
+                        _this.updateUser(_user);
                         if($state.current.name !== 'userUpdate' ) $state.go('userUpdate');
                         return;
-                    } else if(location.pathname != "/index"){
-                        $sessionStorage.user = _user;
-                        location.href = "index";
                     }
                 }).catch(function(error) {
                     Error.openMessage(error);
@@ -66,6 +63,10 @@ app
         _this.getFirebaseUser = function(){
             return $sessionStorage.firebaseUser;
         };
+
+        _this.updateUser = function(_user){
+            $sessionStorage.user = _user;
+        }
 
         _this.login = function(type) {
             _this.isLoading = true;

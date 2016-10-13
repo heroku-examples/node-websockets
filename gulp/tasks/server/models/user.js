@@ -6,7 +6,8 @@ var Schema       = mongoose.Schema;
 
 var UserSchema   = new Schema({
     uid : { type: String, required: true, unique: true },
-    name: { type: String, default: '' },
+    firstName: { type: String, default: '' },
+    lastName: { type: String, default: '' },
     age: { type: Number, default: 0 },
     message: { type: String, default: '' },
     photoURL: { type: String, default: '' },

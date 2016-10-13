@@ -9,6 +9,10 @@ app.controller('AppCtrl', function($scope, $rootScope, $mdBottomSheet, $mdSidena
             title: 'Main',
             icon: 'dashboard'
         }, {
+            link: '/main#/userUpdate',
+            title: 'User Update',
+            icon: 'group'
+        }, {
             link: '/index',
             title: 'Index',
             icon: 'group'

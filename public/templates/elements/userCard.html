@@ -3,7 +3,7 @@
         <div ng-if="user.isDebug" class="side-corner-tag">Debug</div>
         <md-card-header style="padding-bottom: inherit;height: 50px;">
             <md-card-header-text>
-                <div class="md-title ellipsis">{{user.name}}</div>
+                <div class="md-title ellipsis">{{user.firstName}}</div>
                 <div class="md-subhead ellipsis">{{user.age}} {{prefectures[user.prefectureId].name}} {{prefectures[user.prefectureId].cities[user.cityId].name}}</div>
             </md-card-header-text>
             <md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">

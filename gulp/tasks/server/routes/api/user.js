@@ -99,17 +99,6 @@ router.route('/users')
                 // ユーザの各カラムの情報を取得する
                 req.session.token = {};
                 _user.uid = req.session.token.uid;
-                _user.name = req.body.name;
-                _user.age = req.body.age;
-                _user.createDate = new Date();
-
-                // var ref = firebase.database().ref('users/' + req.session.token.uid);
-                // ref.set({
-                //     "uid": req.session.token.uid,
-                //     "name": req.body.name,
-                //     "age": req.body.age,
-                //     "createDate": new Date()
-                // }).then(function() {
                 _user.save(function(err) {
                         if (err) {
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
@@ -148,27 +137,22 @@ router.route('/users')
             if (err){
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             }else{
-
-
                 // ユーザの各カラムの情報を更新する．
-                user.name = req.body.firstName + " " + req.body.lastName;
-                // user.age = req.body.age;
+                user.firstName = req.body.firstName;
+                user.lastName = req.body.lastName;
+                user.age = req.body.age;
                 user.prefectureId = req.body.prefectureId;
                 user.cityId = req.body.cityId;
                 user.sexType = req.body.sexType;
-                user.age = 20;
+                user.avatarId = req.body.avatarId;
                 user.photoURL = req.body.photoURL;
                 user.isEntry = false;
-
-                console.log("user", JSON.stringify(user));
 
                 user.save(function(err) {
                     if (err){
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                     }else{
-                        res.status(resCodes.OK.code).json({
-                            message: 'User updated!'
-                        });
+                        res.status(resCodes.OK.code).json(user);
                     }
                 });
             }
