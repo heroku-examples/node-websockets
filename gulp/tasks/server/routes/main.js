@@ -3,11 +3,11 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
     // トークンとエントリ済みがセッションに保存されていた場合のみアクセス可能
-    if (req.session.token && !req.session.isEntry) {
+    if (req.url == "/redirect") {
         next();
-    } else if( req.url == "/redirect"){
-
-    }else{
+    } else if (req.session.token && !req.session.isEntry) {
+        next();
+    } else {
         //Return a response immediately
         res.redirect("../index");
     }
@@ -16,13 +16,13 @@ router.use(function(req, res, next) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('main', {
-      message:'main'
+        message: 'main'
     });
 });
 
 router.get('/redirect', function(req, res, next) {
     res.render('main', {
-      message:'main'
+        message: 'main'
     });
 });
 
