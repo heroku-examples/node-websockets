@@ -90,27 +90,26 @@ router.route('/users')
         }, function(err, user) {
             if (err){
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            }else{
+            }else if(user){
                 res.status(resCodes.OK.code).json(user);
-            }
+            }else{
+                // 新しいユーザのモデルを作成する．
+                var _user = new User();
 
-            // 新しいユーザのモデルを作成する．
-            var _user = new User();
+                // ユーザの各カラムの情報を取得する
+                req.session.token = {};
+                _user.uid = req.session.token.uid;
+                _user.name = req.body.name;
+                _user.age = req.body.age;
+                _user.createDate = new Date();
 
-            // ユーザの各カラムの情報を取得する
-            req.session.token = {};
-            _user.uid = req.session.token.uid;
-            _user.name = req.body.name;
-            _user.age = req.body.age;
-            _user.createDate = new Date();
-
-            // var ref = firebase.database().ref('users/' + req.session.token.uid);
-            // ref.set({
-            //     "uid": req.session.token.uid,
-            //     "name": req.body.name,
-            //     "age": req.body.age,
-            //     "createDate": new Date()
-            // }).then(function() {
+                // var ref = firebase.database().ref('users/' + req.session.token.uid);
+                // ref.set({
+                //     "uid": req.session.token.uid,
+                //     "name": req.body.name,
+                //     "age": req.body.age,
+                //     "createDate": new Date()
+                // }).then(function() {
                 _user.save(function(err) {
                         if (err) {
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
@@ -118,10 +117,11 @@ router.route('/users')
                             res.status(resCodes.OK.code).json(_user);
                         }
                     })
-                    .catch(function(error) {
+                    .catch(function(err) {
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                     });
-            // });
+                // });
+            }
         });
 
 
@@ -141,21 +141,28 @@ router.route('/users')
     })
     // 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
     .put(function(req, res) {
+        console.log("req.session.token", req.session.token)
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
             if (err){
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             }else{
+
+
                 // ユーザの各カラムの情報を更新する．
                 user.name = req.body.firstName + "  " + req.body.lastName;
-                user.age = req.body.age;
+                // user.age = req.body.age;
                 user.prefectureId = req.body.prefectureId;
                 user.cityId = req.body.cityId;
+                user.sexType = req.body.sexType;
+                user.age = 20;
                 user.photoURL = req.body.photoURL;
                 user.isEntry = false;
 
-                user.update(function(err) {
+                console.log("user", JSON.stringify(user));
+
+                user.save(function(err) {
                     if (err){
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                     }else{

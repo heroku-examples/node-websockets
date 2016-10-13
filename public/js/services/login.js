@@ -9,6 +9,7 @@ app
             } else {
                 if(!$sessionStorage.token) return;
                 User.create().$promise.then(function(_user) {
+                    console.log(_user)
                     if (!_user) {
                         if($state.current.name !== 'signUp' ) $state.go('signUp');
                         return;
@@ -20,8 +21,8 @@ app
                         $sessionStorage.user = _user;
                         location.href = "index";
                     }
-                }).catch(function(data) {
-                    Error.openMessage(data.status);
+                }).catch(function(error) {
+                    Error.openMessage(error);
                 });
             }
         };
@@ -42,8 +43,8 @@ app
                         $sessionStorage.token = _token;
                         checkUserToRedirect();
                         //Error.openMessageByCode(299);
-                    }).catch(function(data) {
-                        Error.openMessage(data.status);
+                    }).catch(function(error) {
+                        Error.openMessage(error);
                         checkUserToRedirect();
                     });
                 }).catch(function(error) {

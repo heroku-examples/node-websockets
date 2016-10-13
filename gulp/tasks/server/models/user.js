@@ -20,4 +20,18 @@ var UserSchema   = new Schema({
     isDebug : { type: Boolean, default: false },
 });
 
+// on every save, add the date
+UserSchema.pre('save', function(next) {
+  // get the current date
+  var currentDate = new Date();
+  // change the updateDate field to current date
+  this.updateDate = currentDate;
+
+  // if createDate doesn't exist, add to that field
+  if (!this.createDate)
+    this.createDate = currentDate;
+
+  next();
+});
+
 module.exports = mongoose.model('User', UserSchema);
