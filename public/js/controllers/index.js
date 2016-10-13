@@ -93,13 +93,13 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $
     };
 
     var getUsers = function() {
-        Loading.isLoding = true;
+        Loading.start();
         User.get().$promise.then(function(users) {
             $scope.users = users.reverse();
-            Loading.isLoding = false;
+            Loading.finish();
             console.log($scope.users);
         }).catch(function(data, status) {
-            Loading.isLoding = false;
+            Loading.finish();
             alert('error');
         });
     };
@@ -167,24 +167,24 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $
     };
 
     $scope.searchUser = function(conditions) {
-        Loading.isLoding = true;
+        Loading.start();
         UserFind.find(conditions).$promise.then(function(users) {
             $scope.users = users.reverse();
-            Loading.isLoding = false;
+            Loading.finish();
             console.log($scope.users);
         }).catch(function(data, status) {
-            Loading.isLoding = false;
+            Loading.finish();
             alert('error');
         });
     };
     $scope.deleteUser = function(uid) {
-        Loading.isLoding = true;
+        Loading.start();
         User.$delete({ uid: uid }).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
             alert('error');
-            Loading.isLoding = false;
+            Loading.finish();
         });
     };
 

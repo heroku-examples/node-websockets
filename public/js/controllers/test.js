@@ -1,6 +1,6 @@
 app.controller('TestCtrl', function($scope, Loading,$timeout) {
-    Loading.isLoding = true;
+    Loading.start();
     $timeout(function(){
-        Loading.isLoding = false;
+        Loading.finish();
     }, 1500);
 });
