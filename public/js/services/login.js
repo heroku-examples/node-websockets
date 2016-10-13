@@ -4,7 +4,9 @@ app
         var _this = { isLoading: true, user: {} };
 
         var checkUserToRedirect = function() {
-            if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
+            if(location.pathname =="/main/redirect"){
+                _this.logOut();
+            }else if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
                 location.href = "main";
             } else {
                 if(!$sessionStorage.token) return;
