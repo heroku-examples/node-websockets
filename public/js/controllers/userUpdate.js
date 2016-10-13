@@ -9,7 +9,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
         $scope.prefectures = prefectures;
     });
 
-    var user = Login.getUser();
+    var user = Login.user;
 
     var minDate = new Date(
         $scope.myDate.getFullYear() - 100,
@@ -143,7 +143,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
     };
 
     var update = function(){
-        Loading.isLoding = true;
+        Loading.start();
         var params = {};
         angular.forEach($scope.tabs, function(tab, key){
             angular.forEach(tab.values, function(value, key){
@@ -151,7 +151,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
             });
         });
         User.update(params).$promise.then(function(_user) {
-            Loading.isLoding = false;
+            Loading.finish();
             Login.updateUser(_user);
             Toast.show("success");
         }).catch(function(data) {
