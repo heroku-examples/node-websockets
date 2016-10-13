@@ -1,6 +1,9 @@
 app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, User, Error) {
     $scope.myDate = new Date();
 
+    console.log('getUser', Login.getUser());
+    console.log('getFirebaseUser', Login.getFirebaseUser());
+
     Json.get('location').then(function(prefectures) {
         console.log(prefectures)
         $scope.prefectures = prefectures;
@@ -35,7 +38,8 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         explain: 'Birthday',
         tempateUrl: '/templates/elements/userUpdates/2.html',
         params: {
-            "xx" : { type : "Date", max : maxDate, min : minDate}
+            "birthday" : { type : "Date", max : maxDate, min : minDate},
+            "sexType" : { type : "Number", max : 2, min : 1}
         },
         values : { birthday : false }
     }, {
@@ -44,8 +48,8 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         explain: 'Prefecture',
         tempateUrl: '/templates/elements/userUpdates/3.html',
         params: {
-            "prefectureId" : { type : "number", max : 100, min : 1},
-            "cityId" : { type : "number", max : 100, min : 1}
+            "prefectureId" : { type : "Mumber", max : 100, min : 1},
+            "cityId" : { type : "Mumber", max : 100, min : 1}
         },
         values : { cityId : false }
     }, {
@@ -54,7 +58,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         explain: 'avatar',
         tempateUrl: '/templates/elements/userUpdates/4.html',
         params: {
-            "avatarId" : { type : "number", max : 100, min : 1}
+            "avatarId" : { type : "Mumber", max : 100, min : 1}
         },
         values : { avatarId : false }
     }, {
@@ -63,9 +67,9 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         explain: 'image',
         tempateUrl: '/templates/elements/userUpdates/5.html',
         params: {
-            "imageUrl" : { type : "String" }
+            "photoURL" : { type : "String" }
         },
-        values : { imageUrl : false }
+        values : { photoURL : false }
     }];
 
     //tabs
@@ -79,6 +83,11 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
     $scope.previous = function() {
         $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
     };
+
+    $scope.sexTypes = [
+        {id : 1, name : 'male'},
+        {id : 2, name : 'female'}
+    ];
 
     $scope.myImage = '';
     $scope.file='';
@@ -117,7 +126,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
                 params[key] = value;
             });
         });
-        User.update(params).$promise.then(function(_user) {
+        User.update(params).$promise.then(function(data) {
             Error.openMessage(data.status);
         }).catch(function(data) {
             Error.openMessage(data.status);
@@ -134,11 +143,16 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, Us
         angular.element(el).click();
     };
 
+    $scope.selectAvatar = function(id){
+        var index = getTabIndexByName({name : "Avatar"});
+        $scope.tabs[index].values.avatarId = id;
+    };
+
     $scope.imageCroped = function(_file) {
         $scope.isFileUploading = true;
         File._upload(_file, true, 'users', 'users').then(function(uploadedImageUrl) {
             var index = getTabIndexByName({name : "Image"});
-            $scope.tabs[index].values.imageUrl = uploadedImageUrl;
+            $scope.tabs[index].values.photoURL = uploadedImageUrl;
             if ($scope.$root.$$phase != '$apply' && $scope.$root.$$phase != '$digest') {
                 $scope.$apply();
             }

@@ -147,8 +147,12 @@ router.route('/users')
             if (err)
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             // ユーザの各カラムの情報を更新する．
-            user.name = req.body.name;
+            user.name = req.body.firstName + "  " + req.body.lastName;
             user.age = req.body.age;
+            user.prefectureId = req.body.prefectureId;
+            user.cityId = req.body.cityId;
+            user.photoURL = req.body.photoURL;
+            user.isEntry = false;
 
             user.update(function(err) {
                 if (err)

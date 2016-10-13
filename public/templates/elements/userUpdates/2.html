@@ -15,6 +15,18 @@
           <div ng-message="maxdate">Date is too late!</div>
           <div ng-message="filtered">Only weekends are allowed!</div>
         </div>
+        <md-input-container flex="50" class="layout-fill">
+          <label>Sex Type</label>
+          <md-select name="sexTypeField" required ng-model="tab.values.sexType">
+            <md-option ng-repeat="type in sexTypes" value="{{type.id}}">
+              {{type.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <div class="validation-messages" ng-messages="myForm.sexTypeField.$error">
+          <div ng-message="valid">The entered value is not a number!</div>
+          <div ng-message="required">This sex type is required!</div>
+        </div>
       </form>
     </div>
     </md-card-content>

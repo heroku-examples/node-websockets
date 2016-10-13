@@ -27,6 +27,7 @@ app
         };
 
         auth.$onAuthStateChanged(function(firebaseUser) {
+            console.log('firebaseUser', firebaseUser)
             if (firebaseUser) {
                 $sessionStorage.firebaseUser = {
                     displayName: firebaseUser.displayName,
@@ -56,6 +57,14 @@ app
 
         });
 
+
+        _this.getUser = function(){
+            return $sessionStorage.user;
+        };
+
+        _this.getFirebaseUser = function(){
+            return $sessionStorage.firebaseUser;
+        };
 
         _this.login = function(type) {
             _this.isLoading = true;
