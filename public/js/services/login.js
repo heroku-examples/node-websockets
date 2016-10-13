@@ -1,16 +1,3 @@
-app.factory('Token', function($resource) {
-    return $resource('/api/token/check', {}, {
-        find: {
-            method: 'POST',
-            isArray: false
-        },
-        update: {
-            method: 'PUT',
-            isArray: true
-        },
-    });
-});
-
 app
     .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, Token, Json) {
         var auth = $firebaseAuth();

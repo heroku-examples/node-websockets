@@ -20,6 +20,9 @@
         </md-button>
         <md-button class="md-accent  md-raised full" ng-click="closeDialog()" translate="subTitle.cancel.read"></md-button>
     </md-card-actions>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!user.firstName || !user.secondName" ng-click="finish()">finish</md-button>
+    </md-card-actions>
 </md-card>
 
 
