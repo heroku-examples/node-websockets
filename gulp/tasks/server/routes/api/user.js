@@ -88,14 +88,12 @@ router.route('/users')
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
-            console.log(err, user)
-            if (err) {
+            if (err){
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                return;
-            }else if (user) {
-                res.status(resCodes.IM_USED.code).json(user);
-                return;
+            }else{
+                res.status(resCodes.OK.code).json(user);
             }
+
             // 新しいユーザのモデルを作成する．
             var _user = new User();
 
@@ -134,9 +132,11 @@ router.route('/users')
         User.find({
             uid: req.params.uid
         }, function(err, user) {
-            if (err)
+            if (err){
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            res.status(resCodes.OK.code).json(user);
+            }else{
+                res.status(resCodes.OK.code).json(user);
+            }
         });
     })
     // 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
@@ -144,19 +144,27 @@ router.route('/users')
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
-            if (err)
+            if (err){
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            // ユーザの各カラムの情報を更新する．
-            user.name = req.body.name;
-            user.age = req.body.age;
+            }else{
+                // ユーザの各カラムの情報を更新する．
+                user.name = req.body.firstName + "  " + req.body.lastName;
+                user.age = req.body.age;
+                user.prefectureId = req.body.prefectureId;
+                user.cityId = req.body.cityId;
+                user.photoURL = req.body.photoURL;
+                user.isEntry = false;
 
-            user.update(function(err) {
-                if (err)
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                res.status(resCodes.OK.code).json({
-                    message: 'User updated!'
+                user.update(function(err) {
+                    if (err){
+                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                    }else{
+                        res.status(resCodes.OK.code).json({
+                            message: 'User updated!'
+                        });
+                    }
                 });
-            });
+            }
         });
     })
 
@@ -165,11 +173,13 @@ router.route('/users')
     User.remove({
         uid: req.params.uid
     }, function(err, user) {
-        if (err)
+        if (err){
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-        res.status(resCodes.OK.code).json({
-            message: 'Successfully deleted'
-        });
+        }else{
+            res.status(resCodes.OK.code).json({
+                message: 'Successfully deleted!'
+            });
+        }
     });
 });
 

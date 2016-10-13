@@ -23,6 +23,6 @@
         </md-input-container>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-click="next()">Action 1</md-button>
+        <md-button ng-disabled="!tab.values.prefectureId || !tab.values.cityId" ng-click="next()">Action 1</md-button>
     </md-card-actions>
 </md-card>
