@@ -46,15 +46,15 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
 app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $mdDialog, $mdBottomSheet, User, UserFind, Json, Loading) {
 
     var _profiles;
-    Json.get('/api/files/profile').then(function(profiles) {
+    Json.get('profile').then(function(profiles) {
         _profiles = profiles;
     });
 
-    Json.get('/api/files/location').then(function(prefectures) {
+    Json.get('location').then(function(prefectures) {
         _prefectures = prefectures;
     });
 
-    Json.get("/json/lang_" + $window.lang + ".json").then(function(translations) {
+    Json.get("lang").then(function(translations) {
         _subTitles = translations.subTitle;
     });
 

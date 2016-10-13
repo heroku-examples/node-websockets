@@ -1,5 +1,10 @@
-app.controller('UserUpdateCtrl', function($scope, $filter, Login, File, User, Error) {
+app.controller('UserUpdateCtrl', function($scope, $filter, Json, Login, File, User, Error) {
     $scope.myDate = new Date();
+
+    Json.get('location').then(function(prefectures) {
+        console.log(prefectures)
+        $scope.prefectures = prefectures;
+    });
 
     var minDate = new Date(
         $scope.myDate.getFullYear() - 100,
@@ -69,7 +74,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Login, File, User, Er
     };
 
     $scope.next = function() {
-        $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+        $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, $scope.tabs.length);
     };
     $scope.previous = function() {
         $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);

@@ -6,26 +6,30 @@ app.factory('Json', function($http, $q, $localStorage) {
 
         var _this = {
             isLoding: false,
-            preloadUrls: [
-                '/api/files/profile',
-                '/api/files/location',
-                "/json/lang_" + document.documentElement.lang + '.json'
-            ],
-        }
-     _this.get = function(path) {
+            preloadUrls: {
+                "profile": { url : '/api/files/profile'},
+                "location": { url : '/api/files/location'},
+                "lang": { url : "/json/lang_" + document.documentElement.lang + '.json'}
+            },
+        };
+        _this.get = function(name, path) {
             var d = $q.defer();
-            if ($localStorage.json[path]) {
-                d.resolve($localStorage.json[path]);
+            if ($localStorage.json[name]) {
+                d.resolve($localStorage.json[name]);
             } else {
-                $http.get(path)
-                    .then(function(response) {
-                        //First function handles success
-                        $localStorage.json[path] = response.data;
-                        d.resolve(response.data);
-                    }, function(response) {
-                        //Second function handles error
-                        d.resolve(null);
-                    });
+                if( !path ){
+                    d.resolve(null);
+                }else{
+                    $http.get(path)
+                        .then(function(response) {
+                            //First function handles success
+                            $localStorage.json[name] = response.data;
+                            d.resolve(response.data);
+                        }, function(response) {
+                            //Second function handles error
+                            d.resolve(null);
+                        });
+                    }
             }
             return d.promise;
         };
@@ -38,9 +42,9 @@ app.factory('Json', function($http, $q, $localStorage) {
 
 
         angular.forEach(_this.preloadUrls, function(value, key) {
-            if (!$localStorage[value]) {
-                _this.get(value).then(function(details) {
-                    $localStorage[value] = details;
+            if (!$localStorage.json[key]) {
+                _this.get(value.url).then(function(details) {
+                    $localStorage.json[key] = details;
                 });
             }
         });
