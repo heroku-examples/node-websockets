@@ -7,7 +7,7 @@ router.use(function(req, res, next) {
         next();
     } else {
         //Return a response immediately
-        res.redirect("../main");
+        res.redirect("../main/redirect");
     }
 });
 
