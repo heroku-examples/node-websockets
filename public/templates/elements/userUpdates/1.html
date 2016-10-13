@@ -5,16 +5,28 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <md-input-container class="md-block" flex-gt-sm>
-            <label>First name</label>
-            <input ng-model="user.firstName">
-        </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
-            <label>Second name</label>
-            <input ng-model="user.secondName">
-        </md-input-container>
+        <form name="myForm" flex>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>First name</label>
+                <input name="firstName" ng-model="tab.values.firstName" required md-minlength="tab.params.firstName.min" md-maxlength="tab.params.firstName.max">
+            </md-input-container>
+            <div ng-messages="userForm.firstName.$error" ng-show="userForm.firstName.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-minlength">That's too short!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+            </div>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Second name</label>
+                <input name="secondName" ng-model="tab.values.secondName" required md-minlength="tab.params.secondName.min" md-maxlength="tab.params.secondName.max">
+            </md-input-container>
+            <div ng-messages="userForm.firstName.$error" ng-show="userForm.firstName.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-minlength">That's too short!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+            </div>
+        </form>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-        <md-button ng-disabled="!user.firstName || !user.secondName" ng-click="next()">Action 1</md-button>
+        <md-button ng-disabled="!myForm.firstName.$valid || !myForm.secondName.$valid" ng-click="next()">Action 1</md-button>
     </md-card-actions>
 </md-card>

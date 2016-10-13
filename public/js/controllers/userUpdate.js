@@ -19,47 +19,47 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Login, File, User, Er
         name: 'Name',
         explain: 'Name',
         tempateUrl: '/templates/elements/userUpdates/1.html',
-        params: [
-            {firstName : "xx" , type : "String", max : 10, min : 1},
-            {lastName : "xx" , type : "String", max : 10, min : 1}
-        ],
+        params: {
+            firstName : { type : "String", max : 10, min : 1},
+            lastName : { type : "String", max : 10, min : 1}
+        },
         values : { name : false }
     }, {
         id: 2,
         name: 'Birthday',
         explain: 'Birthday',
         tempateUrl: '/templates/elements/userUpdates/2.html',
-        params: [
-            {name : "xx" , type : "Date", max : maxDate, min : minDate}
-        ],
+        params: {
+            "xx" : { type : "Date", max : maxDate, min : minDate}
+        },
         values : { birthday : false }
     }, {
         id: 3,
         name: 'Prefecture',
         explain: 'Prefecture',
         tempateUrl: '/templates/elements/userUpdates/3.html',
-        params: [
-            {name : "prefectureId" , type : "number", max : 100, min : 1},
-            {name : "cityId" , type : "number", max : 100, min : 1}
-        ],
+        params: {
+            "prefectureId" : { type : "number", max : 100, min : 1},
+            "cityId" : { type : "number", max : 100, min : 1}
+        },
         values : { cityId : false }
     }, {
         id: 4,
         name: 'Avatar',
         explain: 'avatar',
         tempateUrl: '/templates/elements/userUpdates/4.html',
-        params: [
-            {name : "avatarId" , type : "number", max : 100, min : 1}
-        ],
+        params: {
+            "avatarId" : { type : "number", max : 100, min : 1}
+        },
         values : { avatarId : false }
     }, {
         id: 5,
         name: 'Image',
         explain: 'image',
         tempateUrl: '/templates/elements/userUpdates/5.html',
-        params: [
-            {name : "imageUrl" , type : "String"}
-        ],
+        params: {
+            "imageUrl" : { type : "String" }
+        },
         values : { imageUrl : false }
     }];
 

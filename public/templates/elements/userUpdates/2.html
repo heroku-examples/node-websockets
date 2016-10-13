@@ -7,7 +7,7 @@
     <md-card-content>
     <div layout-gt-xs="row">
       <form name="myForm" flex-gt-xs>
-        <md-datepicker name="dateField" ng-model="myDate" md-placeholder="Enter date" required md-min-date="tab.min" md-max-date="tab.max"></md-datepicker>
+        <md-datepicker name="dateField" ng-model="tab.values.birthday" md-placeholder="Enter date" required md-min-date="tab.params.birthday.min" md-max-date="tab.params.birthday.max"></md-datepicker>
         <div class="validation-messages" ng-messages="myForm.dateField.$error">
           <div ng-message="valid">The entered value is not a date!</div>
           <div ng-message="required">This date is required!</div>
