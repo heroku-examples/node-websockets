@@ -34,8 +34,8 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
             lastName : { type : "String", max : 10, min : 1}
         },
         values : {
-            firstName : user.firstName? user.firstName : false,
-            lastName : user.lastName? user.lastName : false
+            firstName : user.firstName? user.firstName : "",
+            lastName : user.lastName? user.lastName : ""
         }
     },
     // {
@@ -59,8 +59,8 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
             sexType : { type : "Number", max : 2, min : 1}
         },
         values : {
-            age : user.age? user.age : false,
-            sexType : user.sexType? user.sexType : false,
+            age : user.age? user.age : 0,
+            sexType : user.sexType? user.sexType : 0,
         }
     }, {
         id: 3,
@@ -72,8 +72,8 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
             cityId : { type : "Mumber", max : 100, min : 1}
         },
         values : {
-            cityId : user.cityId? user.cityId : false,
-            prefectureId : user.prefectureId? user.prefectureId : false
+            cityId : user.cityId? user.cityId : 0,
+            prefectureId : user.prefectureId? user.prefectureId : 0
         }
     }, {
         id: 4,
@@ -83,7 +83,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
         params: {
             avatarId : { type : "Mumber", max : 100, min : 1}
         },
-        values : { avatarId : user.avatarId? user.avatarId : false }
+        values : { avatarId : user.avatarId? user.avatarId : 0 }
     }, {
         id: 5,
         name: 'Image',
@@ -92,7 +92,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
         params: {
             photoURL : { type : "String" }
         },
-        values : { photoURL : user.photoURL? user.photoURL : false }
+        values : { photoURL : user.photoURL? user.photoURL : "" }
     }];
 
     //tabs
