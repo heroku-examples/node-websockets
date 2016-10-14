@@ -1,5 +1,5 @@
 app
-    .factory('Login', function($window, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, Token, Json) {
+    .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, Token, Json) {
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
 
