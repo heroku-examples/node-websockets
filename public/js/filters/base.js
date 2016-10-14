@@ -81,7 +81,7 @@ app.filter('find', function() {
     .filter('removeEmptyInObject', function() {
         return function(input) {
             angular.forEach(input, function(value, key) {
-                if(value==""||value==null||value=="0"){
+                if (value == "" || value == null || value == "0") {
                     delete input[key];
                 }
             });
@@ -109,5 +109,16 @@ app.filter('find', function() {
 
         return function(str) {
             return parse(str, arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]);
+        };
+    })
+    // Usage:$filter('isEmptyObj')(obj)
+    // ng-if="obj | isEmptyObj"
+    .filter('isEmptyObj', function(obj) {
+        return function(obj) {
+            for (var prop in obj) {
+                if (obj.hasOwnProperty(prop))
+                    return false;
+            }
+            return true;
         };
     });

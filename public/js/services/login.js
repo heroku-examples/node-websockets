@@ -3,6 +3,17 @@ app
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
 
+        var getCurrentUser = function(){
+            User.get().$promise.then(function(_user) {
+                if (_user) {
+                    _this.setUserSession(_user);
+                } else {
+                    return;
+                }
+            }).catch(function(error) {
+                Error.openMessage(error);
+            });
+        };
         var checkUserToRedirect = function() {
             if(location.pathname =="/main/redirect"){
                 //_this.logOut();
@@ -11,18 +22,20 @@ app
             } else {
                 if(!$sessionStorage.token) return;
                 User.create().$promise.then(function(_user) {
-                    console.log(_user)
                     if (!_user) {
                         if($state.current.name !== 'signUp' ) $state.go('signUp');
                         return;
                     } else if(_user.isEntry ){
-                        _this.updateUser(_user);
+                        _this.setUserSession(_user);
                         if($state.current.name !== 'userUpdate' ) $state.go('userUpdate');
                         return;
                     }
                 }).catch(function(error) {
                     Error.openMessage(error);
                 });
+            }
+            if($filter('isEmptyObj')(_this.user)){
+                getCurrentUser();
             }
         };
 
@@ -66,9 +79,9 @@ app
             return $sessionStorage.firebaseUser;
         };
 
-        _this.updateUser = function(_user){
+        _this.setUserSession = function(_user){
             $sessionStorage.user = _user;
-        }
+        };
 
         _this.login = function(type) {
             _this.isLoading = true;
