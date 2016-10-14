@@ -75,24 +75,45 @@ router.route('/users/get-token/:uid')
     });
 });
 
+router.route('/user')
+
+// セッションユーザの取得 (POST http://localhost:3000/api/users)
+.post(function(req, res) {
+    console.log(req.session)
+    if (!req.session.token) {
+        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
+        return;
+    }
+    User.findOne({
+        uid: req.session.token.uid
+    }, function(err, user) {
+        if (err) {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        } else if (user) {
+            res.status(resCodes.OK.code).json(user);
+        } else {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        }
+    });
+});
 
 router.route('/users')
 
 // ユーザの作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
-    console.log(req.session)
-        if(!req.session.token){
-            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({message: 'error'});
+        console.log(req.session)
+        if (!req.session.token) {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
             return;
         }
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
-            if (err){
+            if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            }else if(user){
+            } else if (user) {
                 res.status(resCodes.OK.code).json(user);
-            }else{
+            } else {
                 // 新しいユーザのモデルを作成する．
                 var _user = new User();
 
@@ -121,9 +142,9 @@ router.route('/users')
         User.find({
             uid: req.params.uid
         }, function(err, user) {
-            if (err){
+            if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            }else{
+            } else {
                 res.status(resCodes.OK.code).json(user);
             }
         });
@@ -134,9 +155,9 @@ router.route('/users')
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
-            if (err){
+            if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            }else{
+            } else {
                 // ユーザの各カラムの情報を更新する．
                 user.firstName = req.body.firstName;
                 user.lastName = req.body.lastName;
@@ -149,9 +170,9 @@ router.route('/users')
                 user.isEntry = false;
 
                 user.save(function(err) {
-                    if (err){
+                    if (err) {
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                    }else{
+                    } else {
                         res.status(resCodes.OK.code).json(user);
                     }
                 });
@@ -164,9 +185,9 @@ router.route('/users')
     User.remove({
         uid: req.params.uid
     }, function(err, user) {
-        if (err){
+        if (err) {
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-        }else{
+        } else {
             res.status(resCodes.OK.code).json({
                 message: 'Successfully deleted!'
             });

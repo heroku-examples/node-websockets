@@ -15,6 +15,15 @@ app.factory('Token', function($resource) {
     });
 });
 
+app.factory('CurrentUser', function($resource) {
+    return $resource('/api/user', {}, {
+        get: {
+            method: 'POST',
+            isArray: false
+        }
+    });
+});
+
 app.factory('User', function($resource) {
     return $resource('/api/users/:uid', {
         uid: '@uid'
