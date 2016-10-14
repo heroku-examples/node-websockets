@@ -73,6 +73,15 @@ router.route('/token/check')
         });
     }
 
+})
+// 1人のユーザのセッションを削除 (DELETE http://localhost:8000/api/users/:uid)
+.delete(function(req, res) {
+    req.session.token = false;
+    req.session.isEntry = true;
+    req.session.isDebug = false;
+    res.status(resCodes.OK.code).json({
+        message: 'Successfully deleted!'
+    });
 });
 
 // ルーティング登録

@@ -8,6 +8,10 @@ app.factory('Token', function($resource) {
             method: 'PUT',
             isArray: true
         },
+        delete: {
+            method: 'DELETE',
+            isArray: false
+        }
     });
 });
 

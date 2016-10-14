@@ -1,15 +1,14 @@
-app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast, Login, File, User, Error) {
+app.controller('UserUpdateCtrl', function($scope, $filter, $sessionStorage, Json, Loading, Toast, Login, File, User, Error) {
     $scope.myDate = new Date();
 
     console.log('getUser', Login.getUser());
     console.log('getFirebaseUser', Login.getFirebaseUser());
 
     Json.get('location').then(function(prefectures) {
-        console.log(prefectures)
         $scope.prefectures = prefectures;
     });
 
-    var user = Login.user;
+    var user = $sessionStorage.user;
 
     var minDate = new Date(
         $scope.myDate.getFullYear() - 100,
@@ -38,17 +37,6 @@ app.controller('UserUpdateCtrl', function($scope, $filter, Json, Loading, Toast,
             lastName : user.lastName? user.lastName : ""
         }
     },
-    // {
-    //     id: 2,
-    //     name: 'Birthday',
-    //     explain: 'Birthday',
-    //     tempateUrl: '/templates/elements/userUpdates/age.html',
-    //     params: {
-    //         "birthday" : { type : "Date", max : maxDate, min : minDate},
-    //         "sexType" : { type : "Number", max : 2, min : 1}
-    //     },
-    //     values : { birthday : false }
-    // },
      {
         id: 2,
         name: 'Age',

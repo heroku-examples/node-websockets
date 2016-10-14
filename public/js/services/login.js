@@ -5,7 +5,7 @@ app
 
         var checkUserToRedirect = function() {
             if(location.pathname =="/main/redirect"){
-                _this.logOut();
+                //_this.logOut();
             }else if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
                 location.href = "main";
             } else {
@@ -93,10 +93,13 @@ app
             }
         };
         _this.logOut = function() {
-            auth.$signOut();
-            //$sessionStorage.user.isLogedIn = false;
-            $sessionStorage.token = false;
-            $sessionStorage.firebaseUser = false;
+            Token.delete().$promise.then(function(_token) {
+                auth.$signOut();
+                $sessionStorage.token = false;
+                $sessionStorage.firebaseUser = false;
+            }).catch(function(error) {
+                Error.openMessage(error);
+            });
         };
         _this.getAuth = function() {
             return auth.$getAuth();

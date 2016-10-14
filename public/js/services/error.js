@@ -502,7 +502,8 @@ app
         };
 
         _this.getMessage = function(error) {
-            console.log(error)
+            console.log("error", error);
+            return;
             if(_this.codes[errorCode]){
                 return _this.codes[errorCode].phrase;
             }else{
@@ -511,9 +512,9 @@ app
         };
 
         _this.openMessage = function(error) {
-            console.log(error);
+            console.log("error", error);
             return;
-            if(_this.codes[errorCode]){
+            if( _this.codes[errorCode]){
                 Toast.show(_this.codes[errorCode].phrase);
             }else{
                 Toast.show(_this.codes['403'].phrase);
@@ -521,6 +522,8 @@ app
         };
 
         _this.openMessageByCode = function(errorCode) {
+            console.log("errorCode", errorCode);
+            return;
             if(_this.codes[errorCode]){
                 Toast.show(_this.codes[errorCode].phrase);
             }else{
