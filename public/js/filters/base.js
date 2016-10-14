@@ -113,7 +113,7 @@ app.filter('find', function() {
     })
     // Usage:$filter('isEmptyObj')(obj)
     // ng-if="obj | isEmptyObj"
-    .filter('isEmptyObj', function(obj) {
+    .filter('isEmptyObj', function() {
         return function(obj) {
             for (var prop in obj) {
                 if (obj.hasOwnProperty(prop))
@@ -121,4 +121,5 @@ app.filter('find', function() {
             }
             return true;
         };
-    });
+    })
+
