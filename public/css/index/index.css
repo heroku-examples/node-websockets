@@ -22,3 +22,19 @@
 
 .virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
   padding-left: 16px; }
+
+md-dialog.md-dialog-fullscreen{
+  transition: all 0.0s ease-in-out;
+-webkit-transform: translate(0, 100%) scale(1);
+            transform: translate(0, 100%) scale(1);
+}
+md-dialog.md-dialog-fullscreen._md-transition-in{
+  transition: all 0.4s ease-in-out;
+-webkit-transform: translate(0, 0) scale(1);
+            transform: translate(0, 0) scale(1)
+}
+md-dialog.md-dialog-fullscreen._md-transition-out{
+  transition: all 0.4s ease-in-out;
+-webkit-transform: translate(0, 100%) scale(1);
+            transform: translate(0, 100%) scale(1);
+}
