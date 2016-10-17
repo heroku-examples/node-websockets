@@ -12,7 +12,7 @@
         </md-card-header>
         <div class="avatar-wrapper" ng-click="link.goFriend(users[index * 2])">
             <img ng-if="users[index * 2].photoURL" ng-src="{{users[index * 2].photoURL}}" class="md-card-image" />
-            <img ng-if="!users[index * 2].photoURL" ng-src="{{'/images/test.jpg'}}" class="md-card-image" />
+            <img ng-if="!users[index * 2].photoURL" class="md-card-image" />
         </div>
         <md-card-content style="height: 25px;" class="ellipsis">
             {{users[index * 2].message}}
@@ -33,7 +33,7 @@
         </md-card-header>
         <div class="avatar-wrapper" ng-click="link.goFriend(users[(index * 2) + 1])">
             <img ng-if="users[(index * 2) + 1].photoURL" ng-src="{{users[(index * 2) + 1].photoURL}}" class="md-card-image" />
-            <img ng-if="!users[(index * 2) + 1].photoURL" ng-src="{{'/images/test.jpg'}}" class="md-card-image" />
+            <img ng-if="!users[(index * 2) + 1].photoURL" class="md-card-image" />
         </div>
         <md-card-content style="height: 25px;" class="ellipsis">
             {{users[(index * 2) + 1].message}}

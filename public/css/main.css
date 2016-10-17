@@ -638,6 +638,9 @@ md-sidenav {
     right: 0;
     height:inherit !important;
     background-color: #ebffd9;
+    background-image:url(../images/user.png);
+    background-size: 100% 100%;
+    min-height: 100%;
 }
 
 .avatar-wrapper .avatar-crip {
