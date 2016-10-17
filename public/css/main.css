@@ -208,7 +208,7 @@ md-virtual-repeat-container {
     position: relative;
     display: block;
     width: 100%;
-    height: 70vh;
+    height: 100vh;
     border: solid 1px #ccc;
     padding: 10px;
 }

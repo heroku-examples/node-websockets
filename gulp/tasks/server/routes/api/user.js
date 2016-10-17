@@ -5,6 +5,11 @@ var firebase = require("firebase");
 var User = require('../../models/user');
 var resCodes = require('../.././json/http/http_code_names.json');
 
+var pageConfig = {
+    page : 1,
+    limit : 50
+};
+
 //before filter
 router.use(function(req, res, next) {
     if (process.env.NODE_ENV != 'production') {
@@ -39,7 +44,9 @@ router.route('/users/sync_by_fireBase')
 router.route('/users/find')
     // 条件指定で対象ユーザ一覧を取得 (GET http://localhost:8080/api/users/find)
     .post(function(req, res) {
-        User.find(req.body, function(err, users) {
+        var page = req.query.page? req.query.page : pageConfig.page;
+        var limit = req.query.limit? req.query.limit : pageConfig.limit;
+        User.paginate(req.body, { page: page, limit: limit }, function(err, users) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
@@ -51,8 +58,8 @@ router.route('/users/find')
 router.route('/users')
     // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
     .get(function(req, res) {
-        var page = req.query.page? req.query.page : 1;
-        var limit = req.query.limit? req.query.limit : 50;
+        var page = req.query.page? req.query.page : pageConfig.page;
+        var limit = req.query.limit? req.query.limit : pageConfig.limit;
         User.paginate({}, { page: page, limit: limit }, function(err, result) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
