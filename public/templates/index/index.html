@@ -1,7 +1,11 @@
 <md-content flex md-scroll-y>
     <md-content layout="row" layout-wrap layout-align="left center">
         <loading></loading>
-        <span ng-repeat="(userKey, user) in users" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+        <md-virtual-repeat-container id="vertical-container">
+          <div md-virtual-repeat="index in infiniteItems" md-on-demand class="repeated-item" layout="row">
+            <span ng-include="'/templates/elements/userCard.html'" include-replace></span>
+          </div>
+        </md-virtual-repeat-container>
     </md-content>
     <md-button class="material-icons md-fab md-fab-bottom-right" aria-label="Add" ng-click="openSearch($event)">
         <ng-md-icon icon="add"></ng-md-icon>

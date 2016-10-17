@@ -1,21 +1,42 @@
 <div flex-xs="50" flex-sm="25" flex-md="25" flex-lg="20" layout layout-align="center center">
     <md-card layout-fill class="card-box" style="position: relative;overflow: hidden">
-        <div ng-if="user.isDebug" class="side-corner-tag">Debug</div>
+        <div ng-if="users[index * 2].isDebug" class="side-corner-tag">Debug</div>
         <md-card-header style="padding-bottom: inherit;height: 50px;">
             <md-card-header-text>
-                <div class="md-title ellipsis">{{user.firstName}}</div>
-                <div class="md-subhead ellipsis">{{user.age}} {{prefectures[user.prefectureId].name}} {{prefectures[user.prefectureId].cities[user.cityId].name}}</div>
+                <div class="md-title ellipsis">{{users[index * 2].firstName}}</div>
+                <div class="md-subhead ellipsis">{{users[index * 2].age}} {{prefectures[users[index * 2].prefectureId].name}} {{prefectures[users[index * 2].prefectureId].cities[users[index * 2].cityId].name}}</div>
             </md-card-header-text>
             <md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
                 <ng-md-icon icon="more_vert"></ng-md-icon>
             </md-button>
         </md-card-header>
-        <div class="avatar-wrapper" ng-click="link.goFriend(user)">
-            <img ng-if="user.photoURL" ng-src="{{user.photoURL}}" class="md-card-image" />
-            <img ng-if="!user.photoURL" ng-src="{{'/images/test.jpg'}}" class="md-card-image" />
+        <div class="avatar-wrapper" ng-click="link.goFriend(users[index * 2])">
+            <img ng-if="users[index * 2].photoURL" ng-src="{{users[index * 2].photoURL}}" class="md-card-image" />
+            <img ng-if="!users[index * 2].photoURL" ng-src="{{'/images/test.jpg'}}" class="md-card-image" />
         </div>
         <md-card-content style="height: 25px;" class="ellipsis">
-            {{user.message}}
+            {{users[index * 2].message}}
+        </md-card-content>
+    </md-card>
+</div>
+<div flex-xs="50" flex-sm="25" flex-md="25" flex-lg="20" layout layout-align="center center">
+    <md-card layout-fill class="card-box" style="position: relative;overflow: hidden">
+        <div ng-if="users[(index * 2) + 1].isDebug" class="side-corner-tag">Debug</div>
+        <md-card-header style="padding-bottom: inherit;height: 50px;">
+            <md-card-header-text>
+                <div class="md-title ellipsis">{{users[(index * 2) + 1].firstName}}</div>
+                <div class="md-subhead ellipsis">{{users[(index * 2) + 1].age}} {{prefectures[users[(index * 2) + 1].prefectureId].name}} {{prefectures[users[(index * 2) + 1].prefectureId].cities[users[(index * 2) + 1].cityId].name}}</div>
+            </md-card-header-text>
+            <md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+                <ng-md-icon icon="more_vert"></ng-md-icon>
+            </md-button>
+        </md-card-header>
+        <div class="avatar-wrapper" ng-click="link.goFriend(users[(index * 2) + 1])">
+            <img ng-if="users[(index * 2) + 1].photoURL" ng-src="{{users[(index * 2) + 1].photoURL}}" class="md-card-image" />
+            <img ng-if="!users[(index * 2) + 1].photoURL" ng-src="{{'/images/test.jpg'}}" class="md-card-image" />
+        </div>
+        <md-card-content style="height: 25px;" class="ellipsis">
+            {{users[(index * 2) + 1].message}}
         </md-card-content>
     </md-card>
 </div>
