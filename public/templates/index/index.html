@@ -1,24 +1,12 @@
 <md-content flex md-scroll-y>
     <md-content layout="row" layout-wrap layout-align="left center">
-        <md-virtual-repeat-container ng-if="mdMedia('xs')" id="vertical-container">
-          <div md-virtual-repeat="index in infiniteItems" md-on-demand class="repeated-item" layout="row">
-            <span ng-repeat="range in [] | range:2 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-        </div>
-        </md-virtual-repeat-container>
-        <md-virtual-repeat-container ng-if="mdMedia('sm')" id="vertical-container">
-         <div  md-virtual-repeat="index in infiniteItems" md-on-demand class="repeated-item" layout="row">
-            <span ng-repeat="range in [] | range:4 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-        </div>
-        </md-virtual-repeat-container>
-        <md-virtual-repeat-container ng-if="mdMedia('md')" id="vertical-container">
-         <div  md-virtual-repeat="index in infiniteItems" md-on-demand class="repeated-item" layout="row">
-            <span ng-repeat="range in [] | range:5 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-        </div>
-        </md-virtual-repeat-container>
-        <md-virtual-repeat-container ng-if="mdMedia('lg')" id="vertical-container">
-         <div  md-virtual-repeat="index in infiniteItems" md-on-demand class="repeated-item" layout="row">
-            <span ng-repeat="range in [] | range:6 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-        </div>
+        <md-virtual-repeat-container ng-show="!isModalOpen" id="vertical-container">
+          <div md-virtual-repeat="infiniteItem in infiniteItems" md-on-demand class="repeated-item" layout="row">
+            <span ng-if="mdMedia('xs')" ng-repeat="range in [] | range:2 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+            <span ng-if="mdMedia('sm')" ng-repeat="range in [] | range:4 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+            <span ng-if="mdMedia('md')" ng-repeat="range in [] | range:5 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+            <span ng-if="mdMedia('lg')" ng-repeat="range in [] | range:10 : 0" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+          </div>
         </md-virtual-repeat-container>
     </md-content>
     <md-button class="material-icons md-fab md-fab-bottom-right" aria-label="Add" ng-click="openSearch($event)">

@@ -1,4 +1,4 @@
-<div role="dialog" layout="column" layout-align="center center" layout-fill="" md-theme="grey">
+<div role="dialog" ng-init="init()" layout="column" layout-align="center center" layout-fill="">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 class="font_white">Search</h2>
@@ -12,7 +12,7 @@
         <div layout="row">
             <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
         </div>
-        <div layout="row" layout-wrap layout-align="left center">
+        <div ng-if="false" layout="row" layout-wrap layout-align="left center">
             <md-input-container class="md-block" flex="50" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type != 'multi_select'">
                 <label>{{profile.name}}</label>
                 <md-select ng-model="targetUserCondition[profile.name]" ng-repeat="(valueKey, value) in profile.values">
@@ -27,7 +27,14 @@
             </md-input-container>
         </div>
         <div layout="row">
-            <md-input-container class="chip-select" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type == 'multi_select'" class="layout-fill" style="width: 100%;min-height: 60px;">
+            <md-input-container class="chip-select" class="layout-fill" style="width: 100%;">
+                <label style="top: -35px;">Age {{upperValue}} ~ {{lowerValue}}</label>
+                <div range-slider floor="20" ceiling="100" dragstop="true" ng-model-low="lowerValue" ng-model-high="upperValue">
+                </div>
+            </md-input-container>
+        </div>
+        <div layout="row" ng-if="false" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type == 'multi_select'">
+            <md-input-container class="chip-select" class="layout-fill" style="width: 100%;min-height: 60px;">
                 <label>{{subTitles[profileKey].read}}</label>
                 <md-chips ng-model="targetUserCondition.hobbies" md-max-chips="50">
                     <md-chip-template>
@@ -46,7 +53,7 @@
                 </md-menu>
             </md-input-container>
         </div>
-        <md-input-container class="md-block" ng-repeat="(key, select) in selects" ng-hide="select.isHide">
+        <md-input-container ng-if="false" class="md-block" ng-repeat="(key, select) in selects" ng-hide="select.isHide">
             <label key="{{key}}">{{subTitles[key].read}}</label>
             <input type="{{select.type}}" ng-model="targetUserCondition[key]" type="{{type}}">
         </md-input-container>

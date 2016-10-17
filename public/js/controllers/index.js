@@ -5,24 +5,27 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
         angular.forEach($scope.selects, function(value, key) {
             $scope.targetUserCondition[key] = value.default;
         });
+       $scope.targetUserCondition['age'] = false
     };
 
-    $scope.targetUserCondition = {};
-    $scope.mode = locals.type;
-    $scope.selects = locals.selects;
-    $scope.prefectures = locals.prefectures;
-    $scope.subTitles = locals.subTitles;
-    $scope.myImage = '';
+    $scope.init = function(){
+        $scope.targetUserCondition = {};
+        $scope.mode = locals.type;
+        $scope.selects = locals.selects;
+        $scope.prefectures = locals.prefectures;
+        $scope.profiles = locals.profiles;
+        $scope.subTitles = locals.subTitles;
+        $scope.myImage = '';
+        setUser();
+    }
 
-    setUser();
 
     $scope.selectAvatar = function(avatarNo) {
         $scope.targetUserCondition.avatarNo = avatarNo;
     };
 
-    $scope.profiles = locals.profiles;
-    console.log($scope.profiles, $scope.subTitles)
     $scope.hide = function() {
+
         $mdDialog.hide();
     };
     $scope.cancel = function() {
@@ -41,9 +44,12 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
             $scope.targetUserCondition.hobbies.push(value);
         }
     };
+
+    $scope.lowerValue = 20;
+    $scope.upperValue = 100;
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdDialog, $mdBottomSheet, User, UserFind, Json, Loading) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, UserFind, Json, Loading) {
 
     var _profiles;
     Json.get('profile').then(function(profiles) {
@@ -69,7 +75,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         _selects = {
             age: {
                 type: "number",
-                default: Math.floor(Math.random() * (100 - 1) + 1)
+                default: 0
             },
             sexType: {
                 type: "number",
@@ -92,13 +98,66 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         return Math.floor(Math.random() * (max - min) + min);
     };
 
-    var setPager = function(result){
+    var setPager = function(result) {
         $scope.pager = {
-            length : result.docs.length,
+            length: result.docs.length,
             limit: result.limit,
             page: result.page,
             pages: result.pages,
             total: result.total,
+        };
+    };
+
+    var setInfiniteitems = function(){
+        var getMediaCount = function() {
+                if ($mdMedia('xs')) {
+                    return 2;
+                } else if ($mdMedia('sm')) {
+                    return 4;
+                } else if ($mdMedia('md')) {
+                    return 5;
+                } else if ($mdMedia('lg')) {
+                    return 10;
+
+                }
+            };
+        // In this example, we set up our model using a plain object.
+        // Using a class works too. All that matters is that we implement
+        // getItemAtIndex and getLength.
+        $scope.infiniteItems = {
+            numLoaded_: 0,
+            toLoad_: 0,
+
+            mediaCount_ : getMediaCount(),
+
+            // Required.
+            getItemAtIndex: function(index) {
+                if (index > this.numLoaded_) {
+                    this.fetchMoreItems_(index);
+                    return null;
+                }
+                return {index : index, mediaCount : this.mediaCount_};
+            },
+
+            // Required.
+            // For infinite scroll behavior, we always return a slightly higher
+            // number than the previously loaded items.
+            getLength: function() {
+                    //return $scope.pager.length;
+                return $scope.pager.limit / this.mediaCount_;
+            },
+            fetchMoreItems_: function(index) {
+                // For demo purposes, we simulate loading more items with a timed
+                // promise. In real code, this function would likely contain an
+                // $http request.
+
+                if (this.toLoad_ < index) {
+                    this.toLoad_ += ($scope.pager.limit / this.mediaCount_);
+                    $timeout(angular.noop, 300).then(angular.bind(this, function() {
+                        this.numLoaded_ = this.toLoad_;
+                    }));
+                }
+            }
         };
     };
 
@@ -107,6 +166,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         User.get().$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
+            setInfiniteitems();
             Loading.finish();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -118,6 +178,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     getUsers();
 
     $scope.openSearch = function(ev) {
+        $scope.isModalOpen = true;
         $mdDialog.show({
             controller: DialogController,
             templateUrl: '/templates/modal/userSerch.html',
@@ -134,12 +195,14 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         })
 
         .then(function(answer) {
+            $scope.isModalOpen = false;
             angular.forEach(answer, function(value, key) {
                 _selects[key].default = value;
             });
             $localStorage.targetUserCondition = _selects;
             $rootScope.$broadcast('UserSearchEvent', answer);
         }, function() {
+            $scope.isModalOpen = false;
             $scope.alert = 'You cancelled the dialog.';
         });
     };
@@ -214,45 +277,6 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         $scope.searchUser(data);
     });
 
-    // In this example, we set up our model using a plain object.
-    // Using a class works too. All that matters is that we implement
-    // getItemAtIndex and getLength.
-    $scope.infiniteItems = {
-        numLoaded_: 0,
-        toLoad_: 0,
-
-        // Required.
-        getItemAtIndex: function(index) {
-            if (index > this.numLoaded_) {
-                this.fetchMoreItems_(index);
-                return null;
-            }
-
-            return index;
-        },
-
-        // Required.
-        // For infinite scroll behavior, we always return a slightly higher
-        // number than the previously loaded items.
-        getLength: function() {
-            console.log(this, $scope.users)
-            //return $scope.pager.length;
-            return 100;
-        },
-
-        fetchMoreItems_: function(index) {
-            // For demo purposes, we simulate loading more items with a timed
-            // promise. In real code, this function would likely contain an
-            // $http request.
-
-            if (this.toLoad_ < index) {
-                this.toLoad_ += 25;
-                $timeout(angular.noop, 300).then(angular.bind(this, function() {
-                    this.numLoaded_ = this.toLoad_;
-                }));
-            }
-        }
-    };
 });
 
 app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {

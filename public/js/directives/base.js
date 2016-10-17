@@ -17,4 +17,4 @@ app.directive('ngLink', function($window) {
                 });
             }
         };
-    })
+    });

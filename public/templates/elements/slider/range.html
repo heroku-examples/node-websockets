@@ -1,0 +1,9 @@
+<div class='range-slider-container'>
+    <div class='range-slider-left' ng-style="{width:lowerWidth+'%'}">
+        <md-slider ng-model="lowerValue" min='{{min}}' max='{{lowerMaxLimit}}' step="{{step}}" aria-label="lowerSlider"></md-slider>
+    </div>
+    <div class="range-track-line" ng-style="{width:tracker.width+'%',left:tracker.left+'%',right:tracker.right+'%'}"></div>
+    <div class='range-slider-right' ng-style="{width:upperWidth+'%'}">
+        <md-slider ng-model="upperValue" min="{{upperMinLimit}}" max="{{max}}" step="{{step}}" aria-label="upperSlider"></md-slider>
+    </div>
+</div>

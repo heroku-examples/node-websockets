@@ -10,5 +10,6 @@ var app = angular.module('StarterApp', [
     'firebase',
     'images-resizer',
     'ngImgCrop',
-    'angularLazyImg'
+    'angularLazyImg',
+    'angularRangeSlider'
 ]);

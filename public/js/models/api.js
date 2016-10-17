@@ -54,7 +54,7 @@ app.factory('UserFind', function($resource) {
     return $resource('/api/users/find', {}, {
         find: {
             method: 'POST',
-            isArray: true
+            isArray: false
         }
     });
 });
