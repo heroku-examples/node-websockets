@@ -74,7 +74,7 @@ app.filter('find', function() {
             total = parseInt(total);
             min = min ? min : 0;
             for (var i = min; i < total; i++)
-                input.push(i);
+                input.push({ count : i, total : total, min :min});
             return input;
         };
     })
