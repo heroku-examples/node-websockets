@@ -94,8 +94,8 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $localStorage, $
 
     var getUsers = function() {
         Loading.start();
-        User.get().$promise.then(function(users) {
-            $scope.users = users.reverse();
+        User.get().$promise.then(function(result) {
+            $scope.users = result.docs.reverse();
             Loading.finish();
             console.log($scope.users);
         }).catch(function(data, status) {

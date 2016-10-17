@@ -19,7 +19,7 @@ router.route('/token/check')
                 uid: decodedToken.uid
             }, function(err, user) {
                 if (err) {
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
                 } else if (user) {
                     Token.findOne({
                         uid: decodedToken.uid
@@ -27,11 +27,11 @@ router.route('/token/check')
                         token.uid = decodedToken.uid;
                         token.token = req.body.token;
                         token.isDebug = token.isDebug;
-                        if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                        if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
                         token.token = req.body.token;
                         token.save(function(err) {
                             if (err){
-                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
                             }else{
                                 req.session.token = token;
                                 req.session.isEntry = user.isEntry;
@@ -46,7 +46,7 @@ router.route('/token/check')
                     token.token = req.body.token;
                     token.save(function(err) {
                         if (err) {
-                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
                         } else {
                             var _user = new User();
                             _user.uid = decodedToken.uid;
@@ -55,14 +55,14 @@ router.route('/token/check')
                             _user.createDate = new Date();
                             _user.save(function(err) {
                                     if (err) {
-                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
                                     } else {
                                         req.session.token = decodedToken;
                                         res.status(resCodes.OK.code).json(token);
                                     }
                                 })
-                                .catch(function(error) {
-                                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                                .catch(function(err) {
+                                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
                                 });
                         }
                     });

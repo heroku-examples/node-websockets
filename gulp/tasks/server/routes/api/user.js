@@ -51,11 +51,13 @@ router.route('/users/find')
 router.route('/users')
     // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
     .get(function(req, res) {
-        User.find(function(err, users) {
+        var page = req.query.page? req.query.page : 1;
+        var limit = req.query.limit? req.query.limit : 50;
+        User.paginate({}, { page: page, limit: limit }, function(err, result) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
-                res.status(resCodes.OK.code).json(users);
+                res.status(resCodes.OK.code).json(result);
             }
         });
     });

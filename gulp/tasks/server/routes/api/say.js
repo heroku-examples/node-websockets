@@ -15,8 +15,8 @@ router.route('/say')
         res.status(resCodes.OK.code).json(response);
     });
 
-    request.on('error', function(error) {
-        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(error);
+    request.on('error', function(err) {
+        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
     });
 
     request.end();
@@ -30,8 +30,8 @@ router.route('/say/1')
         res.status(resCodes.OK.code).json(response);
     });
 
-    request.on('error', function(error) {
-        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(error);
+    request.on('error', function(err) {
+        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
     });
 
     request.end();

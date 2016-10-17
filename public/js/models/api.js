@@ -30,7 +30,7 @@ app.factory('User', function($resource) {
     }, {
         get: {
             method: 'GET',
-            isArray: true
+            isArray: false
         }, // apiの戻り値が配列の場合は「isArray: true」を指定する
         find: {
             method: 'GET',

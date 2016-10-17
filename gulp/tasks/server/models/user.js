@@ -1,10 +1,9 @@
 
 // app/models/user.js
-
 var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
 
-var UserSchema   = new Schema({
+var UserSchema   = new mongoose.Schema({
     uid : { type: String, required: true, unique: true },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
@@ -21,6 +20,8 @@ var UserSchema   = new Schema({
     updateDate: { type: Date, default: Date.now },
 });
 
+UserSchema.plugin(mongoosePaginate);
+
 // on every save, add the date
 UserSchema.pre('save', function(next) {
   // get the current date
@@ -34,5 +35,7 @@ UserSchema.pre('save', function(next) {
 
   next();
 });
+
+
 
 module.exports = mongoose.model('User', UserSchema);

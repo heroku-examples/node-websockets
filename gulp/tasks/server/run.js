@@ -7,6 +7,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
+Object.assign = require('object-assign')
+
 var socket = require('./routes/socket');
 app = socket.set(app);
 
@@ -23,6 +25,8 @@ var user = require('./routes/api/user');
 var token = require('./routes/api/token');
 var files = require('./routes/api/files');
 var say = require('./routes/api/say');
+var chat = require('./routes/api/chat');
+var privateChat = require('./routes/api/private_chat');
 
 var path = require ('path');
 
@@ -41,6 +45,9 @@ app.use('/api', user);
 app.use('/api', token);
 app.use('/api', files);
 app.use('/api', say);
+app.use('/api', chat);
+app.use('/api', privateChat);
+
 
 
 
