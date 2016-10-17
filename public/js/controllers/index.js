@@ -5,10 +5,10 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
         angular.forEach($scope.selects, function(value, key) {
             $scope.targetUserCondition[key] = value.default;
         });
-       $scope.targetUserCondition['age'] = false
+        $scope.targetUserCondition['age'] = false
     };
 
-    $scope.init = function(){
+    $scope.init = function() {
         $scope.targetUserCondition = {};
         $scope.mode = locals.type;
         $scope.selects = locals.selects;
@@ -108,19 +108,19 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         };
     };
 
-    var setInfiniteitems = function(){
+    var setInfiniteitems = function() {
         var getMediaCount = function() {
-                if ($mdMedia('xs')) {
-                    return 2;
-                } else if ($mdMedia('sm')) {
-                    return 4;
-                } else if ($mdMedia('md')) {
-                    return 5;
-                } else if ($mdMedia('lg')) {
-                    return 10;
+            if ($mdMedia('xs')) {
+                return 2;
+            } else if ($mdMedia('sm')) {
+                return 4;
+            } else if ($mdMedia('md')) {
+                return 5;
+            } else if ($mdMedia('lg')) {
+                return 10;
 
-                }
-            };
+            }
+        };
         // In this example, we set up our model using a plain object.
         // Using a class works too. All that matters is that we implement
         // getItemAtIndex and getLength.
@@ -128,7 +128,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             numLoaded_: 0,
             toLoad_: 0,
 
-            mediaCount_ : getMediaCount(),
+            mediaCount_: getMediaCount(),
 
             // Required.
             getItemAtIndex: function(index) {
@@ -136,15 +136,16 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                     this.fetchMoreItems_(index);
                     return null;
                 }
-                return {index : index, mediaCount : this.mediaCount_};
+                return { index: index, mediaCount: this.mediaCount_ };
             },
 
             // Required.
             // For infinite scroll behavior, we always return a slightly higher
             // number than the previously loaded items.
             getLength: function() {
-                    //return $scope.pager.length;
-                return $scope.pager.limit / this.mediaCount_;
+                //return $scope.pager.length;
+                if($scope.pager.length >=  this.mediaCount_) return $scope.pager.length / this.mediaCount_;
+                return 1;
             },
             fetchMoreItems_: function(index) {
                 // For demo purposes, we simulate loading more items with a timed
@@ -262,25 +263,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         });
     };
 
-    $scope.showListBottomSheet = function($event) {
-        $scope.alert = '';
-        $mdBottomSheet.show({
-            templateUrl: '/templates/bottomSheets/user.html',
-            controller: 'ListBottomSheetCtrl',
-            targetEvent: $event
-        }).then(function(clickedItem) {
-            $scope.alert = clickedItem.name + ' clicked!';
-        });
-    };
-
-    $rootScope.$on('UserSearchEvent', function(event, data) {
-        $scope.searchUser(data);
-    });
-
-});
-
-app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
-    $scope.items = [{
+    var items = [{
         name: 'Share',
         icon: 'share'
     }, {
@@ -294,8 +277,30 @@ app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet) {
         icon: 'print'
     }, ];
 
-    $scope.listItemClick = function($index) {
-        var clickedItem = $scope.items[$index];
+    $scope.showListBottomSheet = function($event) {
+        $mdBottomSheet.show({
+            templateUrl: '/templates/bottomSheets/user.html',
+            controller: 'ListBottomSheetCtrl',
+            targetEvent: $event,
+            locals: {
+                items: items
+            },
+        }).then(function(clickedItem) {
+            // $scope.alert = clickedItem.name + ' clicked!';
+        });
+    };
+
+    $rootScope.$on('UserSearchEvent', function(event, data) {
+        $scope.searchUser(data);
+    });
+
+});
+
+app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet, locals) {
+    $scope.items = locals.items;
+
+    $scope.listItemClick = function(item) {
+        var clickedItem = item;
         $mdBottomSheet.hide(clickedItem);
     };
 });
