@@ -11,5 +11,6 @@ var app = angular.module('StarterApp', [
     'images-resizer',
     'ngImgCrop',
     'angularLazyImg',
-    'angularRangeSlider'
+    'angularRangeSlider',
+    'angular.filter'
 ]);

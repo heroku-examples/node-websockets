@@ -55,27 +55,11 @@ app.filter('find', function() {
             return filtered;
         };
     })
-    //ng-repeat="friend in friends | reverse"
-    .filter('reverse', function() {
-        return function(items) {
-            if (!items) return;
-            return items.slice().reverse();
-        };
-    })
+
     //$filter('rand')(10)
     .filter('rand', function() {
         return function(num) {
             return Math.floor(Math.random() * num + 1);
-        };
-    })
-    //ng-repeat="n in [] | range:6 : -5" 数値分繰り返す
-    .filter('range', function() {
-        return function(input, total, min) {
-            total = parseInt(total);
-            min = min ? min : 0;
-            for (var i = min; i < total; i++)
-                input.push({ count : i, total : total, min :min});
-            return input;
         };
     })
     .filter('removeEmptyInObject', function() {

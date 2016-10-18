@@ -108,26 +108,27 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         };
     };
 
-    var setInfiniteitems = function() {
-        var getMediaCount = function() {
-            if ($mdMedia('xs')) {
-                return 2;
-            } else if ($mdMedia('sm')) {
-                return 4;
-            } else if ($mdMedia('md')) {
-                return 5;
-            } else if ($mdMedia('lg')) {
-                return 10;
+    var getMediaCount = function() {
+        if ($mdMedia('xs')) {
+            return 2;
+        } else if ($mdMedia('sm')) {
+            return 4;
+        } else if ($mdMedia('md')) {
+            return 5;
+        } else if ($mdMedia('lg')) {
+            return 10;
 
-            }
-        };
+        }
+    };
+
+    var setInfiniteitems = function() {
+
         // In this example, we set up our model using a plain object.
         // Using a class works too. All that matters is that we implement
         // getItemAtIndex and getLength.
         $scope.infiniteItems = {
             numLoaded_: 0,
             toLoad_: 0,
-
             mediaCount_: getMediaCount(),
 
             // Required.
@@ -136,7 +137,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                     this.fetchMoreItems_(index);
                     return null;
                 }
-                return { index: index, mediaCount: this.mediaCount_ };
+                return index;
             },
 
             // Required.
@@ -144,8 +145,9 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             // number than the previously loaded items.
             getLength: function() {
                 //return $scope.pager.length;
-                if($scope.pager.length >=  this.mediaCount_) return $scope.pager.length / this.mediaCount_;
-                return 1;
+                var result = 1;
+                if($scope.pager.length >=  this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
+                return result;
             },
             fetchMoreItems_: function(index) {
                 // For demo purposes, we simulate loading more items with a timed
@@ -153,7 +155,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                 // $http request.
 
                 if (this.toLoad_ < index) {
-                    this.toLoad_ += ($scope.pager.limit / this.mediaCount_);
+                    this.toLoad_ += this.mediaCount_;
                     $timeout(angular.noop, 300).then(angular.bind(this, function() {
                         this.numLoaded_ = this.toLoad_;
                     }));
@@ -167,7 +169,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         User.get().$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
-            setInfiniteitems();
+            if(!$scope.infiniteItems) setInfiniteitems();
             Loading.finish();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -261,6 +263,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             alert('error');
             Loading.finish();
         });
+    };
+
+    $scope.getMediaCount = function(){
+        return getMediaCount();
     };
 
     var items = [{
