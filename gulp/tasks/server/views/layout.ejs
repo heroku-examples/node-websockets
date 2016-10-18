@@ -61,10 +61,12 @@
     <script src="/js/controllers/base.js"></script>
 
     <script type="text/javascript">
-    <% if (session.token) { %>
-        var session = {token : '<%= session.token.token %>'};
-    <% } else {%>
-        var session = {token : false};
+    <% if ( typeof session !== 'undefined' ) { %>
+        <% if ( session.token) { %>
+            var session = {token : '<%= session.token.token %>'};
+        <% } else {%>
+            var session = {token : false};
+        <% } %>
     <% } %>
     </script>
 

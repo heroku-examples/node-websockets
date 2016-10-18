@@ -14,7 +14,7 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
         $scope.selects = locals.selects;
         $scope.prefectures = locals.prefectures;
         $scope.profiles = locals.profiles;
-        $scope.subTitles = locals.subTitles;
+        //$scope.subTitles = locals.subTitles;
         $scope.myImage = '';
         setUser();
     }
@@ -235,7 +235,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                 selects: _selects,
                 type: modeTypes.search,
                 prefectures: _prefectures,
-                subTitles: _subTitles
+                //subTitles: _subTitles
             },
             fullscreen: true,
             onShowing : function(scope, element){

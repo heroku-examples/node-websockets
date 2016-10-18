@@ -51,6 +51,8 @@ md-dialog.slideDown {
     transform: translate(0, 100%) scale(1);
 }
 md-dialog.beforeSlideLeft{
+    opacity: 0;
+    transition: all 0.0s ease-in-out;
     -webkit-transform: translate(100%, 0) scale(1);
     transform: translate(100%, 0) scale(1);
 }
