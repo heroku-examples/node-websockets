@@ -10,7 +10,7 @@
                 <ng-md-icon icon="more_vert"></ng-md-icon>
             </md-button>
         </md-card-header>
-        <div ng-if="users[rangeIndex + (infiniteItemIndex * getMediaCount())]" class="avatar-wrapper" ng-click="link.goFriend(users[rangeIndex + (infiniteItemIndex * getMediaCount())])">
+        <div ng-if="users[rangeIndex + (infiniteItemIndex * getMediaCount())]" class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
             <img ng-if="users[rangeIndex + (infiniteItemIndex * getMediaCount())].photoURL" ng-src="{{users[rangeIndex + (infiniteItemIndex * getMediaCount())].photoURL}}" class="md-card-image" />
             <img ng-if="!users[rangeIndex + (infiniteItemIndex * getMediaCount())].photoURL" class="md-card-image" />
         </div>

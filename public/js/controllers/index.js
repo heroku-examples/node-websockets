@@ -49,6 +49,19 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
     $scope.upperValue = 100;
 }
 
+function UserInfoController($scope, $filter, $mdDialog, locals, $translate) {
+    $scope.user = locals.user;
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+}
+
 app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, UserFind, Json, Loading) {
 
     var _profiles;
@@ -174,11 +187,41 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             console.log($scope.users);
         }).catch(function(data, status) {
             Loading.finish();
-            alert('error');
+            console.log(data, status)
         });
     };
     $scope.users = User.query();
     getUsers();
+
+    $scope.openUserInfo = function(index) {
+        $scope.isModalOpen = true;
+        $mdDialog.show({
+            controller: UserInfoController,
+            templateUrl: '/templates/modal/userInfo.html',
+            targetEvent: '#bottom',
+            clickOutsideToClose: true,
+            locals: {
+                user: $scope.users[index],
+            },
+            fullscreen: true,
+            onShowing : function(scope, element){
+                $timeout(function(){
+                    element.find('md-dialog').addClass("center")
+                }, 50)
+            },
+            onRemoving : function(element, removePromise){
+                $timeout(function(){
+                    element.find('md-dialog').removeClass("center").addClass("slideDown")
+                }, 50)
+            }
+        })
+
+        .then(function(answer) {
+            $scope.isModalOpen = false;
+        }, function() {
+            $scope.isModalOpen = false;
+        });
+    };
 
     $scope.openSearch = function(ev) {
         $scope.isModalOpen = true;
@@ -194,7 +237,18 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                 prefectures: _prefectures,
                 subTitles: _subTitles
             },
-            fullscreen: true
+            fullscreen: true,
+            onShowing : function(scope, element){
+                element.find('md-dialog').addClass("beforeSlideLeft")
+                $timeout(function(){
+                    element.find('md-dialog').addClass("center")
+                }, 50)
+            },
+            onRemoving : function(element, removePromise){
+                $timeout(function(){
+                    element.find('md-dialog').removeClass("center").addClass("slideRight")
+                }, 50)
+            }
         })
 
         .then(function(answer) {
@@ -248,10 +302,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         UserFind.find(conditions).$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
-            console.log($scope.users);
+            Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
-            alert('error');
+            console.log(data, status)
         });
     };
     $scope.deleteUser = function(uid) {

@@ -2,39 +2,67 @@
     position: fixed;
 }
 
+
 /*virtualRepeatdemoInfiniteScroll*/
+
 .virtualRepeatdemoInfiniteScroll #vertical-container {
-  height: 292px;
-  width: 100%;
-  max-width: 400px; }
+    height: 292px;
+    width: 100%;
+    max-width: 400px;
+}
 
 .virtualRepeatdemoInfiniteScroll .repeated-item {
-  border-bottom: 1px solid #ddd;
-  box-sizing: border-box;
-  height: 40px;
-  padding-top: 10px; }
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 40px;
+    padding-top: 10px;
+}
 
 .virtualRepeatdemoInfiniteScroll md-content {
-  margin: 16px; }
+    margin: 16px;
+}
 
 .virtualRepeatdemoInfiniteScroll md-virtual-repeat-container {
-  border: solid 1px grey; }
+    border: solid 1px grey;
+}
 
 .virtualRepeatdemoInfiniteScroll .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
-  padding-left: 16px; }
+    padding-left: 16px;
+}
 
-md-dialog.md-dialog-fullscreen{
-  transition: all 0.0s ease-in-out;
--webkit-transform: translate(0, 100%) scale(1);
-            transform: translate(0, 100%) scale(1);
+md-dialog._md-transition-in,
+md-dialog._md-transition-out {
+    opacity: 0;
+    transition: all 0.0s ease-in-out;
+    -webkit-transform: translate(0, 100%) scale(1);
+    transform: translate(0, 100%) scale(1);
 }
-md-dialog.md-dialog-fullscreen._md-transition-in{
-  transition: all 0.4s ease-in-out;
--webkit-transform: translate(0, 0) scale(1);
-            transform: translate(0, 0) scale(1)
+
+md-dialog {
+    opacity: 0;
+    transition: all 0.0s ease-in-out;
+    -webkit-transform: translate(0, 100%) scale(1);
+    transform: translate(0, 100%) scale(1);
 }
-md-dialog.md-dialog-fullscreen._md-transition-out{
-  transition: all 0.4s ease-in-out;
--webkit-transform: translate(0, 100%) scale(1);
-            transform: translate(0, 100%) scale(1);
+md-dialog.slideDown {
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    -webkit-transform: translate(0, 100%) scale(1);
+    transform: translate(0, 100%) scale(1);
+}
+md-dialog.beforeSlideLeft{
+    -webkit-transform: translate(100%, 0) scale(1);
+    transform: translate(100%, 0) scale(1);
+}
+md-dialog.center {
+    opacity: 1;
+    transition: all 0.4s ease-in-out;
+    -webkit-transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1)
+}
+md-dialog.slideRight {
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    -webkit-transform: translate(100%, 0) scale(1);
+    transform: translate(100%, 0) scale(1);
 }

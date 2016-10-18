@@ -1,5 +1,6 @@
 <md-content flex md-scroll-y>
     <md-content layout="row" layout-wrap layout-align="left center">
+        <loading></loading>
         <md-virtual-repeat-container ng-show="!isModalOpen" ng-if="infiniteItems" id="vertical-container">
           <div md-virtual-repeat="infiniteItemIndex in ::infiniteItems" md-on-demand class="repeated-item" layout="row">
             <span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:2" ng-include="'/templates/elements/userCard.html'" include-replace></span>

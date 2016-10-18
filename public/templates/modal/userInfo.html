@@ -1,0 +1,18 @@
+<div role="dialog" ng-init="init()" layout="column" layout-align="center center" layout-fill="">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{user.firstName}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+        <div class="avatar-wrapper">
+            <img ng-if="user.photoURL" ng-src="{{user.photoURL}}" class="md-card-image" />
+            <img ng-if="!user.photoURL" class="md-card-image" />
+        </div>
+    </md-content>
+
+</div>
