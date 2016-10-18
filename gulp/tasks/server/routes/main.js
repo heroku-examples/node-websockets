@@ -16,13 +16,15 @@ router.use(function(req, res, next) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('main', {
-        message: 'main'
+        message: 'main',
+        session: req.session
     });
 });
 
 router.get('/redirect', function(req, res, next) {
     res.render('main', {
-        message: 'main'
+        message: 'main',
+        session: req.session
     });
 });
 

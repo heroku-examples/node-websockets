@@ -1,8 +1,10 @@
 app
-    .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Link, User, CurrentUser, Token, Json) {
+    .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Loading, Link, User, CurrentUser, Token, Json) {
 
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
+
+        Loading.start();
 
         var getCurrentUser = function(){
             CurrentUser.get().$promise.then(function(_user) {
@@ -18,7 +20,7 @@ app
 
         var checkUserToRedirect = function() {
             if(location.pathname =="/main/redirect"){
-                //_this.logOut();
+                if(!$window.session.token && !$sessionStorage.token)_this.logOut();
             }else if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
                 location.href = "main";
             } else {
@@ -69,7 +71,7 @@ app
                 Error.openMessageByCode(401);
                 checkUserToRedirect();
             }
-
+            Loading.finish();
         });
 
 

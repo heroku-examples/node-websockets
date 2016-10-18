@@ -7,7 +7,7 @@ app
         _this.finish = function(){
             $timeout(function(){
                 _this.isLoding = false;
-            }, 500);
+            }, 1000);
         };
         return _this;
     });

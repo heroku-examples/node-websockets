@@ -60,6 +60,15 @@
     <script src="/js/services/loading.js"></script>
     <script src="/js/controllers/base.js"></script>
 
+    <script type="text/javascript">
+    <% if (session.token) { %>
+        var session = {token : '<%= session.token.token %>'};
+    <% } else {%>
+        var session = {token : false};
+    <% } %>
+    </script>
+
+
 </head>
 
 <body layout="row" ng-controller="AppCtrl" ng-cloak>

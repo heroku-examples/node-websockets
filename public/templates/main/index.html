@@ -1,5 +1,4 @@
 <md-content flex md-scroll-y>
-    main
-    <md-button ng-if="!sessionStorage.token" md-no-ink class="md-primary full" ng-click="login('google')">Google Login</md-button>
-    <md-button ng-if="sessionStorage.token" md-no-ink class="md-primary full" ng-click="logOut()">Log out</md-button>
+    <loading></loading>
+    <md-button md-no-ink class="md-primary full" ng-click="checkButtonClick('google')">{{getButtonText()}}</md-button>
 </md-content>
