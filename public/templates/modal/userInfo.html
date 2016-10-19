@@ -8,11 +8,30 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
-        <div class="avatar-wrapper">
-            <img ng-if="user.photoURL" ng-src="{{user.photoURL}}" class="md-card-image" />
-            <img ng-if="!user.photoURL" class="md-card-image" />
+    <md-content class="slide-up-dialog-content" flex layout-align="center center" layout-padding style="padding-top:56px">
+        <div layout="row" layout-align="center center">
+            <div flex flex-xs="80" flex-sm="60" flex-md="25" flex-lg="20">
+                <div class="avatar-wrapper">
+                    <img ng-if="user.photoURL" ng-src="{{user.photoURL}}" class="md-card-image" />
+                    <img ng-if="!user.photoURL" class="md-card-image" />
+                </div>
+            </div>
         </div>
+<div layout="row" layout-align="center center">
+    <md-list>
+        <md-item>
+            <md-item-content flex>
+                <md-button class="material-icons md-fab" ng-click="">
+                    <ng-md-icon icon="add"></ng-md-icon>
+                </md-button>
+            </md-item-content>
+            <md-item-content flex>
+                <md-button class="material-icons md-fab" ng-click="">
+                    <ng-md-icon icon="add"></ng-md-icon>
+                </md-button>
+            </md-item-content>
+        </md-item>
+    </md-list>
+    </div>
     </md-content>
-
 </div>
