@@ -1,5 +1,5 @@
 app
-    .factory('Error', function(Toast) {
+    .factory('Error', function(Toast, Modal) {
         var _this = {
             codes: {
                 "199": {
@@ -501,8 +501,9 @@ app
             }
         };
 
-        _this.getMessage = function(error) {
-            console.log("error", error);
+        _this.getMessage = function(error, status) {
+            _this.openErrorJson(error, status);
+            console.log("error", error, status);
             return;
             if(_this.codes[errorCode]){
                 return _this.codes[errorCode].phrase;
@@ -511,8 +512,9 @@ app
             }
         };
 
-        _this.openMessage = function(error) {
-            console.log("error", error);
+        _this.openMessage = function(error, status) {
+            _this.openErrorJson(error, status);
+            console.log("error", error, status);
             return;
             if( _this.codes[errorCode]){
                 Toast.show(_this.codes[errorCode].phrase);
@@ -521,14 +523,22 @@ app
             }
         };
 
-        _this.openMessageByCode = function(errorCode) {
-            console.log("errorCode", errorCode);
+        _this.openMessageByCode = function(error, status) {
+            _this.openErrorJson(error, status);
+            console.log("error", error, status);
             return;
             if(_this.codes[errorCode]){
                 Toast.show(_this.codes[errorCode].phrase);
             }else{
                 Toast.show(_this.codes['403'].phrase);
             }
+        };
+        _this.openErrorJson = function(error, status) {
+            var codeInfo = {};
+            if(_this.codes[status]){
+                codeInfo =_this.codes[status];
+            }
+            Modal.error(error, status, codeInfo);
         };
         return _this;
     });

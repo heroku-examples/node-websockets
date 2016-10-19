@@ -1,0 +1,15 @@
+<div role="dialog" ng-init="init()" layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{locals.status}} {{locals.codeInfo.phrase}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+       {{locals.codeInfo.description}} </br>
+        {{locals.error}}</br>
+    </md-content>
+</div>

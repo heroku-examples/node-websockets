@@ -62,7 +62,7 @@ function UserInfoController($scope, $filter, $mdDialog, locals, $translate) {
     };
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, UserFind, Json, Loading) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, UserFind, Json, Error, Loading) {
 
     var _profiles;
     Json.get('profile').then(function(profiles) {
@@ -184,10 +184,9 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             setPager(result);
             if(!$scope.infiniteItems) setInfiniteitems();
             Loading.finish();
-            console.log($scope.users);
         }).catch(function(data, status) {
             Loading.finish();
-            console.log(data, status)
+            Error.openMessage(data, status);
         });
     };
     $scope.users = User.query();
@@ -284,7 +283,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
-            alert('error');
+            Error.openMessage(data, status);
         });
     };
 
@@ -293,7 +292,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             $scope.users = users.reverse();
             console.log($scope.users);
         }).catch(function(data, status) {
-            alert('error');
+            Error.openMessage(data, status);
         });
     };
 
@@ -314,7 +313,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
-            alert('error');
+            Error.openMessage(data, status);
             Loading.finish();
         });
     };
