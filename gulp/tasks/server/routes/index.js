@@ -9,6 +9,12 @@ router.use(function(req, res, next) {
         //Return a response immediately
         res.redirect("../main/redirect");
     }
+    var config = require('./../services/config');
+    config.get('deviceCacheKey').then(function(records) {
+        res.locals.deviceCacheKey = records.results;
+    }, function(error) {
+        console.log("Rejected:", error.message);
+    });
 });
 
 /* GET home page. */

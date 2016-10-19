@@ -16,36 +16,53 @@
     <meta name="msapplication-navbutton-color" content="#4285f4">
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
-    <link rel="stylesheet" href="/css/angular-material.css">
-    <link rel="stylesheet" href="/css/material_icon.css">
-    <link rel="stylesheet" href="/css/animate.css">
+    <script type="text/javascript">
+        <% if ( typeof session !== 'undefined' ) { %>
+            <% if ( session.token) { %>
+                var session = {token : '<%= session.token.token %>'};
+            <% } else {%>
+                var session = {token : false};
+            <% } %>
+        <% } %>
+        <% if ( typeof deviceCacheKey !== 'undefined' ) { %>
+            var deviceCacheKey =  <%= deviceCacheKey %>
+        <% } else {%>
+            <% deviceCacheKey = 0 %>
+             var deviceCacheKey =  <%= deviceCacheKey %>;
+        <% } %>
+    </script>
+    <link rel="stylesheet" href="/css/angular-material.css?v=<%= deviceCacheKey %>">
+    <link rel="stylesheet" href="/css/material_icon.css?v=<%= deviceCacheKey %>">
+    <link rel="stylesheet" href="/css/animate.css?v=<%= deviceCacheKey %>">
+    <link rel="stylesheet" href="/css/angular-range-slider.css?v=<%= deviceCacheKey %>">
     <link rel="stylesheet" href="/css/main.css">
-     <link rel="stylesheet" href="/css/angular-range-slider.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="/js/libs/angular/angular.min.js"></script>
-    <script src="/js/libs/firebase/firebase.js"></script>
-<!--     <script src="/js/libs/loadsh/lodash.min.js"></script> -->
-    <script src="/js/libs/firebase/angularfire.min.js"></script>
-    <script src="/js/libs/angular/angular-route.min.js"></script>
-    <script src="/js/libs/angular/angular-ui-router.js"></script>
-    <script src="/js/libs/angular/angular-resource.min.js"></script>
-    <script src="/js/libs/angular/angular-animate.min.js"></script>
-    <script src="/js/libs/angular/angular-lazy-img.min.js"></script>
-    <script src="/js/libs/angular/angular-filter.min.js"></script>
-    <script src="/js/libs/angular/angular-range-slider.min.js"></script>
-    <script src="/js/libs/angular/angular-aria.min.js"></script>
-    <script src="/js/libs/angular/angular-material.min.js"></script>
-    <script src="/js/libs/angular/angular-cookies.min.js"></script>
-    <script src="/js/libs/angular/angular-translate.js"></script>
-    <script src="/js/libs/angular/angular-messages.min.js"></script>
-    <script src="/js/libs/angular/storage-cookie.js"></script>
-    <script src="/js/libs/angular/angular-material-icons.min.js"></script>
-    <script src="/js/libs/angular/ngStorage.min.js"></script>
-    <script src="/js/libs/angular/loader-static-files.js"></script>
-    <script src="/js/libs/angular/angular-translate-storage-local.min.js"></script>
-    <script src="/js/libs/angular/angular-images-resizer.js"></script>
-    <script src="/js/libs/angular/ng-img-crop.js"></script>
+
+
+    <script src="/socket.io/socket.io.js?v=<%= deviceCacheKey %>"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/firebase/firebase.js?v=<%= deviceCacheKey %>"></script>
+<!--     <script src="/js/libs/loadsh/lodash.min.js?v=<%= deviceCacheKey %>"></script> -->
+    <script src="/js/libs/firebase/angularfire.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-route.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-ui-router.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-resource.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-animate.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-lazy-img.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-filter.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-range-slider.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-aria.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-material.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-cookies.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-translate.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-messages.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/storage-cookie.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-material-icons.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/ngStorage.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/loader-static-files.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-translate-storage-local.min.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/angular-images-resizer.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/libs/angular/ng-img-crop.js?v=<%= deviceCacheKey %>"></script>
     <script src="/js/base.js"></script>
     <script src="/js/configs/base.js"></script>
     <script src="/js/filters/base.js"></script>
@@ -60,20 +77,13 @@
     <script src="/js/services/loading.js"></script>
     <script src="/js/controllers/base.js"></script>
 
-    <script type="text/javascript">
-    <% if ( typeof session !== 'undefined' ) { %>
-        <% if ( session.token) { %>
-            var session = {token : '<%= session.token.token %>'};
-        <% } else {%>
-            var session = {token : false};
-        <% } %>
-    <% } %>
-    </script>
+
 
 
 </head>
 
 <body layout="row" ng-controller="AppCtrl" ng-cloak>
+
      <span ng-include="'/templates/sidenav.html'" include-replace></span>
      <%- body %>
 <script id="__bs_script__">//<![CDATA[
