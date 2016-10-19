@@ -5,8 +5,8 @@ app.factory('Json', function($http, $q, $localStorage) {
         var _this = {
             isLoding: false,
             preloadUrls: {
-                "profile": { url: '/json/prefectures.json' },
-                "location": { url: '/json/profiles.json' },
+                "profile": { url: '/json/profile.json' },
+                "location": { url: '/json/prefectures.json' },
                 "lang": { url: "/json/lang_" + document.documentElement.lang + '.json' }
             },
         };
