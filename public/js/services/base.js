@@ -1,25 +1,43 @@
 app.factory('Json', function($http, $q, $localStorage) {
 
-        if (!$localStorage.json) {
-            $localStorage.json = {};
-        }
+
 
         var _this = {
             isLoding: false,
             preloadUrls: {
-                "profile": { url : '/api/files/profile'},
-                "location": { url : '/api/files/location'},
-                "lang": { url : "/json/lang_" + document.documentElement.lang + '.json'}
+                "profile": { url: '/json/prefectures.json' },
+                "location": { url: '/json/profiles.json' },
+                "lang": { url: "/json/lang_" + document.documentElement.lang + '.json' }
             },
         };
+
+        var versionCheck = function() {
+            if (!$localStorage.json) {
+                $localStorage.json = {};
+            }
+            $http.get('/json/settings.json')
+                .then(function(response) {
+                    var targetVersion = response.data.localStorage.versions.cache;
+                    //First function handles success
+                    if (targetVersion == $localStorage.json.version) return;
+                    angular.forEach(_this.preloadUrls, function(value, key) {
+                        _this.get(key, value.url).then(function(details) {});
+                    });
+                    $localStorage.json['version'] = targetVersion;
+                }, function(response) {
+                    console.log(response);
+                });
+        };
+
+
         _this.get = function(name, path) {
             var d = $q.defer();
             if ($localStorage.json[name]) {
                 d.resolve($localStorage.json[name]);
             } else {
-                if( !path ){
+                if (!path) {
                     d.resolve(null);
-                }else{
+                } else {
                     $http.get(path)
                         .then(function(response) {
                             //First function handles success
@@ -29,7 +47,7 @@ app.factory('Json', function($http, $q, $localStorage) {
                             //Second function handles error
                             d.resolve(null);
                         });
-                    }
+                }
             }
             return d.promise;
         };
@@ -40,14 +58,7 @@ app.factory('Json', function($http, $q, $localStorage) {
             $localStorage.targetUserCondition = false;
         };
 
-
-        angular.forEach(_this.preloadUrls, function(value, key) {
-            if (!$localStorage.json[key]) {
-                _this.get(value.url).then(function(details) {
-                    $localStorage.json[key] = details;
-                });
-            }
-        });
+        versionCheck();
 
         return _this;
     })
