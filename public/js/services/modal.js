@@ -26,7 +26,6 @@ app.factory('Modal', function($mdDialog, $timeout) {
                 status: status,
                 codeInfo: codeInfo
             },
-            fullscreen: true,
             onShowing: function(scope, element) {
                 $timeout(function() {
                     element.find('md-dialog').addClass("center")
