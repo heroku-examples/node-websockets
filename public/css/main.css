@@ -157,8 +157,10 @@ md-toolbar.title-header {
     background-color: red !important;
 }
 
-body .body {
-    // padding-top: 70px;
+body{
+    height: 100% ;    /* サポートしてないブラウザ向け */
+    height: -webkit-calc(100% + 50px) ;   /* 2013年10月以前のSafariをサポートする場合 */
+    height: calc(100% + 50px);
 }
 
 .messageView {
