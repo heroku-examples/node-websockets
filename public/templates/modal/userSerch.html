@@ -9,10 +9,10 @@
         </div>
     </md-toolbar>
     <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
-        <div layout="row">
+        <div layout="row" layout-align="center center" flex>
             <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
         </div>
-        <div ng-if="false" layout="row" layout-wrap layout-align="left center">
+        <div ng-if="false" layout="row" layout-align="center center" flex>
             <md-input-container class="md-block" flex="50" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type != 'multi_select'">
                 <label>{{profile.name}}</label>
                 <md-select ng-model="targetUserCondition[profile.name]" ng-repeat="(valueKey, value) in profile.values">
@@ -26,14 +26,14 @@
                 </md-select>
             </md-input-container>
         </div>
-        <div layout="row">
+         <div layout="row" layout-align="center center" flex>
             <md-input-container class="chip-select" class="layout-fill" style="width: 100%;">
                 <label style="top: -35px;">Age {{upperValue}} ~ {{lowerValue}}</label>
                 <div range-slider floor="20" ceiling="100" dragstop="true" ng-model-low="lowerValue" ng-model-high="upperValue">
                 </div>
             </md-input-container>
         </div>
-        <div layout="row" ng-if="false" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type == 'multi_select'">
+         <div layout="row" layout-align="center center" flex ng-if="false" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type == 'multi_select'">
             <md-input-container class="chip-select" class="layout-fill" style="width: 100%;min-height: 60px;">
                 <label>{{subTitles[profileKey].read}}</label>
                 <md-chips ng-model="targetUserCondition.hobbies" md-max-chips="50">

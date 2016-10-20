@@ -372,7 +372,8 @@ img-crop canvas {
 
 .slide-up-dialog-content {
     padding: 0 15px;
-    width: 100vh;
+    width: 100vw;
+    max-width: 800px;
     height: 95vh;
     height: -webkit-calc(100vh - 100px);
     height: calc(100vh - 100px);
@@ -912,4 +913,8 @@ md-bottom-sheet .md-subheader {
     line-height: 30px;
     height: 45px;
     text-align: center;
+}
+
+md-sidenav md-list-item > p{
+    color: white;
 }

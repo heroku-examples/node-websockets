@@ -24,11 +24,12 @@ var app = angular.module('StarterApp', [
             .primaryPalette('orange')
             .accentPalette('orange')
             .warnPalette('orange')
+            .backgroundPalette('orange');
         $mdThemingProvider.theme('purple')
             .primaryPalette('purple')
             .accentPalette('purple')
             .warnPalette('purple')
-            .backgroundPalette('deep-purple').dark();
+            .backgroundPalette('indigo').dark();
         $mdThemingProvider.theme('blue')
             .primaryPalette('blue')
             .accentPalette('blue')
