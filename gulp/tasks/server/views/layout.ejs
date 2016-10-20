@@ -30,6 +30,22 @@
             <% deviceCacheKey = 0 %>
              var deviceCacheKey =  <%= deviceCacheKey %>;
         <% } %>
+
+        function toggleFullScreen() {
+          var doc = window.document;
+          var docEl = doc.documentElement;
+
+          var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+          var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+          if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+            requestFullScreen.call(docEl);
+          }
+          else {
+            cancelFullScreen.call(doc);
+          }
+        }
+        toggleFullScreen();
     </script>
     <link rel="stylesheet" href="/css/angular-material.css?v=<%= deviceCacheKey %>">
     <link rel="stylesheet" href="/css/material_icon.css?v=<%= deviceCacheKey %>">
@@ -87,9 +103,9 @@
 
      <span ng-include="'/templates/sidenav.html'" include-replace></span>
      <%- body %>
-<script id="__bs_script__">//<![CDATA[
-    document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.16.0'><\/script>".replace("HOST", location.hostname));
-//]]></script>
+    <script id="__bs_script__">//<![CDATA[
+        document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.16.0'><\/script>".replace("HOST", location.hostname));
+    //]]></script>
      <span id="bottom"></span>
 </body>
 
