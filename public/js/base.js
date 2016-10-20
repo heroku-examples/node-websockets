@@ -15,16 +15,30 @@ var app = angular.module('StarterApp', [
         'angular.filter'
     ])
     .config(function($mdThemingProvider) {
+        $mdThemingProvider.theme( 'grey')
+            .primaryPalette('grey')
+            .accentPalette('grey')
+            .warnPalette('grey')
+            .backgroundPalette('grey').dark();
         $mdThemingProvider.theme('default')
-            .primaryPalette('yellow')
-            .accentPalette('blue');
-
-        // Define a theme for the Login dialogs;
-        // @see <md-dialog md-theme="login">...</md-dialog>
+            .primaryPalette('orange')
+            .accentPalette('orange')
+            .warnPalette('orange')
+        $mdThemingProvider.theme('purple')
+            .primaryPalette('purple')
+            .accentPalette('purple')
+            .warnPalette('purple')
+            .backgroundPalette('deep-purple').dark();
+        $mdThemingProvider.theme('blue')
+            .primaryPalette('blue')
+            .accentPalette('blue')
+            .warnPalette('blue')
+            .backgroundPalette('blue').dark();
 
         $mdThemingProvider.theme('login')
             .primaryPalette('brown')
             .accentPalette('yellow');
+
     }).config(['$translateProvider', function($translateProvider, $window) {
         var findLanguage = function() {
             return document.documentElement.lang;
