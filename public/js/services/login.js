@@ -46,6 +46,7 @@ app
         var stateChangedCount = 0;
         auth.$onAuthStateChanged(function(firebaseUser) {
             console.log('firebaseUser', firebaseUser)
+            Loading.initStart();
             if (firebaseUser) {
                 $sessionStorage.firebaseUser = {
                     displayName: firebaseUser.displayName,
@@ -59,24 +60,23 @@ app
                     Token.find({ token: idToken }).$promise.then(function(_token) {
                         $sessionStorage.token = _token;
                         checkUserToRedirect();
-                        Loading.initFinish();
+
                     }).catch(function(error) {
                         Error.openMessage(error);
                         checkUserToRedirect();
-                        Loading.initFinish();
                     });
                 }).catch(function(error) {
                     Error.openMessage(error);
                     checkUserToRedirect();
-                    Loading.initFinish();
+
                 });
             } else {
-                if(count) {
+                if(stateChangedCount) {
                     Error.openMessageByCode(401);
                     checkUserToRedirect();
-                    Loading.initFinish();
                 }
             }
+            Loading.initFinish();
             stateChangedCount++;
         });
 

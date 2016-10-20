@@ -9,6 +9,11 @@ app
                 _this.isLoding = false;
             }, 1000);
         };
+        _this.initStart = function(){
+            $timeout(function(){
+                _this.isIniting = true;
+            }, 1000);
+        };
         _this.initFinish = function(){
             $timeout(function(){
                 _this.isIniting = false;
