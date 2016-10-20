@@ -6,7 +6,7 @@ app.factory('Token', function($resource) {
         },
         update: {
             method: 'PUT',
-            isArray: true
+            isArray: false
         },
         delete: {
             method: 'DELETE',
@@ -45,7 +45,7 @@ app.factory('User', function($resource) {
         },
         delete: {
             method: 'DELETE',
-            isArray: true
+            isArray: false
         }
     });
 });

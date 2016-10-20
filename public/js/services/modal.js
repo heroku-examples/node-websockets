@@ -1,4 +1,4 @@
-function ModalCtrl($scope, locals, Login) {
+function ModalCtrl($scope, $mdDialog, locals, Login) {
     $scope.locals = locals;
     $scope.hide = function() {
         $mdDialog.hide();
@@ -9,16 +9,19 @@ function ModalCtrl($scope, locals, Login) {
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
-    $scope.login = function(type){
+    $scope.login = function(type) {
         Login.login(type);
     };
 }
 app.factory('Modal', function($mdDialog, $timeout) {
-    var _this = {};
-    _this.error = function(error, status, codeInfo) {
+    var _this = {
+        errorTemplateUrl: '/templates/modal/error.html'
+    };
+    _this.error = function(error, status, codeInfo, templateUrl) {
+
         $mdDialog.show({
             controller: ModalCtrl,
-            templateUrl: '/templates/modal/error.html',
+            templateUrl: templateUrl ? templateUrl : _this.errorTemplateUrl,
             targetEvent: '#bottom',
             clickOutsideToClose: true,
             locals: {
@@ -29,12 +32,12 @@ app.factory('Modal', function($mdDialog, $timeout) {
             onShowing: function(scope, element) {
                 $timeout(function() {
                     element.find('md-dialog').addClass("center")
-                }, 50)
+                }, 50);
             },
             onRemoving: function(element, removePromise) {
                 $timeout(function() {
                     element.find('md-dialog').removeClass("center").addClass("slideDown")
-                }, 50)
+                }, 50);
             }
         });
     };

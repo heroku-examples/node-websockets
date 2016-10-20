@@ -72,7 +72,8 @@ app
                 });
             } else {
                 if(stateChangedCount) {
-                    Error.openMessageByCode(401);
+                    var UNAUTHORIZED = Error.searchErrorByKey("UNAUTHORIZED");
+                    Error.openMessageByCode({'status': 401});
                     checkUserToRedirect();
                 }
             }
