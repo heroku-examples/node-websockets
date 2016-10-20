@@ -374,9 +374,7 @@ img-crop canvas {
     padding: 0 15px;
     width: 100vw;
     max-width: 800px;
-    height: 95vh;
-    height: -webkit-calc(100vh - 100px);
-    height: calc(100vh - 100px);
+    height: 100vh;
 }
 
 .slide-up-dialog-content img {
