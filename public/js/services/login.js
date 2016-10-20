@@ -59,22 +59,22 @@ app
                     Token.find({ token: idToken }).$promise.then(function(_token) {
                         $sessionStorage.token = _token;
                         checkUserToRedirect();
-                        Loading.finish();
+                        Loading.initFinish();
                     }).catch(function(error) {
                         Error.openMessage(error);
                         checkUserToRedirect();
-                        Loading.finish();
+                        Loading.initFinish();
                     });
                 }).catch(function(error) {
                     Error.openMessage(error);
                     checkUserToRedirect();
-                    Loading.finish();
+                    Loading.initFinish();
                 });
             } else {
                 if(count) {
                     Error.openMessageByCode(401);
                     checkUserToRedirect();
-                    Loading.finish();
+                    Loading.initFinish();
                 }
             }
             stateChangedCount++;
