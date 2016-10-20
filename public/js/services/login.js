@@ -59,20 +59,24 @@ app
                     Token.find({ token: idToken }).$promise.then(function(_token) {
                         $sessionStorage.token = _token;
                         checkUserToRedirect();
-                        //Error.openMessageByCode(299);
+                        Loading.finish();
                     }).catch(function(error) {
                         Error.openMessage(error);
                         checkUserToRedirect();
+                        Loading.finish();
                     });
                 }).catch(function(error) {
                     Error.openMessage(error);
                     checkUserToRedirect();
+                    Loading.finish();
                 });
             } else {
-                if(count) Error.openMessageByCode(401);
-                checkUserToRedirect();
+                if(count) {
+                    Error.openMessageByCode(401);
+                    checkUserToRedirect();
+                    Loading.finish();
+                }
             }
-            Loading.finish();
             stateChangedCount++;
         });
 
