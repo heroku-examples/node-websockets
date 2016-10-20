@@ -43,6 +43,7 @@ app
             }
         };
 
+        var stateChangedCount = 0;
         auth.$onAuthStateChanged(function(firebaseUser) {
             console.log('firebaseUser', firebaseUser)
             if (firebaseUser) {
@@ -68,10 +69,11 @@ app
                     checkUserToRedirect();
                 });
             } else {
-                Error.openMessageByCode(401);
+                if(count) Error.openMessageByCode(401);
                 checkUserToRedirect();
             }
             Loading.finish();
+            stateChangedCount++;
         });
 
 
