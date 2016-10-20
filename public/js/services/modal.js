@@ -1,5 +1,8 @@
-function ModalCtrl($scope, locals) {
+function ModalCtrl($scope, locals, Login) {
     $scope.locals = locals;
+    $scope.login = function(type){
+        Login.login(type);
+    };
 }
 app.factory('Modal', function($mdDialog, $timeout) {
     var _this = {};
