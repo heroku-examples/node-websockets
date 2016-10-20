@@ -1,4 +1,4 @@
-<div role="dialog" ng-init="init()" layout="column">
+<div role="dialog" layout="column">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 class="font_white">{{locals.status}} {{locals.codeInfo.phrase}}</h2>
@@ -9,8 +9,8 @@
         </div>
     </md-toolbar>
     <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
-        description :{{locals.codeInfo.description}} </br>
-        error :{{locals.error}}</br>
-        <md-button ng-if="locals.error == '401' md-no-ink class=" md-primary full " ng-click="login( 'google') ">Login</md-button>
+        description : {{locals.codeInfo.description}} </br>
+        error : {{locals.error}}</br>
+        <md-button ng-if="locals.error == '401'" md-no-ink class=" md-primary full " ng-click="login( 'google') ">Login</md-button>
     </md-content>
 </div>

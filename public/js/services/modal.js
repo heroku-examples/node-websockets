@@ -1,5 +1,14 @@
 function ModalCtrl($scope, locals, Login) {
     $scope.locals = locals;
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
     $scope.login = function(type){
         Login.login(type);
     };
