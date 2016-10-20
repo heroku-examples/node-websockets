@@ -11,6 +11,6 @@
     <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
         {{locals.codeInfo.description}} </br>
         {{locals.error}}</br>
-        <md-button ng-if="locals.status == '401' md-no-ink class=" md-primary full " ng-click="login( 'google') ">Login</md-button>
+        <md-button ng-if="locals.error == '401' md-no-ink class=" md-primary full " ng-click="login( 'google') ">Login</md-button>
     </md-content>
 </div>
