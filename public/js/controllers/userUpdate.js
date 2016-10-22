@@ -81,6 +81,15 @@ app.controller('UserUpdateCtrl', function($scope, $filter, $sessionStorage, Json
             photoURL : { type : "String" }
         },
         values : { photoURL : user.photoURL? user.photoURL : "" }
+    }, {
+        id: 6,
+        name: 'message',
+        explain: 'message',
+        tempateUrl: '/templates/elements/userUpdates/message.html',
+        params: {
+            message : { type : "String", max : 100, min : 1 }
+        },
+        values : { message : user.message? user.message : "" }
     }];
 
     //tabs
@@ -140,7 +149,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, $sessionStorage, Json
         });
         User.update(params).$promise.then(function(_user) {
             Loading.finish();
-            Login.updateUser(_user);
+            Login.setUserSession(_user);
             Toast.show("success");
         }).catch(function(data) {
             Error.openMessage(_user.status);

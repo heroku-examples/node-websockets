@@ -1,7 +1,7 @@
 <div role="dialog" ng-init="init()" layout="column" md-theme="purple">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 class="font_white">{{user.firstName}}</h2>
+            <h2 class="font_white">{{user.firstName}} {{user.age}}</h2>
             <span flex=""></span>
             <md-button ng-click="cancel()" class="md-icon-button">
                 <i class="md-fab material-icons">cancel</i>
@@ -20,18 +20,12 @@
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">Action buttons</span>
+                    <span class="md-headline">{{user.prefectureId}} {{user.cityId}}</span>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
                 <p>
-                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                </p>
-                <p>
-                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-                </p>
-                <p>
-                    The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                    {{user.message}}
                 </p>
             </md-card-content>
         </md-card>

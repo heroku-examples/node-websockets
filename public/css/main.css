@@ -920,3 +920,7 @@ md-sidenav md-list-item > p{
 .zoom-10 {
     zoom: 10;
 }
+
+md-toast{
+    top : 50px
+}
