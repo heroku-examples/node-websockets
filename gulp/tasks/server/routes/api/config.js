@@ -71,13 +71,12 @@ router.route('/config')
       Config.findOne({
             name: req.body.name
       }, function(err, config) {
-console.log('config',err, config)
           if (err) {
               res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
           } else if(config) {
               // コンフィグの各カラムの情報を更新する．
               config.delFlag = req.body.delFlag ? req.body.delFlag : false;
-              config.values = req.body.values ? req.body.values : false;
+              if(req.body.values) config.values = req.body.values;
 
               config.save(function(err) {
                   if (err) {

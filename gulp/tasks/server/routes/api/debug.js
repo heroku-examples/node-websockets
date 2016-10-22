@@ -82,7 +82,7 @@ router.route('/debug')
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 } else {
                     // ユーザーのデバッグ情報を更新する．
-                    User.findOneAndUpdate({ uid: req.body.uid }, { isDebug: !req.body.delFlag }, function(err, user) {
+                    User.findOneAndUpdate({ uid: req.body.uid }, { isDebug: !debug.delFlag }, function(err, user) {
                         if (err) {
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         } else {
