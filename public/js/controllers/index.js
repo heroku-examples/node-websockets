@@ -169,10 +169,9 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
                 if (this.toLoad_ < index) {
                     this.toLoad_ += this.mediaCount_;
-                    $timeout(angular.noop, 300).then(angular.bind(this, function() {
-                        this.numLoaded_ = this.toLoad_;
-                    }));
+                    this.numLoaded_ = this.toLoad_;
                 }
+                Loading.finish();
             }
         };
     };
@@ -183,7 +182,6 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             $scope.users = result.docs.reverse();
             setPager(result);
             if(!$scope.infiniteItems) setInfiniteitems();
-            Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);
@@ -191,10 +189,11 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     };
 
     var init = function(){
+            Loading.start();
             $scope.users = $window.users.docs.reverse();
             setPager($window.users);
             if(!$scope.infiniteItems) setInfiniteitems();
-            Loading.finish();
+
     }
 
     init();
