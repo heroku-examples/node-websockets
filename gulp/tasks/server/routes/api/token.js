@@ -3,6 +3,7 @@ var router = express.Router();
 
 var Token = require('../../models/token');
 var User = require('../../models/user');
+var Debug = require('../../models/debug');
 
 var resCodes = require('../.././json/http/http_code_names.json');
 
@@ -19,7 +20,7 @@ router.route('/token/check')
                 uid: decodedToken.uid
             }, function(err, user) {
                 if (err) {
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
+                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                 } else if (user) {
                     Token.findOne({
                         uid: decodedToken.uid
@@ -27,16 +28,25 @@ router.route('/token/check')
                         token.uid = decodedToken.uid;
                         token.token = req.body.token;
                         token.isDebug = token.isDebug;
-                        if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
+                        if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                         token.token = req.body.token;
                         token.save(function(err) {
                             if (err){
-                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
+                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                             }else{
                                 req.session.token = token;
                                 req.session.isEntry = user.isEntry;
-                                req.session.isDebug = user.isDebug;
-                                res.status(resCodes.OK.code).json(token);
+                                Debug.findOne({
+                                    uid: decodedToken.uid
+                                }, function(err, debug) {
+console.log('debug', debug)
+                                    if(debug){
+                                        if(!debug.delFlag) req.session.isDebug = true;
+                                    }else if (err){
+                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
+                                    }
+                                    res.status(resCodes.OK.code).json(token);
+                                });
                             }
                         });
                     });
@@ -46,7 +56,7 @@ router.route('/token/check')
                     token.token = req.body.token;
                     token.save(function(err) {
                         if (err) {
-                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
+                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                         } else {
                             var _user = new User();
                             _user.uid = decodedToken.uid;
@@ -55,21 +65,21 @@ router.route('/token/check')
                             _user.createDate = new Date();
                             _user.save(function(err) {
                                     if (err) {
-                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
+                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                                     } else {
                                         req.session.token = decodedToken;
                                         res.status(resCodes.OK.code).json(token);
                                     }
                                 })
                                 .catch(function(err) {
-                                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ error: err });
+                                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                                 });
                         }
                     });
                 }
             });
-        }).catch(function(error) {
-            res.status(resCodes.OINTERNAL_SERVER_ERRORK.code).json(error);
+        }).catch(function(err) {
+            res.status(resCodes.OINTERNAL_SERVER_ERRORK.code).json( err );
         });
     }
 

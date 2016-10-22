@@ -15,9 +15,8 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller,
 
 
     $scope.create = function() {
-        Config.create({ uid: 'zcMTtpFeKEhmGPiJWno0310Sv5p1' }).$promise.then(function(result) {
-            $scope.config = result.docs.reverse();
-            $scope.setPager(result);
+        Config.create().$promise.then(function(result) {
+            $scope.config = result;
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
@@ -32,7 +31,7 @@ function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, 
     $scope.init = function() {
         Loading.start();
         Debug.get().$promise.then(function(result) {
-            $scope.configs = result.docs.reverse();
+            $scope.debugs = result.docs.reverse();
             $scope.setPager(result);
             Loading.finish();
         }).catch(function(data, status) {
@@ -43,8 +42,7 @@ function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, 
 
     $scope.create = function() {
         Debug.create({ uid: 'zcMTtpFeKEhmGPiJWno0310Sv5p1' }).$promise.then(function(result) {
-            $scope.debug = result.docs.reverse();
-            $scope.setPager(result);
+            $scope.debug = result;
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();

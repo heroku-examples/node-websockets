@@ -1,19 +1,18 @@
-// app/models/config.js
+// app/models/debug.js
 var mongoose     = require('mongoose');
 var mongoosePaginate = require('mongoose-paginate');
 
-var ConfigSchema   = new mongoose.Schema({
-    name: { type: String, default: '' },
-    values:   mongoose.Schema.Types.Mixed,
+var DebugSchema   = new mongoose.Schema({
+    uid : { type: String, required: true, unique: true },
     delFlag : { type: Boolean, default: false },
     createDate: { type: Date, default: Date.now },
     updateDate: { type: Date, default: Date.now },
 });
 
-ConfigSchema.plugin(mongoosePaginate);
+DebugSchema.plugin(mongoosePaginate);
 
 // on every save, add the date
-ConfigSchema.pre('save', function(next) {
+DebugSchema.pre('save', function(next) {
   // get the current date
   var currentDate = new Date();
   // change the updateDate field to current date
@@ -26,4 +25,4 @@ ConfigSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = mongoose.model('Config', ConfigSchema);
+module.exports = mongoose.model('Debug', DebugSchema);

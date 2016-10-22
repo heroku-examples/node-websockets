@@ -26,6 +26,7 @@ app.controller('DebugCtrl', function($scope,
         Modal.open(
            $scope.modals[modalName].controllerName,
            $scope.modals[modalName].templateUrl,
+           {title : modalName},
            $scope.modals[modalName].size
         );
     };

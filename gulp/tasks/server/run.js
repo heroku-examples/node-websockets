@@ -17,17 +17,18 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
-var index = require('./routes/index');
-var main = require('./routes/main');
-var debug = require('./routes/debug');
-var firebase = require('./routes/firebase');
+var indexView = require('./routes/index');
+var mainView = require('./routes/main');
+var debugView = require('./routes/debug');
+var firebaseView = require('./routes/firebase');
 var user = require('./routes/api/user');
 var token = require('./routes/api/token');
 var files = require('./routes/api/files');
 var say = require('./routes/api/say');
 var chat = require('./routes/api/chat');
 var privateChat = require('./routes/api/private_chat');
-var siteConfig = require('./routes/api/config');
+var config = require('./routes/api/config');
+var debug = require('./routes/api/debug');
 
 var path = require('path');
 
@@ -38,28 +39,28 @@ app.use(require('express').static('public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(partials());
-app.use('/index', index);
-app.use('/main', main);
-app.use('/debug', debug);
-app.use('/firebase', firebase);
+app.use('/index', indexView);
+app.use('/main', mainView);
+app.use('/debug', debugView);
+app.use('/firebase', firebaseView);
 app.use('/api', user);
 app.use('/api', token);
 app.use('/api', files);
 app.use('/api', say);
 app.use('/api', chat);
 app.use('/api', privateChat);
-app.use('/api', siteConfig);
+app.use('/api', config);
+app.use('/api', debug);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    if (req.url == "/"){
+    if (req.url == "/") {
         res.redirect("../main/redirect");
-} else {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-}
-
+    } else {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    }
 });
 
 // error handlers

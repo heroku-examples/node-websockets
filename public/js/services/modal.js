@@ -84,7 +84,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         });
     };
     _this.error = function(error, status, codeInfo, templateUrl) {
-        var template = _this.getTemplateFunc(size);
+        var template = _this.getTemplateFunc('large');
         $mdDialog.show({
             controller: ModalCtrl,
             templateUrl: templateUrl ? templateUrl : _this.errorTemplateUrl,

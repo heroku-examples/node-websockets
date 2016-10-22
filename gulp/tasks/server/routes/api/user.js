@@ -88,7 +88,7 @@ router.route('/user')
 
 // セッションユーザの取得 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
-    console.log(req.session)
+    console.log('session', req.session)
     if (!req.session.token) {
         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
         return;
