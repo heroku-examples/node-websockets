@@ -1,4 +1,4 @@
-function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, Config, Configs) {
+function ConfigModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller, Config, Configs) {
     $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     $scope.init = function() {
@@ -9,6 +9,7 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller,
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
+            Error.openMessage(data, status);
             console.log(data, status)
         });
     };
@@ -20,6 +21,7 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller,
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
+            Error.openMessage(data, status);
             console.log(data, status)
         });
     };
@@ -31,12 +33,25 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller,
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
+            Error.openMessage(data, status);
+            console.log(data, status);
+        });
+    };
+
+    $scope.updateValue = function(debugKey , config) {
+        Config.update({ name: config.name , values : {number :config.values.number+ 1}}).$promise.then(function(result) {
+            $scope.configs[debugKey].delFlag = result.result;
+            $scope.debug = result;
+            Loading.finish();
+        }).catch(function(data, status) {
+            Loading.finish();
+            Error.openMessage(data, status);
             console.log(data, status);
         });
     };
 }
 
-function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, Debug, Debugs) {
+function DebugModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller, Debug, Debugs) {
     $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     $scope.init = function() {
@@ -47,6 +62,7 @@ function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, 
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
+            Error.openMessage(data, status);
         });
     };
 
@@ -56,6 +72,7 @@ function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, 
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
+            Error.openMessage(data, status);
         });
     };
 
@@ -66,7 +83,7 @@ function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, 
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
-            console.log(data, status);
+            Error.openMessage(data, status);
         });
     };
 }

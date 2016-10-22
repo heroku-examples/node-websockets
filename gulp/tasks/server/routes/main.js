@@ -1,22 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
+var setConfig = function(req, res, next){
+    var Config = require('./../services/config');
+    Config.get('deviceCacheKey').then(function(records) {
+        res.locals.deviceCacheKey = records.number;
+        next();
+    }, function(error) {
+        console.log("Rejected:", error.message);
+    });
+};
+
 router.use(function(req, res, next) {
     // トークンとエントリ済みがセッションに保存されていた場合のみアクセス可能
     if (req.url == "/redirect" || req.url == "/") {
-        next();
+        setConfig(req, res, next);
     } else if (req.session.token && !req.session.isEntry) {
-        next();
+        setConfig(req, res, next);
     } else {
         //Return a response immediately
         res.redirect("../index");
     }
-    var Config = require('./../services/config');
-    Config.get('deviceCacheKey').then(function(records) {
-        res.locals.deviceCacheKey = records.results;
-    }, function(error) {
-        console.log("Rejected:", error.message);
-    });
+
 });
 
 /* GET home page. */

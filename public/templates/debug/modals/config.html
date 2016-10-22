@@ -10,7 +10,9 @@
     </md-toolbar>
     <md-content class="slide-up-dialog-content" flex ayout-padding style="padding-top:56px">
         <div ng-repeat="(configKey , config) in configs">
-            <p ng-click="update(configKey , config)">{{config}}</p>
+            {{config}}
+            <md-button class="md-warn md-raised" ng-click="update(configKey , config)">Update</md-button>
+            <md-button class="md-warn md-raised" ng-click="updateValue(configKey , config)">incrementValue</md-button>
         </div>
         {{locals}}</br>
         {{config}}</br>
