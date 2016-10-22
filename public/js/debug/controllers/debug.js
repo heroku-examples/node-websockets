@@ -1,4 +1,6 @@
-app.controller('DebugCtrl', function($scope,
+app.controller('DebugCtrl', function(
+    $scope,
+    $window,
     Profile,
     SyncProfile,
     Location,
@@ -10,12 +12,12 @@ app.controller('DebugCtrl', function($scope,
 ) {
     $scope.modals = {
         config : {
-            templateUrl : '/templates/debug/modals/config.html',
+            templateUrl : '/templates/debug/modals/config.html?v=' + window.deviceCacheKey,
             controllerName : 'ConfigModalCtrl',
             size : 'large'
         },
         debug : {
-            templateUrl : '/templates/debug/modals/debug.html',
+            templateUrl : '/templates/debug/modals/debug.html?v=' + window.deviceCacheKey,
             controllerName : 'DebugModalCtrl',
             size : 'large'
         },

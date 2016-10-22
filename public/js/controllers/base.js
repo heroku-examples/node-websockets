@@ -1,6 +1,7 @@
-app.controller('AppCtrl', function($scope, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
         $scope.sessionStorage = $sessionStorage;
         $scope.mdMedia = $mdMedia;
+        $scope.deviceCacheKey = window.deviceCacheKey;
         $scope.toggleSidenav = function(menuId) {
             $mdSidenav(menuId).toggle();
         };

@@ -25,8 +25,8 @@ function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
 app.factory('Modal', function($window, $mdDialog, $timeout) {
     var _this = {
         templates: {
-            errorTemplateUrl: '/templates/modal/error.html',
-            defaultTemplateUrl: '/templates/modal/default.html'
+            errorTemplateUrl: '/templates/modal/error.html?v=' + window.deviceCacheKey,
+            defaultTemplateUrl: '/templates/modal/default.html?v=' + window.deviceCacheKey,
         },
         sizes: {
             large: {

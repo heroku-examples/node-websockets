@@ -196,7 +196,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         $scope.isModalOpen = true;
         $mdDialog.show({
             controller: UserInfoDialogController,
-            templateUrl: '/templates/modal/userInfo.html',
+            templateUrl: '/templates/modal/userInfo.html?v=' + window.deviceCacheKey,
             targetEvent: '#bottom',
             clickOutsideToClose: true,
             locals: {
@@ -226,7 +226,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         $scope.isModalOpen = true;
         $mdDialog.show({
             controller: UserSerchDialogController,
-            templateUrl: '/templates/modal/userSerch.html',
+            templateUrl: '/templates/modal/userSerch.html?v=' + window.deviceCacheKey,
             targetEvent: '#bottom',
             clickOutsideToClose: true,
             locals: {

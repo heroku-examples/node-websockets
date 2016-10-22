@@ -8,15 +8,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/main/index.html',
+                templateUrl : '/templates/main/index.html?v=' + window.deviceCacheKey,
                 controller: 'LoginCtrl'
             },
             signUp: {
-                templateUrl : '/templates/main/signUp.html',
+                templateUrl : '/templates/main/signUp.html?v=' + window.deviceCacheKey,
                 controller: 'LoginCtrl'
             },
             userUpdate : {
-                templateUrl : '/templates/main/userUpdate.html',
+                templateUrl : '/templates/main/userUpdate.html?v=' + window.deviceCacheKey,
                 controller: 'UserUpdateCtrl'
             }
         };

@@ -1,4 +1,4 @@
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function( $stateProvider, $urlRouterProvider) {
         var dir = 'templates/';
 
         var states = {
@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/debug/index.html',
+                templateUrl : '/templates/debug/index.html?v=' + window.deviceCacheKey,
                 controller: 'DebugCtrl'
             },
             test: {
@@ -17,7 +17,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/debug/test.html',
+                templateUrl : '/templates/debug/test.html?v=' + window.deviceCacheKey,
                 controller: 'TestCtrl'
             },
             memo: {
@@ -26,7 +26,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/debug/memo.html',
+                templateUrl : '/templates/debug/memo.html?v=' + window.deviceCacheKey,
                 controller: 'TestCtrl'
             }
         };

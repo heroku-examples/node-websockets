@@ -1,4 +1,4 @@
-app.config(function($stateProvider, $urlRouterProvider ) {
+app.config(function( $stateProvider, $urlRouterProvider ) {
 
 
         var dir = 'templates/';
@@ -10,7 +10,7 @@ app.config(function($stateProvider, $urlRouterProvider ) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/index/index.html',
+                templateUrl : '/templates/index/index.html?v=' + window.deviceCacheKey,
                 controller: 'ApiCtrl'
             },
             friend: {
@@ -19,7 +19,7 @@ app.config(function($stateProvider, $urlRouterProvider ) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/friend/friend.html',
+                templateUrl : '/templates/friend/friend.html?v=' + window.deviceCacheKey,
                 controller: 'FriendCtrl'
             }
         };
