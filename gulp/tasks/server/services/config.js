@@ -9,7 +9,6 @@ module.exports = {
                 if (record) {
                     resolve(record.values); // errがなければ成功とみなしresolveを呼び出す
                 } else if (err) {
-                  console.log(err)
                     reject(err); // errがあればrejectを呼び出す
                 }
             });

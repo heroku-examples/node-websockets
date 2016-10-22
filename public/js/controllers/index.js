@@ -189,8 +189,15 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             Error.openMessage(data, status);
         });
     };
-    $scope.users = User.query();
-    getUsers();
+
+    var init = function(){
+            $scope.users = $window.users.docs.reverse();
+            setPager($window.users);
+            if(!$scope.infiniteItems) setInfiniteitems();
+            Loading.finish();
+    }
+
+    init();
 
     $scope.openUserInfo = function(index) {
         $scope.isModalOpen = true;

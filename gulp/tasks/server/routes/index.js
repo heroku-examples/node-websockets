@@ -1,20 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-var setConfig = function(req, res, next){
-    var Config = require('./../services/config');
-    Config.get('deviceCacheKey').then(function(records) {
-        res.locals.deviceCacheKey = records.number;
-        next();
-    }, function(error) {
-        console.log("Rejected:", error.message);
-    });
+var setView = function(req, res, next){
+
 };
 
 router.use(function(req, res, next) {
     // トークンとエントリ済みがセッションに保存されていた場合のみアクセス可能
     if (req.session.token && !req.session.isEntry) {
-        setConfig(req, res, next);
+        next();
     } else {
         //Return a response immediately
         res.redirect("../main/redirect");
@@ -24,10 +18,23 @@ router.use(function(req, res, next) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', {
-        message: 'index',
-        session: req.session
+    var Config = require('./../services/config');
+    Config.get('deviceCacheKey').then(function(records) {
+        res.locals.deviceCacheKey = records.number;
+        var User = require('./../services/user');
+        User.getList(req).then(function(records) {
+            res.render('index', {
+                users: records,
+                message: 'index',
+                session: req.session
+            });
+        }, function(error) {
+            console.log("Rejected:", error.message);
+        });
+    }, function(error) {
+        console.log("Rejected:", error.message);
     });
+
 });
 
 module.exports = router;
