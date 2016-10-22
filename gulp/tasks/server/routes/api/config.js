@@ -43,7 +43,7 @@ router.route('/config')
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else if (config) {
-                res.status(resCodes.CONFLICT.code).json(config);
+                res.status(resCodes.FOUND.code).json(config);
             } else {
                 // 新しいコンフィグのモデルを作成する．
                 var _config = new Config();

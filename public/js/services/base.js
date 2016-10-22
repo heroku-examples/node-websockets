@@ -65,7 +65,7 @@ app.factory('Json', function($http, $q, $localStorage) {
     .factory('Toast', function($mdToast) {
         var _this = {};
         _this.show = function(text) {
-            $mdToast.show($mdToast.simple().content(text).position('bottom'));
+            $mdToast.show($mdToast.simple().content(text).position('top'));
         };
         return _this;
     });

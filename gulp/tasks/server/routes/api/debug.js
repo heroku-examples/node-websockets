@@ -44,7 +44,7 @@ router.route('/debug')
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else if (debug) {
-                res.status(resCodes.CONFLICT.code).json(debug);
+                res.status(resCodes.FOUND.code).json(debug);
             } else {
                 // 新しいデバッグのモデルを作成する．
                 var _debug = new Debug();

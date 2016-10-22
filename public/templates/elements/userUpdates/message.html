@@ -1,0 +1,23 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <form name="myForm" flex>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Message</label>
+                <textarea name="message" ng-model="tab.values.message" required md-minlength="tab.params.message.min" md-maxlength="tab.params.message.max"></textarea>
+            </md-input-container>
+            <div ng-messages="userForm.message.$error" ng-show="userForm.message.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-minlength">That's too short!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+            </div>
+        </form>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!myForm.message.$valid" ng-click="finish()">Action 1</md-button>
+    </md-card-actions>
+</md-card>

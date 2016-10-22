@@ -168,15 +168,16 @@ router.route('/users')
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
                 // ユーザの各カラムの情報を更新する．
-                user.firstName = req.body.firstName;
-                user.lastName = req.body.lastName;
-                user.age = req.body.age;
-                user.prefectureId = req.body.prefectureId;
-                user.cityId = req.body.cityId;
-                user.sexType = req.body.sexType;
-                user.avatarId = req.body.avatarId;
-                user.photoURL = req.body.photoURL;
-                user.isEntry = false;
+                if(req.body.firstName) user.firstName = req.body.firstName;
+                if(req.body.lastName) user.lastName = req.body.lastName;
+                if(req.body.age) user.age = req.body.age;
+                if(req.body.prefectureId) user.prefectureId = req.body.prefectureId;
+                if(req.body.cityId) user.cityId = req.body.cityId;
+                if(req.body.sexType) user.sexType = req.body.sexType;
+                if(req.body.avatarId) user.avatarId = req.body.avatarId;
+                if(req.body.photoURL) user.photoURL = req.body.photoURL;
+                if(req.body.message) user.message = req.body.message;
+                if(req.body.isEntry) user.isEntry = false;
 
                 user.save(function(err) {
                     if (err) {
