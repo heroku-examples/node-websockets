@@ -13,7 +13,13 @@ app.controller('DebugCtrl', function($scope,
             templateUrl : '/templates/debug/modals/config.html',
             controllerName : 'ConfigModalCtrl',
             size : 'large'
-        }
+        },
+        debug : {
+            templateUrl : '/templates/debug/modals/debug.html',
+            controllerName : 'DebugModalCtrl',
+            size : 'large'
+        },
+
     };
 
     $scope.openModal = function(modalName){

@@ -1,7 +1,7 @@
 <md-content flex md-scroll-y>
     <loading></loading>
     <md-content layout="row" layout-wrap layout-align="left center">
-    <md-button class="md-warn md-raised full" ng-click="openModal('config')">openModal</md-button>
+    <md-button ng-repeat="(modalName ,modal) in modals" class="md-warn md-raised full" ng-click="openModal(modalName)">{{modalName}}</md-button>
     <md-button class="md-warn md-raised full" ng-click="deleteProfile()">deleteProfile</md-button>
     <md-button class="md-warn md-raised full" ng-click="syncProfile()">syncProfile</md-button>
     <md-button class="md-warn md-raised full" ng-click="deleteLocation()">deleteLocation</md-button>

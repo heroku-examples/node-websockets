@@ -90,3 +90,27 @@ app.factory('Config', function($resource) {
         }
     });
 });
+
+app.factory('Debug', function($resource) {
+    return $resource('/api/debugs', {}, {
+        get: {
+            method: 'GET',
+            isArray: false
+        },
+        find: {
+            method: 'GET',
+            isArray: false
+        },
+        create: {
+            method: 'POST'
+        },
+        update: {
+            method: 'PUT',
+            isArray: false
+        },
+        delete: {
+            method: 'DELETE',
+            isArray: false
+        }
+    });
+});

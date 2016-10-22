@@ -1,5 +1,14 @@
-function ModalCtrl($scope, $mdDialog, locals, Login) {
+function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
     $scope.locals = locals;
+    $scope.setPager = function(result) {
+        $scope.pager = {
+            length: result.docs.length,
+            limit: result.limit,
+            page: result.page,
+            pages: result.pages,
+            total: result.total,
+        };
+    };
     $scope.hide = function() {
         $mdDialog.hide();
     };
