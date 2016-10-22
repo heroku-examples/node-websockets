@@ -1,4 +1,4 @@
-function DialogController($scope, $filter, $mdDialog, locals, $translate) {
+function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translate) {
 
     var setUser = function() {
         $scope.targetUserCondition = {};
@@ -49,7 +49,7 @@ function DialogController($scope, $filter, $mdDialog, locals, $translate) {
     $scope.upperValue = 100;
 }
 
-function UserInfoController($scope, $filter, $mdDialog, locals, $translate) {
+function UserInfoDialogController($scope, $filter, $mdDialog, locals, $translate) {
     $scope.user = locals.user;
     $scope.hide = function() {
         $mdDialog.hide();
@@ -195,7 +195,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     $scope.openUserInfo = function(index) {
         $scope.isModalOpen = true;
         $mdDialog.show({
-            controller: UserInfoController,
+            controller: UserInfoDialogController,
             templateUrl: '/templates/modal/userInfo.html',
             targetEvent: '#bottom',
             clickOutsideToClose: true,
@@ -225,7 +225,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     $scope.openSearch = function(ev) {
         $scope.isModalOpen = true;
         $mdDialog.show({
-            controller: DialogController,
+            controller: UserSerchDialogController,
             templateUrl: '/templates/modal/userSerch.html',
             targetEvent: '#bottom',
             clickOutsideToClose: true,

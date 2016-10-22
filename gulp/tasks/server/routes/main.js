@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
     // トークンとエントリ済みがセッションに保存されていた場合のみアクセス可能
-    if (req.url == "/redirect") {
+    if (req.url == "/redirect" || req.url == "/") {
         next();
     } else if (req.session.token && !req.session.isEntry) {
         next();

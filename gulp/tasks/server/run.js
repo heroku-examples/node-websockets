@@ -2,12 +2,12 @@ console.log('sever start');
 var app = require('express')();
 var session = require('express-session');
 app.use(session({
-  secret: 'anal fuck',
-  resave: false,
-  saveUninitialized: true
+    secret: 'anal fuck',
+    resave: false,
+    saveUninitialized: true
 }));
 
-Object.assign = require('object-assign')
+Object.assign = require('object-assign');
 
 var socket = require('./routes/socket');
 app = socket.set(app);
@@ -27,8 +27,9 @@ var files = require('./routes/api/files');
 var say = require('./routes/api/say');
 var chat = require('./routes/api/chat');
 var privateChat = require('./routes/api/private_chat');
+var siteConfig = require('./routes/api/config');
 
-var path = require ('path');
+var path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -47,16 +48,18 @@ app.use('/api', files);
 app.use('/api', say);
 app.use('/api', chat);
 app.use('/api', privateChat);
-
-
-
-
+app.use('/api', siteConfig);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    if (req.url == "/"){
+        res.redirect("../main/redirect");
+} else {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+}
+
 });
 
 // error handlers
@@ -64,28 +67,28 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 app.set('port', process.env.PORT || 3000);
 
-socket.getServer().listen(app.get('port'), function () {
+socket.getServer().listen(app.get('port'), function() {
     console.log('Express socket server (server side) listening on port ' + app.get('port'));
 });
 

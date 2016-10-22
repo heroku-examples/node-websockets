@@ -1,7 +1,15 @@
 app
-    .factory('Error', function(Toast, Modal) {
+    .factory('Error', function($filter, Toast, Modal) {
         var _this = {
             codes: {
+                "-1": {
+                    "status": "-1",
+                    "message": "Unauthorized",
+                    "key": "UNAUTHORIZED",
+                    "description": "\"indicates that the request has not been applied because it lacks valid authentication credentials for the target resource.\"",
+                    "spec_title": "RFC7235#6.3.1",
+                    "spec_href": "https://tools.ietf.org/html/rfc7235#section-3.1"
+                },
                 "199": {
                     "status": "199",
                     "message": "**Informational**",
@@ -538,6 +546,8 @@ app
             var codeInfo = {};
             if (_this.codes[status]) {
                 codeInfo = _this.codes[status];
+            }else if (error.status && _this.codes[error.status]){
+                codeInfo = _this.codes[error.status];
             }
 
             var UNAUTHORIZED = _this.searchErrorByKey("UNAUTHORIZED");
