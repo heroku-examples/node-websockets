@@ -916,3 +916,7 @@ md-bottom-sheet .md-subheader {
 md-sidenav md-list-item > p{
     color: white;
 }
+
+.zoom-10 {
+    zoom: 10;
+}
