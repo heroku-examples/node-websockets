@@ -67,13 +67,21 @@ app.factory('SyncLangJa', function($resource) {
     });
 });
 
-app.factory('Config', function($resource) {
+app.factory('Configs', function($resource) {
     return $resource('/api/configs', {}, {
         get: {
             method: 'GET',
             isArray: false
         },
-        find: {
+        create: {
+            method: 'POST'
+        }
+    });
+});
+
+app.factory('Config', function($resource) {
+    return $resource('/api/config', {}, {
+        get: {
             method: 'GET',
             isArray: false
         },
@@ -91,13 +99,21 @@ app.factory('Config', function($resource) {
     });
 });
 
-app.factory('Debug', function($resource) {
+app.factory('Debugs', function($resource) {
     return $resource('/api/debugs', {}, {
         get: {
             method: 'GET',
             isArray: false
         },
-        find: {
+        create: {
+            method: 'POST'
+        }
+    });
+});
+
+app.factory('Debug', function($resource) {
+    return $resource('/api/debug', {}, {
+        get: {
             method: 'GET',
             isArray: false
         },

@@ -8,9 +8,11 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+    <md-content class="slide-up-dialog-content" flex ayout-padding style="padding-top:56px">
+        <div ng-repeat="(configKey , config) in configs">
+            <p ng-click="update(configKey , config)">{{config}}</p>
+        </div>
         {{locals}}</br>
         {{config}}</br>
-        {{configs}}</br>
     </md-content>
 </div>

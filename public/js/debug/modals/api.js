@@ -1,9 +1,9 @@
-function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, Config) {
+function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, Config, Configs) {
     $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     $scope.init = function() {
         Loading.start();
-        Config.get().$promise.then(function(result) {
+        Configs.get().$promise.then(function(result) {
             $scope.configs = result.docs.reverse();
             $scope.setPager(result);
             Loading.finish();
@@ -22,21 +22,31 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller,
             Loading.finish();
             console.log(data, status)
         });
-    }
+    };
+
+    $scope.update = function(debugKey , config) {
+        Config.update({ name: config.name , delFlag : !config.delFlag}).$promise.then(function(result) {
+            $scope.configs[debugKey].delFlag = result.result;
+            $scope.debug = result;
+            Loading.finish();
+        }).catch(function(data, status) {
+            Loading.finish();
+            console.log(data, status);
+        });
+    };
 }
 
-function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, Debug) {
+function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, Debug, Debugs) {
     $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     $scope.init = function() {
         Loading.start();
-        Debug.get().$promise.then(function(result) {
+        Debugs.get().$promise.then(function(result) {
             $scope.debugs = result.docs.reverse();
             $scope.setPager(result);
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
-            console.log(data, status)
         });
     };
 
@@ -46,7 +56,17 @@ function DebugModalCtrl($scope, $mdDialog, locals, Login, Loading, $controller, 
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
-            console.log(data, status)
         });
-    }
+    };
+
+    $scope.update = function(debugKey , debug) {
+        Debug.update({ uid: debug.uid , delFlag : !debug.delFlag}).$promise.then(function(result) {
+            $scope.debugs[debugKey].delFlag = result.result;
+            $scope.debug = result;
+            Loading.finish();
+        }).catch(function(data, status) {
+            Loading.finish();
+            console.log(data, status);
+        });
+    };
 }

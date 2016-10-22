@@ -39,9 +39,9 @@ router.route('/token/check')
                                 Debug.findOne({
                                     uid: decodedToken.uid
                                 }, function(err, debug) {
-console.log('debug', debug)
                                     if(debug){
                                         if(!debug.delFlag) req.session.isDebug = true;
+                                        token.isDebug = true;
                                     }else if (err){
                                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
                                     }
