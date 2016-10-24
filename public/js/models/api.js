@@ -14,7 +14,7 @@ app.factory('Token', function($resource) {
 app.factory('User', function($resource) {
     return {
         current : function(){
-            return $resource('/api/user/current_user', {}, {
+            return $resource('/api/current_user', {}, {
                 get: {
                     method: 'GET',
                     isArray: false
