@@ -79,7 +79,7 @@ router.route('/token')
                 }
             });
         }).catch(function(err) {
-            res.status(resCodes.OINTERNAL_SERVER_ERRORK.code).json( err );
+            res.status(resCodes.OINTERNAL_SERVER_ERROR.code).json( err );
         });
     }
 
