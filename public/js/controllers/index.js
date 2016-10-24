@@ -130,7 +130,6 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             return 5;
         } else if ($mdMedia('lg')) {
             return 10;
-
         }
     };
 

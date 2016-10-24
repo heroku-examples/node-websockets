@@ -62,7 +62,7 @@ app.factory('User', function($resource) {
                 }
             });
         }
-    }
+    };
 });
 
 app.factory('FriendRequest', function($resource) {

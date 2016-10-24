@@ -87,7 +87,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         var template = _this.getTemplateFunc('large');
         $mdDialog.show({
             controller: ModalCtrl,
-            templateUrl: templateUrl ? templateUrl : _this.errorTemplateUrl,
+            templateUrl: templateUrl ? templateUrl : _this.templates.errorTemplateUrl,
             clickOutsideToClose: true,
             locals: {
                 error: error,

@@ -1,4 +1,4 @@
-app.controller('FriendCtrl', function($scope, $filter, $sessionStorage, Json, Loading, Toast, Login, File, FriendRequest, Error) {
+app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Error, Loading, FriendRequest) {
     var setPager = function(result) {
         $scope.pager = {
             length: result.docs.length,
@@ -50,9 +50,21 @@ app.controller('FriendCtrl', function($scope, $filter, $sessionStorage, Json, Lo
         };
     };
 
+    var getMediaCount = function() {
+        if ($mdMedia('xs')) {
+            return 2;
+        } else if ($mdMedia('sm')) {
+            return 4;
+        } else if ($mdMedia('md')) {
+            return 5;
+        } else if ($mdMedia('lg')) {
+            return 10;
+        }
+    };
+
     var getRequests = function() {
         Loading.start();
-        FriendRequest.root.get().$promise.then(function(result) {
+        FriendRequest.root().get().$promise.then(function(result) {
             $scope.requests = result.docs.reverse();
             setPager(result);
             if (!$scope.infiniteItems) setInfiniteitems();

@@ -33,6 +33,7 @@ var privateChat = require('./routes/api/private_chat');
 var friendRequest = require('./routes/api/friend_request');
 var config = require('./routes/api/config');
 var debug = require('./routes/api/debug');
+var resCodes = require('./json/http/http_code_names.json');
 
 var path = require('path');
 
@@ -75,22 +76,28 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+        if (req.xhr) {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
+        } else {
+            res.render('error', {
+                message: err.message,
+                error: err
+            });
+        }
     });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+        if (req.xhr) {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
+        } else {
+            res.render('error', {
+                message: err.message,
+                error: err
+            });
+        }
 });
 
 app.set('port', process.env.PORT || 3000);

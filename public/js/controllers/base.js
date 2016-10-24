@@ -10,11 +10,15 @@ app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBot
             title: 'Main',
             icon: 'dashboard'
         }, {
+            link: '/index#/friend',
+            title: 'Friend',
+            icon: 'group'
+        }, {
             link: '/main#/userUpdate',
             title: 'User Update',
             icon: 'group'
         }, {
-            link: '/index',
+            link: '/index#/',
             title: 'Index',
             icon: 'group'
         }, {

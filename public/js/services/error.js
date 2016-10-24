@@ -5,7 +5,7 @@ app
                 "-1": {
                     "status": "-1",
                     "message": "Unauthorized",
-                    "key": "UNAUTHORIZED",
+                    "key": "UNAUTHORIZED_1",
                     "description": "\"indicates that the request has not been applied because it lacks valid authentication credentials for the target resource.\"",
                     "spec_title": "RFC7235#6.3.1",
                     "spec_href": "https://tools.ietf.org/html/rfc7235#section-3.1"
@@ -181,7 +181,7 @@ app
                 "401": {
                     "status": "401",
                     "message": "Unauthorized",
-                    "key": "UNAUTHORIZED",
+                    "key": "UNAUTHORIZED_2",
                     "description": "\"indicates that the request has not been applied because it lacks valid authentication credentials for the target resource.\"",
                     "spec_title": "RFC7235#6.3.1",
                     "spec_href": "https://tools.ietf.org/html/rfc7235#section-3.1"
@@ -550,12 +550,13 @@ app
                 codeInfo = _this.codes[error.status];
             }
 
-            var UNAUTHORIZED = _this.searchErrorByKey("UNAUTHORIZED");
+            var UNAUTHORIZED_1 = _this.searchErrorByKey("UNAUTHORIZED_2");
+            var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED");
             var BAD_REQUEST = _this.searchErrorByKey("BAD_REQUEST");
             var templateUrl = "";
-            if (error.status == UNAUTHORIZED.code || error.status == UNAUTHORIZED.code) {
+            if (error.status == UNAUTHORIZED.code || error.status == UNAUTHORIZED_1.code || error.status == UNAUTHORIZED_2.code) {
                 templateUrl = _this.unauthorizedTemplateUrl;
-                error = UNAUTHORIZED;
+                error = UNAUTHORIZED_1;
             }
 
             Modal.error(error, status, codeInfo, templateUrl);
