@@ -2,7 +2,7 @@ module.exports = {
     getModel: function() {
         return require('../models/user');
     },
-    getList: function(req) {
+    getRecommends: function(req) {
        var  pageConfig  = {
             page: 1,
             limit: 50
@@ -13,7 +13,7 @@ module.exports = {
             var limit = req.query.limit ? req.query.limit : pageConfig.limit;
             User.paginate({}, { page: page, limit: limit }, function(err, result) {
                 if (err) {
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                   reject(err);
                 } else {
                     resolve(result);
                 }
@@ -27,9 +27,25 @@ module.exports = {
                 uid: uid
             }, function(err, user) {
                 if (err) {
-                    resolve(err);
+                    reject(err);
                 } else if (user) {
                     resolve(user);
+                } else {
+                    resolve(false);
+                }
+            });
+        });
+    },
+    getList : function(){
+        return new Promise(function(uidList, resolve, reject) {
+            var User = this.getModel();
+            User.find({
+                uid: { "$in" : uids}
+            }, function(err, users) {
+                if (err) {
+                    reject(err);
+                } else if (users) {
+                    resolve(users);
                 } else {
                     resolve(false);
                 }
