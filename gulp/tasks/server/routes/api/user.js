@@ -45,7 +45,6 @@ router.route('/current_user')
     })
     // ユーザの作成 (POST http://localhost:3000/api/users)
     .post(function(req, res) {
-        console.log(req.session)
         if (!req.session.token) {
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
             return;
@@ -123,7 +122,7 @@ router.route('/current_user')
         });
     });
 
-router.route('/current_user/token/:uid')
+router.route('/current_user/token')
     // ユーザの作成 (POST http://localhost:3000/api/users)
     .get(function(req, res) {
 
@@ -150,7 +149,7 @@ router.route('/user')
                 res.status(resCodes.OK.code).json(user);
             }
         });
-    })
+    });
 
 router.route('/users')
     // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
