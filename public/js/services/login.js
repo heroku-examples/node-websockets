@@ -1,5 +1,5 @@
 app
-    .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Loading, Link, User, CurrentUser, Token, Json) {
+    .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Loading, Link, User, Token, Json) {
 
         var auth = $firebaseAuth();
         var _this = { isLoading: true, user: {} };
@@ -7,7 +7,7 @@ app
         Loading.start();
 
         var getCurrentUser = function(){
-            CurrentUser.get().$promise.then(function(_user) {
+            User.current.get().$promise.then(function(_user) {
                 if (_user) {
                     _this.setUserSession(_user);
                 } else {
@@ -25,7 +25,7 @@ app
                 location.href = "main";
             } else {
                 if(!$sessionStorage.token) return;
-                User.create().$promise.then(function(_user) {
+                User.current.create().$promise.then(function(_user) {
                     if (!_user) {
                         if($state.current.name !== 'signUp' ) $state.go('signUp');
                         return;

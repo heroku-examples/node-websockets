@@ -24,92 +24,27 @@ router.use(function(req, res, next) {
     }
 });
 
-router.route('/users/sync_by_fireBase')
-    // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users_sync_by_fireBase)
-    .post(function(req, res) {
-        var ref = firebase.database().ref('users');
-        ref.once('value').then(function(snapshot) {
-            Object.keys(snapshot.val()).forEach(function(key) {
-                var user = new User(snapshot.val()[key]);
-                user.save(function(err) {
-                    if (err) {
-                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                    }
-                });
-            });
-        });
-        res.status(resCodes.OK.code).json({ success: true });
-    });
-
-router.route('/users/find')
-    // 条件指定で対象ユーザ一覧を取得 (GET http://localhost:8080/api/users/find)
-    .post(function(req, res) {
-        var page = req.query.page? req.query.page : pageConfig.page;
-        var limit = req.query.limit? req.query.limit : pageConfig.limit;
-        User.paginate(req.body, { page: page, limit: limit }, function(err, users) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else {
-                res.status(resCodes.OK.code).json(users);
-            }
-        });
-    });
-
-router.route('/users')
-    // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
+router.route('/current_user')
+    // セッションユーザの取得 (POST http://localhost:3000/api/user)
     .get(function(req, res) {
-        var page = req.query.page? req.query.page : pageConfig.page;
-        var limit = req.query.limit? req.query.limit : pageConfig.limit;
-        User.paginate({}, { page: page, limit: limit }, function(err, result) {
+        if (!req.session.token) {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
+            return;
+        }
+        User.findOne({
+            uid: req.session.token.uid
+        }, function(err, user) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else if (user) {
+                res.status(resCodes.OK.code).json(user);
             } else {
-                res.status(resCodes.OK.code).json(result);
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             }
         });
     });
-
-router.route('/users/get-token/:uid')
-
-// ユーザの作成 (POST http://localhost:3000/api/users)
-.post(function(req, res) {
-
-    // find the user starlord55
-    // update him to starlord 88
-    var randtoken = require('rand-token');
-    User.findOneAndUpdate({ uid: req.params.uid }, { token: randtoken.generate(16) }, function(err, user) {
-        if (err)
-            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-        res.status(resCodes.OK.code).json(user);
-    });
-});
-
-router.route('/user')
-
-// セッションユーザの取得 (POST http://localhost:3000/api/users)
-.post(function(req, res) {
-    console.log('session', req.session)
-    if (!req.session.token) {
-        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
-        return;
-    }
-    User.findOne({
-        uid: req.session.token.uid
-    }, function(err, user) {
-        if (err) {
-            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-        } else if (user) {
-            res.status(resCodes.OK.code).json(user);
-        } else {
-            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-        }
-    });
-});
-
-router.route('/users')
-
-// ユーザの作成 (POST http://localhost:3000/api/users)
-.post(function(req, res) {
+    // ユーザの作成 (POST http://localhost:3000/api/users)
+    .post(function(req, res) {
         console.log(req.session)
         if (!req.session.token) {
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json({ message: 'error' });
@@ -142,25 +77,9 @@ router.route('/users')
                 // });
             }
         });
-
-
-    })
-    // 1人のユーザの情報を取得 (GET http://localhost:8000/api/users/:user_id)
-    .get(function(req, res) {
-        //user_idが一致するデータを探す．
-        User.find({
-            uid: req.params.uid
-        }, function(err, user) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else {
-                res.status(resCodes.OK.code).json(user);
-            }
-        });
     })
     // 1人のユーザの情報を更新 (PUT http://localhost:8000/api/users/:user_id)
     .put(function(req, res) {
-        console.log("req.session.token", req.session.token)
         User.findOne({
             uid: req.session.token.uid
         }, function(err, user) {
@@ -189,21 +108,77 @@ router.route('/users')
             }
         });
     })
-
-// 1人のユーザの情報を削除 (DELETE http://localhost:8000/api/users/:uid)
-.delete(function(req, res) {
-    User.remove({
-        uid: req.params.uid
-    }, function(err, user) {
-        if (err) {
-            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-        } else {
-            res.status(resCodes.OK.code).json({
-                message: 'Successfully deleted!'
-            });
-        }
+    // 1人のユーザの情報を削除 (DELETE http://localhost:8000/api/users/:uid)
+    .delete(function(req, res) {
+        User.remove({
+            uid: req.params.uid
+        }, function(err, user) {
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else {
+                res.status(resCodes.OK.code).json({
+                    message: 'Successfully deleted!'
+                });
+            }
+        });
     });
-});
+
+router.route('/current_user/token/:uid')
+    // ユーザの作成 (POST http://localhost:3000/api/users)
+    .get(function(req, res) {
+
+        // find the user starlord55
+        // update him to starlord 88
+        var randtoken = require('rand-token');
+        User.findOneAndUpdate({ uid: req.params.uid }, { token: randtoken.generate(16) }, function(err, user) {
+            if (err)
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            res.status(resCodes.OK.code).json(user);
+        });
+    });
+
+router.route('/user')
+    // 1人のユーザの情報を取得 (GET http://localhost:8000/api/users/:user_id)
+    .get(function(req, res) {
+        //user_idが一致するデータを探す．
+        User.find({
+            uid: req.params.uid
+        }, function(err, user) {
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else {
+                res.status(resCodes.OK.code).json(user);
+            }
+        });
+    })
+
+router.route('/users')
+    // 全てのユーザ一覧を取得 (GET http://localhost:8080/api/users)
+    .get(function(req, res) {
+        var page = req.query.page? req.query.page : pageConfig.page;
+        var limit = req.query.limit? req.query.limit : pageConfig.limit;
+        User.paginate({}, { page: page, limit: limit }, function(err, result) {
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else {
+                res.status(resCodes.OK.code).json(result);
+            }
+        });
+    });
+    // 条件指定で対象ユーザ一覧を取得 (GET http://localhost:8080/api/users/find)
+    .post(function(req, res) {
+        var page = req.query.page? req.query.page : pageConfig.page;
+        var limit = req.query.limit? req.query.limit : pageConfig.limit;
+        User.paginate(req.body, { page: page, limit: limit }, function(err, users) {
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else {
+                res.status(resCodes.OK.code).json(users);
+            }
+        });
+    });
+
+router.route('/users/sync_by_fireBase')
 
 // ルーティング登録
 module.exports = router;

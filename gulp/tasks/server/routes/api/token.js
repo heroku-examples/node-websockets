@@ -7,7 +7,7 @@ var Debug = require('../../models/debug');
 
 var resCodes = require('../.././json/http/http_code_names.json');
 
-router.route('/token/check')
+router.route('/token')
 
 // 作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {

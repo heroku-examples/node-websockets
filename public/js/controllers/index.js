@@ -62,7 +62,7 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, $translate
     };
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, UserFind, Json, Error, Loading) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Error, Loading) {
 
     var _profiles;
     Json.get('profile').then(function(profiles) {
@@ -178,7 +178,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
     var getUsers = function() {
         Loading.start();
-        User.get().$promise.then(function(result) {
+        User.all.get().$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
             if(!$scope.infiniteItems) setInfiniteitems();
@@ -294,7 +294,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     };
 
     $scope.findUser = function(uid) {
-        User.find({ uid: uid }).$promise.then(function(users) {
+        User.root.find({ uid: uid }).$promise.then(function(users) {
             $scope.users = users.reverse();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -304,7 +304,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
     $scope.searchUser = function(conditions) {
         Loading.start();
-        UserFind.find(conditions).$promise.then(function(result) {
+        User.all.find(conditions).$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
             Loading.finish();
@@ -315,7 +315,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     };
     $scope.deleteUser = function(uid) {
         Loading.start();
-        User.$delete({ uid: uid }).then(function(users) {
+        User.current.$delete({ uid: uid }).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
