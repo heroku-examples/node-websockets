@@ -19,7 +19,7 @@ app.config(function( $stateProvider, $urlRouterProvider ) {
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/friend/friend.html?v=' + window.deviceCacheKey,
+                templateUrl : '/templates/index/friend.html?v=' + window.deviceCacheKey,
                 controller: 'FriendCtrl'
             }
         };

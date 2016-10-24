@@ -189,11 +189,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     };
 
     var init = function(){
-            Loading.start();
-            $scope.users = $window.users.docs.reverse();
-            setPager($window.users);
-            if(!$scope.infiniteItems) setInfiniteitems();
-
+        Loading.start();
+        $scope.users = $window.users.docs.reverse();
+        setPager($window.users);
+        if(!$scope.infiniteItems) setInfiniteitems();
     }
 
     init();
