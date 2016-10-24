@@ -14,7 +14,7 @@ app.factory('Token', function($resource) {
 app.factory('User', function($resource) {
     return {
         current : function(){
-            return $resource('/api/current_user', {}, {
+            return $resource('/api/user/current_user', {}, {
                 get: {
                     method: 'GET',
                     isArray: false
@@ -33,7 +33,7 @@ app.factory('User', function($resource) {
             });
         },
         token : function(){
-            return $resource('/api/token', {}, {
+            return $resource('/api/current_user/token', {}, {
                 get: {
                     method: 'GET',
                     isArray: false
