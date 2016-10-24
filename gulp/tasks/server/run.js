@@ -30,6 +30,7 @@ var files = require('./routes/api/files');
 var say = require('./routes/api/say');
 var chat = require('./routes/api/chat');
 var privateChat = require('./routes/api/private_chat');
+var friendRequest = require('./routes/api/friend_request');
 var config = require('./routes/api/config');
 var debug = require('./routes/api/debug');
 
@@ -52,8 +53,10 @@ app.use('/api', files);
 app.use('/api', say);
 app.use('/api', chat);
 app.use('/api', privateChat);
+app.use('/api', friendRequest);
 app.use('/api', config);
 app.use('/api', debug);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

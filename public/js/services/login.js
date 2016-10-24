@@ -7,7 +7,7 @@ app
         Loading.start();
 
         var getCurrentUser = function(){
-            User.current.get().$promise.then(function(_user) {
+            User.current().get().$promise.then(function(_user) {
                 if (_user) {
                     _this.setUserSession(_user);
                 } else {
@@ -25,7 +25,7 @@ app
                 location.href = "main";
             } else {
                 if(!$sessionStorage.token) return;
-                User.current.create().$promise.then(function(_user) {
+                User.current().create().$promise.then(function(_user) {
                     if (!_user) {
                         if($state.current.name !== 'signUp' ) $state.go('signUp');
                         return;

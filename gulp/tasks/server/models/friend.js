@@ -29,4 +29,4 @@ FriendSchema.pre('save', function(next) {
 
 
 
-module.exports = mongoose.model('FriendRequest', FriendSchema);
+module.exports = mongoose.model('Friend', FriendSchema);

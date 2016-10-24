@@ -42,7 +42,7 @@ router.route('/current_user')
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             }
         });
-    });
+    })
     // ユーザの作成 (POST http://localhost:3000/api/users)
     .post(function(req, res) {
         console.log(req.session)
@@ -164,7 +164,7 @@ router.route('/users')
                 res.status(resCodes.OK.code).json(result);
             }
         });
-    });
+    })
     // 条件指定で対象ユーザ一覧を取得 (GET http://localhost:8080/api/users/find)
     .post(function(req, res) {
         var page = req.query.page? req.query.page : pageConfig.page;

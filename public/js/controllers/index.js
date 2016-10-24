@@ -178,7 +178,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
     var getUsers = function() {
         Loading.start();
-        User.all.get().$promise.then(function(result) {
+        User.all().get().$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
             if(!$scope.infiniteItems) setInfiniteitems();
@@ -293,7 +293,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     };
 
     $scope.findUser = function(uid) {
-        User.root.find({ uid: uid }).$promise.then(function(users) {
+        User.root().find({ uid: uid }).$promise.then(function(users) {
             $scope.users = users.reverse();
             console.log($scope.users);
         }).catch(function(data, status) {
@@ -303,7 +303,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
     $scope.searchUser = function(conditions) {
         Loading.start();
-        User.all.find(conditions).$promise.then(function(result) {
+        User.all().find(conditions).$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
             Loading.finish();
@@ -314,7 +314,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
     };
     $scope.deleteUser = function(uid) {
         Loading.start();
-        User.current.$delete({ uid: uid }).then(function(users) {
+        User.current().$delete({ uid: uid }).then(function(users) {
             getUsers();
             console.log($scope.users);
         }).catch(function(data, status) {
