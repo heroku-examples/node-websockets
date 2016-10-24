@@ -550,11 +550,12 @@ app
                 codeInfo = _this.codes[error.status];
             }
 
-            var UNAUTHORIZED_1 = _this.searchErrorByKey("UNAUTHORIZED_2");
-            var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED");
             var BAD_REQUEST = _this.searchErrorByKey("BAD_REQUEST");
+            var UNAUTHORIZED_1 = _this.searchErrorByKey("UNAUTHORIZED_1");
+            var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED_2");
+
             var templateUrl = "";
-            if (error.status == UNAUTHORIZED.code || error.status == UNAUTHORIZED_1.code || error.status == UNAUTHORIZED_2.code) {
+            if (error.status == BAD_REQUEST.code || error.status == UNAUTHORIZED_1.code || error.status == UNAUTHORIZED_2.code) {
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED_1;
             }
