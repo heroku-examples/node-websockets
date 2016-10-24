@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
         //     console.log("Rejected:", error.message);
         // });
     }, function(error) {
-        console.log("Rejected:", error.message);
+        console.log("Rejected:", error);
     });
 
 });

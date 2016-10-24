@@ -7,7 +7,7 @@ var setConfig = function(req, res, next){
         res.locals.deviceCacheKey = records.number;
         next();
     }, function(error) {
-        console.log("Rejected:", error.message);
+        console.log("Rejected:", error);
     });
 };
 
@@ -22,7 +22,7 @@ router.use(function(req, res, next) {
     Config.get('deviceCacheKey').then(function(records) {
         res.locals.deviceCacheKey = records.number;
     }, function(error) {
-        console.log("Rejected:", error.message);
+        console.log("Rejected:", error);
     });
 });
 

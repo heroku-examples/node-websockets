@@ -7,7 +7,7 @@ var setConfig = function(req, res, next){
         res.locals.deviceCacheKey = records.number;
         next();
     }, function(error) {
-        console.log("Rejected:", error.message);
+        console.log("Rejected:", error);
     });
 };
 
