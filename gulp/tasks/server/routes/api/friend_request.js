@@ -27,30 +27,25 @@ router.use(function(req, res, next) {
     }
 });
 
-router.route('/friend_request')
-    // 一つのフレンドリクエストの情報を取得 (GET http://localhost:8000/api/friend_requests/:friend_request_id)
-    .get(function(req, res) {
-        var page = req.query.page ? req.query.page : pageConfig.page;
-        var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-        FriendRequest.paginate({ uid: req.session.token.uid }, { page: page, limit: limit }, function(err, result) {
+router.route('/friend_request/:targetUid')
+    // セッションユーザの取得 (POST http://localhost:3000/api/user)
+    .get(function(req, res){
+        FriendRequest.findOne({
+            uid: req.params.targetUid,
+            fromUid: req.session.token.uid
+        }, function(err, friend_request) {
+            console.log(err, friend_request)
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else if (friend_request) {
+                res.status(resCodes.OK.code).json(friend_request);
             } else {
-                if(result.docs.length){
-                    var uids = _.map(result.docs, function(user){ return user.uid; });
-                    UserSearvice.getList(uids).then(function(records) {
-                        res.status(resCodes.OK.code).json(result);
-                    }, function(error) {
-                        console.log("Rejected:", error.message);
-                    });
-                }else{
-                    res.status(resCodes.OK.code).json(result);
-                }
+                res.status(resCodes.OK.code).json({});
             }
         });
     })
 
-    // フレンドリクエストの作成 (POST http://localhost:3000/api/friend_requests)
+    // フレンドリクエストの作成 (POST http://localhost:3000/api/friend_request)
     .post(function(req, res) {
         UserSearvice.get(req.body.targetUid).then(function(user) {
             if (user) {
@@ -67,8 +62,8 @@ router.route('/friend_request')
                         var _friend_request = new FriendRequest();
 
                         // フレンドリクエストの各カラムの情報を取得する
-                        req.session.token = {};
-                        _friend_request.uid = req.body.uid;
+                        _friend_request.uid = req.body.targetUid;
+                        _friend_request.fromUid = req.session.token.uid;
                         _friend_request.save(function(err) {
                                 if (err) {
                                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
@@ -89,7 +84,7 @@ router.route('/friend_request')
         });
     })
 
-    // 一つのフレンドリクエストの情報を更新 (PUT http://localhost:8000/api/friend_requests/:friend_request_id)
+    // 一つのフレンドリクエストの情報を更新 (PUT http://localhost:8000/api/friend_request/:friend_request_id)
     .put(function(req, res) {
         FriendRequest.findOne({
             uid: req.session.token.uid,
@@ -120,7 +115,7 @@ router.route('/friend_request')
         });
     })
 
-    // 一つのフレンドリクエストの情報を削除 (DELETE http://localhost:8000/api/friend_requests/:name)
+    // 一つのフレンドリクエストの情報を削除 (DELETE http://localhost:8000/api/friend_request/:name)
     .delete(function(req, res) {
         FriendRequest.remove({
             uid: req.session.token.uid,
@@ -220,7 +215,26 @@ router.route('/friend_requests')
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
-                res.status(resCodes.OK.code).json(result);
+                if(result.docs.length){
+                    var uids = _.map(result.docs, function(friend){ return friend.uid; });
+                    UserSearvice.getList(uids).then(function(friends) {
+                        for (var i = 0; i < friends.docs.length; i++) {
+                            var friend_request = _.filter(
+                                result.docs,
+                                function(friend){
+                                    return friend.uid == friends.docs[i].friend_request.fromUid;
+                                }
+                            );
+                            friend_request = _.first(friend_request);
+                            friends.docs[i].friend_request = friend_request;
+                        }
+                        res.status(resCodes.OK.code).json(result);
+                    }, function(error) {
+                        console.log("Rejected:", error.message);
+                    });
+                }else{
+                    res.status(resCodes.OK.code).json(result);
+                }
             }
         });
     })

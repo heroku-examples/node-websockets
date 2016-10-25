@@ -49,7 +49,7 @@ function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translat
     $scope.upperValue = 100;
 }
 
-function UserInfoDialogController($scope, $filter, $mdDialog, locals, $translate) {
+function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequest, Loading ) {
     $scope.user = locals.user;
     $scope.hide = function() {
         $mdDialog.hide();
@@ -59,6 +59,26 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, $translate
     };
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
+    };
+    $scope.init = function(){
+        Loading.start();
+        FriendRequest.root().get({ targetUid :$scope.user.uid}).$promise.then(function(result) {
+            if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
+            Loading.finish();
+        }).catch(function(data, status) {
+            Loading.finish();
+            Error.openMessage(data, status);
+        });
+    };
+    $scope.friendRequest = function(){
+        Loading.start();
+        FriendRequest.root().create({ targetUid :$scope.user.uid}).$promise.then(function(result) {
+            if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
+            Loading.finish();
+        }).catch(function(data, status) {
+            Loading.finish();
+            Error.openMessage(data, status);
+        });
     };
 }
 

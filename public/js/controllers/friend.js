@@ -59,7 +59,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
 
     var getRequests = function() {
         Loading.start();
-        FriendRequest.root().get().$promise.then(function(result) {
+        FriendRequest.all().get().$promise.then(function(result) {
             $scope.requests = result.docs.reverse();
             setPager(result);
             if (!$scope.infiniteItems) setInfiniteitems();

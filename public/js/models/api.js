@@ -68,7 +68,7 @@ app.factory('User', function($resource) {
 app.factory('FriendRequest', function($resource) {
     return {
         root :function(){
-            return $resource('/api/friend_request', {}, {
+            return $resource('/api/friend_request/:targetUid', {targetUid: '@targetUid'}, {
                 get: {
                     method: 'GET',
                     isArray: false
@@ -113,6 +113,18 @@ app.factory('FriendRequest', function($resource) {
                     method: 'POST',
                     isArray: false
                 },
+            });
+        },
+        all :function(){
+            return $resource('/api/friend_requests', {}, {
+                get: {
+                    method: 'GET',
+                    isArray: false
+                },
+                find: {
+                    method: 'POST',
+                    isArray: false
+                }
             });
         }
     }

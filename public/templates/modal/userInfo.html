@@ -24,6 +24,7 @@
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
+                <p ng-if="user.requested">申請中</p>
                 <p>
                     {{user.message}}
                 </p>
@@ -33,12 +34,9 @@
     <md-toolbar>
         <div class="md-toolbar-tools">
             <div class="md-toolbar-tools">
-                        <md-button class="material-icons md-fab" ng-click="">
-                            <ng-md-icon icon="add"></ng-md-icon>
-                        </md-button>
-                        <md-button class="material-icons md-fab" ng-click="">
-                            <ng-md-icon icon="add"></ng-md-icon>
-                        </md-button>
+                <md-button ng-if="!user.requested" class="material-icons md-fab" ng-click="friendRequest()">
+                    <ng-md-icon icon="add"></ng-md-icon>
+                </md-button>
             </div>
         </div>
     </md-toolbar>
