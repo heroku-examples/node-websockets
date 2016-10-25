@@ -63,7 +63,7 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequ
     $scope.init = function(){
         Loading.start();
         FriendRequest.root().get({ targetUid :$scope.user.uid}).$promise.then(function(result) {
-            if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
+            if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();

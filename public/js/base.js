@@ -64,6 +64,9 @@ var app = angular.module('StarterApp', [
                 },
                 response: function(response) {
                     console.log('response: response', response);
+                    if(!response.data){
+                        response.data = {isEmpty : true};
+                    }
                     return response;
                 },
                 responseError: function(rejection) {

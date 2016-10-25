@@ -34,13 +34,12 @@ router.route('/friend_request/:targetUid')
             uid: req.params.targetUid,
             fromUid: req.session.token.uid
         }, function(err, friend_request) {
-            console.log(err, friend_request)
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else if (friend_request) {
                 res.status(resCodes.OK.code).json(friend_request);
             } else {
-                res.status(resCodes.OK.code).json({});
+                res.status(resCodes.OK.code).json(friend_request);
             }
         });
     })
