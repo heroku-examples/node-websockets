@@ -29,6 +29,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
                 //return $scope.pager.length;
                 var result = 1;
                 if ($scope.pager.length >= this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
+                if(  $scope.pager.length < this.mediaCount_) result = $scope.pager.length;
                 return result;
             },
             fetchMoreItems_: function(index) {
@@ -60,7 +61,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
     var getRequests = function() {
         Loading.start();
         FriendRequest.all().get().$promise.then(function(result) {
-            $scope.requests = result.docs.reverse();
+            $scope.requests = result.docs;
             setPager(result);
             if (!$scope.infiniteItems) setInfiniteitems();
         }).catch(function(data, status) {
@@ -87,5 +88,8 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
         });
     };
 
+    $scope.getMediaCount = function(){
+        return getMediaCount();
+    };
     init();
 });

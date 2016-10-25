@@ -1,5 +1,14 @@
-console.log('sever start');
 var app = require('express')();
+
+var log4js = require('log4js');
+log4js.configure(require('./json/log4js/config.json'));
+var logger = log4js.getLogger('system');
+
+
+app.use(log4js.connectLogger(logger, {level: 'auto'}));
+
+logger.info('sever start');
+
 var session = require('express-session');
 app.use(session({
     secret: 'anal fuck',
@@ -16,7 +25,7 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 
 //http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/1290__Node.js_underscore_Package.htm
-var _ = require('underscore');
+
 
 var bodyParser = require('body-parser');
 var partials = require('express-partials');

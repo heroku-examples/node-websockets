@@ -1,0 +1,17 @@
+{
+  "appenders": [
+    {
+      "type": "file",
+      "filename": "./gulp/tasks/server/log/system.log",
+      "maxLogSize": 20480,
+      "backups": 3,
+      "category": "system"
+    },
+    {
+        "type": "console"
+    }
+  ],
+  "levels": {
+      "system": "ALL"
+  }
+}

@@ -23,7 +23,7 @@ router.use(function(req, res, next) {
         next();
     } else {
         //Return a response immediately
-        res.status(resCodes.BAD_REQUEST.code).json({ message: resCodes.BAD_REQUEST.phrase });
+        res.status(resCodes.BAD_REQUEST.code).json(resCodes.BAD_REQUEST);
     }
 });
 
@@ -210,24 +210,39 @@ router.route('/friend_requests')
     .get(function(req, res) {
         var page = req.query.page ? req.query.page : pageConfig.page;
         var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-        FriendRequest.paginate({ uid: req.session.token.uid }, { page: page, limit: limit }, function(err, result) {
+        FriendRequest.paginate({ uid: req.session.token.uid }, { page: page, limit: limit }, function(err, requests) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
-                if(result.docs.length){
-                    var uids = _.map(result.docs, function(friend){ return friend.uid; });
+                if(requests.docs.length){
+                    var _ = require('underscore');
+                    var uids = _.map(requests.docs, function(friend){ return friend.uid; });
+
+                    var result = [];
                     UserSearvice.getList(uids).then(function(friends) {
-                        for (var i = 0; i < friends.docs.length; i++) {
+                        console.log('friends', friends)
+                        for (var i = 0; i < friends.length; i++) {
                             var friend_request = _.filter(
-                                result.docs,
-                                function(friend){
-                                    return friend.uid == friends.docs[i].friend_request.fromUid;
+                                requests.docs,
+                                function(request){
+                                    return friends[i].uid == request.uid;
                                 }
                             );
-                            friend_request = _.first(friend_request);
-                            friends.docs[i].friend_request = friend_request;
+
+                            result.push(
+                                {
+                                    friend_request : friend_request,
+                                    friend : friends[i]
+                                }
+                            );
                         }
-                        res.status(resCodes.OK.code).json(result);
+                        res.status(resCodes.OK.code).json({
+                            docs :result,
+                            total: requests.total,
+                            limit: requests.limit,
+                            page: requests.page,
+                            pages: requests.pages
+                        });
                     }, function(error) {
                         console.log("Rejected:", error.message);
                     });

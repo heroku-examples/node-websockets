@@ -24,6 +24,7 @@
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.5.4",
     "gulp-util": "^2.2.14",
+    "log4js": "^0.6.38",
     "mongoose": "^4.5.10",
     "mongoose-paginate": "^5.0.3",
     "node-sass": "^3.8.0",

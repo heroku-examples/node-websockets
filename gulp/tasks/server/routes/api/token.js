@@ -62,7 +62,6 @@ router.route('/token')
                             _user.uid = decodedToken.uid;
                             _user.name = "name";
                             _user.age = 0;
-                            _user.createDate = new Date();
                             _user.save(function(err) {
                                     if (err) {
                                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
