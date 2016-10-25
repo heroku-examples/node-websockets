@@ -1,12 +1,7 @@
-app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Error, Loading, FriendRequest) {
+app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Error, Pager, Loading, FriendRequest) {
+    $scope.pager = Pager.getDefault();
     var setPager = function(result) {
-        $scope.pager = {
-            length: result.docs.length,
-            limit: result.limit,
-            page: result.page,
-            pages: result.pages,
-            total: result.total,
-        };
+        $scope.pager = Pager.get(result);
     };
     var setInfiniteitems = function() {
 
@@ -78,7 +73,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
         Loading.start();
         getRequests();
         if (!$scope.infiniteItems) setInfiniteitems();
-    }
+    };
 
     init();
 });

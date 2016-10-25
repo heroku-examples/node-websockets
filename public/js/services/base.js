@@ -68,4 +68,26 @@ app.factory('Json', function($http, $q, $localStorage) {
             $mdToast.show($mdToast.simple().content(text).position('top'));
         };
         return _this;
+    })
+    .factory('Pager', function($mdToast) {
+        var _this = {};
+        _this.getDefault = function() {
+            return {
+                length: 0,
+                limit: 0,
+                page: 0,
+                pages: 0,
+                total: 0
+            };
+        };
+        _this.get = function(result) {
+            return {
+                length: result.docs.length,
+                limit: result.limit,
+                page: result.page,
+                pages: result.pages,
+                total: result.total
+            };
+        };
+        return _this;
     });

@@ -62,7 +62,7 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, $translate
     };
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Error, Loading) {
+app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
 
     var _profiles;
     Json.get('profile').then(function(profiles) {
@@ -111,14 +111,9 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         return Math.floor(Math.random() * (max - min) + min);
     };
 
+    $scope.pager = Pager.getDefault();
     var setPager = function(result) {
-        $scope.pager = {
-            length: result.docs.length,
-            limit: result.limit,
-            page: result.page,
-            pages: result.pages,
-            total: result.total,
-        };
+        $scope.pager = Pager.get(result);
     };
 
     var getMediaCount = function() {

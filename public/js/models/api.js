@@ -68,15 +68,14 @@ app.factory('User', function($resource) {
 app.factory('FriendRequest', function($resource) {
     return {
         root :function(){
-            return $resource('/api/friend_request/:uid', {
-                uid: '@uid'
-            }, {
+            return $resource('/api/friend_request', {}, {
                 get: {
                     method: 'GET',
                     isArray: false
                 }, // apiの戻り値が配列の場合は「isArray: true」を指定する
                 create: {
-                    method: 'POST'
+                    method: 'POST',
+                    isArray: false
                 },
                 update: {
                     method: 'PUT',

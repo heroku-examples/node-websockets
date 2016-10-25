@@ -51,4 +51,25 @@ var app = angular.module('StarterApp', [
         $translateProvider.preferredLanguage(findLanguage());
         lang = findLanguage();
         $translateProvider.useLocalStorage();
-    }]);
+    }]).config(function($httpProvider) {
+        $httpProvider.interceptors.push(function($q) {
+            return {
+                request: function(config) {
+                    //console.log('request: config', config);
+                    return config;
+                },
+                requestError: function(rejection) {
+                    //console.log('requestError: rejection', rejection);
+                    return $q.reject(rejection);
+                },
+                response: function(response) {
+                    console.log('response: response', response);
+                    return response;
+                },
+                responseError: function(rejection) {
+                    console.log('responseError: rejection', rejection);
+                    return $q.reject(rejection);
+                }
+            };
+        });
+    })

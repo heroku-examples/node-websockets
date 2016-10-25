@@ -29,14 +29,13 @@ router.use(function(req, res, next) {
 router.route('/friend_request')
     // 一つのフレンドリクエストの情報を取得 (GET http://localhost:8000/api/friend_requests/:friend_request_id)
     .get(function(req, res) {
-        //friend_request_idが一致するデータを探す．
-        FriendRequest.find({
-            uid: req.session.token.uid
-        }, function(err, friend_request) {
+        var page = req.query.page ? req.query.page : pageConfig.page;
+        var limit = req.query.limit ? req.query.limit : pageConfig.limit;
+        FriendRequest.paginate({ uid: req.session.token.uid }, { page: page, limit: limit }, function(err, result) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
-                res.status(resCodes.OK.code).json(friend_request);
+                res.status(resCodes.OK.code).json(result);
             }
         });
     })
