@@ -81,13 +81,18 @@ app.factory('Json', function($http, $q, $localStorage) {
             };
         };
         _this.get = function(result) {
-            return {
-                length: result.docs.length,
-                limit: result.limit,
-                page: result.page,
-                pages: result.pages,
-                total: result.total
-            };
+            if(result.isEmpty){
+                return _this.getDefault();
+            }else{
+                return {
+                    length: result.docs.length,
+                    limit: result.limit,
+                    page: result.page,
+                    pages: result.pages,
+                    total: result.total
+                };
+            }
+
         };
         return _this;
     });

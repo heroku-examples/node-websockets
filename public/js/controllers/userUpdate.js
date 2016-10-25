@@ -147,7 +147,7 @@ app.controller('UserUpdateCtrl', function($scope, $filter, $sessionStorage, Json
                 params[key] = value;
             });
         });
-        User.current.update(params).$promise.then(function(_user) {
+        User.current().update(params).$promise.then(function(_user) {
             Loading.finish();
             Login.setUserSession(_user);
             Toast.show("success");

@@ -6,7 +6,7 @@ var Schema       = mongoose.Schema;
 
 var TokenSchema   = new Schema({
     uid : { type: String, required: true, unique: true },
-    token : { type: String, required: true, unique: true },
+    token : { type: String, required: true },
     createDate: { type: Date, default: Date.now },
     updateDate: { type: Date, default: Date.now },
 });
