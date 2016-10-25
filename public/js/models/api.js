@@ -102,9 +102,7 @@ app.factory('FriendRequest', function($resource) {
             });
         },
         apply :function(){
-            return $resource('/api/friend_request/apply', {
-                fromUid: '@fromUid'
-            }, {
+            return $resource('/api/friend_request/apply/:fromUid', {fromUid: '@fromUid'}, {
                 get: {
                     method: 'GET',
                     isArray: false

@@ -6,7 +6,7 @@ app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBot
             $mdSidenav(menuId).toggle();
         };
         $scope.menu = [{
-            link: '/main',
+            link: '/main#/',
             title: 'Main',
             icon: 'dashboard'
         }, {

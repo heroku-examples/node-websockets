@@ -75,5 +75,17 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
+    $scope.applyRequest = function(fromUid){
+        Loading.start();
+        FriendRequest.apply().update({fromUid : fromUid}).$promise.then(function(result) {
+            $scope.requests = result.docs.reverse();
+            setPager(result);
+            if (!$scope.infiniteItems) setInfiniteitems();
+        }).catch(function(data, status) {
+            Loading.finish();
+            Error.openMessage(data, status);
+        });
+    };
+
     init();
 });

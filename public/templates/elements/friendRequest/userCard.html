@@ -1,0 +1,21 @@
+<md-card layout-fill class="card-box" style="position: relative;overflow: hidden">
+    <span ng-if="rangeIndex + (infiniteItemIndex * getMediaCount()) >= 0">
+        <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].isDebug" class="side-corner-tag">Debug</div>
+        <md-card-header ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]" style="padding-bottom: inherit;height: 50px;">
+            <md-card-header-text>
+                <div class="md-title ellipsis">{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</div>
+                <div class="md-subhead ellipsis">{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].age}}</div>
+            </md-card-header-text>
+            <md-button ng-click="applyRequest(requests[rangeIndex + (infiniteItemIndex * getMediaCount())].uid)" class="material-icons md-icon-button" aria-label="Open Settings">
+                <ng-md-icon icon="more_vert"></ng-md-icon>
+            </md-button>
+        </md-card-header>
+        <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]" class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
+            <img ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].photoURL" ng-src="{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].photoURL}}" class="md-card-image" />
+            <img ng-if="!requests[rangeIndex + (infiniteItemIndex * getMediaCount())].photoURL" class="md-card-image" />
+        </div>
+        <md-card-content ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]" style="height: 25px;" class="ellipsis">
+            {{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].message}}
+        </md-card-content>
+    </span>
+</md-card>
