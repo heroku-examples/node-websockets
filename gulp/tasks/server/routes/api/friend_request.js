@@ -14,7 +14,7 @@ var pageConfig = {
 router.use(function(req, res, next) {
     if (process.env.NODE_ENV != 'production') {
         next();
-    } else if (req.session.token && req.session.isFriendRequest) {
+    } else if (req.session.token) {
         next();
     } else {
         //Return a response immediately
