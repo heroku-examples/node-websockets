@@ -13,6 +13,10 @@ var pageConfig = {
 //before filter
 router.use(function(req, res, next) {
     if (process.env.NODE_ENV != 'production') {
+        if(!req.session.token){
+            req.session.token = {};
+            req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
+        }
         next();
     } else if (req.session.token) {
         next();
