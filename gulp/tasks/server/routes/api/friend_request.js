@@ -3,6 +3,7 @@ var router = express.Router();
 
 var FriendRequest = require('../../models/friend_request');
 var User = require('../../models/user');
+var UserSearvice = require('../../services/user');
 var resCodes = require('../.././json/http/http_code_names.json');
 
 var pageConfig = {
@@ -35,15 +36,23 @@ router.route('/friend_request')
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
-                res.status(resCodes.OK.code).json(result);
+                if(result.docs.length){
+                    var uids = _.map(result.docs, function(user){ return user.uid; });
+                    UserSearvice.getList(uids).then(function(records) {
+                        res.status(resCodes.OK.code).json(result);
+                    }, function(error) {
+                        console.log("Rejected:", error.message);
+                    });
+                }else{
+                    res.status(resCodes.OK.code).json(result);
+                }
             }
         });
     })
 
     // フレンドリクエストの作成 (POST http://localhost:3000/api/friend_requests)
     .post(function(req, res) {
-        var User = require('./../../services/user');
-        User.get(req.body.targetUid).then(function(user) {
+        UserSearvice.get(req.body.targetUid).then(function(user) {
             if (user) {
                 FriendRequest.findOne({
                     uid: req.body.targetUid,

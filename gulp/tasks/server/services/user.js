@@ -33,8 +33,8 @@ module.exports = {
             });
         });
     },
-    getList : function(){
-        return new Promise(function(uidList, resolve, reject) {
+    getList : function(uids){
+        return new Promise(function(resolve, reject) {
             var User = require('../models/user');
             User.find({
                 uid: { "$in" : uids}
