@@ -1,4 +1,4 @@
-app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, Toast, User, Json, Error, Pager, Loading, FriendRequest) {
+app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, Toast, User, Json, Error, Pager, Loading, FriendRequest, Modal) {
     $scope.pager = Pager.getDefault();
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
@@ -98,6 +98,10 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
             Error.openMessage(data, status);
         });
     };
+
+    $scope.openChatModal = function(friendInfo){
+        Modal.open( 'ChatCtrl', "/templates/modal/chat.html?v="  + window.deviceCacheKey , friendInfo);
+    }
 
     $scope.getMediaCount = function(){
         return getMediaCount();

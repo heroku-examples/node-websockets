@@ -22,18 +22,20 @@ app.config(function( $stateProvider, $urlRouterProvider ) {
                 templateUrl : '/templates/index/friend.html?v=' + window.deviceCacheKey,
                 controller: 'FriendCtrl'
             },
-            chat: {
+            setting: {
                 // templateProvider: function($templateCache) {
                 //     // simplified, expecting that the cache is filled
                 //     // there should be some checking... and async $http loading if not found
                 //     return $templateCache.get('/templates/index/index.html');
                 // },
-                templateUrl : '/templates/index/chat.html?v=' + window.deviceCacheKey,
-                controller: 'ChatCtrl',
-                params: {
-                    requestFromUid: null,
-                    requestUid: null
-                }
+                templateUrl : '/templates/index/setting.html?v=' + window.deviceCacheKey,
+                controller: 'SettingCtrl',
+
+                //ui-sref="chat({requestFromUid: getRequest(rangeIndex, infiniteItemIndex).friend_request.fromUid, requestUid: getRequest(rangeIndex, infiniteItemIndex).friend_request.uid})"
+                // params: {
+                //     requestFromUid: null,
+                //     requestUid: null
+                // }
             }
         };
         $stateProvider
@@ -48,17 +50,12 @@ app.config(function( $stateProvider, $urlRouterProvider ) {
                 views: {
                     "main": states.friend,
                 },
-                params: {
-                    key: null,
-                    value: null
-                }
             })
-            .state('chat', {
-                url: "/chat",
+            .state('setting', {
+                url: "/setting",
                 views: {
-                    "main": states.chat,
-                },
-                params: states.chat.params
+                    "main": states.setting,
+                }
             });
         $urlRouterProvider.otherwise('/index');
         $urlRouterProvider.when('', '/');

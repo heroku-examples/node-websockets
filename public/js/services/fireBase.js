@@ -17,8 +17,8 @@ app
             return $firebaseObject(firebase.database().ref(path));
         };
 
-        var getArrayRef = function(path) {
-            return $firebaseArray(firebase.database().ref(path));
+        var getArrayRef = function(path, childPath) {
+            return $firebaseArray(firebase.database().ref(path).child(childPath));
         };
 
         var init = function(){
@@ -30,8 +30,8 @@ app
             return getObjectRef(path);
         };
 
-        _this.getArrayRef = function(path) {
-            return getArrayRef(path);
+        _this.getArrayRef = function(path, childPath) {
+            return getArrayRef(path, childPath);
         };
 
         init();

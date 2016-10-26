@@ -1,5 +1,10 @@
-app.controller('ChatCtrl', function($window, $scope, $rootScope, $timeout, $stateParams, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, Toast, User, Json, Error, Pager, Loading, FriendRequest, FireBaseService) {
+function ChatCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller, $mdMedia, Pager, Toast, FriendRequest, FireBaseService, locals) {
+    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+
     $scope.pager = Pager.getDefault();
+
+    console.log($scope)
+
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
     };
@@ -79,7 +84,8 @@ app.controller('ChatCtrl', function($window, $scope, $rootScope, $timeout, $stat
     };
 
     var setFireBase = function(){
-        $scope.friendChat = FireBaseService.getObjectRef('/private_chats/' + $stateParams.requestUid + '/' + $stateParams.requestFromUid);
+        $scope.friendChat = FireBaseService.getObjectRef('/private_chats/' + locals.friend_request.uid + '/' + locals.friend_request.fromUid);
+        $scope.messages = FireBaseService.getArrayRef('/private_chats/' + locals.friend_request.uid + '/' + locals.friend_request.fromUid, '/comments' );
     };
 
     var init = function() {
@@ -107,5 +113,14 @@ app.controller('ChatCtrl', function($window, $scope, $rootScope, $timeout, $stat
     $scope.getMediaCount = function(){
         return getMediaCount();
     };
+
+    $scope.addMeaage = function(){
+        if(!$scope.comment) retrun;
+        $scope.messages.$add({
+          text: $scope.comment
+        });
+    }
+
+
     init();
-});
+};

@@ -1,0 +1,24 @@
+<div role="dialog" layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{locals.friend.name}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex layout-align="center center" layout-padding style="padding-top:56px">
+        {{friendChat}}
+    </md-content>
+    <md-toolbar class="md-tall md-warn md-hue-3">
+        <div layout="row" layout-padding>
+            <md-input-container flex >
+              <textarea style="margin-top: -4px;" ng-model="comment" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+            </md-input-container>
+            <md-button ng-if="!user.requested" class="material-icons md-fab" ng-click="addMeaage()">
+                <ng-md-icon icon="add"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>

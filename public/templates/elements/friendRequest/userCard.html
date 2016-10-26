@@ -10,7 +10,7 @@
         <h3>{{getRequest(rangeIndex, infiniteItemIndex).friend.firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</h3>
         <h4>{{getRequest(rangeIndex, infiniteItemIndex).friend.age}}</h4>
         <p>{{getRequest(rangeIndex, infiniteItemIndex).friend.message}}</p>
-        <md-button ng-if="getRequest(rangeIndex, infiniteItemIndex).friend_request.isApplyed" ui-sref="chat({requestFromUid: getRequest(rangeIndex, infiniteItemIndex).friend_request.fromUid, requestUid: getRequest(rangeIndex, infiniteItemIndex).friend_request.uid})">
+        <md-button ng-if="getRequest(rangeIndex, infiniteItemIndex).friend_request.isApplyed" ng-click="openChatModal(getRequest(rangeIndex, infiniteItemIndex))">
             <ng-md-icon icon="add"></ng-md-icon>
         </md-button>
     </div>

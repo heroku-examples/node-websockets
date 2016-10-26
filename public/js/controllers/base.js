@@ -21,6 +21,10 @@ app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBot
             title: 'User Update',
             icon: 'group'
         }, {
+            link: '/index#/setting',
+            title: 'setting',
+            icon: 'group'
+        },  {
             link: '/index#/',
             title: 'Index',
             icon: 'group'
