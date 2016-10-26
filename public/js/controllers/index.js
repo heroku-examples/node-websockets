@@ -84,6 +84,14 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequ
 
 app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
 
+
+    var layoutConfig = {
+        'xs' : 2,
+        'sm' : 4,
+        'md' : 5,
+        'lg' : 10
+    };
+
     var _profiles;
     Json.get('profile').then(function(profiles) {
         _profiles = profiles;
@@ -138,13 +146,13 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
     var getMediaCount = function() {
         if ($mdMedia('xs')) {
-            return 2;
+            return layoutConfig.xs;
         } else if ($mdMedia('sm')) {
-            return 4;
+            return layoutConfig.sm;
         } else if ($mdMedia('md')) {
-            return 5;
+            return layoutConfig.md;
         } else if ($mdMedia('lg')) {
-            return 10;
+            return layoutConfig.lg;
         }
     };
 
