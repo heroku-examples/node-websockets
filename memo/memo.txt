@@ -1,3 +1,3 @@
-export PATH=/Applications/mongodb-osx-x86_64-3.2.10/bin:$PATH
-
-killall -9 node
+mongo for windows : export PATH=/Applications/mongodb-osx-x86_64-3.2.10/bin:$PATH
+kill server: killall -9 node
+無視したいファイルを指定 : git update-index --skip-worktree /d/node-websockets/gulp/tasks/server/log/system.log
