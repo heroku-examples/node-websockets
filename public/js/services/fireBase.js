@@ -1,5 +1,5 @@
 app
-    .factory('FireBaseService', function($window, $filter, $rootScope) {
+    .factory('FireBaseService', function($window, $filter, $rootScope, $firebaseObject, $firebaseArray) {
 
         var _this = {
             app: {}
@@ -13,8 +13,12 @@ app
             storageBucket: "project-3597707734440258770.appspot.com",
         };
 
-        var getRef = function(path) {
-            return firebase.database().ref(path);
+        var getObjectRef = function(path) {
+            return $firebaseObject(firebase.database().ref(path));
+        };
+
+        var getArrayRef = function(path) {
+            return $firebaseArray(firebase.database().ref(path));
         };
 
         var init = function(){
@@ -22,8 +26,12 @@ app
         };
 
 
-        _this.getRef = function(path) {
-            return getRef(path);
+        _this.getObjectRef = function(path) {
+            return getObjectRef(path);
+        };
+
+        _this.getArrayRef = function(path) {
+            return getArrayRef(path);
         };
 
         init();

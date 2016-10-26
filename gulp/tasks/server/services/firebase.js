@@ -10,7 +10,7 @@ module.exports = {
                     fromUid: fromUid,
                     uid: decodedToken.uid
                 };
-                updates['/friendChat/' + decodedToken.uid + '/' + fromUid] = record;
+                updates['/private_chats/' + decodedToken.uid + '/' + fromUid] = record;
                 firebase.database().ref().update(updates).then(function(snapshot) {
                     resolve(snapshot);
                 }).catch(function(err) {

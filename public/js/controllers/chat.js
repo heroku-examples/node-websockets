@@ -79,8 +79,7 @@ app.controller('ChatCtrl', function($window, $scope, $rootScope, $timeout, $stat
     };
 
     var setFireBase = function(){
-        friendChatRef = FireBaseService.getRef('/friendChat/' + $stateParams.requestUid + '/' + $stateParams.requestFromUid);
-        $scope.friendChat = $firebaseObject(friendChatRef);
+        $scope.friendChat = FireBaseService.getObjectRef('/private_chats/' + $stateParams.requestUid + '/' + $stateParams.requestFromUid);
     };
 
     var init = function() {
