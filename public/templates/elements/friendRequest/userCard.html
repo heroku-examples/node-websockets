@@ -10,5 +10,10 @@
         <h3>{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</h3>
         <h4>{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.age}}</h4>
         <p>{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.message}}</p>
+        <md-button ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend_request.isApplyed" ui-sref="chat({requestFromUid: requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend_request.fromUid, requestUid: requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend_request.uid})">
+            <ng-md-icon icon="add"></ng-md-icon>
+        </md-button>
     </div>
+
+    ui-sref="contacts({param1: value1})"
 </md-list-item>
