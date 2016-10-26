@@ -1,12 +1,14 @@
 <md-content flex md-scroll-y>
     <md-content layout="row" layout-wrap layout-align="left center">
         <loading></loading>
+        <md-list flex>
         <md-virtual-repeat-container ng-show="!isModalOpen" ng-if="infiniteItems" id="vertical-container">
+            <md-subheader class="md-no-sticky">Friend Requests</md-subheader>
             <div md-virtual-repeat="infiniteItemIndex in ::infiniteItems" md-on-demand class="repeated-item" layout="row">
-                <span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:2" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
-                <span ng-if="mdMedia('sm')" ng-repeat="rangeIndex in ::[] | range:4" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
-                <span ng-if="mdMedia('md')" ng-repeat="rangeIndex in ::[] | range:5" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
-                <span ng-if="mdMedia('lg')" ng-repeat="rangeIndex in ::[] | range:10" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('sm')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('md')" ng-repeat="rangeIndex in ::[] | range:2" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('lg')" ng-repeat="rangeIndex in ::[] | range:4" ng-include="'/templates/elements/friendRequest/userCard.html'" include-replace></span>
             </div>
             <div ng-if="!pager.total"  layout-align="center center" layout="column">
                 <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="sentiment_very_dissatisfied"></ng-md-icon></br>
@@ -15,6 +17,7 @@
                 </span>
             </div>
         </md-virtual-repeat-container>
+        </md-list flex>
     </md-content>
     <md-button class="material-icons md-fab md-fab-bottom-right" aria-label="Add" ng-click="openSearch($event)">
         <ng-md-icon icon="add"></ng-md-icon>

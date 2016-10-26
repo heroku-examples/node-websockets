@@ -3,6 +3,14 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
     };
+
+    var layoutConfig = {
+        'xs' : 1,
+        'sm' : 1,
+        'md' : 2,
+        'lg' : 4
+    };
+
     var setInfiniteitems = function() {
 
         // In this example, we set up our model using a plain object.
@@ -48,13 +56,13 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
 
     var getMediaCount = function() {
         if ($mdMedia('xs')) {
-            return 2;
+            return layoutConfig.xs;
         } else if ($mdMedia('sm')) {
-            return 4;
+            return layoutConfig.sm;
         } else if ($mdMedia('md')) {
-            return 5;
+            return layoutConfig.md;
         } else if ($mdMedia('lg')) {
-            return 10;
+            return layoutConfig.lg;
         }
     };
 
