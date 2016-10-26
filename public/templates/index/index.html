@@ -3,10 +3,10 @@
         <loading></loading>
         <md-virtual-repeat-container ng-show="!isModalOpen" ng-if="infiniteItems" id="vertical-container">
             <md-list md-virtual-repeat="infiniteItemIndex in ::infiniteItems" md-on-demand class="repeated-item" layout="row">
-                <span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-                <span ng-if="mdMedia('sm')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-                <span ng-if="mdMedia('md')" ng-repeat="rangeIndex in ::[] | range:2" ng-include="'/templates/elements/userCard.html'" include-replace></span>
-                <span ng-if="mdMedia('lg')" ng-repeat="rangeIndex in ::[] | range:4" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:2" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('sm')" ng-repeat="rangeIndex in ::[] | range:4" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('md')" ng-repeat="rangeIndex in ::[] | range:5" ng-include="'/templates/elements/userCard.html'" include-replace></span>
+                <span ng-if="mdMedia('lg')" ng-repeat="rangeIndex in ::[] | range:10" ng-include="'/templates/elements/userCard.html'" include-replace></span>
             </md-list>
             <div ng-if="!pager.total"  layout-align="center center" layout="column">
                 <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="sentiment_very_dissatisfied"></ng-md-icon></br>
