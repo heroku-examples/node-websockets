@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <md-list-item class="md-3-line" ng-click="applyRequest(requests[rangeIndex + (infiniteItemIndex * getMediaCount())].uid)">
-=======
-<md-list-item ng-click="applyRequest(requests[rangeIndex + (infiniteItemIndex * getMediaCount())].uid)">
->>>>>>> 197a5bcf9be188c7e96933c49514c4c20d172772
-=======
-<md-list-item ng-click="applyRequest(requests[rangeIndex + (infiniteItemIndex * getMediaCount())].uid)">
->>>>>>> 197a5bcf9be188c7e96933c49514c4c20d172772
     <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].isDebug" class="side-corner-tag">Debug</div>
     <div class="md-avatar">
         <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]" class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
@@ -14,15 +6,7 @@
             <img ng-if="!requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.photoURL" class="md-card-image" />
         </div>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <div class="md-list-item-text" layout="column" ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]">
-=======
-    <div class="md-list-item-text" ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]">
->>>>>>> 197a5bcf9be188c7e96933c49514c4c20d172772
-=======
-    <div class="md-list-item-text" ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]">
->>>>>>> 197a5bcf9be188c7e96933c49514c4c20d172772
         <h3>{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</h3>
         <h4>{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.age}}</h4>
         <p>{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.message}}</p>
