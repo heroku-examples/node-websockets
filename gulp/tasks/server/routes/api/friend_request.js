@@ -4,6 +4,7 @@ var router = express.Router();
 var FriendRequest = require('../../models/friend_request');
 var User = require('../../models/user');
 var UserSearvice = require('../../services/user');
+var FireBaseSearvice = require('../../services/firebase');
 var resCodes = require('../.././json/http/http_code_names.json');
 
 var pageConfig = {
@@ -196,7 +197,11 @@ router.route('/friend_request/apply/:fromUid')
                     if (err) {
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                     } else {
-                        res.status(resCodes.OK.code).json(friend_request);
+                        FireBaseSearvice.createFriendChat(req, req.params.fromUid).then(function(snapshot) {
+                            res.status(resCodes.OK.code).json(snapshot);
+                        }, function(err) {
+                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                        });
                     }
                 });
             } else {
