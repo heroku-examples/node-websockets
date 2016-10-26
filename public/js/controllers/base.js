@@ -5,6 +5,9 @@ app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBot
         $scope.toggleSidenav = function(menuId) {
             $mdSidenav(menuId).toggle();
         };
+        $scope.getUrlWithCacheNumber = function(path){
+            return path + window.deviceCacheKey;
+        };
         $scope.menu = [{
             link: '/main#/',
             title: 'Main',
