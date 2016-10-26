@@ -1,4 +1,4 @@
-app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Error, Pager, Loading, FriendRequest) {
+app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, Toast, User, Json, Error, Pager, Loading, FriendRequest) {
     $scope.pager = Pager.getDefault();
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
@@ -49,7 +49,6 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
                     this.toLoad_ += this.mediaCount_;
                     this.numLoaded_ = this.toLoad_;
                 }
-                Loading.finish();
             }
         };
     };
@@ -72,6 +71,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
             $scope.requests = result.docs;
             setPager(result);
             if (!$scope.infiniteItems) setInfiniteitems();
+            Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);
@@ -84,12 +84,11 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
-    $scope.applyRequest = function(fromUid){
+    $scope.applyRequest = function(friendInfo){
         Loading.start();
-        FriendRequest.apply().update({fromUid : fromUid}).$promise.then(function(result) {
-            $scope.requests = result.docs.reverse();
-            setPager(result);
-            if (!$scope.infiniteItems) setInfiniteitems();
+        FriendRequest.apply().update({fromUid : friendInfo.friend_request.fromUid}).$promise.then(function(result) {
+            getRequests();
+            Toast.show(friendInfo.firstName + "からのリクエストを承認しました。");
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);

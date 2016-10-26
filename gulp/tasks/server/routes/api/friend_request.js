@@ -181,7 +181,7 @@ router.route('/friend_request/apply/:fromUid')
             }
         });
     })
-    // 一つのフレンドリクエストの情報を更新 (PUT http://localhost:8000/api/friend_requests/:friend_request_id)
+    // 一つのフレンドリクエストの情報を更新 (PUT http://localhost:8000/api/friend_requests)
     .put(function(req, res) {
         FriendRequest.findOne({
             uid: req.session.token.uid,
@@ -222,7 +222,7 @@ router.route('/friend_requests')
                     UserSearvice.getList(uids).then(function(friends) {
                         console.log('friends', friends)
                         for (var i = 0; i < friends.length; i++) {
-                            var friend_request = _.filter(
+                            var friend_request = _.find(
                                 requests.docs,
                                 function(request){
                                     return friends[i].uid == request.uid;

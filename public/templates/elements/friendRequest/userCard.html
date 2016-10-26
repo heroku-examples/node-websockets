@@ -1,5 +1,5 @@
-<md-list-item class="md-3-line" ng-click="applyRequest(requests[rangeIndex + (infiniteItemIndex * getMediaCount())].uid)">
-    <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].isDebug" class="side-corner-tag">Debug</div>
+<md-list-item class="md-3-line" style="width: 100%;" ng-click="applyRequest(requests[rangeIndex + (infiniteItemIndex * getMediaCount())])">
+    <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend_request.isApplyed" class="side-corner-tag">承認済み</div>
     <div class="md-avatar">
         <div ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())]" class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
             <img ng-if="requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.photoURL" ng-src="{{requests[rangeIndex + (infiniteItemIndex * getMediaCount())].friend.photoURL}}" class="md-card-image" />

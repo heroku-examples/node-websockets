@@ -193,7 +193,6 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                     this.toLoad_ += this.mediaCount_;
                     this.numLoaded_ = this.toLoad_;
                 }
-                Loading.finish();
             }
         };
     };
@@ -204,6 +203,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             $scope.users = result.docs.reverse();
             setPager(result);
             if(!$scope.infiniteItems) setInfiniteitems();
+            Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);

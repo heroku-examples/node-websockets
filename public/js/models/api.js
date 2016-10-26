@@ -108,7 +108,7 @@ app.factory('FriendRequest', function($resource) {
                     isArray: false
                 }, // apiの戻り値が配列の場合は「isArray: true」を指定する
                 update: {
-                    method: 'POST',
+                    method: 'PUT',
                     isArray: false
                 },
             });
