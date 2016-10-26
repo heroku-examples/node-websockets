@@ -345,6 +345,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         });
     };
 
+    $scope.getUser = function(_rangeIndex, _infiniteItemIndex){
+        return $scope.users[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+    };
+
     $scope.getMediaCount = function(){
         return getMediaCount();
     };

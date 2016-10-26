@@ -90,6 +90,10 @@ app.controller('ChatCtrl', function($window, $scope, $rootScope, $timeout, $stat
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
+    $scope.getChat = function(_rangeIndex, _infiniteItemIndex){
+        //return $scope.users[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+    };
+
     $scope.applyRequest = function(friendInfo){
         Loading.start();
         FriendRequest.apply().update({fromUid : friendInfo.friend_request.fromUid}).$promise.then(function(result) {

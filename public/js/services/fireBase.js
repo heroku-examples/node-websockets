@@ -17,8 +17,10 @@ app
             return firebase.database().ref(path);
         };
 
+        var init = function(){
+            _this.app = $window.firebase.initializeApp(config);
+        };
 
-        _this.app = $window.firebase.initializeApp(config);
 
         _this.getRef = function(path) {
             return getRef(path);
