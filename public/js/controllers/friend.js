@@ -85,7 +85,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
     };
 
     $scope.getRequest = function(_rangeIndex, _infiniteItemIndex){
-        return $scope.users[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+        return $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
     };
 
     $scope.applyRequest = function(friendInfo){

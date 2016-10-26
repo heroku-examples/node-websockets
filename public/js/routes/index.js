@@ -52,6 +52,13 @@ app.config(function( $stateProvider, $urlRouterProvider ) {
                     key: null,
                     value: null
                 }
+            })
+            .state('chat', {
+                url: "/chat",
+                views: {
+                    "main": states.chat,
+                },
+                params: states.chat.params
             });
         $urlRouterProvider.otherwise('/index');
         $urlRouterProvider.when('', '/');
