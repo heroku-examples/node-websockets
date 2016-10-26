@@ -7,6 +7,10 @@ var UserSearvice = require('../../services/user');
 var FireBaseSearvice = require('../../services/firebase');
 var resCodes = require('../.././json/http/http_code_names.json');
 
+var log4js = require('log4js');
+log4js.configure(require('../.././json/log4js/config.json'));
+var logger = log4js.getLogger('system');
+
 var pageConfig = {
     page: 1,
     limit: 50
@@ -189,23 +193,26 @@ router.route('/friend_request/apply/:fromUid')
             fromUid: req.params.fromUid
         }, function(err, friend_request) {
             if (err) {
+                console.log('err' , err, err.lineNumber);
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else if (friend_request) {
                 // フレンドリクエストの各カラムの情報を更新する．
                 friend_request.isApplyed = true;
                 friend_request.save(function(err) {
                     if (err) {
+                        console.log('err' , err, err.lineNumber);
                         res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                     } else {
                         FireBaseSearvice.createFriendChat(req, req.params.fromUid).then(function(snapshot) {
                             res.status(resCodes.OK.code).json(snapshot);
                         }, function(err) {
+                            console.log('err' , err, err.lineNumber);
                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                         });
                     }
                 });
             } else {
-                res.status(resCodes.NOT_FOUND.code).json(err);
+                res.status(resCodes.NOT_FOUND.code).json();
             }
         });
     });

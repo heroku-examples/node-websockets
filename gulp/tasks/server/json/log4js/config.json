@@ -1,17 +1,31 @@
 {
   "appenders": [
     {
-      "type": "file",
-      "filename": "./gulp/tasks/server/log/system.log",
-      "maxLogSize": 20480,
-      "backups": 3,
-      "category": "system"
+        "type":     "file",
+        "category": "system",
+        "maxLogSize": 1048576,
+        "backups": 3,
+        "filename": "./gulp/tasks/server/log/system.log",
+        "pattern":  "-yyyy-MM-dd"
+    },
+    {
+        "type":     "dateFile",
+        "category": "access",
+        "filename": "./gulp/tasks/server/log/access.log",
+        "pattern":  "-yyyy-MM-dd"
+    },
+    {
+        "type":     "dateFile",
+        "category": "error",
+        "filename": "./gulp/tasks/server/log/error.log",
+        "pattern":  "-yyyy-MM-dd"
     },
     {
         "type": "console"
     }
   ],
   "levels": {
-      "system": "ALL"
-  }
+      "system": "ERROR"
+  },
+  "replaceConsole": true
 }

@@ -2,7 +2,7 @@ module.exports = {
     createFriendChat: function(req, fromUid) {
         return new Promise(function(resolve, reject) {
             var firebase = require("firebase");
-            firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
+            firebase.auth().verifyIdToken(req.session.token.token).then(function(decodedToken) {
                 var updates = {};
                 var record = {
                     comments: [],
