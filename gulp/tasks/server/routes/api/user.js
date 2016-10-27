@@ -95,7 +95,7 @@ router.route('/current_user')
                 if(req.body.avatarId) user.avatarId = req.body.avatarId;
                 if(req.body.photoURL) user.photoURL = req.body.photoURL;
                 if(req.body.message) user.message = req.body.message;
-                if(req.body.isEntry) user.isEntry = false;
+                user.isEntry = false;
 
                 user.save(function(err) {
                     if (err) {

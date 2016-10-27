@@ -8,13 +8,21 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content class="slide-up-dialog-content" flex layout-align="center center" layout-padding style="padding-top:56px">
-        {{friendChat}}
+    <md-content class="slide-up-dialog-content" flex layout-align="center center" layout-padding>
+        <md-list flex>
+            <md-list-item ng-repeat="(messageKey, message) in messages" class="md-3-line" ng-click="null">
+                <img ng-src="{{friend.photoURL}}" class="md-avatar" alt="{{item.who}}" />
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ friend.firstName }}</h3>
+                    <p>{{message.text}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
     </md-content>
     <md-toolbar class="md-tall md-warn md-hue-3">
         <div layout="row" layout-padding>
-            <md-input-container flex >
-              <textarea style="margin-top: -4px;" ng-model="comment" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+            <md-input-container flex>
+                <textarea style="margin-top: -4px;" ng-model="comment" md-maxlength="150" rows="2" md-select-on-focus></textarea>
             </md-input-container>
             <md-button ng-if="!user.requested" class="material-icons md-fab" ng-click="addMeaage()">
                 <ng-md-icon icon="add"></ng-md-icon>

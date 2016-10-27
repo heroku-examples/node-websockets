@@ -23,7 +23,7 @@ app.factory('Json', function($http, $q, $localStorage) {
                     angular.forEach(_this.preloadUrls, function(value, key) {
                         _this.get(key, value.url).then(function(details) {});
                     });
-                    $localStorage.json['version'] = targetVersion;
+                    $localStorage.json.version = targetVersion;
                 }, function(response) {
                     console.log(response);
                 });
