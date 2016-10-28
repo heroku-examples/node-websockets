@@ -1,17 +1,40 @@
-<md-list-item class="md-3-line" style="width: 100%;" ng-click="applyRequest(getRequest(rangeIndex, infiniteItemIndex))">
+<md-list-item class="md-3-line" style="width: 100%;">
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex).friend_request.isApplyed" class="side-corner-tag">承認済み</div>
-    <div class="md-avatar">
-        <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
+    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-avatar" ng-click="openChatModal(getRequest(rangeIndex, infiniteItemIndex))">
+        <div class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
             <img ng-if="getRequest(rangeIndex, infiniteItemIndex).friend.photoURL" ng-src="{{getRequest(rangeIndex, infiniteItemIndex).friend.photoURL}}" class="md-card-image" />
             <img ng-if="!getRequest(rangeIndex, infiniteItemIndex).friend.photoURL" class="md-card-image" />
         </div>
     </div>
-    <div class="md-list-item-text" layout="column" ng-if="getRequest(rangeIndex, infiniteItemIndex)">
+    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChatModal(getRequest(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
         <h3>{{getRequest(rangeIndex, infiniteItemIndex).friend.firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</h3>
         <h4>{{getRequest(rangeIndex, infiniteItemIndex).friend.age}}</h4>
         <p>{{getRequest(rangeIndex, infiniteItemIndex).friend.message}}</p>
-        <md-button ng-if="getRequest(rangeIndex, infiniteItemIndex).friend_request.isApplyed" ng-click="openChatModal(getRequest(rangeIndex, infiniteItemIndex))">
-            <ng-md-icon icon="add"></ng-md-icon>
-        </md-button>
     </div>
+    <md-button class="md-secondary md-icon-button" ng-if="getRequest(rangeIndex, infiniteItemIndex).friend_request.isApplyed =! true" ng-click="applyRequest(getRequest(rangeIndex, infiniteItemIndex))">
+        <ng-md-icon icon="add"></ng-md-icon>
+        <md-menu md-theme="grey" ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-secondary">
+            <md-button class="md-icon-button">
+                <ng-md-icon icon="settings"></ng-md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        Redial
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        Check voicemail
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button>
+                        Notifications
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </md-button>
 </md-list-item>

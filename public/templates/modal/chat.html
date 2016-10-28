@@ -8,7 +8,7 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content class="slide-up-dialog-content" flex layout-align="center center" layout-padding>
+    <md-content id="slide-up-dialog-content" class="slide-up-dialog-content" flex layout-align="center center" layout-padding>
         <md-list flex>
             <md-list-item ng-repeat="(messageKey, message) in messages" class="md-3-line" ng-click="null">
                 <img ng-src="{{friend.photoURL}}" class="md-avatar" alt="{{item.who}}" />
@@ -16,6 +16,7 @@
                     <h3>{{ friend.firstName }}</h3>
                     <p>{{message.text}}</p>
                 </div>
+                <a ng-if="$last"id="bottom" ng-init="gotoBottom()"></a>
             </md-list-item>
         </md-list>
     </md-content>

@@ -1,14 +1,29 @@
-app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, Toast, User, Json, Error, Pager, Loading, FriendRequest, Modal) {
+app.controller('FriendCtrl', function($window,
+    $scope,
+    $rootScope,
+    $timeout,
+    $localStorage,
+    $mdMedia,
+    $mdDialog,
+    $mdBottomSheet,
+    Toast,
+    User,
+    Json,
+    Error,
+    Pager,
+    Loading,
+    FriendRequest,
+    Modal) {
     $scope.pager = Pager.getDefault();
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
     };
 
     var layoutConfig = {
-        'xs' : 1,
-        'sm' : 1,
-        'md' : 2,
-        'lg' : 4
+        'xs': 1,
+        'sm': 1,
+        'md': 2,
+        'lg': 4
     };
 
     var setInfiniteitems = function() {
@@ -37,7 +52,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
                 //return $scope.pager.length;
                 var result = 1;
                 if ($scope.pager.length >= this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
-                if(  $scope.pager.length < this.mediaCount_) result = $scope.pager.length;
+                if ($scope.pager.length < this.mediaCount_) result = $scope.pager.length;
                 return result;
             },
             fetchMoreItems_: function(index) {
@@ -74,6 +89,7 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
+
             Error.openMessage(data, status);
         });
     };
@@ -84,13 +100,13 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
-    $scope.getRequest = function(_rangeIndex, _infiniteItemIndex){
+    $scope.getRequest = function(_rangeIndex, _infiniteItemIndex) {
         return $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
     };
 
-    $scope.applyRequest = function(friendInfo){
+    $scope.applyRequest = function(friendInfo) {
         Loading.start();
-        FriendRequest.apply().update({fromUid : friendInfo.friend_request.fromUid}).$promise.then(function(result) {
+        FriendRequest.apply().update({ fromUid: friendInfo.friend_request.fromUid }).$promise.then(function(result) {
             getRequests();
             Toast.show(friendInfo.friend.firstName + "からのリクエストを承認しました。");
         }).catch(function(data, status) {
@@ -99,11 +115,11 @@ app.controller('FriendCtrl', function($window, $scope, $rootScope, $timeout, $lo
         });
     };
 
-    $scope.openChatModal = function(friendInfo){
-        Modal.open( 'ChatCtrl', "/templates/modal/chat.html?v="  + window.deviceCacheKey , friendInfo);
-    }
+    $scope.openChatModal = function(friendInfo) {
+        Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, friendInfo);
+    };
 
-    $scope.getMediaCount = function(){
+    $scope.getMediaCount = function() {
         return getMediaCount();
     };
     init();

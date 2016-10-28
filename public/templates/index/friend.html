@@ -11,13 +11,13 @@
                 <span ng-if="mdMedia('lg')" ng-repeat="rangeIndex in ::[] | range:4" ng-include="'/templates/elements/friendRequest/userCard.html?v={{deviceCacheKey}}'" include-replace></span>
             </div>
             <div ng-if="!pager.total"  layout-align="center center" layout="column">
-                <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="sentiment_very_dissatisfied"></ng-md-icon></br>
+                <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="sentiment_very_dissatisfied"></ng-md-icon>
                 <span>
                   0件でした。検索条件を少なくしてみよう！
                 </span>
             </div>
         </md-virtual-repeat-container>
-        </md-list flex>
+        </md-list>
     </md-content>
     <md-button class="material-icons md-fab md-fab-bottom-right" aria-label="Add" ng-click="openSearch($event)">
         <ng-md-icon icon="add"></ng-md-icon>

@@ -1,9 +1,20 @@
-function ChatCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller, $mdMedia, Pager, Toast, FriendRequest, FireBaseService, locals) {
-    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+function ChatCtrl($scope,
+ $mdDialog,
+    $location,
+    $anchorScroll,
+ locals,
+ Error,
+ Login,
+ Loading,
+ $controller,
+ $mdMedia,
+ Pager,
+ Toast,
+ FriendRequest,
+ FireBaseService) {
+    $controller(ModalCtrl,{ $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
     angular.merge($scope, locals);
     $scope.pager = Pager.getDefault();
-
-    console.log($scope)
 
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
@@ -85,7 +96,7 @@ function ChatCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller,
 
     var setFireBase = function(){
         $scope.friendChat = FireBaseService.getObjectRef('/private_chats/' + locals.friend_request.uid + '/' + locals.friend_request.fromUid);
-        $scope.messages = FireBaseService.getArrayRef('/private_chats/' + locals.friend_request.uid + '/' + locals.friend_request.fromUid, '/comments' );
+        $scope.messages      = FireBaseService.getArrayRef('/private_chats/' + locals.friend_request.uid + '/' + locals.friend_request.fromUid, '/comments' );
     };
 
     var init = function() {
@@ -115,12 +126,17 @@ function ChatCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller,
     };
 
     $scope.addMeaage = function(){
-        if(!$scope.comment) retrun;
+        if(!$scope.comment) return;
         $scope.messages.$add({
           text: $scope.comment
         });
-    }
+        $scope.comment = "";
+    };
+
+    $scope.gotoBottom = function() {
+        document.getElementById('slide-up-dialog-content').scrollTop = 10000000; 
+    };
 
 
     init();
-};
+}
