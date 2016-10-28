@@ -30,6 +30,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         },
         sizes: {
             large: {
+                targetEvent : '#bottom',
                 onShowing: function(scope, element) {
                     $timeout(function() {
                         element.find('md-dialog').addClass("center");
@@ -43,11 +44,13 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
                 fullscreen: true
             },
             medium :{
+                targetEvent : '',
                 onShowing: angular.noop(),
                 onRemoving: angular.noop(),
                 fullscreen: false
             },
             small: {
+                targetEvent : '',
                 onShowing: angular.noop(),
                 onRemoving: angular.noop(),
                 fullscreen: false
@@ -75,8 +78,9 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         var template = _this.getTemplateFunc(size);
         $mdDialog.show({
             controller: $window[controllerName],
-            templateUrl: templateUrl ? templateUrl : _this.templates.defaultTemplateUrl,
+            targetEvent: template.targetEvent,
             clickOutsideToClose: true,
+            templateUrl: templateUrl ? templateUrl : _this.templates.defaultTemplateUrl,
             locals: locals,
             fullscreen: template.fullscreen,
             onShowing: template.onShowing,
@@ -87,6 +91,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         var template = _this.getTemplateFunc('large');
         $mdDialog.show({
             controller: ModalCtrl,
+            targetEvent: template.targetEvent,
             templateUrl: templateUrl ? templateUrl : _this.templates.errorTemplateUrl,
             clickOutsideToClose: true,
             locals: {
