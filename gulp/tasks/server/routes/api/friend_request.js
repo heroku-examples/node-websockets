@@ -232,7 +232,6 @@ router.route('/friend_requests')
 
                     var result = [];
                     UserSearvice.getList(uids).then(function(friends) {
-                        console.log('friends', friends)
                         for (var i = 0; i < friends.length; i++) {
                             var friend_request = _.find(
                                 requests.docs,
@@ -240,7 +239,6 @@ router.route('/friend_requests')
                                     return friends[i].uid == request.uid;
                                 }
                             );
-
                             result.push(
                                 {
                                     friend_request : friend_request,
@@ -259,7 +257,7 @@ router.route('/friend_requests')
                         console.log("Rejected:", error.message);
                     });
                 }else{
-                    res.status(resCodes.OK.code).json(result);
+                    res.status(resCodes.OK.code).json();
                 }
             }
         });

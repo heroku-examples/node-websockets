@@ -125,6 +125,6 @@ app.factory('FriendRequest', function($resource) {
                 }
             });
         }
-    }
+    };
 });
 

@@ -10,3 +10,10 @@ gulp.task('serve',  function() {
     gulp.watch(["public/**"]).on('change', browserSync.reload);
 });
 
+
+// kill Server
+gulp.task('kill',  function() {
+    var nrc = require('node-run-cmd');
+    nrc.run('killall -9 node');
+});
+
