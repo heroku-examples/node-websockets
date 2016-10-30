@@ -228,7 +228,7 @@ router.route('/friend_requests')
             } else {
                 if(requests.docs.length){
                     var _ = require('underscore');
-                    var uids = _.map(requests.docs, function(friend){ return friend.uid; });
+                    var uids = _.map(requests.docs, function(friend){ return friend.fromUid; });
 
                     var result = [];
                     UserSearvice.getList(uids).then(function(friends) {

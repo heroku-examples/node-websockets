@@ -8,6 +8,7 @@ function ChatCtrl($scope,
  Loading,
  $controller,
  $mdMedia,
+ $sessionStorage,
  Pager,
  Toast,
  FriendRequest,
@@ -15,6 +16,8 @@ function ChatCtrl($scope,
     $controller(ModalCtrl,{ $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
     angular.merge($scope, locals);
     $scope.pager = Pager.getDefault();
+
+    $scope.currentUser = Login.getUser();
 
     var setPager = function(result) {
         $scope.pager = Pager.get(result);
@@ -128,7 +131,9 @@ function ChatCtrl($scope,
     $scope.addMeaage = function(){
         if(!$scope.comment) return;
         $scope.messages.$add({
-          text: $scope.comment
+          text: $scope.comment,
+          uid: Login.getUser().uid,
+          photoURL : Login.getUser().photoURL
         });
         $scope.comment = "";
     };

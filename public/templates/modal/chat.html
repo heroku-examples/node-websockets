@@ -11,9 +11,11 @@
     <md-content id="slide-up-dialog-content" class="slide-up-dialog-content" flex layout-align="center center" layout-padding>
         <md-list flex>
             <md-list-item ng-repeat="(messageKey, message) in messages" class="md-3-line" ng-click="null">
-                <img ng-src="{{friend.photoURL}}" class="md-avatar" alt="{{item.who}}" />
+                <img ng-if="currentUser.uid != message.uid" ng-src="{{message.photoURL}}" class="md-avatar"/>
+                <img ng-if="currentUser.uid == message.uid" ng-src="{{currentUser.photoURL}}" class="md-avatar"/>
                 <div class="md-list-item-text" layout="column">
-                    <h3>{{ friend.firstName }}</h3>
+                    <h3 ng-if="currentUser.uid != message.uid">{{ friend.firstName }}</h3>
+                    <h3 ng-if="currentUser.uid == message.uid">{{ currentUser.firstName }}</h3>
                     <p>{{message.text}}</p>
                 </div>
                 <a ng-if="$last"id="bottom" ng-init="gotoBottom()"></a>
