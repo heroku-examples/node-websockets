@@ -13,14 +13,16 @@ var pageConfig = {
 //before filter
 router.use(function(req, res, next) {
     if (process.env.NODE_ENV != 'production') {
-        next();
-    } else if (req.originalUrl == '/api/token') {
+        if(!req.session.token){
+            req.session.token = {};
+            req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
+        }
         next();
     } else if (req.session.token) {
         next();
     } else {
         //Return a response immediately
-        res.status(resCodes.BAD_REQUEST.code).json({ message: resCodes.BAD_REQUEST.phrase });
+        res.status(resCodes.UNAUTHORIZED.code).json();
     }
 });
 

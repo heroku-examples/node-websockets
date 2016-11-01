@@ -17,7 +17,7 @@ function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translat
         $scope.subTitles = locals.subTitles;
         $scope.myImage = '';
         setUser();
-    }
+    };
 
 
     $scope.selectAvatar = function(avatarNo) {
@@ -49,7 +49,7 @@ function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translat
     $scope.upperValue = 100;
 }
 
-function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequest, Loading ) {
+function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequest, Loading, Error) {
     $scope.user = locals.user;
     $scope.hide = function() {
         $mdDialog.hide();
@@ -60,20 +60,26 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequ
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
     };
-    $scope.init = function(){
+    $scope.init = function() {
         Loading.start();
-        FriendRequest.root().get({ targetUid :$scope.user.uid}).$promise.then(function(result) {
-            if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
+        FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function(result) {
+            console.log("msg", result)
+            if (result) {
+                if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
+            }
+
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
     };
-    $scope.friendRequest = function(){
+    $scope.friendRequest = function() {
         Loading.start();
-        FriendRequest.root().create({ targetUid :$scope.user.uid}).$promise.then(function(result) {
-            if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
+        FriendRequest.root().create({ targetUid: $scope.user.uid }).$promise.then(function(result) {
+            if (result) {
+                if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
+            }
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
@@ -86,10 +92,10 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
 
     var layoutConfig = {
-        'xs' : 2,
-        'sm' : 4,
-        'md' : 5,
-        'lg' : 10
+        'xs': 2,
+        'sm': 4,
+        'md': 5,
+        'lg': 10
     };
 
     var _profiles;
@@ -181,7 +187,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
             getLength: function() {
                 //return $scope.pager.length;
                 var result = 1;
-                if($scope.pager.length >=  this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
+                if ($scope.pager.length >= this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
                 return result;
             },
             fetchMoreItems_: function(index) {
@@ -202,7 +208,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         User.all().get().$promise.then(function(result) {
             $scope.users = result.docs.reverse();
             setPager(result);
-            if(!$scope.infiniteItems) setInfiniteitems();
+            if (!$scope.infiniteItems) setInfiniteitems();
             Loading.finish();
         }).catch(function(data, status) {
             Loading.finish();
@@ -210,12 +216,12 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         });
     };
 
-    var init = function(){
+    var init = function() {
         Loading.start();
         $scope.users = $window.users.docs.reverse();
         setPager($window.users);
-        if(!$scope.infiniteItems) setInfiniteitems();
-    }
+        if (!$scope.infiniteItems) setInfiniteitems();
+    };
 
     init();
 
@@ -230,13 +236,13 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                 user: $scope.users[index],
             },
             fullscreen: true,
-            onShowing : function(scope, element){
-                $timeout(function(){
+            onShowing: function(scope, element) {
+                $timeout(function() {
                     element.find('md-dialog').addClass("center")
                 }, 50)
             },
-            onRemoving : function(element, removePromise){
-                $timeout(function(){
+            onRemoving: function(element, removePromise) {
+                $timeout(function() {
                     element.find('md-dialog').removeClass("center").addClass("slideDown")
                 }, 50)
             }
@@ -264,14 +270,14 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
                 subTitles: _subTitles
             },
             fullscreen: true,
-            onShowing : function(scope, element){
+            onShowing: function(scope, element) {
                 element.find('md-dialog').addClass("beforeSlideLeft")
-                $timeout(function(){
+                $timeout(function() {
                     element.find('md-dialog').addClass("center")
                 }, 50)
             },
-            onRemoving : function(element, removePromise){
-                $timeout(function(){
+            onRemoving: function(element, removePromise) {
+                $timeout(function() {
                     element.find('md-dialog').removeClass("center").addClass("slideRight")
                 }, 50)
             }
@@ -345,11 +351,11 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
         });
     };
 
-    $scope.getUser = function(_rangeIndex, _infiniteItemIndex){
+    $scope.getUser = function(_rangeIndex, _infiniteItemIndex) {
         return $scope.users[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
     };
 
-    $scope.getMediaCount = function(){
+    $scope.getMediaCount = function() {
         return getMediaCount();
     };
 

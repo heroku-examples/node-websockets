@@ -28,7 +28,7 @@ router.use(function(req, res, next) {
         next();
     } else {
         //Return a response immediately
-        res.status(resCodes.BAD_REQUEST.code).json(resCodes.BAD_REQUEST);
+        res.status(resCodes.UNAUTHORIZED.code).json();
     }
 });
 

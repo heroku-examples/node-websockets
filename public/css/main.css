@@ -377,7 +377,7 @@ img-crop canvas {
     height: 100vh;
 }
 
-.slide-up-dialog-content img {
+.slide-up-dialog-content .user-profile{
     height: 150px;
     margin: auto;
 }

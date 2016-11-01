@@ -17,7 +17,7 @@ router.use(function(req, res, next) {
         next();
     } else {
         //Return a response immediately
-        res.status(resCodes.BAD_REQUEST.code).json({ message: resCodes.BAD_REQUEST.phrase });
+        res.status(resCodes.UNAUTHORIZED.code).json();
     }
 });
 

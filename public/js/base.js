@@ -63,8 +63,8 @@ var app = angular.module('StarterApp', [
                     return $q.reject(rejection);
                 },
                 response: function(response) {
-                    console.log('response: response', response);
                     if(!response.data){
+                        console.log('response: response', response);
                         response.data = {isEmpty : true};
                     }
                     return response;
