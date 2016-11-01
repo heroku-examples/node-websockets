@@ -156,7 +156,7 @@ router.route('/users')
     .get(function(req, res) {
         var page = req.query.page? req.query.page : pageConfig.page;
         var limit = req.query.limit? req.query.limit : pageConfig.limit;
-        User.paginate({}, { page: page, limit: limit }, function(err, result) {
+        User.paginate({uid: {'$ne':req.session.token.uid }}, { page: page, limit: limit }, function(err, result) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
