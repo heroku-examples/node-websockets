@@ -87,7 +87,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
             onRemoving: template.onRemoving
         });
     };
-    _this.error = function(error, status, codeInfo, templateUrl) {
+    _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
         var template = _this.getTemplateFunc('large');
         $mdDialog.show({
             controller: ModalCtrl,
@@ -97,7 +97,8 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
             locals: {
                 error: error,
                 status: status,
-                codeInfo: codeInfo
+                codeInfo: codeInfo,
+                isUnauthorized : isUnauthorized
             },
             onShowing: template.onShowing,
             onRemoving: template.onRemoving

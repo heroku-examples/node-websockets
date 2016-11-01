@@ -9,8 +9,17 @@
         </div>
     </md-toolbar>
     <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
-        description : {{locals.codeInfo.description}} </br>
-        error : {{locals.error}}</br>
-        <md-button ng-if="locals.error == '401'" md-no-ink class=" md-primary " ng-click="login( 'google') ">Login</md-button>
+        <div ng-if="!locals.isUnauthorized">
+            description : {{locals.codeInfo.description}} </br>
+            error : {{locals.error}}
+        </div>
+        <div ng-if="locals.isUnauthorized">
+            <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="directions_run"></ng-md-icon>
+            </br>
+            <span>
+                    セッションが切れました。
+                </span>
+        </div>
+        <md-button ng-if="locals.isUnauthorized" md-no-ink class=" md-primary " ng-click="login( 'google') ">Login</md-button>
     </md-content>
 </div>

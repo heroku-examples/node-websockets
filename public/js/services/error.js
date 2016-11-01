@@ -507,7 +507,8 @@ app
                     "spec_href": "http://documentup.com/joho/7XX-rfc"
                 }
             },
-            unauthorizedTemplateUrl: '/templates/modal/unauthorized.html'
+            unauthorizedTemplateUrl: '/templates/modal/unauthorized.html',
+            isUnauthorized : false,
         };
 
         _this.getMessage = function(error, status) {
@@ -556,14 +557,15 @@ app
 
             var templateUrl = "";
 
-            if(!error.status){
+            if(!error.status || _this.isUnauthorized){
                 //nothing todo
-            } else if (error.status == BAD_REQUEST.code || error.status == UNAUTHORIZED_1.code || error.status == UNAUTHORIZED_2.code) {
+            } else if (error.status == BAD_REQUEST.status || error.status == UNAUTHORIZED_1.status || error.status == UNAUTHORIZED_2.status) {
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED_1;
+                _this.isUnauthorized = true;
             }
 
-            Modal.error(error, status, codeInfo, templateUrl);
+            Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
         };
         _this.searchErrorByKey = function(key) {
             return $filter('where')(_this.codes, { key: key });
