@@ -18,11 +18,13 @@ router.use(function(req, res, next) {
             req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
         }
         next();
+    } else if (req.originalUrl == '/api/token') {
+        next();
     } else if (req.session.token) {
         next();
     } else {
         //Return a response immediately
-        res.status(resCodes.UNAUTHORIZED.code).json();
+        res.status(resCodes.BAD_REQUEST.code).json({ message: resCodes.BAD_REQUEST.phrase });
     }
 });
 
