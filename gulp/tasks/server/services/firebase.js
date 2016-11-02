@@ -12,7 +12,7 @@ module.exports = {
                 };
                 updates['/private_chats/' + decodedToken.uid + '/' + fromUid] = record;
                 firebase.database().ref().update(updates).then(function(snapshot) {
-                    resolve(snapshot);
+                    resolve({snapshot: snapshot, url : decodedToken.uid + '/' + fromUid});
                 }).catch(function(err) {
                     reject(err);
                 });

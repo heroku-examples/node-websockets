@@ -12,9 +12,9 @@ router.route('/token')
 // 作成 (POST http://localhost:3000/api/users)
 .post(function(req, res) {
     var firebase = require("firebase");
-    if (req.session.token) {
-        res.status(resCodes.OK.code).json(req.session.token);
-    } else {
+    // if (req.session.token) {
+    //     res.status(resCodes.OK.code).json(req.session.token);
+    // } else {
         firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
             User.findOne({
                 uid: decodedToken.uid
@@ -80,7 +80,7 @@ router.route('/token')
         }).catch(function(err) {
             res.status(resCodes.OINTERNAL_SERVER_ERROR.code).json( err );
         });
-    }
+    // }
 
 })
 // 1人のユーザのセッションを削除 (DELETE http://localhost:8000/api/users/:uid)

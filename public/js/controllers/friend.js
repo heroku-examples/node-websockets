@@ -117,9 +117,9 @@ app.controller('FriendCtrl', function($window,
 
     $scope.applyRequest = function(friendInfo) {
         Loading.start();
-        FriendRequest.apply().update({ fromUid: friendInfo.friend_request.fromUid }).$promise.then(function(result) {
+        FriendRequest.apply().update({ fromUid: friendInfo.fromUid }).$promise.then(function(result) {
             getRequests();
-            Toast.show(friendInfo.friend.firstName + "からのリクエストを承認しました。");
+            Toast.show(friendInfo.firstName + "からのリクエストを承認しました。");
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);

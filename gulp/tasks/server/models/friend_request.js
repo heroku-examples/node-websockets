@@ -8,6 +8,7 @@ var FriendRequestSchema   = new mongoose.Schema({
     fromUid :{ type: String, required: true },
     isApplyed : { type: Boolean, default: false },
     isRejected : { type: Boolean, default: false },
+    url : { type: String, default: "" },
     createDate: { type: Date, default: Date.now },
     updateDate: { type: Date, default: Date.now },
 });
