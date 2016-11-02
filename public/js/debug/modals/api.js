@@ -10,7 +10,6 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $cont
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);
-            console.log(data, status)
         });
     };
 
@@ -22,7 +21,6 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $cont
         }).catch(function(data, status) {
             Loading.finish();
             Error.openMessage(data, status);
-            console.log(data, status)
         });
     };
 

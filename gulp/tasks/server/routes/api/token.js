@@ -16,6 +16,8 @@ router.route('/token')
     //     res.status(resCodes.OK.code).json(req.session.token);
     // } else {
         firebase.auth().verifyIdToken(req.body.token).then(function(decodedToken) {
+            if (typeof decodedToken != 'object') res.status(resCodes.UNAUTHORIZED.code).json();
+            if (!decodedToken.uid) res.status(resCodes.UNAUTHORIZED.code).json();
             User.findOne({
                 uid: decodedToken.uid
             }, function(err, user) {
@@ -25,30 +27,36 @@ router.route('/token')
                     Token.findOne({
                         uid: decodedToken.uid
                     }, function(err, token) {
-                        token.uid = decodedToken.uid;
-                        token.token = req.body.token;
-                        token.isDebug = token.isDebug;
-                        if (err) res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
-                        token.token = req.body.token;
-                        token.save(function(err) {
-                            if (err){
-                                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
-                            }else{
-                                req.session.token = token;
-                                req.session.isEntry = user.isEntry;
-                                Debug.findOne({
-                                    uid: decodedToken.uid
-                                }, function(err, debug) {
-                                    if(debug){
-                                        if(!debug.delFlag) req.session.isDebug = true;
-                                        token.isDebug = true;
-                                    }else if (err){
-                                        res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
-                                    }
-                                    res.status(resCodes.OK.code).json(token);
-                                });
-                            }
-                        });
+                        if (err) {
+                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
+                        } else if(!token){
+                            res.status(resCodes.UNAUTHORIZED.code).json();
+                        } else{
+                            token.uid = decodedToken.uid;
+                            token.token = req.body.token;
+                            token.isDebug = token.isDebug;
+                            token.token = req.body.token;
+                            token.save(function(err) {
+                                if (err){
+                                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
+                                }else{
+                                    req.session.token = token;
+                                    req.session.isEntry = user.isEntry;
+                                    Debug.findOne({
+                                        uid: decodedToken.uid
+                                    }, function(err, debug) {
+                                        if(debug){
+                                            if(!debug.delFlag) req.session.isDebug = true;
+                                            token.isDebug = true;
+                                        }else if (err){
+                                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
+                                        }
+                                        res.status(resCodes.OK.code).json(token);
+                                    });
+                                }
+                            });
+                        }
+
                     });
                 } else {
                     var token = new Token();
