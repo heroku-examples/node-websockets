@@ -1,12 +1,12 @@
 <md-list-item class="md-3-line" style="width: 100%;">
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex).isApplyed" class="side-corner-tag">承認済み</div>
-    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-avatar" ng-click="openChatModal(getRequest(rangeIndex, infiniteItemIndex))">
+    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-avatar" ng-click="openChatModal(getFriendInfo(rangeIndex, infiniteItemIndex))">
         <div class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
             <img ng-if="getFriend(rangeIndex, infiniteItemIndex).photoURL" ng-src="{{getFriend(rangeIndex, infiniteItemIndex).photoURL}}" class="md-card-image" />
             <img ng-if="!getFriend(rangeIndex, infiniteItemIndex).photoURL" class="md-card-image" />
         </div>
     </div>
-    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChatModal(getRequest(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
+    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChatModal(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
         <h3>{{getFriend(rangeIndex, infiniteItemIndex).firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</h3>
         <h4>{{getFriend(rangeIndex, infiniteItemIndex).age}}</h4>
         <p>{{getFriend(rangeIndex, infiniteItemIndex).message}}</p>

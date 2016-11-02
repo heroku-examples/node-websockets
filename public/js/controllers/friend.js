@@ -102,12 +102,17 @@ app.controller('FriendCtrl', function($window,
 
     $scope.getRequest = function(_rangeIndex, _infiniteItemIndex) {
         var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
-        return result ? result : false;
+        return result ? result.friend_request : false;
     };
 
     $scope.getFriend= function(_rangeIndex, _infiniteItemIndex) {
         var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result.friend : false;
+    };
+
+    $scope.getFriendInfo = function(_rangeIndex, _infiniteItemIndex) {
+        var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+        return result ? result : false;
     };
 
     $scope.applyRequest = function(friendInfo) {
