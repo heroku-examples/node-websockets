@@ -222,7 +222,7 @@ router.route('/friend_requests')
     .get(function(req, res) {
         var page = req.query.page ? req.query.page : pageConfig.page;
         var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-        FriendRequest.paginate({ uid: req.session.token.uid }, { page: page, limit: limit }, function(err, requests) {
+        FriendRequest.paginate({ uid: req.session.token.uid, fromUid: {'$ne':req.session.token.uid } }, { page: page, limit: limit }, function(err, requests) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
@@ -236,13 +236,13 @@ router.route('/friend_requests')
                             var friend_request = _.find(
                                 requests.docs,
                                 function(request){
-                                    return friends[i].uid == request.uid;
+                                    return friends[i].uid == request.fromUid;
                                 }
                             );
                             result.push(
                                 {
-                                    friend_request : friend_request,
-                                    friend : friends[i]
+                                    friend_request : friend_request._doc,
+                                    friend : friends[i]._doc
                                 }
                             );
                         }
