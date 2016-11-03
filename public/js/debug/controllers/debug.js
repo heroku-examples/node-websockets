@@ -1,4 +1,4 @@
-app.controller('DebugCtrl', function(
+angular.module('debug',[]).controller('debugCtrl', function(
     $scope,
     $window,
     Profile,
@@ -89,3 +89,8 @@ app.controller('DebugCtrl', function(
         Json.deleteTargetUserCondition();
     };
 });
+
+
+function test(){
+    console.log(123)
+}

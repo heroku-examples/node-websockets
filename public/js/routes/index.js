@@ -1,62 +1,105 @@
-app.config(function( $stateProvider, $urlRouterProvider ) {
+app.config(function ($stateProvider, $urlRouterProvider) {
 
 
-        var dir = 'templates/';
+    var dir = 'templates/';
 
-        var states = {
-            index: {
-                // templateProvider: function($templateCache) {
-                //     // simplified, expecting that the cache is filled
-                //     // there should be some checking... and async $http loading if not found
-                //     return $templateCache.get('/templates/index/index.html');
-                // },
-                templateUrl : '/templates/index/index.html?v=' + window.deviceCacheKey,
-                controller: 'ApiCtrl'
+    var states = {
+        index: {
+            // templateProvider: function($templateCache) {
+            //     // simplified, expecting that the cache is filled
+            //     // there should be some checking... and async $http loading if not found
+            //     return $templateCache.get('/templates/index/index.html');
+            // },
+            controller: 'IndexCtrl',
+            templateProvider: function () {
+                return lazyDeferred.promise;
             },
-            friend: {
-                // templateProvider: function($templateCache) {
-                //     // simplified, expecting that the cache is filled
-                //     // there should be some checking... and async $http loading if not found
-                //     return $templateCache.get('/templates/index/index.html');
-                // },
-                templateUrl : '/templates/index/friend.html?v=' + window.deviceCacheKey,
-                controller: 'FriendCtrl'
-            },
-            setting: {
-                // templateProvider: function($templateCache) {
-                //     // simplified, expecting that the cache is filled
-                //     // there should be some checking... and async $http loading if not found
-                //     return $templateCache.get('/templates/index/index.html');
-                // },
-                templateUrl : '/templates/index/setting.html?v=' + window.deviceCacheKey,
-                controller: 'SettingCtrl',
+            resolve: {
+                load: function ($ocLazyLoad, $q, $http) {
+                    lazyDeferred = $q.defer();
+                    return $ocLazyLoad.load('index').then(function () {
+                        return $http.get('/templates/index/index.html?v=' + window.deviceCacheKey)
+                            .success(function (data, status, headers, config) {
+                                return lazyDeferred.resolve(data);
+                            }).
+                            error(function (data, status, headers, config) {
+                                return lazyDeferred.resolve(data);
+                            });
+                    });
 
-                //ui-sref="chat({requestFromUid: getRequest(rangeIndex, infiniteItemIndex).friend_request.fromUid, requestUid: getRequest(rangeIndex, infiniteItemIndex).friend_request.uid})"
-                // params: {
-                //     requestFromUid: null,
-                //     requestUid: null
-                // }
+                }
             }
-        };
-        $stateProvider
-            .state('index', {
-                url: "/",
-                views: {
-                    "main": states.index,
+        },
+        friend: {
+            // templateProvider: function($templateCache) {
+            //     // simplified, expecting that the cache is filled
+            //     // there should be some checking... and async $http loading if not found
+            //     return $templateCache.get('/templates/index/index.html');
+            // },
+            controller: 'FriendCtrl',
+            templateProvider: function () {
+                return lazyDeferred.promise;
+            },
+            resolve: {
+                load: function ($ocLazyLoad, $q, $http) {
+                    lazyDeferred = $q.defer();
+                    return $ocLazyLoad.load('friend').then(function () {
+                        return $http.get('/templates/index/friend.html?v=' + window.deviceCacheKey)
+                            .success(function (data, status, headers, config) {
+                                return lazyDeferred.resolve(data);
+                            }).
+                            error(function (data, status, headers, config) {
+                                return lazyDeferred.resolve(data);
+                            });
+                    });
+
                 }
-            })
-            .state('friend', {
-                url: "/friend",
-                views: {
-                    "main": states.friend,
-                },
-            })
-            .state('setting', {
-                url: "/setting",
-                views: {
-                    "main": states.setting,
+            },
+            // data: {
+            //     public: true
+            // }
+        },
+        setting: {
+            controller: 'SettingCtrl',
+            templateProvider: function () {
+                return lazyDeferred.promise;
+            },
+            resolve: {
+                load: function ($ocLazyLoad, $q, $http) {
+                    lazyDeferred = $q.defer();
+                    return $ocLazyLoad.load('setting').then(function () {
+                        return $http.get('/templates/index/setting.html?v=' + window.deviceCacheKey)
+                            .success(function (data, status, headers, config) {
+                                return lazyDeferred.resolve(data);
+                            }).
+                            error(function (data, status, headers, config) {
+                                return lazyDeferred.resolve(data);
+                            });
+                    });
+
                 }
-            });
-        $urlRouterProvider.otherwise('/index');
-        $urlRouterProvider.when('', '/');
-    });
+            }
+        }
+    };
+    $stateProvider
+        .state('index', {
+            url: "/",
+            views: {
+                "main": states.index,
+            }
+        })
+        .state('friend', {
+            url: "/friend",
+            views: {
+                "main": states.friend,
+            },
+        })
+        .state('setting', {
+            url: "/setting",
+            views: {
+                "main": states.setting,
+            }
+        });
+    $urlRouterProvider.otherwise('/index');
+    $urlRouterProvider.when('', '/');
+});

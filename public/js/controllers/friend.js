@@ -1,4 +1,4 @@
-app.controller('FriendCtrl', function($window,
+app.$controllerProvider.register('FriendCtrl', function($window,
     $scope,
     $rootScope,
     $timeout,

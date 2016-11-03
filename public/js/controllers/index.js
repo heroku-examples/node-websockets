@@ -88,7 +88,7 @@ function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequ
     };
 }
 
-app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
+app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
 
 
     var layoutConfig = {
@@ -392,7 +392,7 @@ app.controller('ApiCtrl', function($window, $scope, $rootScope, $timeout, $local
 
 });
 
-app.controller('ListBottomSheetCtrl', function($scope, $mdBottomSheet, locals) {
+app.$controllerProvider.register('ListBottomSheetCtrl', function($scope, $mdBottomSheet, locals) {
     $scope.items = locals.items;
 
     $scope.listItemClick = function(item) {

@@ -12,7 +12,8 @@ var app = angular.module('StarterApp', [
         'ngImgCrop',
         'angularLazyImg',
         'angularRangeSlider',
-        'angular.filter'
+        'angular.filter',
+        'oc.lazyLoad'
     ])
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme( 'grey')
@@ -75,4 +76,39 @@ var app = angular.module('StarterApp', [
                 }
             };
         });
-    })
+    }).config([ "$ocLazyLoadProvider", function($ocLazyLoadProvider) {
+       $ocLazyLoadProvider.config({
+           debug : true,
+            modules: [
+            {
+                name: 'index',
+                files: ['/js/controllers/index.js?v=' + window.deviceCacheKey]
+            },
+            {
+            name: 'friend',
+                files: ['/js/services/chat.js?v=' + window.deviceCacheKey, '/js/controllers/friend.js?v=' + window.deviceCacheKey]
+            },
+            {
+                name: 'setting',
+                files: ['/js/controllers/setting.js?v=' + window.deviceCacheKey]
+            },
+            {
+                name: 'debug',
+                files: ['/js/debug/controllers/debug.js?v=' + window.deviceCacheKey]
+            },{
+                name: 'test',
+                files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]
+            }]
+       });
+   }]).config(['$provide', '$controllerProvider', '$animateProvider', '$filterProvider', '$compileProvider',
+    function($provide,   $controllerProvider,   $animateProvider,   $filterProvider,   $compileProvider) {
+
+        // Service 系 (service, factory, value, constant) は $provide
+        app.$provide = $provide;
+
+        // あとは名前の通り
+        app.$controllerProvider = $controllerProvider;
+        app.$animateProvider = $animateProvider;
+        app.$filterProvider = $filterProvider;
+        app.compileProvider = $compileProvider;
+}]);
