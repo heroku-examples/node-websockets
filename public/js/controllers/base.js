@@ -9,7 +9,7 @@ app.controller('AppCtrl', function($scope, $window, $location, $rootScope, $mdMe
             return path + window.deviceCacheKey;
         };
         $scope.menu = [{
-            link: location.pathname +'#',
+            link: '/main#/',
             title: 'Main',
             icon: 'dashboard'
         }, {
@@ -25,7 +25,7 @@ app.controller('AppCtrl', function($scope, $window, $location, $rootScope, $mdMe
             title: 'setting',
             icon: 'group'
         },  {
-            link: location.pathname,
+            link: '/index#/',
             title: 'Index',
             icon: 'group'
         }, {

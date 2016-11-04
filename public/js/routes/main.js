@@ -49,6 +49,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         });
 
-    $urlRouterProvider.otherwise('/index');
-    $urlRouterProvider.when('', '/index');
+    $urlRouterProvider.otherwise('/signUp');
+    $urlRouterProvider.when('', '/signUp');
 });
