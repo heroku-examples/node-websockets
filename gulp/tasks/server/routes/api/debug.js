@@ -11,9 +11,23 @@ var pageConfig = {
 };
 
 //before filter
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
     if (process.env.NODE_ENV != 'production') {
-        next();
+        req.session.token = {};
+        req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
+        var Token = require('../../models/token');
+        Token.findOne({
+            uid: req.session.token.uid
+        }, function (err, token) {
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else if (token) {
+                req.session.token.token = token.token;
+                next();
+            } else{
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
+            }
+        });
     } else if (req.session.token && req.session.isDebug) {
         next();
     } else {
@@ -21,6 +35,22 @@ router.use(function(req, res, next) {
         res.status(resCodes.UNAUTHORIZED.code).json();
     }
 });
+
+router.route('/debug/updateAdminToken')
+    // セッションチャットの取得 (POST http://localhost:3000/api/chats)
+    .post(function (req, res) {
+        var FireBaseSearvice = require('../../services/firebase');
+        FireBaseSearvice.updateAdminToken(req).then(function (adminToken) {
+            if (!adminToken) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
+            }else{
+                res.status(resCodes.OK.code).json(adminToken);
+            }
+        }, function (err) {
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        });
+
+    });
 
 router.route('/debug')
     // 一つのデバッグの情報を取得 (GET http://localhost:8000/api/debugs/:debug_id)
