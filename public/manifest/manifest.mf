@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# 2010-06-18:v2
+
+# Explicitly cached 'master entries'.
+CACHE:
+/css/angular-material.css
+/js/libs
+
+NETWORK:
+/js
+/templates
+/json
+/css
+/fonts
+
+# static.html will be served if main.py is inaccessible
+# offline.jpg will be served in place of all images in images/large/
+# offline.html will be served in place of all other .html files
+FALLBACK:
+*.html /static/offline.html
