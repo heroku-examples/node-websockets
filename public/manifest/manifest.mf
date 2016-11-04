@@ -5,13 +5,13 @@ CACHE MANIFEST
 CACHE:
 /css/angular-material.css
 /js/libs
+/fonts
 
 NETWORK:
 /js
 /templates
 /json
 /css
-/fonts
 
 # static.html will be served if main.py is inaccessible
 # offline.jpg will be served in place of all images in images/large/
