@@ -1,22 +1,22 @@
 var app = angular.module('StarterApp', [
-        'ui.router',
-        'ngMaterial',
-        'ngMdIcons',
-        'ngResource',
-        'ngMessages',
-        'ngStorage',
-        'pascalprecht.translate',
-        'ngCookies',
-        'firebase',
-        'images-resizer',
-        'ngImgCrop',
-        'angularLazyImg',
-        'angularRangeSlider',
-        'angular.filter',
-        'oc.lazyLoad'
-    ])
+    'ui.router',
+    'ngMaterial',
+    'ngMdIcons',
+    'ngResource',
+    'ngMessages',
+    'ngStorage',
+    'pascalprecht.translate',
+    'ngCookies',
+    'firebase',
+    'images-resizer',
+    'ngImgCrop',
+    'angularLazyImg',
+    'angularRangeSlider',
+    'angular.filter',
+    'oc.lazyLoad'
+])
     .config(function($mdThemingProvider) {
-        $mdThemingProvider.theme( 'grey')
+        $mdThemingProvider.theme('grey')
             .primaryPalette('grey')
             .accentPalette('grey')
             .warnPalette('grey')
@@ -64,9 +64,9 @@ var app = angular.module('StarterApp', [
                     return $q.reject(rejection);
                 },
                 response: function(response) {
-                    if(!response.data){
+                    if (!response.data) {
                         console.log('response: response', response);
-                        response.data = {isEmpty : true};
+                        response.data = { isEmpty: true };
                     }
                     return response;
                 },
@@ -76,39 +76,39 @@ var app = angular.module('StarterApp', [
                 }
             };
         });
-    }).config([ "$ocLazyLoadProvider", function($ocLazyLoadProvider) {
-       $ocLazyLoadProvider.config({
-           debug : true,
+    }).config(["$ocLazyLoadProvider", function($ocLazyLoadProvider) {
+        $ocLazyLoadProvider.config({
+            debug: true,
             modules: [
-            {
-                name: 'index',
-                files: ['/js/controllers/index.js?v=' + window.deviceCacheKey]
-            },
-            {
-            name: 'friend',
-                files: ['/js/services/chat.js?v=' + window.deviceCacheKey, '/js/controllers/friend.js?v=' + window.deviceCacheKey]
-            },
-            {
-                name: 'setting',
-                files: ['/js/controllers/setting.js?v=' + window.deviceCacheKey]
-            },
-            {
-                name: 'debug',
-                files: ['/js/debug/controllers/debug.js?v=' + window.deviceCacheKey]
-            },{
-                name: 'test',
-                files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]
-            }]
-       });
-   }]).config(['$provide', '$controllerProvider', '$animateProvider', '$filterProvider', '$compileProvider',
-    function($provide,   $controllerProvider,   $animateProvider,   $filterProvider,   $compileProvider) {
+                {
+                    name: 'index',
+                    files: ['/js/controllers/index.js?v=' + window.deviceCacheKey]
+                },
+                {
+                    name: 'friend',
+                    files: ['/js/services/chat.js?v=' + window.deviceCacheKey, '/js/controllers/friend.js?v=' + window.deviceCacheKey]
+                },
+                {
+                    name: 'setting',
+                    files: ['/js/controllers/setting.js?v=' + window.deviceCacheKey]
+                },
+                {
+                    name: 'debug',
+                    files: ['/js/debug/controllers/debug.js?v=' + window.deviceCacheKey]
+                }, {
+                    name: 'test',
+                    files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]
+                }]
+        });
+    }]).config(['$provide', '$controllerProvider', '$animateProvider', '$filterProvider', '$compileProvider',
+        function($provide, $controllerProvider, $animateProvider, $filterProvider, $compileProvider) {
 
-        // Service 系 (service, factory, value, constant) は $provide
-        app.$provide = $provide;
+            // Service 系 (service, factory, value, constant) は $provide
+            app.$provide = $provide;
 
-        // あとは名前の通り
-        app.$controllerProvider = $controllerProvider;
-        app.$animateProvider = $animateProvider;
-        app.$filterProvider = $filterProvider;
-        app.compileProvider = $compileProvider;
-}]);
+            // あとは名前の通り
+            app.$controllerProvider = $controllerProvider;
+            app.$animateProvider = $animateProvider;
+            app.$filterProvider = $filterProvider;
+            app.compileProvider = $compileProvider;
+        }]);
