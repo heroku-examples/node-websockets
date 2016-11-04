@@ -29,14 +29,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'LoginCtrl',
             resolve: {},
             path: {
-                templateUrl: dir + 'index/signUp.html?v=' + window.deviceCacheKey,
+                templateUrl: dir + 'main/signUp.html?v=' + window.deviceCacheKey,
             }
         },
         userUpdate: {
             controller: 'UserUpdateCtrl',
             resolve: {},
             path :{
-                templateUrl: dir + 'index/userUpdate.html?v=' + window.deviceCacheKey,
+                templateUrl: dir + 'main/userUpdate.html?v=' + window.deviceCacheKey,
             }
         }
     };
@@ -64,6 +64,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             });
     });
-    $urlRouterProvider.otherwise('/index');
-    $urlRouterProvider.when('', '/index');
+    $urlRouterProvider.otherwise('/signUp');
+    $urlRouterProvider.when('', '/signUp');
 });

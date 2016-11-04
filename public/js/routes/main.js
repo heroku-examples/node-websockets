@@ -1,44 +1,54 @@
-app.config(function($stateProvider, $urlRouterProvider) {
-        var dir = 'templates/';
+app.config(function ($stateProvider, $urlRouterProvider) {
+    var dir = '/templates/';
 
-        var states = {
-            index: {
-                // templateProvider: function($templateCache) {
-                //     // simplified, expecting that the cache is filled
-                //     // there should be some checking... and async $http loading if not found
-                //     return $templateCache.get('/templates/index/index.html');
-                // },
-                templateUrl : '/templates/main/index.html?v=' + window.deviceCacheKey,
-                controller: 'LoginCtrl'
-            },
-            signUp: {
-                templateUrl : '/templates/main/signUp.html?v=' + window.deviceCacheKey,
-                controller: 'LoginCtrl'
-            },
-            userUpdate : {
-                templateUrl : '/templates/main/userUpdate.html?v=' + window.deviceCacheKey,
-                controller: 'UserUpdateCtrl'
+    var states = {
+        signUp: {
+            controller: 'LoginCtrl',
+            resolve: {},
+            path: {
+                templateUrl: dir + 'main/signUp.html?v=' + window.deviceCacheKey,
             }
+        },
+        userUpdate: {
+            controller: 'UserUpdateCtrl',
+            resolve: {},
+            path: {
+                templateUrl: dir + 'main/userUpdate.html?v=' + window.deviceCacheKey,
+            }
+        }
+    };
+    angular.forEach(states, function (state, stateKey) {
+        states[stateKey].templateProvider = function () {
+            return lazyDeferred.promise;
+        };
+        states[stateKey].resolve.load = function ($ocLazyLoad, $q, $http) {
+            lazyDeferred = $q.defer();
+            return $ocLazyLoad.load(stateKey).then(function () {
+                return $http.get( state.path.templateUrl)
+                    .success(function (data, status, headers, config) {
+                        return lazyDeferred.resolve(data);
+                    }).
+                    error(function (data, status, headers, config) {
+                        return lazyDeferred.resolve(data);
+                    });
+            });
         };
         $stateProvider
-            .state('index', {
-                url: "/",
+            .state(stateKey, {
+                url: '/' +stateKey,
                 views: {
-                    "main": states.index,
-                }
-            })
-            .state('signUp', {
-                url: "/signUp",
-                views: {
-                    "main": states.signUp,
-                }
-            })
-            .state('userUpdate', {
-                url: "/userUpdate",
-                views: {
-                    "main": states.userUpdate,
+                    "main": states[stateKey]
                 }
             });
-        $urlRouterProvider.otherwise('/index');
-        $urlRouterProvider.when('', '/');
     });
+    $stateProvider
+        .state('/index', {
+            url: "",
+            views: {
+                "main": states.signUp,
+            }
+        });
+
+    $urlRouterProvider.otherwise('/index');
+    $urlRouterProvider.when('', '/index');
+});

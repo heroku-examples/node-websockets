@@ -1,4 +1,4 @@
-app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function($scope, $window, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
         $scope.sessionStorage = $sessionStorage;
         $scope.mdMedia = $mdMedia;
         $scope.deviceCacheKey = window.deviceCacheKey;
@@ -9,23 +9,23 @@ app.controller('AppCtrl', function($scope, $window, $rootScope, $mdMedia, $mdBot
             return path + window.deviceCacheKey;
         };
         $scope.menu = [{
-            link: '/main#/',
+            link: location.pathname +'#',
             title: 'Main',
             icon: 'dashboard'
         }, {
-            link: '/index#/friend',
+            link: location.pathname + '#friend',
             title: 'Friend',
             icon: 'group'
         }, {
-            link: '/main#/userUpdate',
+            link: location.pathname +'#userUpdate',
             title: 'User Update',
             icon: 'group'
         }, {
-            link: '/index#/setting',
+            link: location.pathname + '#setting',
             title: 'setting',
             icon: 'group'
         },  {
-            link: '/index#/',
+            link: location.pathname,
             title: 'Index',
             icon: 'group'
         }, {

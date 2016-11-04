@@ -1,2 +1,2 @@
-app.controller('MainCtrl', function($scope, Login) {
+app.$controllerProvider.register('MainCtrl', function($scope, Login) {
 });

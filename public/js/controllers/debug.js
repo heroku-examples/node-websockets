@@ -91,7 +91,7 @@ app.factory('Config', function($resource) {
     });
 });
 
-app.controller('DebugCtrl', function($scope,
+app.$controllerProvider.register('DebugCtrl', function($scope,
     Profile,
     SyncProfile,
     Location,

@@ -1,4 +1,4 @@
-app.controller('UserUpdateCtrl', function($scope, $filter, $sessionStorage, Json, Loading, Toast, Login, File, User, Error) {
+app.$controllerProvider.register('UserUpdateCtrl', function($scope, $filter, $sessionStorage, Json, Loading, Toast, Login, File, User, Error) {
     $scope.myDate = new Date();
 
     console.log('getUser', Login.getUser());

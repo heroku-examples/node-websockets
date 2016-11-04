@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $sessionStorage, Login) {
+app.$controllerProvider.register('LoginCtrl', function($scope, $sessionStorage, Login) {
 	$scope.getButtonText = function(){
 		return $sessionStorage.token ? "Log out" : "Log in";
 	};
