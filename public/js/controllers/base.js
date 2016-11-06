@@ -1,4 +1,4 @@
-app.controller('AppCtrl', function($scope, $window, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function($scope, $window, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
         $scope.sessionStorage = $sessionStorage;
         $scope.mdMedia = $mdMedia;
         $scope.deviceCacheKey = window.deviceCacheKey;
@@ -49,6 +49,8 @@ app.controller('AppCtrl', function($scope, $window, $location, $rootScope, $mdMe
 
         $scope.alert = '';
 
+        
+
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             if (toParams.value || toParams.key) {
                 $sessionStorage.toParams = {
@@ -67,7 +69,14 @@ app.controller('AppCtrl', function($scope, $window, $location, $rootScope, $mdMe
         });
 
         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-
+            var currentUser = Login.getUser();
+            if(!$scope.message && currentUser.uid) {
+                $scope.messages = FireBaseService.getArrayRef('/notify/' + currentUser.uid, 'messages');
+                $scope.messages.$watch(function() {
+                    Toast.show($scope.messages[0].text);
+                });
+            }
+            console.log($scope.messages)
         });
 
         // $scope.openAdd = function(ev) {

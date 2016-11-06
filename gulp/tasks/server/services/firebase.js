@@ -24,36 +24,29 @@ module.exports = {
     sendFriendChatComment: function (req, url, text) {
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
-            firebase.auth().verifyIdToken(req.session.token.token).then(function (decodedToken) {
-                var comments = firebase.database().ref(url).child('comments').push();
-                comments.set({
-                    text: text,
-                    uid: req.session.token.uid,
-                }).then(function (_comments) {
-                    resolve({ record: _comments, url: decodedToken.uid });
-                }).catch(function (err) {
-                    reject(err);
-                });
+            var comments = firebase.database().ref('/private_chats/' + url).child('comments').push();
+            comments.set({
+                text: text,
+                uid: req.session.token.uid,
+            }).then(function (_comments) {
+                resolve({ record: _comments, url: req.session.token.uid });
             }).catch(function (err) {
                 reject(err);
             });
         });
     },
-    sendNotify: function (req, adminToken, text, fromUid, photoURL) {
+    sendNotify: function (req, text, fromUid, photoURL) {
+        if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
-            firebase.auth().signInWithCustomToken(adminToken).then(function (decodedToken) {
-                var path = '/notify/' + req.session.token.uid;
-                var comments = firebase.database().ref(path).child('comments');
-                comments.$add({
-                    text: text,
-                    fromUid: fromUid,
-                    photoURL: photoUrl
-                }).then(function (_comments) {
-                    resolve({ record: _comments, url: req.session.token.uid });
-                }).catch(function (err) {
-                    reject(err);
-                });
+            var path = '/notify/' + req.session.token.uid;
+            var messages = firebase.database().ref(path).child('messages').push();
+            messages.set({
+                text: text,
+                fromUid: fromUid,
+                photoURL: photoURL
+            }).then(function (_messages) {
+                resolve({ record: _messages, url: req.session.token.uid });
             }).catch(function (err) {
                 reject(err);
             });
@@ -83,11 +76,11 @@ module.exports = {
         return new Promise(function (resolve, reject) {
             var Config = require('./../services/config');
             Config.get('adminToken').then(function (record) {
-                if(!record){
+                if (!record) {
                     resolve(false);
-                } else{
+                } else {
                     resolve(record.adminToken);
-                }  
+                }
             }, function (err) {
                 reject(err);
             });

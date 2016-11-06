@@ -65,6 +65,19 @@ app.factory('User', function($resource) {
     };
 });
 
+app.factory('Chat', function($resource) {
+    return {
+        root : function(){
+            return $resource('/api/Chat/:targetUid', {url: '@url'}, {
+                send: {
+                    method: 'POST',
+                    isArray: false
+                }
+            });
+        }
+    };
+});
+
 app.factory('FriendRequest', function($resource) {
     return {
         root :function(){

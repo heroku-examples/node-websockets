@@ -5,6 +5,7 @@ function ChatCtrl($scope,
     locals,
     Error,
     Login,
+    Chat,
     Loading,
     $controller,
     $mdMedia,
@@ -128,14 +129,20 @@ function ChatCtrl($scope,
         return getMediaCount();
     };
 
-    $scope.addMeaage = function () {
+    $scope.sendMeaage = function () {
         if (!$scope.comment) return;
-        $scope.messages.$add({
-            text: $scope.comment,
-            uid: Login.getUser().uid,
-            photoURL: Login.getUser().photoURL
+        Chat.root().send(
+            { 
+                url: locals.friend_request.url,
+                text: $scope.comment,
+                photoURL: Login.getUser().photoURL
+            }
+        ).$promise.then(function (result) {
+            Loading.finish();
+        }).catch(function (data, status) {
+            Loading.finish();
+            Error.openMessage(data, status);
         });
-        $scope.comment = "";
     };
 
     $scope.gotoBottom = function () {

@@ -35,22 +35,15 @@ router.route('/chat')
     .post(function (req, res) {
         var FireBaseSearvice = require('../../services/firebase');
         FireBaseSearvice.sendFriendChatComment(req, req.body.url, req.body.text).then(function (commentResult) {
-            FireBaseSearvice.getAdminToken().then(function (adminToken) {
-                if (!adminToken) {
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
-                    return;
-                }
-                var text = 'message from :' + req.session.token.uid;
-                FireBaseSearvice.sendNotify(req, adminToken, text, req.session.token.uid).then(function (notifyResult) {
-                    res.status(resCodes.OK.code).json({ commentResult: commentResult, notifyResult: notifyResult });
-                }, function (err) {
-                    console.log('err', err, err.lineNumber);
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                });
+
+            var text = 'message from :' + req.session.token.uid;
+            FireBaseSearvice.sendNotify(req, text, req.session.token.uid).then(function (notifyResult) {
+                res.status(resCodes.OK.code).json({ commentResult: commentResult, notifyResult: notifyResult });
             }, function (err) {
                 console.log('err', err, err.lineNumber);
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             });
+
         }, function (err) {
             console.log('err', err, err.lineNumber);
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);

@@ -12,14 +12,15 @@ firebase.initializeApp({
 
 var uid = "zcMTtpFeKEhmGPiJWno0310Sv5p1";
 var additionalClaims = {
-    premiumAccount: true
+    adminToken: true
 };
 var token = firebase.auth().createCustomToken(uid, additionalClaims);
-firebase.auth().verifyIdToken(token).catch(function(error) {
-  var errorCode = error.code;
-  var errorMessage = error.message;
+var Config = require('./../services/config');
+Config.update('adminToken', token).then(function (records) {
+    console.log("firebase success", records)
+}, function (error) {
+    console.log("firebase error", error)
 });
-
 
 var resCodes = require('.././json/http/http_code_names.json');
 
