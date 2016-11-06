@@ -19,8 +19,12 @@ app
         };
 
         var checkUserToRedirect = function() {
-            if(location.pathname =="/main/redirect"){
-                if(!$window.session.token && !$sessionStorage.token)_this.logOut();
+            if(location.pathname.includes('/main')){
+                if($window.session.token || $sessionStorage.token){
+                    location.href = "/index";
+                } else{
+                    _this.logOut();
+                }
             }else if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
                 location.href = "main";
             } else {

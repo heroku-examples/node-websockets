@@ -11,6 +11,10 @@
         </div>
     </md-toolbar>
     <md-list>
+            <md-list-item  ng-click="checkButtonClick('google')">
+                    <ng-md-icon icon="done"></ng-md-icon>
+                    <p>{{sessionStorage.firebaseUser ? 'Logout' : 'Login'}}</p>
+            </md-list-item>
         <span ng-repeat="item in menu" ng-link="{{item.link}}">
             <md-list-item  md-ink-ripple>
                     <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
