@@ -135,9 +135,11 @@ function ChatCtrl($scope,
             { 
                 url: locals.friend_request.url,
                 text: $scope.comment,
-                photoURL: Login.getUser().photoURL
+                photoURL: Login.getUser().photoURL,
+                targetUid : locals.friend.uid
             }
         ).$promise.then(function (result) {
+            $scope.comment = "";
             Loading.finish();
         }).catch(function (data, status) {
             Loading.finish();

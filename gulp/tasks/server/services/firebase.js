@@ -21,13 +21,15 @@ module.exports = {
             });
         });
     },
-    sendFriendChatComment: function (req, url, text) {
+    sendFriendChatComment: function (req, url, text, photoURL) {
+        if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
             var comments = firebase.database().ref('/private_chats/' + url).child('comments').push();
             comments.set({
                 text: text,
                 uid: req.session.token.uid,
+                photoURL : photoURL
             }).then(function (_comments) {
                 resolve({ record: _comments, url: req.session.token.uid });
             }).catch(function (err) {
@@ -35,11 +37,11 @@ module.exports = {
             });
         });
     },
-    sendNotify: function (req, text, fromUid, photoURL) {
+    sendNotify: function (req, text, fromUid, targetUid, photoURL) {
         if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
-            var path = '/notify/' + req.session.token.uid;
+            var path = '/notify/' + targetUid;
             var messages = firebase.database().ref(path).child('messages').push();
             messages.set({
                 text: text,
