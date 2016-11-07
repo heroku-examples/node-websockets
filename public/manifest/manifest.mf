@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2010-11-07:v4
+# 2010-11-07:v8
 
 # Explicitly cached 'master entries'.
 CACHE:
@@ -36,11 +36,7 @@ CACHE:
 /fonts/MaterialIcons-Regular.ttf
 
 NETWORK:
-/js
-/templates
-/json
-/css
-/images
+*
 
 # static.html will be served if main.py is inaccessible
 # offline.jpg will be served in place of all images in images/large/
