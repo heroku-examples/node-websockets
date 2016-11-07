@@ -1,11 +1,11 @@
-app.controller('AppCtrl', function($scope, $window, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function ($scope, $window, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
     $scope.sessionStorage = $sessionStorage;
     $scope.mdMedia = $mdMedia;
     $scope.deviceCacheKey = window.deviceCacheKey;
-    $scope.toggleSidenav = function(menuId) {
+    $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
-    $scope.getUrlWithCacheNumber = function(path) {
+    $scope.getUrlWithCacheNumber = function (path) {
         return path + window.deviceCacheKey;
     };
     $scope.menu = [{
@@ -49,7 +49,7 @@ app.controller('AppCtrl', function($scope, $window, Toast, $location, $rootScope
 
     $scope.alert = '';
 
-    $scope.checkButtonClick = function(type) {
+    $scope.checkButtonClick = function (type) {
         if ($sessionStorage.token) {
             Login.logOut();
         } else {
@@ -57,7 +57,7 @@ app.controller('AppCtrl', function($scope, $window, Toast, $location, $rootScope
         }
     };
 
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if (toParams.value || toParams.key) {
             $sessionStorage.toParams = {
                 value: toParams.value,
@@ -74,18 +74,35 @@ app.controller('AppCtrl', function($scope, $window, Toast, $location, $rootScope
         // Theme.changeTheme('default');
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         var currentUser = Login.getUser();
-        if(currentUser){
+        if (currentUser) {
             if (!$scope.message && currentUser.uid) {
                 $scope.messages = FireBaseService.getArrayRef('/notify/' + currentUser.uid, 'messages');
-                $scope.messages.$watch(function() {
+                $scope.messages.$watch(function () {
                     Toast.show($scope.messages[0].text);
                 });
             }
         }
     });
 
+    // Check if a new cache is available on page load.
+    $window.addEventListener('load', function (e) {
+
+        $window.applicationCache.addEventListener('updateready', function (e) {
+            if ($window.applicationCache.status == $window.applicationCache.UPDATEREADY) {
+                // Browser downloaded a new app cache.
+                // Swap it in and reload the page to get the new hotness.
+                $window.applicationCache.swapCache();
+                if (confirm('A new version of this site is available. Load it?')) {
+                    $window.location.reload();
+                }
+            } else {
+                // Manifest didn't changed. Nothing new to server.
+            }
+        }, false);
+
+    }, false);
     // $scope.openAdd = function(ev) {
     //     $mdDialog.show({
     //             controller: DialogController,
