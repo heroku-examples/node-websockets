@@ -76,12 +76,13 @@ app.controller('AppCtrl', function($scope, $window, Toast, $location, $rootScope
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
         var currentUser = Login.getUser();
-        if(!currentUser) return;
-        if (!$scope.message && currentUser.uid) {
-            $scope.messages = FireBaseService.getArrayRef('/notify/' + currentUser.uid, 'messages');
-            $scope.messages.$watch(function() {
-                Toast.show($scope.messages[0].text);
-            });
+        if(currentUser){
+            if (!$scope.message && currentUser.uid) {
+                $scope.messages = FireBaseService.getArrayRef('/notify/' + currentUser.uid, 'messages');
+                $scope.messages.$watch(function() {
+                    Toast.show($scope.messages[0].text);
+                });
+            }
         }
     });
 
