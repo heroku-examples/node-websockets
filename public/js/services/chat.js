@@ -140,6 +140,7 @@ function ChatCtrl($scope,
             }
         ).$promise.then(function (result) {
             Loading.finish();
+            $scope.comment = "";
         }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);

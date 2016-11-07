@@ -36,8 +36,14 @@ module.exports = {
                 var unread = firebase.database().ref('/private_chats/' + url + '/unread/' + targetUid).child('unread')
                 unread.transaction(function (current_value) {
                     return (current_value || 0) + 1;
+                }, function (err, committed, snapshot) {
+                    if (err)
+                        reject(err);
+                    else if (!committed)
+                        reject(false);
+                    else
+                        resolve({ snapshot: snapshot });
                 });
-                resolve({ record: unread, url: req.session.token.uid });
             }).catch(function (err) {
                 reject(err);
             });
