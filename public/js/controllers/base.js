@@ -3,7 +3,9 @@ app.controller('AppCtrl', function ($scope, $window, Toast, $location, $rootScop
     $scope.mdMedia = $mdMedia;
     $scope.deviceCacheKey = window.deviceCacheKey;
     $scope.toggleSidenav = function (menuId) {
-        $mdSidenav(menuId).toggle();
+        $timeout(function () {
+            $mdSidenav(menuId).toggle();
+        }, false);
     };
     $scope.getUrlWithCacheNumber = function (path) {
         return path + window.deviceCacheKey;
