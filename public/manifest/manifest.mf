@@ -7,7 +7,7 @@ CACHE:
 /css/material_icon.css
 /css/animate.css
 /css/angular-range-slider.css
-/js/libs/jquery.min.js
+/js/libs/jquery/jquery.min.js
 /js/libs/angular/angular.min.js
 /js/libs/firebase/firebase.js
 /js/libs/firebase/angularfire.min.js
@@ -40,6 +40,7 @@ NETWORK:
 /templates
 /json
 /css
+/images
 
 # static.html will be served if main.py is inaccessible
 # offline.jpg will be served in place of all images in images/large/
