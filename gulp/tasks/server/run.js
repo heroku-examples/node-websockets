@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 
 //http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/1290__Node.js_underscore_Package.htm
 
-
+var Promise = require('es6-promise').Promise;
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var indexView = require('./routes/index');

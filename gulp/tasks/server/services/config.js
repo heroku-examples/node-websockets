@@ -1,3 +1,4 @@
+var Promise = require('es6-promise').Promise;
 module.exports = {
     get: function(name) {
         return new Promise(function(resolve, reject) {

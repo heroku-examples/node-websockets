@@ -1,3 +1,4 @@
+var Promise = require('es6-promise').Promise;
 module.exports = {
     createFriendChat: function (req, fromUid) {
         return new Promise(function (resolve, reject) {
