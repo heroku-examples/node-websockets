@@ -28,6 +28,7 @@ var socket = require('./routes/socket');
 app = socket.set(app);
 
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 
 //http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/1290__Node.js_underscore_Package.htm
