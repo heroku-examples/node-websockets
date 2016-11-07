@@ -139,12 +139,12 @@ function ChatCtrl($scope,
                 targetUid : locals.friend.uid
             }
         ).$promise.then(function (result) {
-            $scope.comment = "";
             Loading.finish();
         }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
+        $scope.comment = "";
     };
 
     $scope.gotoBottom = function () {

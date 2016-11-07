@@ -22,7 +22,7 @@ module.exports = {
             });
         });
     },
-    sendFriendChatComment: function (req, url, text, photoURL) {
+    sendFriendChatComment: function (req, url, targetUid, text, photoURL) {
         if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
@@ -30,10 +30,14 @@ module.exports = {
             comments.set({
                 text: text,
                 uid: req.session.token.uid,
-                photoURL : photoURL,
+                photoURL: photoURL,
                 createDate: Date.now()
             }).then(function (_comments) {
-                resolve({ record: _comments, url: req.session.token.uid });
+                var unread = firebase.database().ref('/private_chats/' + url + '/unread/' + targetUid).child('unread')
+                unread.transaction(function (current_value) {
+                    return (current_value || 0) + 1;
+                });
+                resolve({ record: unread, url: req.session.token.uid });
             }).catch(function (err) {
                 reject(err);
             });

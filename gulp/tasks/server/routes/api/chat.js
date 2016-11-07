@@ -34,7 +34,7 @@ router.route('/chat')
     // セッションチャットの取得 (POST http://localhost:3000/api/chats)
     .post(function (req, res) {
         var FireBaseSearvice = require('../../services/firebase');
-        FireBaseSearvice.sendFriendChatComment(req, req.body.url, req.body.text, req.body.photoURL).then(function (commentResult) {
+        FireBaseSearvice.sendFriendChatComment(req, req.body.url, req.body.targetUid, req.body.text, req.body.photoURL).then(function (commentResult) {
 
             var text = 'message from :' + req.session.token.uid;
             FireBaseSearvice.sendNotify(req, text, req.session.token.uid, req.body.targetUid, req.body.photoURL).then(function (notifyResult) {
