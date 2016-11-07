@@ -31,7 +31,9 @@ CACHE:
 /js/libs/angular/angular-images-resizer.js
 /js/libs/angular/ng-img-crop.js
 /js/libs/angular/ocLazyLoad.min.js
-/fonts
+/fonts/MaterialIcons-Regular.woff2
+/fonts/MaterialIcons-Regular.woff
+/fonts/MaterialIcons-Regular.ttf
 
 NETWORK:
 /js
