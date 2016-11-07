@@ -30,7 +30,8 @@ module.exports = {
             comments.set({
                 text: text,
                 uid: req.session.token.uid,
-                photoURL : photoURL
+                photoURL : photoURL,
+                createDate: Date.now()
             }).then(function (_comments) {
                 resolve({ record: _comments, url: req.session.token.uid });
             }).catch(function (err) {
@@ -47,7 +48,8 @@ module.exports = {
             messages.set({
                 text: text,
                 fromUid: fromUid,
-                photoURL: photoURL
+                photoURL: photoURL,
+                createDate: Date.now()
             }).then(function (_messages) {
                 resolve({ record: _messages, url: req.session.token.uid });
             }).catch(function (err) {

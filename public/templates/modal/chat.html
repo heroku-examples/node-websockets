@@ -15,8 +15,8 @@
                 <img ng-if="currentUser.uid != message.uid" ng-src="{{message.photoURL}}" class="md-avatar"/>
 
                 <div class="md-list-item-text" layout="column">
-                    <p ng-if="currentUser.uid != message.uid">{{ friend.firstName }}</p>
-                    <p ng-if="currentUser.uid == message.uid">{{ currentUser.firstName }}</p>
+                    <p ng-if="currentUser.uid != message.uid">{{ friend.firstName }} {{message.createDate | date:'MM/dd HH:mm'}}</p>
+                    <p ng-if="currentUser.uid == message.uid">{{ currentUser.firstName }} {{message.createDate | date:'MM/dd HH:mm'}}</p>
                     <h3>{{message.text}}</h3>
                 </div>
                 <img ng-if="currentUser.uid == message.uid" ng-src="{{currentUser.photoURL}}" class="md-avatar"/>

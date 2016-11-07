@@ -5,7 +5,7 @@
             <img ng-src="{{sessionStorage.firebaseUser.photoURL}}" class="user-avatar" />
         </div>
         <div layout="column" class="md-toolbar-tools-bottom inset">
-            <div ng-if="sessionStorage.firebaseUser">{{sessionStorage.firebaseUser.displayName}}</div>
+            <div ng-if="sessionStorage.firebaseUser">{{sessionStorage.user.firstName}}</div>
             <div ng-if="sessionStorage.firebaseUser">{{sessionStorage.firebaseUser.email}}</div>
         </div>
         </div>

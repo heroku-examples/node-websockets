@@ -82,7 +82,7 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
             if (!$scope.message && currentUser.uid) {
                 $scope.messages = FireBaseService.getArrayRef('/notify/' + currentUser.uid, 'messages');
                 $scope.messages.$watch(function () {
-                    Toast.show($scope.messages[0].text);
+                    Toast.show($scope.messages[$scope.messages.length-1].text + $scope.messages[$scope.messages.length-1].createDate);
                 });
             }
         }

@@ -11,13 +11,22 @@ app.$controllerProvider.register('FriendCtrl', function($window,
     Json,
     Error,
     Pager,
+    Login,
     Loading,
     FriendRequest,
     Modal) {
     $scope.pager = Pager.getDefault();
     var setPager = function(result) {
-        $scope.pager = Pager.get(result);
+        $scope.pager = {
+            length: $scope.requests.length,
+            limit: result.limit,
+            page: result.page,
+            pages: result.pages,
+            total: result.total
+        };
     };
+
+    var currentUser = Login.getUser();
 
     var layoutConfig = {
         'xs': 1,
@@ -83,7 +92,19 @@ app.$controllerProvider.register('FriendCtrl', function($window,
     var getRequests = function() {
         Loading.start();
         FriendRequest.all().get().$promise.then(function(result) {
-            $scope.requests = result.docs;
+            $scope.requests = [];
+            angular.forEach(result.docs.allList, function(request, key) {
+                var uid = '';
+                if(request.uid == currentUser.uid){
+                    uid = request.fromUid;
+                }else{
+                    uid = request.uid;
+                }
+                $scope.requests.push({
+                    friend_request : request,
+                    friend : result.docs.userInfos[uid]
+                });
+            });
             setPager(result);
             if (!$scope.infiniteItems) setInfiniteitems();
             Loading.finish();

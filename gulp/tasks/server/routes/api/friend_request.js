@@ -227,7 +227,7 @@ router.route('/friend_requests')
         var query = FriendRequest.find({
             $or: [
                 { uid: req.session.token.uid, fromUid: { '$ne': req.session.token.uid } },
-                { fromUid: req.session.token.uid, uid: { '$ne': req.session.token.uid } }
+                { uid: { '$ne': req.session.token.uid }, fromUid: req.session.token.uid }
             ]
         }).sort([['uid', 1], ['fromUid', 1]]);
         FriendRequest.paginate(query, { page: page, limit: limit }, function (err, requests) {
@@ -236,26 +236,26 @@ router.route('/friend_requests')
             } else {
                 if (requests.docs.length) {
                     var _ = require('underscore');
-                    var uids = _.map(requests.docs, function (friend) { return friend.fromUid; });
+                    var fromUids = _.map(requests.docs, function (friend) { return friend.fromUid; });
+                    var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
 
-                    var result = [];
+                    var uids = _.union(fromUids, toUids);
+                    uids = _.reject(uids, function(uid){ return uid == req.session.token.uid; });
+
+                    var result = _.groupBy(requests.docs, function (o) {
+                        return o.fromUid != req.session.token.uid;
+                    });
                     UserSearvice.getList(uids).then(function (friends) {
-                        for (var i = 0; i < friends.length; i++) {
-                            var friend_request = _.find(
-                                requests.docs,
-                                function (request) {
-                                    return friends[i].uid == request.fromUid;
-                                }
-                            );
-                            result.push(
-                                {
-                                    friend_request: friend_request._doc,
-                                    friend: friends[i]._doc
-                                }
-                            );
-                        }
+                        if(!result.false) result.false = [];
+                        if(!result.true) result.true = [];
                         res.status(resCodes.OK.code).json({
-                            docs: result,
+                            docs: {
+                                sendList : result.false,
+                                receiveList : result.true,
+                                allList : _.union(result.false, result.true),
+                                userInfos : _.indexBy(friends, 'uid'),
+                                requests : requests.docs
+                            },
                             total: requests.total,
                             limit: requests.limit,
                             page: requests.page,
