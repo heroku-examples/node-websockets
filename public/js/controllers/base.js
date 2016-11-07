@@ -1,4 +1,4 @@
-app.controller('AppCtrl', function ($scope, $window, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
     $scope.sessionStorage = $sessionStorage;
     $scope.mdMedia = $mdMedia;
     $scope.deviceCacheKey = window.deviceCacheKey;
