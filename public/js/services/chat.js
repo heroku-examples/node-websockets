@@ -144,7 +144,6 @@ function ChatCtrl($scope,
             Loading.finish();
             Error.openMessage(data, status);
         });
-        $scope.comment = "";
     };
 
     $scope.gotoBottom = function () {
