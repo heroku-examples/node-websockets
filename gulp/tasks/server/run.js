@@ -1,9 +1,15 @@
 var app = require('express')();
 
 var log4js = require('log4js');
+log4js_extend = require("log4js-extend");
 log4js.configure(require('./json/log4js/config.json'));
-var logger = log4js.getLogger('system');
 
+log4js_extend(log4js, {
+  path: __dirname,
+  format: "at @name (@file:@line:@column)"
+});
+
+var logger = log4js.getLogger('system');
 
 app.use(log4js.connectLogger(logger, {level: 'auto'}));
 
