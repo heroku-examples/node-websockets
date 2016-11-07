@@ -42,7 +42,7 @@ module.exports = {
                     else if (!committed)
                         reject(false);
                     else
-                        resolve({ snapshot: snapshot });
+                        resolve({ snapshot: snapshot.val() });
                 });
             }).catch(function (err) {
                 reject(err);
