@@ -31,12 +31,11 @@
              var deviceCacheKey =  <%= deviceCacheKey %>;
         <% } %>
     </script>
+    <%# cache files -start %>
     <link rel="stylesheet" href="/css/angular-material.css">
     <link rel="stylesheet" href="/css/material_icon.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/angular-range-slider.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/modal.css">
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery.min.js"></script>
@@ -63,6 +62,11 @@
     <script src="/js/libs/angular/angular-images-resizer.js"></script>
     <script src="/js/libs/angular/ng-img-crop.js"></script>
     <script src="/js/libs/angular/ocLazyLoad.min.js"></script>
+    <%# cache files -end %>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/modal.css">
+    
     <script src="/js/base.js"></script>
     <script src="/js/configs/base.js"></script>
     <script src="/js/filters/base.js"></script>
