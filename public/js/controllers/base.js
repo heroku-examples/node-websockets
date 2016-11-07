@@ -40,7 +40,7 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
         icon: 'settings'
     }];
     $scope.admin = [{
-        link: '/debug',
+        link: '/debug#/',
         title: 'Debug',
         icon: 'adb'
     }, {
