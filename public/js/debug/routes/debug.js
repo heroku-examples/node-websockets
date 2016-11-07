@@ -8,11 +8,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             //     // there should be some checking... and async $http loading if not found
             //     return $templateCache.get('/templates/index/index.html');
             // },
-            templateUrl: '/templates/debug/index.html?v=' + window.deviceCacheKey,
+            controller: 'DebugCtrl',
             resolve: {
                 loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load('debug'); // Resolve promise and load before view 
                 }]
+            },
+            path :{
+                templateUrl: dir + 'debug/index.html?v=' + window.deviceCacheKey,
             }
         },
         test: {
@@ -21,11 +24,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             //     // there should be some checking... and async $http loading if not found
             //     return $templateCache.get('/templates/index/index.html');
             // },
-            templateUrl: '/templates/debug/test.html?v=' + window.deviceCacheKey,
+            controller: 'TestCtrl',
             resolve: {
                 loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load('test'); // Resolve promise and load before view 
                 }]
+            },
+            path :{
+                templateUrl: dir + 'debug/test.html?v=' + window.deviceCacheKey,
             }
         },
         memo: {
@@ -34,11 +40,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             //     // there should be some checking... and async $http loading if not found
             //     return $templateCache.get('/templates/index/index.html');
             // },
-            templateUrl: '/templates/debug/memo.html?v=' + window.deviceCacheKey,
+            controller: 'TestCtrl',
             resolve: {
                 loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load('test'); // Resolve promise and load before view 
                 }]
+            },
+            path :{
+                templateUrl: dir + 'debug/memo.html?v=' + window.deviceCacheKey,
             }
         }
     };

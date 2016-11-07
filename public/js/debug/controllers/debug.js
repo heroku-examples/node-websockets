@@ -1,4 +1,4 @@
-angular.module('debug',[]).controller('debugCtrl', function(
+app.$controllerProvider.register('DebugCtrl', function(
     $scope,
     $window,
     Profile,
