@@ -51,7 +51,6 @@ module.exports = {
         });
     },
     readChatComment: function (req, url) {
-        if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
             var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(req.session.token.uid)
