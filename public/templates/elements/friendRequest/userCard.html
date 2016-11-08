@@ -1,4 +1,4 @@
-<md-list-item class="md-3-line md-long-text" style="width: 100%;" ng-init="setNotify(rangeIndex, infiniteItemIndex)">
+<md-list-item class="md-2-line md-long-text" style="width: 100%;" ng-init="setNotify(rangeIndex, infiniteItemIndex)">
     <!--<div ng-if="getRequest(rangeIndex, infiniteItemIndex).isApplyed" class="side-corner-tag">承認済み</div>-->
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-avatar" ng-click="openChatModal(getFriendInfo(rangeIndex, infiniteItemIndex))">
         <div class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
@@ -7,11 +7,8 @@
         </div>
     </div>
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChatModal(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
-        <h3>{{getFriend(rangeIndex, infiniteItemIndex).firstName}} {{getIndex(rangeIndex, infiniteItemIndex)}}</h3>
-        <h4>{{getFriend(rangeIndex, infiniteItemIndex).age}}</h4>
-        <p>
-            {{notifies[getIndex(rangeIndex, infiniteItemIndex)].count}} {{notifies[getIndex(rangeIndex, infiniteItemIndex)].text}}
-        </p>
+        <h3>{{getFriend(rangeIndex, infiniteItemIndex).firstName}} {{getFriend(rangeIndex, infiniteItemIndex).age}}</h3>
+        <p>{{notifies[getIndex(rangeIndex, infiniteItemIndex)].count}} {{notifies[getIndex(rangeIndex, infiniteItemIndex)].text}}</p>
     </div>
     <md-button class="md-secondary md-icon-button" ng-if="(getRequest(rangeIndex, infiniteItemIndex).isApplyed) == false" ng-click="applyRequest(getRequest(rangeIndex, infiniteItemIndex))">
         <ng-md-icon icon="add"></ng-md-icon>
