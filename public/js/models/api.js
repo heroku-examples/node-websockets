@@ -72,9 +72,14 @@ app.factory('Chat', function($resource) {
                 send: {
                     method: 'POST',
                     isArray: false
+                },
+               read: {
+                    method: 'PUT',
+                    isArray: false
                 }
             });
-        }
+        },
+
     };
 });
 

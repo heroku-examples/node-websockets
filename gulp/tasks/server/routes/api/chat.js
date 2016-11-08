@@ -34,11 +34,11 @@ router.route('/chat')
     // セッションチャットの取得 (POST http://localhost:3000/api/chats)
     .post(function (req, res) {
         var FireBaseSearvice = require('../../services/firebase');
-        FireBaseSearvice.sendFriendChatComment(req, req.body.url, req.body.targetUid, req.body.text, req.body.photoURL).then(function (commentResult) {
+        FireBaseSearvice.sendFriendChatComment(req, req.body.url, req.body.targetUid, req.body.text, req.body.photoURL).then(function (comment) {
 
             var text = 'message from :' + req.session.token.uid;
-            FireBaseSearvice.sendNotify(req, text, req.session.token.uid, req.body.targetUid, req.body.photoURL).then(function (notifyResult) {
-                res.status(resCodes.OK.code).json({ commentResult: commentResult, notifyResult: notifyResult });
+            FireBaseSearvice.sendNotify(req, text, req.session.token.uid, req.body.targetUid, req.body.photoURL).then(function (notify) {
+                res.status(resCodes.OK.code).json({ comment: comment, notify: notify });
             }, function (err) {
                 console.log('err', err, err.lineNumber);
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
@@ -48,7 +48,17 @@ router.route('/chat')
             console.log('err', err, err.lineNumber);
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
         });
+    })
+    .put(function (req, res) {
+        var FireBaseSearvice = require('../../services/firebase');
+        FireBaseSearvice.readChatComment(req, req.body.url).then(function (readResult) {
+            res.status(resCodes.OK.code).json(readResult);
+        }, function (err) {
+            console.log('err', err, err.lineNumber);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+        });
     });
+
 
 // ルーティング登録
 module.exports = router;

@@ -50,6 +50,25 @@ module.exports = {
             });
         });
     },
+    readChatComment: function (req, url) {
+        if (!photoURL) photoURL = '';
+        return new Promise(function (resolve, reject) {
+            var firebase = require("firebase");
+            var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(req.session.token.uid)
+            unread.transaction(function (current_value) {
+                if(!current_value) current_value = {};
+                return {count : 0, text : current_value.text ? current_value.text : ''};
+            }, function (err, committed, snapshot) {
+                if (err)
+                    reject(err);
+                else if (!committed)
+                    reject(false);
+                else
+                    resolve({ snapshot: snapshot.val() });
+            });
+ 
+        });
+    },
     sendNotify: function (req, text, fromUid, targetUid, photoURL) {
         if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {

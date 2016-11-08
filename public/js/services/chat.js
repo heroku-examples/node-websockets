@@ -98,15 +98,36 @@ function ChatCtrl($scope,
         });
     };
 
+    var readMessage = function () {
+        Chat.root().read(
+            {
+                url: locals.friend_request.url
+            }
+        ).$promise.then(function (result) {
+            //nothing todo
+        }).catch(function (data, status) {
+            Error.openMessage(data, status);
+        });
+    };
+
+
     var setFireBase = function () {
         $scope.friendChat = FireBaseService.getObjectRef('/private_chats/' + locals.friend_request.url);
         $scope.messages = FireBaseService.getArrayRef('/private_chats/' + locals.friend_request.url, '/comments');
+        $scope.messages.$loaded(
+            function (x) {
+                readMessage();
+            }, function (error) {
+                 Error.openMessage(error, 401);
+            });
     };
+
 
     var init = function () {
         setFireBase();
         Loading.start();
         getRequests();
+        readMessage();
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
@@ -132,11 +153,11 @@ function ChatCtrl($scope,
     $scope.sendMeaage = function () {
         if (!$scope.comment) return;
         Chat.root().send(
-            { 
+            {
                 url: locals.friend_request.url,
                 text: $scope.comment,
                 photoURL: Login.getUser().photoURL,
-                targetUid : locals.friend.uid
+                targetUid: locals.friend.uid
             }
         ).$promise.then(function (result) {
             Loading.finish();
@@ -146,6 +167,8 @@ function ChatCtrl($scope,
             Error.openMessage(data, status);
         });
     };
+
+
 
     $scope.gotoBottom = function () {
         document.getElementById('slide-up-dialog-content').scrollTop = 10000000;
