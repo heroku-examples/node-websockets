@@ -35,7 +35,8 @@ module.exports = {
             }).then(function (_comments) {
                 var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(targetUid)
                 unread.transaction(function (current_value) {
-                    return {count : (current_value || 0) + 1, text : text};
+                    if(!current_value) current_value = {};
+                    return {count : (current_value.count || 0) + 1, text : text};
                 }, function (err, committed, snapshot) {
                     if (err)
                         reject(err);
