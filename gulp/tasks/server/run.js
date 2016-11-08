@@ -85,11 +85,12 @@ app.use(function(req, res, next) {
     }
 });
 
-// error handlers
 
-// development error handler
-// will print stacktrace
+
+// for development 
 if (app.get('env') === 'development') {
+    // error handlers
+    // will print stacktrace
     app.use(function(err, req, res, next) {
         if (req.xhr) {
             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json( err );
@@ -100,6 +101,10 @@ if (app.get('env') === 'development') {
             });
         }
     });
+
+    var gulp        = require('gulp');
+    var browserSync = require('browser-sync').create();
+    gulp.watch(["public/**"]).on('change', browserSync.reload);
 }
 
 // production error handler
