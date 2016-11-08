@@ -1,5 +1,6 @@
-app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, $localStorage, FireBaseService, Login) {
     $scope.sessionStorage = $sessionStorage;
+    $scope.$storage = $localStorage;
     $scope.mdMedia = $mdMedia;
     $scope.deviceCacheKey = window.deviceCacheKey;
     $scope.toggleSidenav = function (menuId) {
@@ -77,10 +78,10 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
     });
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-        var currentUser = Login.getUser();
-        if (currentUser) {
-            if (!$scope.message && currentUser.uid) {
-                $scope.messages = FireBaseService.getArrayRef('/notify/' + currentUser.uid, 'messages');
+        $scope.currentUser = Login.getUser();
+        if ($scope.currentUser) {
+            if (!$scope.message && $scope.currentUser.uid) {
+                $scope.messages = FireBaseService.getArrayRef('/notify/' + $scope.currentUser.uid, 'messages');
                 $scope.messages.$watch(function () {
                     Toast.show($scope.messages[$scope.messages.length-1].text + $scope.messages[$scope.messages.length-1].createDate);
                 });
