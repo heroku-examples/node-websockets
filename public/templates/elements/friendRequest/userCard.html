@@ -9,7 +9,7 @@
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChatModal(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
         <h3>{{getFriend(rangeIndex, infiniteItemIndex).firstName}} {{rangeIndex + (infiniteItemIndex * getMediaCount())}}</h3>
         <h4>{{getFriend(rangeIndex, infiniteItemIndex).age}}</h4>
-        <p>{{getFriend(rangeIndex, infiniteItemIndex).message}}</p>
+        <p>{{getNotify(rangeIndex, infiniteItemIndex).text}}} {{getNotify(rangeIndex, infiniteItemIndex).count}}}</p>
     </div>
     <md-button class="md-secondary md-icon-button" ng-if="(getRequest(rangeIndex, infiniteItemIndex).isApplyed) == false" ng-click="applyRequest(getRequest(rangeIndex, infiniteItemIndex))">
         <ng-md-icon icon="add"></ng-md-icon>

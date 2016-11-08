@@ -102,7 +102,8 @@ app.$controllerProvider.register('FriendCtrl', function($window,
                 }
                 $scope.requests.push({
                     friend_request : request,
-                    friend : result.docs.userInfos[uid]
+                    friend : result.docs.userInfos[uid],
+                    notify : FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + currentUser.uid)
                 });
             });
             setPager(result);
@@ -129,6 +130,11 @@ app.$controllerProvider.register('FriendCtrl', function($window,
     $scope.getFriend= function(_rangeIndex, _infiniteItemIndex) {
         var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result.friend : false;
+    };
+
+    $scope.getNotify= function(_rangeIndex, _infiniteItemIndex) {
+        var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+        return result ? result.notify : false;
     };
 
     $scope.getFriendInfo = function(_rangeIndex, _infiniteItemIndex) {

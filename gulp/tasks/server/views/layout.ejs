@@ -1,5 +1,15 @@
 <!doctype html>
-<html lang="ja" ng-app="StarterApp" manifest="/manifest/manifest.mf">
+<% if ( typeof session !== 'undefined' ) { %>
+    <% if ( session.token) { %>
+        <% token = session.token.token %>
+    <% } else {%>
+        <% token = false %>
+    <% } %>
+<% } %>
+<% if ( typeof deviceCacheKey == 'undefined' ) { %>
+    <% deviceCacheKey = 0 %>
+<% } %>
+<html lang="ja" ng-app="StarterApp" manifest="/manifest/manifest.mf?v=<%= deviceCacheKey %>">
 
 <head>
     <title>Socket.IO chat</title>
@@ -17,19 +27,8 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
     <script type="text/javascript">
-        <% if ( typeof session !== 'undefined' ) { %>
-            <% if ( session.token) { %>
-                var session = {token : '<%= session.token.token %>'};
-            <% } else {%>
-                var session = {token : false};
-            <% } %>
-        <% } %>
-        <% if ( typeof deviceCacheKey !== 'undefined' ) { %>
-            var deviceCacheKey =  <%= deviceCacheKey %>;
-        <% } else {%>
-            <% deviceCacheKey = 0 %>
-             var deviceCacheKey =  <%= deviceCacheKey %>;
-        <% } %>
+        var session = {token : '<%= token %>'};
+        var deviceCacheKey =  <%= deviceCacheKey %>;
     </script>
     <%# cache files -start %>
     <link rel="stylesheet" href="/css/angular-material.css">

@@ -33,9 +33,9 @@ module.exports = {
                 photoURL: photoURL,
                 createDate: Date.now()
             }).then(function (_comments) {
-                var unread = firebase.database().ref('/private_chats/' + url + '/unread/' + targetUid).child('unread')
+                var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(targetUid)
                 unread.transaction(function (current_value) {
-                    return (current_value || 0) + 1;
+                    return {count : (current_value || 0) + 1, text : text};
                 }, function (err, committed, snapshot) {
                     if (err)
                         reject(err);
