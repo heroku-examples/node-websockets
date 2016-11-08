@@ -1,7 +1,7 @@
 <script>
 var users =  <%-JSON.stringify(users)%>;
 </script>
-<div layout="column" class="relative" layout-fill role="main">
+<div layout="column" class="relative" layout-fill role="main" ng-init="init()">
     <md-toolbar ng-show="!showSearch">
         <div class="md-toolbar-tools">
             <md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">

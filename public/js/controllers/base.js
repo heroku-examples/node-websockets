@@ -1,4 +1,19 @@
-app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location, $rootScope, $mdMedia, $mdBottomSheet, $mdSidenav, $mdDialog, $sessionStorage, $localStorage, FireBaseService, Login) {
+app.controller('AppCtrl', function ($scope,
+    $window,
+    $timeout,
+    Toast,
+    $location,
+    $rootScope,
+    $mdMedia,
+    $mdBottomSheet,
+    $mdSidenav,
+    $mdDialog,
+    $sessionStorage,
+    $localStorage,
+    FireBaseService,
+    FriendRequest,
+    Loading,
+    Login) {
     $scope.sessionStorage = $sessionStorage;
     $scope.$storage = $localStorage;
     $scope.mdMedia = $mdMedia;
@@ -50,6 +65,23 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
         icon: 'adb'
     }];
 
+    var getFriends = function () {
+        Loading.start();
+        FriendRequest.friends().get().$promise.then(function (result) {
+            if (result) {
+                if (result.docs) {
+                    $sessionStorage.requests = result.docs.requests;
+                    $sessionStorage.friends = result.docs.friends;
+                }
+            }
+            console.log($sessionStorage.requests)
+            console.log($sessionStorage.friends)
+        }).catch(function (data, status) {
+            Loading.finish();
+            Error.openMessage(data, status);
+        });
+    };
+
     $scope.alert = '';
 
     $scope.checkButtonClick = function (type) {
@@ -59,6 +91,10 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
             Login.login(type);
         }
     };
+
+    $scope.init = function () {
+        getFriends();
+    }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if (toParams.value || toParams.key) {
@@ -80,10 +116,20 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.currentUser = Login.getUser();
         if ($scope.currentUser) {
-            if (!$scope.message && $scope.currentUser.uid) {
-                $scope.messages = FireBaseService.getArrayRef('/notify/' + $scope.currentUser.uid, 'messages');
-                $scope.messages.$watch(function () {
-                    Toast.show($scope.messages[$scope.messages.length-1].text + $scope.messages[$scope.messages.length-1].createDate);
+            if (!$scope.messages && $sessionStorage.requests) {
+                // $scope.messages = FireBaseService.getArrayRef('/notify/' + $scope.currentUser.uid, 'messages');
+                // $scope.messages.$watch(function () {
+                //     Toast.show($scope.messages[$scope.messages.length - 1].text + $scope.messages[$scope.messages.length - 1].createDate);
+                // });
+                $scope.messages = [];
+                angular.forEach($sessionStorage.requests, function (request, key) {
+                    $scope.messages[key] = FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + $scope.currentUser.uid);
+                    $scope.messages[key].$watch(function () {
+                        if ($scope.messages[key].count) {
+                            var friendUid = (request.uid == $scope.currentUser.uid) ? request.fromUid : request.uid;
+                            Toast.show($scope.messages[key].text + ' from ' + $sessionStorage.friends[friendUid].firstName);
+                        }
+                    });
                 });
             }
         }
@@ -107,16 +153,5 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
         }, false);
 
     }, false);
-    // $scope.openAdd = function(ev) {
-    //     $mdDialog.show({
-    //             controller: DialogController,
-    //             template: '<input id="m" autocomplete="off" /><button ng-click="send()">Send</button>',
-    //             targetEvent: ev,
-    //         })
-    //         .then(function(answer) {
-    //             $rootScope.$broadcast('xxxxxEvent', answer);
-    //         }, function() {
-    //             $scope.alert = 'You cancelled the dialog.';
-    //         });
-    // };
+
 });

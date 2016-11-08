@@ -142,7 +142,15 @@ app.factory('FriendRequest', function($resource) {
                     isArray: false
                 }
             });
-        }
+        },
+        friends :function(){
+            return $resource('/api/friends', {}, {
+                get: {
+                    method: 'GET',
+                    isArray: false
+                }
+            });
+        },
     };
 });
 
