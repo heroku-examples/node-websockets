@@ -7,21 +7,25 @@ var resCodes = require('../.././json/http/http_code_names.json');
 //before filter
 router.use(function (req, res, next) {
     if (process.env.NODE_ENV != 'production') {
-        req.session.token = {};
-        req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
-        var Token = require('../../models/token');
-        Token.findOne({
-            uid: req.session.token.uid
-        }, function (err, token) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else if (token) {
-                req.session.token.token = token.token;
-                next();
-            } else{
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
-            }
-        });
+        if(!req.session.token){
+            req.session.token = {};
+            req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
+            var Token = require('../../models/token');
+            Token.findOne({
+                uid: req.session.token.uid
+            }, function (err, token) {
+                if (err) {
+                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                } else if (token) {
+                    req.session.token.token = token.token;
+                    next();
+                } else{
+                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
+                }
+            });
+        }else{
+            next();
+        }
     } else if (req.session.token) {
         next();
     } else {

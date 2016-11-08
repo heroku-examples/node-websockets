@@ -134,7 +134,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
 
     $scope.getIndex = function(_rangeIndex, _infiniteItemIndex){
         var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
-        return index ? index : false;
+        return index;
     }
 
     $scope.notifies = [];

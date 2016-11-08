@@ -123,7 +123,7 @@ function ChatCtrl($scope,
     };
 
 
-    var init = function () {
+    $scope.init = function () {
         setFireBase();
         Loading.start();
         getRequests();
@@ -173,7 +173,4 @@ function ChatCtrl($scope,
     $scope.gotoBottom = function () {
         document.getElementById('slide-up-dialog-content').scrollTop = 10000000;
     };
-
-
-    init();
 }
