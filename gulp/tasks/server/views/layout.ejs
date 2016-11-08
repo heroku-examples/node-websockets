@@ -20,12 +20,24 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="pink" />
+
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#4285f4">
     <!-- Windows Phone -->
     <meta name="msapplication-navbutton-color" content="#4285f4">
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
+
+    <link rel="apple-touch-startup-image" href="/images/icon.png?v=<%= deviceCacheKey %>">
+    <!-- icon in the highest resolution we need it for -->
+    <link rel="icon" sizes="192x192" href="/images/icon.png?v=<%= deviceCacheKey %>">
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="/images/icon.png?v=<%= deviceCacheKey %>">
+    <!-- multiple icons for IE -->
+    <meta name="app-ico" content="/images/icon.png?v=<%= deviceCacheKey %>">
+
+    <link rel="manifest" href="/json/manifest.json?v=<%= deviceCacheKey %>">
+
     <script type="text/javascript">
         var session = {token : '<%= token %>'};
         var deviceCacheKey =  <%= deviceCacheKey %>;
