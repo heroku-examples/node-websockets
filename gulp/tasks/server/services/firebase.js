@@ -54,7 +54,7 @@ module.exports = {
         if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
             var firebase = require("firebase");
-            var path = '/notify/' + targetUid;
+            var path = '/notify/' + targetUid + '/' + fromUid;
             var messages = firebase.database().ref(path).child('messages').push();
             messages.set({
                 text: text,

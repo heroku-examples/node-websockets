@@ -103,8 +103,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
                 }
                 $scope.requests.push({
                     friend_request : request,
-                    friend : result.docs.userInfos[uid],
-                    notify : FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + currentUser.uid)
+                    friend : result.docs.userInfos[uid]
                 });
             });
             setPager(result);
@@ -133,9 +132,25 @@ app.$controllerProvider.register('FriendCtrl', function($window,
         return result ? result.friend : false;
     };
 
-    $scope.getNotify= function(_rangeIndex, _infiniteItemIndex) {
-        var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
-        return result ? result.notify : false;
+    $scope.getIndex = function(_rangeIndex, _infiniteItemIndex){
+        var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
+        return index ? index : false;
+    }
+
+    $scope.notifies = [];
+    $scope.setNotify= function(_rangeIndex, _infiniteItemIndex) {
+        var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
+        if(!$scope.requests[index]) return;
+        if($scope.notifies[index]) return;
+        $scope.notifies[index] = FireBaseService.getObjectRef('/private_chats/' + $scope.requests[index].friend_request.url + '/unread/' + currentUser.uid);
+        $scope.notifies[index].$loaded(
+            function(data) {
+                console.log(data); // true
+            },
+            function(error) {
+                console.error("Error:", error);
+            }
+        );
     };
 
     $scope.getFriendInfo = function(_rangeIndex, _infiniteItemIndex) {
