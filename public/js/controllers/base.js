@@ -86,6 +86,7 @@ app.controller('AppCtrl', function ($scope, $window, $timeout, Toast, $location,
                 });
             }
         }
+        $mdSidenav('left').close();
     });
 
     // Check if a new cache is available on page load.
