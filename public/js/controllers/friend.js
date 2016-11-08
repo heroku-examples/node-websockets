@@ -14,6 +14,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
     Login,
     Loading,
     FriendRequest,
+    FireBaseService,
     Modal) {
     $scope.pager = Pager.getDefault();
     var setPager = function(result) {
