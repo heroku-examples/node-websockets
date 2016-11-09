@@ -131,17 +131,17 @@ var setDeviceCacheKey = function (number) {
         .pipe(gulp.dest("public/manifest/"));
 }
 
-var Config = require('./services/config');
-Config.get('deviceCacheKey').then(function (record) {
-    if(!Number.isInteger(record.number)) record.number = 1;
-    Config.update('deviceCacheKey', {number : record.number+1}).then(function (records) {
-        setDeviceCacheKey(records.number);
-    }, function (error) {
-        console.log("Rejected:", error);
-    });
-}, function (error) {
-    console.log("Rejected:", error);
-});
+// var Config = require('./services/config');
+// Config.get('deviceCacheKey').then(function (record) {
+//     if(!Number.isInteger(record.number)) record.number = 1;
+//     Config.update('deviceCacheKey', {number : record.number+1}).then(function (records) {
+//         setDeviceCacheKey(records.number);
+//     }, function (error) {
+//         console.log("Rejected:", error);
+//     });
+// }, function (error) {
+//     console.log("Rejected:", error);
+// });
 
 
 app.set('port', process.env.PORT || 3000);
