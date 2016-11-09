@@ -1,14 +1,14 @@
 function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translate) {
 
-    var setUser = function() {
+    var setUser = function () {
         $scope.targetUserCondition = {};
-        angular.forEach($scope.selects, function(value, key) {
+        angular.forEach($scope.selects, function (value, key) {
             $scope.targetUserCondition[key] = value.default;
         });
         $scope.targetUserCondition['age'] = false
     };
 
-    $scope.init = function() {
+    $scope.init = function () {
         $scope.targetUserCondition = {};
         $scope.mode = locals.type;
         $scope.selects = locals.selects;
@@ -20,25 +20,25 @@ function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translat
     };
 
 
-    $scope.selectAvatar = function(avatarNo) {
+    $scope.selectAvatar = function (avatarNo) {
         $scope.targetUserCondition.avatarNo = avatarNo;
     };
 
-    $scope.hide = function() {
+    $scope.hide = function () {
 
         $mdDialog.hide();
     };
-    $scope.cancel = function() {
+    $scope.cancel = function () {
         $mdDialog.cancel();
     };
-    $scope.answer = function(answer) {
+    $scope.answer = function (answer) {
         $mdDialog.hide(answer);
     };
-    $scope.search = function() {
+    $scope.search = function () {
         $mdDialog.hide($filter('removeEmptyInObject')($scope.targetUserCondition));
     };
 
-    $scope.addHobbyToTargetUserCondition = function(value) {
+    $scope.addHobbyToTargetUserCondition = function (value) {
         if (!$scope.targetUserCondition.hobbies) $scope.targetUserCondition.hobbies = [];
         if (!$filter('inArray')($scope.targetUserCondition.hobbies, value)) {
             $scope.targetUserCondition.hobbies.push(value);
@@ -49,46 +49,48 @@ function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translat
     $scope.upperValue = 100;
 }
 
-function UserInfoDialogController($scope, $filter, $mdDialog, locals, FriendRequest, Loading, Error) {
+function UserInfoCtrl(
+    $scope,
+    $filter,
+    $mdDialog,
+    $controller,
+    locals,
+    FriendRequest,
+    Loading,
+    Error,
+    Login
+) {
+    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
     $scope.user = locals.user;
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
-    };
-    $scope.init = function() {
+    $scope.init = function () {
         Loading.start();
-        FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function(result) {
+        FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function (result) {
             console.log("msg", result)
             if (result) {
                 if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
             }
 
             Loading.finish();
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
     };
-    $scope.friendRequest = function() {
+    $scope.friendRequest = function () {
         Loading.start();
-        FriendRequest.root().create({ targetUid: $scope.user.uid }).$promise.then(function(result) {
+        FriendRequest.root().create({ targetUid: $scope.user.uid }).$promise.then(function (result) {
             if (result) {
                 if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
             }
             Loading.finish();
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
     };
 }
 
-app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
+app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
 
 
     var layoutConfig = {
@@ -99,15 +101,15 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
     };
 
     var _profiles;
-    Json.get('profile').then(function(profiles) {
+    Json.get('profile').then(function (profiles) {
         _profiles = profiles;
     });
 
-    Json.get('location').then(function(prefectures) {
+    Json.get('location').then(function (prefectures) {
         _prefectures = prefectures;
     });
 
-    Json.get("lang").then(function(translations) {
+    Json.get("lang").then(function (translations) {
         _subTitles = translations.subTitle;
     });
 
@@ -141,16 +143,16 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
         };
     }
 
-    var getRandomArbitary = function(min, max) {
+    var getRandomArbitary = function (min, max) {
         return Math.floor(Math.random() * (max - min) + min);
     };
 
     $scope.pager = Pager.getDefault();
-    var setPager = function(result) {
+    var setPager = function (result) {
         $scope.pager = Pager.get(result);
     };
 
-    var getMediaCount = function() {
+    var getMediaCount = function () {
         if ($mdMedia('xs')) {
             return layoutConfig.xs;
         } else if ($mdMedia('sm')) {
@@ -162,7 +164,7 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
         }
     };
 
-    var setInfiniteitems = function() {
+    var setInfiniteitems = function () {
 
         // In this example, we set up our model using a plain object.
         // Using a class works too. All that matters is that we implement
@@ -173,7 +175,7 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
             mediaCount_: getMediaCount(),
 
             // Required.
-            getItemAtIndex: function(index) {
+            getItemAtIndex: function (index) {
                 if (index > this.numLoaded_) {
                     this.fetchMoreItems_(index);
                     return null;
@@ -184,13 +186,13 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
             // Required.
             // For infinite scroll behavior, we always return a slightly higher
             // number than the previously loaded items.
-            getLength: function() {
+            getLength: function () {
                 //return $scope.pager.length;
                 var result = 1;
                 if ($scope.pager.length >= this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
                 return result;
             },
-            fetchMoreItems_: function(index) {
+            fetchMoreItems_: function (index) {
                 // For demo purposes, we simulate loading more items with a timed
                 // promise. In real code, this function would likely contain an
                 // $http request.
@@ -203,20 +205,20 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
         };
     };
 
-    var getUsers = function() {
+    var getUsers = function () {
         Loading.start();
-        User.all().get().$promise.then(function(result) {
+        User.all().get().$promise.then(function (result) {
             $scope.users = result.docs.reverse();
             setPager(result);
             if (!$scope.infiniteItems) setInfiniteitems();
             Loading.finish();
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
     };
 
-    var init = function() {
+    var init = function () {
         Loading.start();
         $scope.users = $window.users.docs.reverse();
         setPager($window.users);
@@ -225,10 +227,10 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
 
     init();
 
-    $scope.openUserInfo = function(index) {
+    $scope.openUserInfo = function (index) {
         $scope.isModalOpen = true;
         $mdDialog.show({
-            controller: UserInfoDialogController,
+            controller: UserInfoCtrl,
             templateUrl: '/templates/modal/userInfo.html?v=' + window.deviceCacheKey,
             targetEvent: '#bottom',
             clickOutsideToClose: true,
@@ -236,26 +238,26 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
                 user: $scope.users[index],
             },
             fullscreen: true,
-            onShowing: function(scope, element) {
-                $timeout(function() {
+            onShowing: function (scope, element) {
+                $timeout(function () {
                     element.find('md-dialog').addClass("center")
                 }, 50)
             },
-            onRemoving: function(element, removePromise) {
-                $timeout(function() {
+            onRemoving: function (element, removePromise) {
+                $timeout(function () {
                     element.find('md-dialog').removeClass("center").addClass("slideDown")
                 }, 50)
             }
         })
 
-        .then(function(answer) {
-            $scope.isModalOpen = false;
-        }, function() {
-            $scope.isModalOpen = false;
-        });
+            .then(function (answer) {
+                $scope.isModalOpen = false;
+            }, function () {
+                $scope.isModalOpen = false;
+            });
     };
 
-    $scope.openSearch = function(ev) {
+    $scope.openSearch = function (ev) {
         $scope.isModalOpen = true;
         $mdDialog.show({
             controller: UserSerchDialogController,
@@ -270,33 +272,33 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
                 subTitles: _subTitles
             },
             fullscreen: true,
-            onShowing: function(scope, element) {
+            onShowing: function (scope, element) {
                 element.find('md-dialog').addClass("beforeSlideLeft")
-                $timeout(function() {
+                $timeout(function () {
                     element.find('md-dialog').addClass("center")
                 }, 50)
             },
-            onRemoving: function(element, removePromise) {
-                $timeout(function() {
+            onRemoving: function (element, removePromise) {
+                $timeout(function () {
                     element.find('md-dialog').removeClass("center").addClass("slideRight")
                 }, 50)
             }
         })
 
-        .then(function(answer) {
-            $scope.isModalOpen = false;
-            angular.forEach(answer, function(value, key) {
-                _selects[key].default = value;
+            .then(function (answer) {
+                $scope.isModalOpen = false;
+                angular.forEach(answer, function (value, key) {
+                    _selects[key].default = value;
+                });
+                $localStorage.targetUserCondition = _selects;
+                $rootScope.$broadcast('UserSearchEvent', answer);
+            }, function () {
+                $scope.isModalOpen = false;
+                $scope.alert = 'You cancelled the dialog.';
             });
-            $localStorage.targetUserCondition = _selects;
-            $rootScope.$broadcast('UserSearchEvent', answer);
-        }, function() {
-            $scope.isModalOpen = false;
-            $scope.alert = 'You cancelled the dialog.';
-        });
     };
 
-    $scope.createUser = function(userData) {
+    $scope.createUser = function (userData) {
         userData = {
             uid: getRandomArbitary(1, 100),
             name: "test" + getRandomArbitary(1, 100),
@@ -312,50 +314,50 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
             sexType: getRandomArbitary(1, 2)
         };
         var user = new User(userData);
-        user.$create({ uid: userData.uid }).then(function(users) {
+        user.$create({ uid: userData.uid }).then(function (users) {
             getUsers();
             console.log($scope.users);
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Error.openMessage(data, status);
         });
     };
 
-    $scope.findUser = function(uid) {
-        User.root().find({ uid: uid }).$promise.then(function(users) {
+    $scope.findUser = function (uid) {
+        User.root().find({ uid: uid }).$promise.then(function (users) {
             $scope.users = users.reverse();
             console.log($scope.users);
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Error.openMessage(data, status);
         });
     };
 
-    $scope.searchUser = function(conditions) {
+    $scope.searchUser = function (conditions) {
         Loading.start();
-        User.all().find(conditions).$promise.then(function(result) {
+        User.all().find(conditions).$promise.then(function (result) {
             $scope.users = result.docs.reverse();
             setPager(result);
             Loading.finish();
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Loading.finish();
             console.log(data, status)
         });
     };
-    $scope.deleteUser = function(uid) {
+    $scope.deleteUser = function (uid) {
         Loading.start();
-        User.current().$delete({ uid: uid }).then(function(users) {
+        User.current().$delete({ uid: uid }).then(function (users) {
             getUsers();
             console.log($scope.users);
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Error.openMessage(data, status);
             Loading.finish();
         });
     };
 
-    $scope.getUser = function(_rangeIndex, _infiniteItemIndex) {
+    $scope.getUser = function (_rangeIndex, _infiniteItemIndex) {
         return $scope.users[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
     };
 
-    $scope.getMediaCount = function() {
+    $scope.getMediaCount = function () {
         return getMediaCount();
     };
 
@@ -371,9 +373,9 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
     }, {
         name: 'Print this page',
         icon: 'print'
-    }, ];
+    },];
 
-    $scope.showListBottomSheet = function($event) {
+    $scope.showListBottomSheet = function ($event) {
         $mdBottomSheet.show({
             templateUrl: '/templates/bottomSheets/user.html',
             controller: 'ListBottomSheetCtrl',
@@ -381,21 +383,21 @@ app.$controllerProvider.register('IndexCtrl', function($window, $scope, $rootSco
             locals: {
                 items: items
             },
-        }).then(function(clickedItem) {
+        }).then(function (clickedItem) {
             // $scope.alert = clickedItem.name + ' clicked!';
         });
     };
 
-    $rootScope.$on('UserSearchEvent', function(event, data) {
+    $rootScope.$on('UserSearchEvent', function (event, data) {
         $scope.searchUser(data);
     });
 
 });
 
-app.$controllerProvider.register('ListBottomSheetCtrl', function($scope, $mdBottomSheet, locals) {
+app.$controllerProvider.register('ListBottomSheetCtrl', function ($scope, $mdBottomSheet, locals) {
     $scope.items = locals.items;
 
-    $scope.listItemClick = function(item) {
+    $scope.listItemClick = function (item) {
         var clickedItem = item;
         $mdBottomSheet.hide(clickedItem);
     };

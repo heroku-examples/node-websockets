@@ -13,11 +13,16 @@ app.controller('AppCtrl', function ($scope,
     FireBaseService,
     FriendRequest,
     Loading,
+    Worker,
     Login) {
     $scope.sessionStorage = $sessionStorage;
     $scope.$storage = $localStorage;
     $scope.mdMedia = $mdMedia;
     $scope.deviceCacheKey = window.deviceCacheKey;
+    Worker.init('simple').postMessage('test').then(function(data) {
+        console.log(data)
+    });
+
     $scope.toggleSidenav = function (menuId) {
         $timeout(function () {
             $mdSidenav(menuId).toggle();

@@ -169,8 +169,13 @@ app.$controllerProvider.register('FriendCtrl', function($window,
         });
     };
 
-    $scope.openChatModal = function(friendInfo) {
+    $scope.openChat = function(friendInfo) {
         Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, friendInfo);
+    };
+
+    $scope.openUserInfo = function(friendInfo) {
+        var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
+        Modal.open('UserInfoCtrl', templateUrl, {user: friendInfo})
     };
 
     $scope.getMediaCount = function() {
