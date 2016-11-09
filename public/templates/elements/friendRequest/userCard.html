@@ -1,7 +1,7 @@
 <md-list-item class="md-2-line md-long-text" style="width: 100%;" ng-init="setNotify(rangeIndex, infiniteItemIndex)">
     <!--<div ng-if="getRequest(rangeIndex, infiniteItemIndex).isApplyed" class="side-corner-tag">承認済み</div>-->
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-avatar" ng-click="openUserInfo(getFriend(rangeIndex, infiniteItemIndex))">
-        <div class="avatar-wrapper" ng-click="openUserInfo(rangeIndex + (infiniteItemIndex * getMediaCount()))">
+        <div class="avatar-wrapper" ng-click="openUserInfo(getFriend(rangeIndex, infiniteItemIndex))">
             <img ng-if="getFriend(rangeIndex, infiniteItemIndex).photoURL" ng-src="{{getFriend(rangeIndex, infiniteItemIndex).photoURL}}" class="md-card-image" />
             <img ng-if="!getFriend(rangeIndex, infiniteItemIndex).photoURL" class="md-card-image" />
         </div>

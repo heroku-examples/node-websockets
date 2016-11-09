@@ -31,16 +31,6 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         sizes: {
             large: {
                 targetEvent : '#bottom',
-                onShowing: function(scope, element) {
-                    $timeout(function() {
-                        element.find('md-dialog').addClass("center");
-                    }, 50);
-                },
-                onRemoving: function(element, removePromise) {
-                    $timeout(function() {
-                        element.find('md-dialog').removeClass("center").addClass("slideDown");
-                    }, 50);
-                },
                 fullscreen: true
             },
             medium :{
@@ -54,6 +44,58 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
                 onShowing: angular.noop(),
                 onRemoving: angular.noop(),
                 fullscreen: false
+            }
+        },
+        animations :{
+            slideUp : {
+                onShowing: function(scope, element) {
+                    $timeout(function() {
+                        element.find('md-dialog').addClass("center");
+                    }, 50);
+                },
+                onRemoving: function(element, removePromise) {
+                    $timeout(function() {
+                        element.find('md-dialog').removeClass("center").addClass("slideUp");
+                    }, 50);
+                },
+            },
+            slideDown : {
+                onShowing: function (scope, element) {
+                    $timeout(function () {
+                        element.find('md-dialog').addClass("center")
+                    }, 50)
+                },
+                onRemoving: function (element, removePromise) {
+                    $timeout(function () {
+                        element.find('md-dialog').removeClass("center").addClass("slideDown")
+                    }, 50)
+                }
+            },
+            slideLeft : {
+                onShowing: function (scope, element) {
+                    element.find('md-dialog').addClass("beforeSlideLeft")
+                    $timeout(function () {
+                        element.find('md-dialog').addClass("center")
+                    }, 50)
+                },
+                onRemoving: function (element, removePromise) {
+                    $timeout(function () {
+                        element.find('md-dialog').removeClass("center").addClass("slideRight")
+                    }, 50)
+                }
+            },
+            slideRight : {
+                onShowing: function (scope, element) {
+                    element.find('md-dialog').addClass("beforeSlideRight")
+                    $timeout(function () {
+                        element.find('md-dialog').addClass("center")
+                    }, 50)
+                },
+                onRemoving: function (element, removePromise) {
+                    $timeout(function () {
+                        element.find('md-dialog').removeClass("center").addClass("slideLeft")
+                    }, 50)
+                }
             }
         }
     };
@@ -74,22 +116,45 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         }
         return func;
     };
-    _this.open = function(controllerName, templateUrl, locals, size) {
+
+    _this.getAnimation = function(animationType) {
+        var animation = _this.animations.slideDown;
+        switch (animationType) {
+            case 'slideUp':
+                animation = _this.animations.slideUp;
+                break;
+            case 'slideDown':
+                animation = _this.animations.slideDown;
+                break;
+            case 'slideLeft':
+                animation = _this.animations.slideLeft;
+                break;
+            case 'slideRight':
+                animation = _this.animations.slideRight;
+                break;
+            default:
+                break;
+        }
+        return animation;
+    };
+    _this.open = function(controllerName, templateUrl, locals, size, animationName) {
         var template = _this.getTemplateFunc(size);
-        $mdDialog.show({
+        var animation = _this.getTemplateFunc(animationName);
+        return $mdDialog.show({
             controller: $window[controllerName],
             targetEvent: template.targetEvent,
             clickOutsideToClose: true,
             templateUrl: templateUrl ? templateUrl : _this.templates.defaultTemplateUrl,
             locals: locals,
             fullscreen: template.fullscreen,
-            onShowing: template.onShowing,
-            onRemoving: template.onRemoving
+            onShowing: animation.onShowing,
+            onRemoving: animation.onRemoving
         });
     };
     _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
         var template = _this.getTemplateFunc('large');
-        $mdDialog.show({
+        var animation = _this.getTemplateFunc('slideUp');
+        return $mdDialog.show({
             controller: ModalCtrl,
             targetEvent: template.targetEvent,
             templateUrl: templateUrl ? templateUrl : _this.templates.errorTemplateUrl,
@@ -100,8 +165,8 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
                 codeInfo: codeInfo,
                 isUnauthorized : isUnauthorized
             },
-            onShowing: template.onShowing,
-            onRemoving: template.onRemoving
+            onShowing: animation.onShowing,
+            onRemoving: animation.onRemoving
         });
     };
 

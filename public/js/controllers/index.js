@@ -1,96 +1,4 @@
-function UserSerchDialogController($scope, $filter, $mdDialog, locals, $translate) {
-
-    var setUser = function () {
-        $scope.targetUserCondition = {};
-        angular.forEach($scope.selects, function (value, key) {
-            $scope.targetUserCondition[key] = value.default;
-        });
-        $scope.targetUserCondition['age'] = false
-    };
-
-    $scope.init = function () {
-        $scope.targetUserCondition = {};
-        $scope.mode = locals.type;
-        $scope.selects = locals.selects;
-        $scope.prefectures = locals.prefectures;
-        $scope.profiles = locals.profiles;
-        $scope.subTitles = locals.subTitles;
-        $scope.myImage = '';
-        setUser();
-    };
-
-
-    $scope.selectAvatar = function (avatarNo) {
-        $scope.targetUserCondition.avatarNo = avatarNo;
-    };
-
-    $scope.hide = function () {
-
-        $mdDialog.hide();
-    };
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
-    };
-    $scope.search = function () {
-        $mdDialog.hide($filter('removeEmptyInObject')($scope.targetUserCondition));
-    };
-
-    $scope.addHobbyToTargetUserCondition = function (value) {
-        if (!$scope.targetUserCondition.hobbies) $scope.targetUserCondition.hobbies = [];
-        if (!$filter('inArray')($scope.targetUserCondition.hobbies, value)) {
-            $scope.targetUserCondition.hobbies.push(value);
-        }
-    };
-
-    $scope.lowerValue = 20;
-    $scope.upperValue = 100;
-}
-
-function UserInfoCtrl(
-    $scope,
-    $filter,
-    $mdDialog,
-    $controller,
-    locals,
-    FriendRequest,
-    Loading,
-    Error,
-    Login
-) {
-    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
-    $scope.user = locals.user;
-    $scope.init = function () {
-        Loading.start();
-        FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function (result) {
-            console.log("msg", result)
-            if (result) {
-                if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
-            }
-
-            Loading.finish();
-        }).catch(function (data, status) {
-            Loading.finish();
-            Error.openMessage(data, status);
-        });
-    };
-    $scope.friendRequest = function () {
-        Loading.start();
-        FriendRequest.root().create({ targetUid: $scope.user.uid }).$promise.then(function (result) {
-            if (result) {
-                if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
-            }
-            Loading.finish();
-        }).catch(function (data, status) {
-            Loading.finish();
-            Error.openMessage(data, status);
-        });
-    };
-}
-
-app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading) {
+app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading, Modal) {
 
 
     var layoutConfig = {
@@ -228,28 +136,8 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
     init();
 
     $scope.openUserInfo = function (index) {
-        $scope.isModalOpen = true;
-        $mdDialog.show({
-            controller: UserInfoCtrl,
-            templateUrl: '/templates/modal/userInfo.html?v=' + window.deviceCacheKey,
-            targetEvent: '#bottom',
-            clickOutsideToClose: true,
-            locals: {
-                user: $scope.users[index],
-            },
-            fullscreen: true,
-            onShowing: function (scope, element) {
-                $timeout(function () {
-                    element.find('md-dialog').addClass("center")
-                }, 50)
-            },
-            onRemoving: function (element, removePromise) {
-                $timeout(function () {
-                    element.find('md-dialog').removeClass("center").addClass("slideDown")
-                }, 50)
-            }
-        })
-
+        var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
+        Modal.open('UserInfo', templateUrl, { user: $scope.users[index] })
             .then(function (answer) {
                 $scope.isModalOpen = false;
             }, function () {
@@ -258,31 +146,15 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
     };
 
     $scope.openSearch = function (ev) {
+        var templateUrl = "/templates/modal/userSerch.html?v=" + $window.deviceCacheKey;
         $scope.isModalOpen = true;
-        $mdDialog.show({
-            controller: UserSerchDialogController,
-            templateUrl: '/templates/modal/userSerch.html?v=' + window.deviceCacheKey,
-            targetEvent: '#bottom',
-            clickOutsideToClose: true,
-            locals: {
-                profiles: _profiles,
-                selects: _selects,
-                type: modeTypes.search,
-                prefectures: _prefectures,
-                subTitles: _subTitles
-            },
-            fullscreen: true,
-            onShowing: function (scope, element) {
-                element.find('md-dialog').addClass("beforeSlideLeft")
-                $timeout(function () {
-                    element.find('md-dialog').addClass("center")
-                }, 50)
-            },
-            onRemoving: function (element, removePromise) {
-                $timeout(function () {
-                    element.find('md-dialog').removeClass("center").addClass("slideRight")
-                }, 50)
-            }
+
+        Modal.open('UserSerch', templateUrl, {
+            profiles: _profiles,
+            selects: _selects,
+            type: modeTypes.search,
+            prefectures: _prefectures,
+            subTitles: _subTitles
         }).then(function (answer) {
             $scope.isModalOpen = false;
             angular.forEach(answer, function (value, key) {

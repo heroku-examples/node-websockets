@@ -175,7 +175,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
 
     $scope.openUserInfo = function(friendInfo) {
         var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
-        Modal.open('UserInfoCtrl', templateUrl, {user: friendInfo})
+        Modal.open('UserInfo', templateUrl, {user: friendInfo})
     };
 
     $scope.getMediaCount = function() {
