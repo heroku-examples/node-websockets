@@ -5,4 +5,3 @@ log.
 *.2
 *.3
 .vscode/launch.json
-/public/manifest/manifest.mf
