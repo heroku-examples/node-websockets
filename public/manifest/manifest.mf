@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2010-11-07:v6
+# 2010-11-07:v8
 
 # Explicitly cached 'master entries'.
 CACHE:
