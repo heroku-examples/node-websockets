@@ -23,7 +23,7 @@ module.exports = {
             values.values[name] = value;
             Config.findOneAndUpdate({ name: name }, values, function(err, record) {
                 if (record) {
-                    resolve(record); // errがなければ成功とみなしresolveを呼び出す
+                    resolve(value); // errがなければ成功とみなしresolveを呼び出す
                 } else if (err) {
                     reject(err); // errがあればrejectを呼び出す
                 }else{
