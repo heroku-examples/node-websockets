@@ -283,19 +283,17 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
                     element.find('md-dialog').removeClass("center").addClass("slideRight")
                 }, 50)
             }
-        })
-
-            .then(function (answer) {
-                $scope.isModalOpen = false;
-                angular.forEach(answer, function (value, key) {
-                    _selects[key].default = value;
-                });
-                $localStorage.targetUserCondition = _selects;
-                $rootScope.$broadcast('UserSearchEvent', answer);
-            }, function () {
-                $scope.isModalOpen = false;
-                $scope.alert = 'You cancelled the dialog.';
+        }).then(function (answer) {
+            $scope.isModalOpen = false;
+            angular.forEach(answer, function (value, key) {
+                _selects[key].default = value;
             });
+            $localStorage.targetUserCondition = _selects;
+            $rootScope.$broadcast('UserSearchEvent', answer);
+        }, function () {
+            $scope.isModalOpen = false;
+            $scope.alert = 'You cancelled the dialog.';
+        });
     };
 
     $scope.createUser = function (userData) {
