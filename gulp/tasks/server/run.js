@@ -132,8 +132,12 @@ var setDeviceCacheKey = function (number) {
 }
 
 var Config = require('./services/config');
-Config.get('deviceCacheKey').then(function (records) {
-    setDeviceCacheKey(records.number);
+Config.get('deviceCacheKey').then(function (record) {
+    Config.update('deviceCacheKey', {number : record.number+1}).then(function (records) {
+        setDeviceCacheKey(records.number);
+    }, function (error) {
+        console.log("Rejected:", error);
+    });
 }, function (error) {
     console.log("Rejected:", error);
 });
