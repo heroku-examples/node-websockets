@@ -21,9 +21,10 @@ app.controller('AppCtrl', function ($scope,
     $scope.$storage = $localStorage;
     $scope.mdMedia = $mdMedia;
     $scope.deviceCacheKey = window.deviceCacheKey;
-    Worker.init('simple').postMessage('test').then(function(data) {
-        console.log(data)
-    });
+    Worker.init('simple')
+    // .postMessage('test').then(function(data) {
+    //     console.log(data)
+    // });
     Manifest.init();
 
     $scope.toggleSidenav = function (menuId) {
