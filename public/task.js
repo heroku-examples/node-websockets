@@ -1,24 +1,31 @@
+'use strict';
+//https://github.com/kanatapple/service-worker/tree/gh-pages/push
+self.addEventListener('install', function(event){
+    console.info('install', event);
+    
+    event.waitUntil(self.skipWaiting());
+});
 
-// self.addEventListener('message', function (e) {
-// 	if ('function' === typeof importScripts) {
-// 		self.postMessage(e.data);
-// 	}
-// }, false);
+self.addEventListener('activate', function(event){
+    console.info('activate', event);
+    
+    event.waitUntil(self.clients.claim());
+});
 
-self.addEventListener('push', function(evt) {
-	console.log(evt)
-  //if(evt.data) {
-    //var data = evt.data.json();
-    evt.waitUntil(
-      self.registration.showNotification(
-        'data.title',
-        {
-          icon: 'xxx.png',
-          body: 'data',
-          tag:"pushMessage201512080001",
-          vibrate: [400,100,400]
-        }
-      )
+self.addEventListener('fetch', function(event){
+    console.info('fetch', event);
+});
+
+self.addEventListener('push', function(event){
+    console.info('push', event);
+    
+    const message = event.data ? event.data.text() : '(・∀・)';
+    
+    event.waitUntil(
+        self.registration.showNotification('Push Notification Title', {
+            body: message,
+            icon: 'https://kanatapple.github.io/service-worker/push/images/image.jpg',
+            tag: 'push-notification-tag'
+        })
     );
-  //}
-}, false);
+});
