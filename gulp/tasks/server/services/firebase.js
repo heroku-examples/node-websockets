@@ -1,8 +1,26 @@
 var Promise = require('es6-promise').Promise;
+var firebase = require("firebase");
 module.exports = {
+    init: function(uid){
+        firebase.initializeApp({
+            serviceAccount: "./www/json/firebase/squareGame-8ad71595b440.json",
+            databaseURL: "https://project-3597707734440258770.firebaseio.com"
+        });
+
+        var additionalClaims = {
+            adminToken: true
+        };
+        var token = firebase.auth().createCustomToken(uid, additionalClaims);
+        var Config = require('./../services/config');
+        Config.update('adminToken', token).then(function (records) {
+            console.log("firebase success", records)
+        }, function (error) {
+            console.log("firebase error", error)
+        });
+    },
     createFriendChat: function (req, fromUid) {
         return new Promise(function (resolve, reject) {
-            var firebase = require("firebase");
+
             firebase.auth().verifyIdToken(req.session.token.token).then(function (decodedToken) {
                 var updates = {};
                 var record = {
@@ -25,7 +43,7 @@ module.exports = {
     sendFriendChatComment: function (req, url, targetUid, text, photoURL) {
         if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
-            var firebase = require("firebase");
+
             var comments = firebase.database().ref('/private_chats/' + url).child('comments').push();
             comments.set({
                 text: text,
@@ -52,7 +70,7 @@ module.exports = {
     },
     readChatComment: function (req, url) {
         return new Promise(function (resolve, reject) {
-            var firebase = require("firebase");
+
             var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(req.session.token.uid)
             unread.transaction(function (current_value) {
                 if(!current_value) current_value = {};
@@ -71,7 +89,7 @@ module.exports = {
     sendNotify: function (req, text, fromUid, targetUid, photoURL) {
         if (!photoURL) photoURL = '';
         return new Promise(function (resolve, reject) {
-            var firebase = require("firebase");
+
             var path = '/notify/' + targetUid + '/' + fromUid;
             var messages = firebase.database().ref(path).child('messages').push();
             messages.set({
@@ -88,7 +106,7 @@ module.exports = {
     },
     createNotify: function (req, adminToken) {
         return new Promise(function (resolve, reject) {
-            var firebase = require("firebase");
+
             firebase.auth().signInWithCustomToken(adminToken).then(function (decodedToken) {
                 var updates = {};
                 var record = {
@@ -125,7 +143,7 @@ module.exports = {
     updateAdminToken: function (req) {
         if (!req.session.token && !req.session.isDebug) return;
         return new Promise(function (resolve, reject) {
-            var firebase = require("firebase");
+
             var uid = "zcMTtpFeKEhmGPiJWno0310Sv5p1";
             var additionalClaims = {
                 adminToken: true

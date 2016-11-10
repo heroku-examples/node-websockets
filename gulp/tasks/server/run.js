@@ -105,6 +105,14 @@ if (app.get('env') === 'development') {
     var gulp = require('gulp');
     var browserSync = require('browser-sync').create();
     gulp.watch(["public/**"]).on('change', browserSync.reload);
+
+    var FireBaseSearvice = require('./services/firebase');
+    var uid = "zcMTtpFeKEhmGPiJWno0310Sv5p1";
+    FireBaseSearvice.init(uid)
+}else{
+    var FireBaseSearvice = require('./services/firebase');
+    var uid = "PdgCuopiL3dvwsuSMLC1D8pzM792";
+    FireBaseSearvice.init(uid)
 }
 
 // production error handler

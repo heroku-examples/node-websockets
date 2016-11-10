@@ -155,7 +155,7 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
             type: modeTypes.search,
             prefectures: _prefectures,
             subTitles: _subTitles
-        }).then(function (answer) {
+        },'large').then(function (answer) {
             $scope.isModalOpen = false;
             angular.forEach(answer, function (value, key) {
                 _selects[key].default = value;

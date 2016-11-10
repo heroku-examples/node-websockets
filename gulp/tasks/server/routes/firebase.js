@@ -5,23 +5,6 @@ var firebase = require("firebase");
 var pkg = require('../../../.././package.json');
 
 
-firebase.initializeApp({
-    serviceAccount: "./www/json/firebase/squareGame-8ad71595b440.json",
-    databaseURL: "https://project-3597707734440258770.firebaseio.com"
-});
-
-var uid = "zcMTtpFeKEhmGPiJWno0310Sv5p1";
-var additionalClaims = {
-    adminToken: true
-};
-var token = firebase.auth().createCustomToken(uid, additionalClaims);
-var Config = require('./../services/config');
-Config.update('adminToken', token).then(function (records) {
-    console.log("firebase success", records)
-}, function (error) {
-    console.log("firebase error", error)
-});
-
 var resCodes = require('.././json/http/http_code_names.json');
 
 router.use(function(req, res, next) {
