@@ -17,21 +17,21 @@ app
             if (!s)
                 resetSubscription();
             else {
-                document.getElementById('register').disabled = true;
+                //document.getElementById('register').disabled = true;
                 subscription = s;
-                var p = document.getElementById('push');
-                p.textContent = 'プッシュ通知を解除する';
-                p.disabled = false;
+                // var p = document.getElementById('push');
+                // p.textContent = 'プッシュ通知を解除する';
+                // p.disabled = false;
                 registerNotification(s);
             }
         }
 
         function resetSubscription() {
-            document.getElementById('register').disabled = true;
-            subscription = null;
-            var p = document.getElementById('push');
-            p.textContent = 'プッシュ通知を有効にする';
-            p.disabled = false;
+            // document.getElementById('register').disabled = true;
+            // subscription = null;
+            // var p = document.getElementById('push');
+            // p.textContent = 'プッシュ通知を有効にする';
+            // p.disabled = false;
         }
 
         function setPush() {
