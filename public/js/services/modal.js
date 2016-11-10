@@ -172,6 +172,16 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         });
         return this.ref;
     };
+    _this.closeAll = function () {
+        if(this.ref){
+            this.ref.hide();
+        }
+    }
+    _this.close = function () {
+        if(this.ref){
+            this.ref.hide();
+        }
+    }
 
     return _this;
 });

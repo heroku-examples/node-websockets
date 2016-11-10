@@ -15,6 +15,7 @@ app.controller('AppCtrl', function ($scope,
     Loading,
     Worker,
     Modal,
+    Manifest,
     Login) {
     $scope.sessionStorage = $sessionStorage;
     $scope.$storage = $localStorage;
@@ -23,6 +24,7 @@ app.controller('AppCtrl', function ($scope,
     Worker.init('simple').postMessage('test').then(function(data) {
         console.log(data)
     });
+    Manifest.init();
 
     $scope.toggleSidenav = function (menuId) {
         $timeout(function () {
@@ -142,27 +144,7 @@ app.controller('AppCtrl', function ($scope,
         $mdSidenav('left').close();
     });
 
-    // Check if a new cache is available on page load.
-    $window.addEventListener('load', function (e) {
-
-        $window.applicationCache.addEventListener('updateready', function (e) {
-            if ($window.applicationCache.status == $window.applicationCache.UPDATEREADY) {
-                // Browser downloaded a new app cache.
-                // Swap it in and reload the page to get the new hotness.
-                $window.applicationCache.swapCache();
-                if (confirm('A new version of this site is available. Load it?')) {
-                    $window.location.reload();
-                }
-            } else {
-                // Manifest didn't changed. Nothing new to server.
-            }
-        }, false);
-
-    }, false);
-
     $window.onhashchange = function() {
-        if(Modal.ref){
-            Modal.ref.hide();
-        }
+        Modal.close();
     };
 });
