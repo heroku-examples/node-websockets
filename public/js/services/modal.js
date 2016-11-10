@@ -24,6 +24,7 @@ function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
 }
 app.factory('Modal', function($window, $mdDialog, $timeout) {
     var _this = {
+        ref : {},
         templates: {
             errorTemplateUrl: '/templates/modal/error.html?v=' + window.deviceCacheKey,
             defaultTemplateUrl: '/templates/modal/default.html?v=' + window.deviceCacheKey,
@@ -140,7 +141,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
     _this.open = function(controllerName, templateUrl, locals, size, animationName) {
         var template = _this.getTemplateFunc(size);
         var animation = _this.getTemplateFunc(animationName);
-        return $mdDialog.show({
+        this.ref =  $mdDialog.show({
             controller: $window[controllerName],
             targetEvent: template.targetEvent,
             clickOutsideToClose: true,
@@ -150,11 +151,12 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
             onShowing: animation.onShowing,
             onRemoving: animation.onRemoving
         });
+        return this.ref;
     };
     _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
         var template = _this.getTemplateFunc('large');
         var animation = _this.getTemplateFunc('slideUp');
-        return $mdDialog.show({
+        this.ref = $mdDialog.show({
             controller: ModalCtrl,
             targetEvent: template.targetEvent,
             templateUrl: templateUrl ? templateUrl : _this.templates.errorTemplateUrl,
@@ -168,6 +170,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
             onShowing: animation.onShowing,
             onRemoving: animation.onRemoving
         });
+        return this.ref;
     };
 
     return _this;

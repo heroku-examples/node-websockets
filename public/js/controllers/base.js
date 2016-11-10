@@ -14,6 +14,7 @@ app.controller('AppCtrl', function ($scope,
     FriendRequest,
     Loading,
     Worker,
+    Modal,
     Login) {
     $scope.sessionStorage = $sessionStorage;
     $scope.$storage = $localStorage;
@@ -159,4 +160,9 @@ app.controller('AppCtrl', function ($scope,
 
     }, false);
 
+    $window.onhashchange = function() {
+        if(Modal.ref){
+            Modal.ref.close();
+        }
+    };
 });
