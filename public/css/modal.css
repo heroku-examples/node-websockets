@@ -12,11 +12,11 @@ md-dialog {
     -webkit-transform: translate(0, 100%) scale(1);
     transform: translate(0, 100%) scale(1);
 }
-md-dialog.slideDown {
-    opacity: 0;
+md-dialog.center {
+    opacity: 1;
     transition: all 0.4s ease-in-out;
-    -webkit-transform: translate(0, 100%) scale(1);
-    transform: translate(0, 100%) scale(1);
+    -webkit-transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1)
 }
 md-dialog.beforeSlideLeft{
     opacity: 0;
@@ -24,15 +24,33 @@ md-dialog.beforeSlideLeft{
     -webkit-transform: translate(100%, 0) scale(1);
     transform: translate(100%, 0) scale(1);
 }
-md-dialog.center {
-    opacity: 1;
+md-dialog.beforeSlideRight{
+    opacity: 0;
+    transition: all 0.0s ease-in-out;
+    -webkit-transform: translate(-100%, 0) scale(1);
+    transform: translate(-100%, 0) scale(1);
+}
+md-dialog.slideDown {
+    opacity: 0;
     transition: all 0.4s ease-in-out;
-    -webkit-transform: translate(0, 0) scale(1);
-    transform: translate(0, 0) scale(1)
+    -webkit-transform: translate(0, 100%) scale(1);
+    transform: translate(0, 100%) scale(1);
+}
+md-dialog.slideUp {
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    -webkit-transform: translate(0, 100%) scale(1);
+    transform: translate(0, 100%) scale(1);
 }
 md-dialog.slideRight {
     opacity: 0;
     transition: all 0.4s ease-in-out;
     -webkit-transform: translate(100%, 0) scale(1);
     transform: translate(100%, 0) scale(1);
+}
+md-dialog.slideRight {
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    -webkit-transform: translate(-100%, 0) scale(1);
+    transform: translate(-100%, 0) scale(1);
 }

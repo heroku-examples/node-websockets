@@ -162,7 +162,7 @@ app.controller('AppCtrl', function ($scope,
 
     $window.onhashchange = function() {
         if(Modal.ref){
-            Modal.ref.close();
+            Modal.ref.hide();
         }
     };
 });
