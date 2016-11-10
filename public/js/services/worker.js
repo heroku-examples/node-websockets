@@ -3,7 +3,7 @@ app
         var _this = {
             worker: {},
             resouces: {
-                simple: '/js/workers/task.js?v=' + window.deviceCacheKey
+                simple: '/task.js?v=' + window.deviceCacheKey
             }
         };
 
@@ -41,11 +41,17 @@ app
                     return;
                 }
 
-                navigator.serviceWorker.ready.then(subscribe);
+                navigator.serviceWorker.ready.then(subscribe)
+                .catch(function(error) {
+                    console.log('serviceWorker', error);
+                });
             }
 
             else
-                navigator.serviceWorker.ready.then(unsubscribe);
+                navigator.serviceWorker.ready.then(unsubscribe)
+                .catch(function(error) {
+                    console.log('serviceWorker', error);
+                });
         }
 
         function subscribe(sw) {

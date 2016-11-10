@@ -119,6 +119,9 @@ app.factory('Json', function ($http, $q, $localStorage) {
                 case 5:
                     return 'OBSOLETE';
                     break;
+                case 6:
+                    return 'CACHED';
+                    break;
                 default:
                     return 'UKNOWN CACHE STATUS';
                     break;
@@ -133,8 +136,12 @@ app.factory('Json', function ($http, $q, $localStorage) {
                 if (confirm('A new version of this site is available. Load it?')) {
                     $window.location.reload();
                 }
-            } else {
+            } else if(appCache.status == appCache.CACHED){
                 // Manifest didn't changed. Nothing new to server.
+                if($window.deviceCacheKey != $localStorage.deviceCacheKey){
+                    appCache.update();
+                    $localStorage.deviceCacheKey = $window.deviceCacheKey;
+                }
             }
         };
         var handleCacheError = function (e) {
@@ -142,10 +149,7 @@ app.factory('Json', function ($http, $q, $localStorage) {
         };
 
         _this.init = function () {
-            if($window.deviceCacheKey != $localStorage.deviceCacheKey){
-                appCache.update();
-                $localStorage.deviceCacheKey = $window.deviceCacheKey;
-            }
+
             // Check if a new cache is available on page load.
             $window.addEventListener('load', function (e) {
                 appCache.addEventListener('applicationCache cached', handleCacheEvent, false);
