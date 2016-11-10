@@ -15,7 +15,8 @@ self.addEventListener('push', function(evt) {
         {
           icon: 'xxx.png',
           body: 'data',
-          tag:"pushMessage201512080001"
+          tag:"pushMessage201512080001",
+          vibrate: [400,100,400]
         }
       )
     );
