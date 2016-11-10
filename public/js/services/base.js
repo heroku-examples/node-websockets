@@ -142,6 +142,10 @@ app.factory('Json', function ($http, $q, $localStorage) {
         };
 
         _this.init = function () {
+            if($window.deviceCacheKey != $localStorage.deviceCacheKey){
+                appCache.update();
+                $localStorage.deviceCacheKey = $window.deviceCacheKey;
+            }
             // Check if a new cache is available on page load.
             $window.addEventListener('load', function (e) {
                 appCache.addEventListener('applicationCache cached', handleCacheEvent, false);
