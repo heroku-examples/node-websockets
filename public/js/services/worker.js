@@ -3,7 +3,7 @@ app
         var _this = {
             worker: {},
             resouces: {
-                simple: '/js/workers/task.js'
+                simple: '/js/workers/task.js?v=' + window.deviceCacheKey
             }
         };
 
