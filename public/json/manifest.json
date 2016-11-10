@@ -31,5 +31,6 @@
   "display": "standalone",
   "start_url": "index/",
   "orientation": "portrait",
-  "gcm_sender_id": "829581752893"
+  "gcm_sender_id": "829581752893",
+  "gcm_user_visible_only": true
 }
