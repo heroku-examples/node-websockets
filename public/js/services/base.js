@@ -96,7 +96,7 @@ app.factory('Json', function ($http, $q, $localStorage) {
         };
         return _this;
     })
-    .factory('Manifest', function ($window) {
+    .factory('Manifest', function ($window, $localStorage) {
         var _this = {};
         var appCache = $window.applicationCache;
         var cacheStatus = function (status) {
