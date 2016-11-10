@@ -5,6 +5,14 @@
 // 	}
 // }, false);
 
+self.addEventListener('install', function(event) {
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener('activate', function(event) {
+  event.waitUntil(self.clients.claim());
+});
+
 self.addEventListener('push', function(evt) {
 	console.log(evt)
   //if(evt.data) {
