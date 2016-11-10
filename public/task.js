@@ -29,3 +29,11 @@ self.addEventListener('push', function(event){
         })
     );
 });
+
+//curl --header "Authorization: key=	AIzaSyAFw6KYu4W5kTmKPnFA8pllyDyFfYtH4q8" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"eOM5WXCJoOU:APA91bEysh0oETvrcmYdqgqS3Sr83XZEUgOrCR801Sfw94SetzRMKKj-Tn135mm4BIyS79tRwTw8OE3tLTxUU_OYUajj4v_OOhxU_DxR5ONu0wdMMRAGBLERa8Ilx3XnNxfVGnLwWyTu\"]}"
+
+//%curl --header "Authorization: key=	AIzaSyAFw6KYu4W5kTmKPnFA8pllyDyFfYtH4q8" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"eOM5WXCJoOU:APA91bEysh0oETvrcmYdqgqS3Sr83XZEUgOrCR801Sfw94SetzRMKKj-Tn135mm4BIyS79tRwTw8OE3tLTxUU_OYUajj4v_OOhxU_DxR5ONu0wdMMRAGBLERa8Ilx3XnNxfVGnLwWyTu\"],\"data\":{\"message\":\"Hello\"}}"
+
+//%curl --header "Authorization: key=＜API KEY＞" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"＜RegistrationID＞\"],\"data\":{\"message\":\"Hello\"}}"
+
+//https://android.googleapis.com/gcm/send/eOM5WXCJoOU:APA91bEysh0oETvrcmYdqgqS3Sr83XZEUgOrCR801Sfw94SetzRMKKj-Tn135mm4BIyS79tRwTw8OE3tLTxUU_OYUajj4v_OOhxU_DxR5ONu0wdMMRAGBLERa8Ilx3XnNxfVGnLwWyTu
