@@ -134,7 +134,7 @@ var setDeviceCacheKey = function (number) {
 var Config = require('./services/config');
 Config.get('deviceCacheKey').then(function (record) {
     if(!record.number) record = {number : 0};
-    if(!Number.isInteger(record.number)) record = {number : 0};
+    if(!Number(record.number)) record = {number : 0};
     Config.update('deviceCacheKey', {number : record.number+1}).then(function (records) {
         setDeviceCacheKey(records.number);
     }, function (error) {
