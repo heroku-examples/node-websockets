@@ -83,6 +83,20 @@ app.factory('Chat', function($resource) {
     };
 });
 
+app.factory('Push', function($resource) {
+    return {
+        root : function(){
+            return $resource('/api/webPush/:targetUid', {}, {
+                send: {
+                    method: 'POST',
+                    isArray: false
+                }
+            });
+        },
+
+    };
+});
+
 app.factory('FriendRequest', function($resource) {
     return {
         root :function(){

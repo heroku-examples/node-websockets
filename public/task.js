@@ -1,31 +1,42 @@
 'use strict';
 //https://github.com/kanatapple/service-worker/tree/gh-pages/push
-self.addEventListener('install', function(event){
+self.addEventListener('install', function (event) {
     console.info('install', event);
-    
+
     event.waitUntil(self.skipWaiting());
 });
 
-self.addEventListener('activate', function(event){
+self.addEventListener('activate', function (event) {
     console.info('activate', event);
-    
+
     event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener('fetch', function(event){
+self.addEventListener('fetch', function (event) {
     console.info('fetch', event);
 });
 
-self.addEventListener('push', function(event){
-    console.info('push', event);
-    
-    const message = event.data ? event.data.text() : '(・∀・)';
-    
+self.addEventListener('push', function (event) {
+
+    console.log('Received a push message', event);
+
+    var title = 'メッセージのタイトル';
+    var body = 'プッシュメッセージを受信';
+    var icon = 'https://kanatapple.github.io/service-worker/push/images/image.jpg';
+    var tag = 'push-notification-tag';
+
+    console.log('receive Data: ', event.data);
+    if (event.data != null) {
+        var textdata = event.data.text();
+        console.log('receive text: ', textdata);
+        body = body + ":" + textdata;
+    }
+
     event.waitUntil(
-        self.registration.showNotification('Push Notification Title', {
-            body: message,
-            icon: 'https://kanatapple.github.io/service-worker/push/images/image.jpg',
-            tag: 'push-notification-tag'
+        self.registration.showNotification(title, {
+            body: body,
+            icon: icon,
+            tag: tag
         })
     );
 });

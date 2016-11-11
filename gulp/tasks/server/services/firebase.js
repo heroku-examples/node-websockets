@@ -1,7 +1,7 @@
 var Promise = require('es6-promise').Promise;
 var firebase = require("firebase");
 module.exports = {
-    init: function(uid){
+    init: function (uid) {
         firebase.initializeApp({
             serviceAccount: "./www/json/firebase/squareGame-8ad71595b440.json",
             databaseURL: "https://project-3597707734440258770.firebaseio.com"
@@ -53,8 +53,8 @@ module.exports = {
             }).then(function (_comments) {
                 var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(targetUid)
                 unread.transaction(function (current_value) {
-                    if(!current_value) current_value = {};
-                    return {count : (current_value.count || 0) + 1, text : text};
+                    if (!current_value) current_value = {};
+                    return { count: (current_value.count || 0) + 1, text: text };
                 }, function (err, committed, snapshot) {
                     if (err)
                         reject(err);
@@ -73,8 +73,8 @@ module.exports = {
 
             var unread = firebase.database().ref('/private_chats/' + url + '/unread/').child(req.session.token.uid)
             unread.transaction(function (current_value) {
-                if(!current_value) current_value = {};
-                return {count : 0, text : current_value.text ? current_value.text : ''};
+                if (!current_value) current_value = {};
+                return { count: 0, text: current_value.text ? current_value.text : '' };
             }, function (err, committed, snapshot) {
                 if (err)
                     reject(err);
@@ -83,7 +83,7 @@ module.exports = {
                 else
                     resolve({ snapshot: snapshot.val() });
             });
- 
+
         });
     },
     sendNotify: function (req, text, fromUid, targetUid, photoURL) {
@@ -157,6 +157,43 @@ module.exports = {
             });
         }).catch(function (err) {
             reject(err);
+        });
+    },
+    webPush: function (req, registrationIds) {
+        if (!req.session.token && !req.session.isDebug) return;
+        return new Promise(function (resolve, reject) {
+
+            var body = 
+                    {
+                        "data": {
+                            "text": "LogIned",
+                            "date": Math.round(new Date().getTime() / 1000),
+                        },
+                        "registration_ids": registrationIds
+                    };
+            var request = require('request');
+            request({
+                url: 'https://fcm.googleapis.com/fcm/send',
+                method: 'POST',
+                headers: {
+                    'Content-Type': ' application/json',
+                    'Authorization': 'key=AIzaSyABUweSPHa_1XDaXmhXU0RhMGZokiJIapY'
+                },
+                body: JSON.stringify(body)
+            }, function (error, response, body) {
+                if (error) {
+                    reject(err);
+                }
+                else if (response.statusCode >= 400) {
+                     reject('HTTP Error: ' + response.statusCode + ' - ' + response.statusMessage + '\n' + body);
+                }
+                else {
+                    resolve(response);
+                }
+            });
+        }).catch(function (err) {
+            console.log(err)
+            //reject(err);
         });
     },
 };
