@@ -183,10 +183,18 @@ module.exports = {
                 }
             };
 
-            webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
-            resolve(pushSubscription);
+            var mongoose     = require('mongoose');
+            var Identification = mongoose.model('Identification');
+            Identification.findOneAndUpdate({ uid: req.session.token.uid }, { pushSubscription: pushSubscription }, function(err, identification) {
+                if (err){
+                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                }else{
+                    webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+                    resolve(pushSubscription);
+                } 
+            });
         }).catch(function (err) {
-            reject(err);
+            console.log(err)
         });
     },
     webPush: function (req, registrationIds) {
