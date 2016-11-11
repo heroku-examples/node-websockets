@@ -159,17 +159,45 @@ module.exports = {
             reject(err);
         });
     },
+    webPush2: function (req, endpoint, registrationIds, auth, p256dh) {
+        var webpush = require('web-push');
+
+        // VAPID keys should only be generated only once.
+        var vapidKeys = webpush.generateVAPIDKeys();
+
+        webpush.setGCMAPIKey('AIzaSyABUweSPHa_1XDaXmhXU0RhMGZokiJIapY');
+        webpush.setVapidDetails(
+            'mailto:parmalatinter@gmail.com',
+            vapidKeys.publicKey,
+            vapidKeys.privateKey
+        );
+
+        // This is the same output of calling JSON.stringify on a PushSubscription
+        var pushSubscription = {
+            endpoint: endpoint,
+            keys: {
+                auth: auth,
+                p256dh: p256dh
+            }
+        };
+
+        webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+    },
     webPush: function (req, registrationIds) {
         if (!req.session.token && !req.session.isDebug) return;
         return new Promise(function (resolve, reject) {
 
-            var body = 
-                    {
-                        "registration_ids": registrationIds,
-                        "data": {
-                            "text": "LogIned"
-                        }
-                    };
+            var body =
+                {
+                    "registration_ids": registrationIds,
+                    "data": {
+                        "text": "LogIned"
+                    },
+                    "notification": {
+                        "title": "1",
+                        "text": "23"
+                    }
+                };
             var request = require('request');
             request({
                 url: 'https://fcm.googleapis.com/fcm/send',
@@ -184,7 +212,7 @@ module.exports = {
                     reject(err);
                 }
                 else if (response.statusCode >= 400) {
-                     reject('HTTP Error: ' + response.statusCode + ' - ' + response.statusMessage + '\n' + body);
+                    reject('HTTP Error: ' + response.statusCode + ' - ' + response.statusMessage + '\n' + body);
                 }
                 else {
                     resolve(response);

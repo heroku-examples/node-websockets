@@ -32,12 +32,15 @@ app
 
         var sendSubscriptionToServer = function (subscription) {
             var registrationId = "";
+            var subscriptionStr = JSON.stringify(subscription)
+            var subscriptionJson = JSON.parse(subscriptionStr)
+
             if (subscription.endpoint) {
                 endpoint = 'https://android.googleapis.com/gcm/send';
                 endpointParts = subscription.endpoint.split('/');
                 registrationId = endpointParts[endpointParts.length - 1];
                 
-                Push.root().send({ registrationIds: [registrationId] }).$promise.then(function (result) {
+                Push.root().send({ endpoint : subscriptionJson.endpoint, registrationIds: [registrationId], p256dh : subscriptionJson.keys.p256dh, auth : subscriptionJson.keys.auth }).$promise.then(function (result) {
                     console.info(result)
                     Toast.show("Pushed");
                 }).catch(function (data, status) {

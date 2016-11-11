@@ -34,7 +34,8 @@
     "require-dir": "^0.3.0",
     "shelljs": "^0.3.0",
     "socket.io": "1.2.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "web-push": "^3.2.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node server.js",
