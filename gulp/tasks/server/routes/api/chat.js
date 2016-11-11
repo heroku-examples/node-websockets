@@ -10,14 +10,14 @@ router.use(function (req, res, next) {
         if(!req.session.token){
             req.session.token = {};
             req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
-            var Token = require('../../models/token');
-            Token.findOne({
+            var Identification = require('../../models/identification');
+            Identification.findOne({
                 uid: req.session.token.uid
-            }, function (err, token) {
+            }, function (err, identification) {
                 if (err) {
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                } else if (token) {
-                    req.session.token.token = token.token;
+                } else if (identification) {
+                    req.session.token.token = identification.token;
                     next();
                 } else{
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();

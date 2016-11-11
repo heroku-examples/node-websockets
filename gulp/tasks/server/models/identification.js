@@ -1,18 +1,19 @@
 
-// app/models/user.js
+// app/models/identification.js
 
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-var TokenSchema   = new Schema({
+var IdentificationSchema   = new Schema({
     uid : { type: String, required: true, unique: true },
     token : { type: String, required: true },
+    pushSubscription : mongoose.Schema.Types.Mixed,
     createDate: { type: Date, default: Date.now },
     updateDate: { type: Date, default: Date.now },
 });
 
 // on every save, add the date
-TokenSchema.pre('save', function(next) {
+IdentificationSchema.pre('save', function(next) {
   // get the current date
   var currentDate = new Date();
   // change the updateDate field to current date
@@ -25,4 +26,4 @@ TokenSchema.pre('save', function(next) {
   next();
 });
 
-module.exports = mongoose.model('Token', TokenSchema);
+module.exports = mongoose.model('Identification', IdentificationSchema);

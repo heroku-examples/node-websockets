@@ -160,28 +160,34 @@ module.exports = {
         });
     },
     webPush2: function (req, endpoint, registrationIds, auth, p256dh) {
-        var webpush = require('web-push');
+        if (!req.session.token && !req.session.isDebug) return;
+        return new Promise(function (resolve, reject) {
+            var webpush = require('web-push');
 
-        // VAPID keys should only be generated only once.
-        var vapidKeys = webpush.generateVAPIDKeys();
+            // VAPID keys should only be generated only once.
+            var vapidKeys = webpush.generateVAPIDKeys();
 
-        webpush.setGCMAPIKey('AIzaSyABUweSPHa_1XDaXmhXU0RhMGZokiJIapY');
-        webpush.setVapidDetails(
-            'mailto:parmalatinter@gmail.com',
-            vapidKeys.publicKey,
-            vapidKeys.privateKey
-        );
+            webpush.setGCMAPIKey('AIzaSyABUweSPHa_1XDaXmhXU0RhMGZokiJIapY');
+            webpush.setVapidDetails(
+                'mailto:parmalatinter@gmail.com',
+                vapidKeys.publicKey,
+                vapidKeys.privateKey
+            );
 
-        // This is the same output of calling JSON.stringify on a PushSubscription
-        var pushSubscription = {
-            endpoint: endpoint,
-            keys: {
-                auth: auth,
-                p256dh: p256dh
-            }
-        };
+            // This is the same output of calling JSON.stringify on a PushSubscription
+            var pushSubscription = {
+                endpoint: endpoint,
+                keys: {
+                    auth: auth,
+                    p256dh: p256dh
+                }
+            };
 
-        webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+            webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+            resolve(pushSubscription);
+        }).catch(function (err) {
+            reject(err);
+        });
     },
     webPush: function (req, registrationIds) {
         if (!req.session.token && !req.session.isDebug) return;
