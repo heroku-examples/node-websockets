@@ -165,11 +165,10 @@ module.exports = {
 
             var body = 
                     {
+                        "registration_ids": registrationIds,
                         "data": {
-                            "text": "LogIned",
-                            "date": Math.round(new Date().getTime() / 1000),
-                        },
-                        "registration_ids": registrationIds
+                            "text": "LogIned"
+                        }
                     };
             var request = require('request');
             request({
