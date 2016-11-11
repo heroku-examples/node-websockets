@@ -10,7 +10,7 @@ var pageConfig = {
 };
 
 //before filter
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
     if (process.env.NODE_ENV != 'production') {
         next();
     } else if (req.session.token && req.session.isDebug) {
@@ -41,24 +41,14 @@ router.route('/webPush')
 router.route('/webPush/friend')
     // セッションチャットの取得 (POST http://localhost:3000/api/push)
     .post(function (req, res) {
-        var Identification = require('../../models/identification');
-        Identification.findOne({
-            uid: req.body.uid
-        }, function (err, identification) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else if (identification) {
-                var FireBaseSearvice = require('../../services/firebase');
-                var text = req.session.token.uid;
-                FireBaseSearvice.webPush2(req, identification.pushSubscription.endpoint, identification.pushSubscription.keys.auth, identification.pushSubscription.keys.p256dh, text).then(function (comment) {
-                    res.status(resCodes.OK.code).json({ comment: comment });
-                }, function (err) {
-                    console.log('err', err, err.lineNumber);
-                    res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                });
-            } else{
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
-            }
+
+        var FireBaseSearvice = require('../../services/firebase');
+        var text = req.session.token.uid;
+        FireBaseSearvice.webPushToFriend(req, req.body.uid, text).then(function (comment) {
+            res.status(resCodes.OK.code).json({ comment: comment });
+        }, function (err) {
+            console.log('err', err, err.lineNumber);
+            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
         });
 
     })

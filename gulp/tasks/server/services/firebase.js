@@ -183,18 +183,63 @@ module.exports = {
                 }
             };
 
-            var mongoose     = require('mongoose');
+            var mongoose = require('mongoose');
             var Identification = mongoose.model('Identification');
-            Identification.findOneAndUpdate({ uid: req.session.token.uid }, { pushSubscription: pushSubscription }, function(err, identification) {
-                if (err){
+            Identification.findOneAndUpdate({ uid: req.session.token.uid }, { pushSubscription: pushSubscription }, function (err, identification) {
+                if (err) {
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                }else{
+                } else {
                     webpush.sendNotification(pushSubscription, 'Your Push Payload ' + text);
                     resolve(pushSubscription);
-                } 
+                }
             });
         }).catch(function (err) {
             console.log(err)
+            //reject(err);
+        });
+    },
+    webPushToFriend: function (req, targetUid, text) {
+        if (!req.session.token && !req.session.isDebug) return;
+        return new Promise(function (resolve, reject) {
+            var mongoose = require('mongoose');
+            var Identification = mongoose.model('Identification');
+            Identification.findOne({
+                uid: targetUid
+            }, function (err, identification) {
+                if (err) {
+                    resolve(err);
+                } else if (identification) {
+                    var webpush = require('web-push');
+
+                    // VAPID keys should only be generated only once.
+                    var vapidKeys = webpush.generateVAPIDKeys();
+
+                    webpush.setGCMAPIKey('AIzaSyABUweSPHa_1XDaXmhXU0RhMGZokiJIapY');
+                    webpush.setVapidDetails(
+                        'mailto:parmalatinter@gmail.com',
+                        vapidKeys.publicKey,
+                        vapidKeys.privateKey
+                    );
+
+                    // This is the same output of calling JSON.stringify on a PushSubscription
+                    var pushSubscription = {
+                        endpoint: identification.pushSubscription.endpoint,
+                        keys: {
+                            auth: identification.pushSubscription.keys.auth,
+                            p256dh: identification.pushSubscription.keys.p256dh
+                        }
+                    };
+
+                    webpush.sendNotification(pushSubscription, 'Your Push Payload ' + text);
+                    resolve(pushSubscription);
+
+                } else {
+                    resolve();
+                }
+            });
+        }).catch(function (err) {
+            console.log(err)
+            //reject(err);
         });
     },
     webPush: function (req, registrationIds) {
