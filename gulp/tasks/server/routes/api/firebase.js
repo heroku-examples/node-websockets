@@ -30,7 +30,7 @@ router.route('/webPush')
         var endpoint = req.body.endpoint;
         var FireBaseSearvice = require('../../services/firebase');
         var text = req.session.token.uid;
-        FireBaseSearvice.webPush2(req, endpoint, auth, p256dh, text).then(function (comment) {
+        FireBaseSearvice.webPush2(req, endpoint, auth, p256dh, text, false).then(function (comment) {
             res.status(resCodes.OK.code).json({ comment: comment });
         }, function (err) {
             console.log('err', err, err.lineNumber);

@@ -4,10 +4,21 @@ var firebase = require("firebase");
 
 var resCodes = require('../.././json/http/http_code_names.json');
 
+var sendNotify = function (req, res, result) {
+    var FireBaseSearvice = require('../../services/firebase');
+    var text = req.session.token.uid + 'からメッセージを受信しました。';
+    var data = { title : "受信", photoURL : req.body.photoURL? req.body.photoURL : false}
+    FireBaseSearvice.webPushToFriend(req, req.body.targetUid, text, data).then(function (comment) {
+        res.status(resCodes.OK.code).json({ result: result });
+    }, function (err) {
+        console.log('err', err, err.lineNumber);
+    });
+}
+
 //before filter
 router.use(function (req, res, next) {
     if (process.env.NODE_ENV != 'production') {
-        if(!req.session.token){
+        if (!req.session.token) {
             req.session.token = {};
             req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
             var Identification = require('../../models/identification');
@@ -19,11 +30,11 @@ router.use(function (req, res, next) {
                 } else if (identification) {
                     req.session.token.token = identification.token;
                     next();
-                } else{
+                } else {
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json();
                 }
             });
-        }else{
+        } else {
             next();
         }
     } else if (req.session.token) {
@@ -42,7 +53,7 @@ router.route('/chat')
 
             var text = 'message from :' + req.session.token.uid;
             FireBaseSearvice.sendNotify(req, text, req.session.token.uid, req.body.targetUid, req.body.photoURL).then(function (notify) {
-                res.status(resCodes.OK.code).json({ comment: comment, notify: notify });
+                sendNotify(req, res, notify);
             }, function (err) {
                 console.log('err', err, err.lineNumber);
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);

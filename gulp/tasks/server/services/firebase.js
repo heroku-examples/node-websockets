@@ -159,8 +159,9 @@ module.exports = {
             reject(err);
         });
     },
-    webPush2: function (req, endpoint, auth, p256dh, text) {
+    webPush2: function (req, endpoint, auth, p256dh, text, data) {
         if (!req.session.token && !req.session.isDebug) return;
+        if( !data) data = false;
         return new Promise(function (resolve, reject) {
             var webpush = require('web-push');
 
@@ -189,7 +190,7 @@ module.exports = {
                 if (err) {
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 } else {
-                    webpush.sendNotification(pushSubscription, 'Your Push Payload ' + text);
+                    webpush.sendNotification(pushSubscription,JSON.stringify({text : text, data : data}) );
                     resolve(pushSubscription);
                 }
             });
@@ -198,8 +199,9 @@ module.exports = {
             //reject(err);
         });
     },
-    webPushToFriend: function (req, targetUid, text) {
+    webPushToFriend: function (req, targetUid, text, data) {
         if (!req.session.token && !req.session.isDebug) return;
+        if( !data) data = false;
         return new Promise(function (resolve, reject) {
             var mongoose = require('mongoose');
             var Identification = mongoose.model('Identification');
@@ -230,7 +232,7 @@ module.exports = {
                         }
                     };
 
-                    webpush.sendNotification(pushSubscription, 'Your Push Payload ' + text);
+                    webpush.sendNotification(pushSubscription, JSON.stringify({text : text, data : data}) );
                     resolve(pushSubscription);
 
                 } else {
