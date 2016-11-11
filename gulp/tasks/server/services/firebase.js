@@ -159,7 +159,7 @@ module.exports = {
             reject(err);
         });
     },
-    webPush2: function (req, endpoint, registrationIds, auth, p256dh) {
+    webPush2: function (req, endpoint, auth, p256dh, text) {
         if (!req.session.token && !req.session.isDebug) return;
         return new Promise(function (resolve, reject) {
             var webpush = require('web-push');
@@ -189,7 +189,7 @@ module.exports = {
                 if (err){
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 }else{
-                    webpush.sendNotification(pushSubscription, 'Your Push Payload Text');
+                    webpush.sendNotification(pushSubscription, 'Your Push Payload ' + text);
                     resolve(pushSubscription);
                 } 
             });
