@@ -26,4 +26,13 @@ IdentificationSchema.pre('save', function(next) {
   next();
 });
 
+IdentificationSchema.pre('update', function(next) {
+  // get the current date
+  var currentDate = new Date();
+  // change the updateDate field to current date
+  this.updateDate = currentDate;
+
+  next();
+});
+
 module.exports = mongoose.model('Identification', IdentificationSchema);
