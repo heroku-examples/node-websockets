@@ -22,7 +22,7 @@ self.addEventListener('push', function (event) {
 
     var title = 'メッセージのタイトル';
     var text = 'プッシュメッセージを受信';
-    var icon = 'https://kanatapple.github.io/service-worker/push/images/image.jpg';
+    var icon = 'https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468915271.jpeg?alt=media&token=ce1697ad-207b-46c2-bdff-bd75596df970';
     var tag = 'push-notification-tag';
 
     console.log('receive Data: ', event.data);
@@ -31,22 +31,20 @@ self.addEventListener('push', function (event) {
         var result = JSON.parse(textdata);
 
         if( typeof result == 'object'){
-            _text = result.text? result.text : text;
-            _title = result.data.title? result.data.title : title;
-            _icon = result.data.photoURL? result.data.photoURL : icon;
+            text = result.text? result.text : text;
+            title = result.data.title? result.data.title : title;
+            icon = result.data.photoURL? result.data.photoURL : icon;
         }else{
-            _text = event.data.text();
-            _title = title;
-            _icon = icon;
+            text = event.data.text() ? event.data.text() : text;
         }
 
     }
 
     event.waitUntil(
-        self.registration.showNotification(_title, {
-            body: _text,
-            icon: _icon,
-            tag: _tag
+        self.registration.showNotification(title, {
+            body: text,
+            icon: icon,
+            tag: tag
         })
     );
 });
