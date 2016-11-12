@@ -1,5 +1,5 @@
 app
-    .factory('Worker', function ($q, Push, Toast) {
+    .factory('Worker', function ($q, Push, Toast, Error) {
         var _this = {
             worker: {},
             resouces: {
