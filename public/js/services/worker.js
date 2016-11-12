@@ -1,5 +1,5 @@
 app
-    .factory('Worker', function ($q, Push, Toast, Error) {
+    .factory('Worker', function ($q, $sessionStorage, Push, Toast, Error) {
         var _this = {
             worker: {},
             resouces: {
@@ -35,7 +35,7 @@ app
             var subscriptionStr = JSON.stringify(subscription)
             var subscriptionJson = JSON.parse(subscriptionStr)
 
-            if (subscription.endpoint) {
+            if (subscription.endpoint && $sessionStorage.user) {
                 endpoint = 'https://android.googleapis.com/gcm/send';
                 endpointParts = subscription.endpoint.split('/');
                 registrationId = endpointParts[endpointParts.length - 1];

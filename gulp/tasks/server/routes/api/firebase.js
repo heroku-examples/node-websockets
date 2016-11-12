@@ -12,15 +12,18 @@ var pageConfig = {
 //before filter
 router.use(function (req, res, next) {
     if (process.env.NODE_ENV != 'production') {
+        if (!req.session.token) {
+            req.session.token = {};
+            req.session.token.uid = 'zcMTtpFeKEhmGPiJWno0310Sv5p1';
+        }
         next();
-    } else if (req.session.token && req.session.isDebug) {
+    } else if (req.session.token) {
         next();
     } else {
         //Return a response immediately
         res.status(resCodes.UNAUTHORIZED.code).json();
     }
 });
-
 router.route('/webPush')
     // セッションチャットの取得 (POST http://localhost:3000/api/push)
     .post(function (req, res) {
