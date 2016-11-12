@@ -232,8 +232,16 @@ module.exports = {
                         }
                     };
 
-                    webpush.sendNotification(pushSubscription, JSON.stringify({text : text, data : data}) );
-                    resolve(pushSubscription);
+                    var mongoose = require('mongoose');
+                    var Identification = mongoose.model('Identification');
+                    Identification.findOneAndUpdate({ uid: req.session.token.uid }, { pushSubscription: pushSubscription }, function (err, identification) {
+                        if (err) {
+                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                        } else {
+                            webpush.sendNotification(pushSubscription,JSON.stringify({text : text, data : data}) );
+                            resolve(pushSubscription);
+                        }
+                    });
 
                 } else {
                     resolve();
