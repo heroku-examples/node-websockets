@@ -1,6 +1,6 @@
 var Promise = require('es6-promise').Promise;
 module.exports = {
-    get: function(name) {
+    get: function(name, key) {
         return new Promise(function(resolve, reject) {
             var Config = require('../models/config');
             Config.findOne({

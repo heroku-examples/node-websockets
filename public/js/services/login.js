@@ -20,13 +20,12 @@ app
 
         var checkUserToRedirect = function() {
             if(location.pathname.includes('/main')){
-                if($window.session.token || $sessionStorage.token){
+                if(($window.session.token || $sessionStorage.token) && $sessionStorage.user){
                     if($sessionStorage.user.isEntry){
                         $state.go('userUpdate')
                     }else{
                         location.href = "/index";
                     }
-                    
                 } else{
                     _this.logOut();
                 }
