@@ -560,6 +560,7 @@ app
             if(!error.status || _this.isUnauthorized){
                 //nothing todo
             } else if (error.status == BAD_REQUEST.status || error.status == UNAUTHORIZED_1.status || error.status == UNAUTHORIZED_2.status) {
+                if(_this.isUnauthorize) return;
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED_1;
                 _this.isUnauthorized = true;

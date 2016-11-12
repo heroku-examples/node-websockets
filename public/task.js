@@ -20,10 +20,10 @@ self.addEventListener('push', function (event) {
 
     console.log('Received a push message', event);
 
-    var _title = 'メッセージのタイトル';
-    var _text = 'プッシュメッセージを受信';
-    var _icon = 'https://kanatapple.github.io/service-worker/push/images/image.jpg';
-    var _tag = 'push-notification-tag';
+    var title = 'メッセージのタイトル';
+    var text = 'プッシュメッセージを受信';
+    var icon = 'https://kanatapple.github.io/service-worker/push/images/image.jpg';
+    var tag = 'push-notification-tag';
 
     console.log('receive Data: ', event.data);
     if (event.data != null) {

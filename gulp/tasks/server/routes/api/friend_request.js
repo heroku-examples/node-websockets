@@ -323,7 +323,7 @@ router.route('/friends')
                         console.log("Rejected:", error.message);
                     });
                 } else {
-                    res.status(resCodes.OK.code).json();
+                    res.status(resCodes.OK.code).json(requests);
                 }
             }
         });

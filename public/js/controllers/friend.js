@@ -1,4 +1,4 @@
-app.$controllerProvider.register('FriendCtrl', function($window,
+app.$controllerProvider.register('FriendCtrl', function ($window,
     $scope,
     $rootScope,
     $timeout,
@@ -17,7 +17,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
     FireBaseService,
     Modal) {
     $scope.pager = Pager.getDefault();
-    var setPager = function(result) {
+    var setPager = function (result) {
         $scope.pager = {
             length: $scope.requests.length,
             limit: result.limit,
@@ -36,7 +36,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
         'lg': 4
     };
 
-    var setInfiniteitems = function() {
+    var setInfiniteitems = function () {
 
         // In this example, we set up our model using a plain object.
         // Using a class works too. All that matters is that we implement
@@ -47,7 +47,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
             mediaCount_: getMediaCount(),
 
             // Required.
-            getItemAtIndex: function(index) {
+            getItemAtIndex: function (index) {
                 if (index > this.numLoaded_) {
                     this.fetchMoreItems_(index);
                     return null;
@@ -58,14 +58,14 @@ app.$controllerProvider.register('FriendCtrl', function($window,
             // Required.
             // For infinite scroll behavior, we always return a slightly higher
             // number than the previously loaded items.
-            getLength: function() {
+            getLength: function () {
                 //return $scope.pager.length;
                 var result = 1;
                 if ($scope.pager.length >= this.mediaCount_) result = Math.floor($scope.pager.length / this.mediaCount_) + 1;
                 if ($scope.pager.length < this.mediaCount_) result = $scope.pager.length;
                 return result;
             },
-            fetchMoreItems_: function(index) {
+            fetchMoreItems_: function (index) {
                 // For demo purposes, we simulate loading more items with a timed
                 // promise. In real code, this function would likely contain an
                 // $http request.
@@ -78,7 +78,7 @@ app.$controllerProvider.register('FriendCtrl', function($window,
         };
     };
 
-    var getMediaCount = function() {
+    var getMediaCount = function () {
         if ($mdMedia('xs')) {
             return layoutConfig.xs;
         } else if ($mdMedia('sm')) {
@@ -90,95 +90,97 @@ app.$controllerProvider.register('FriendCtrl', function($window,
         }
     };
 
-    var getRequests = function() {
+    var getRequests = function () {
         Loading.start();
-        FriendRequest.all().get().$promise.then(function(result) {
+        FriendRequest.all().get().$promise.then(function (result) {
             $scope.requests = [];
-            angular.forEach(result.docs.allList, function(request, key) {
-                var uid = '';
-                if(request.uid == currentUser.uid){
-                    uid = request.fromUid;
-                }else{
-                    uid = request.uid;
-                }
-                $scope.requests.push({
-                    friend_request : request,
-                    friend : result.docs.userInfos[uid]
+            if (result.docs.allList) {
+                angular.forEach(result.docs.allList, function (request, key) {
+                    var uid = '';
+                    if (request.uid == currentUser.uid) {
+                        uid = request.fromUid;
+                    } else {
+                        uid = request.uid;
+                    }
+                    $scope.requests.push({
+                        friend_request: request,
+                        friend: result.docs.userInfos[uid]
+                    });
                 });
-            });
-            setPager(result);
-            if (!$scope.infiniteItems) setInfiniteitems();
+                setPager(result);
+                if (!$scope.infiniteItems) setInfiniteitems();
+            }
             Loading.finish();
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Loading.finish();
 
             Error.openMessage(data, status);
         });
     };
 
-    var init = function() {
+    var init = function () {
         Loading.start();
         getRequests();
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
-    $scope.getRequest = function(_rangeIndex, _infiniteItemIndex) {
+    $scope.getRequest = function (_rangeIndex, _infiniteItemIndex) {
         var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result.friend_request : false;
     };
 
-    $scope.getFriend= function(_rangeIndex, _infiniteItemIndex) {
+    $scope.getFriend = function (_rangeIndex, _infiniteItemIndex) {
         var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result.friend : false;
     };
 
-    $scope.getIndex = function(_rangeIndex, _infiniteItemIndex){
+    $scope.getIndex = function (_rangeIndex, _infiniteItemIndex) {
         var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
         return index;
     }
 
     $scope.notifies = [];
-    $scope.setNotify= function(_rangeIndex, _infiniteItemIndex) {
+    $scope.setNotify = function (_rangeIndex, _infiniteItemIndex) {
         var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
-        if(!$scope.requests[index]) return;
-        if($scope.notifies[index]) return;
+        if (!$scope.requests[index]) return;
+        if ($scope.notifies[index]) return;
         $scope.notifies[index] = FireBaseService.getObjectRef('/private_chats/' + $scope.requests[index].friend_request.url + '/unread/' + currentUser.uid);
         $scope.notifies[index].$loaded(
-            function(data) {
+            function (data) {
                 console.log(data); // true
             },
-            function(error) {
+            function (error) {
                 console.error("Error:", error);
             }
         );
     };
 
-    $scope.getFriendInfo = function(_rangeIndex, _infiniteItemIndex) {
+    $scope.getFriendInfo = function (_rangeIndex, _infiniteItemIndex) {
         var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result : false;
     };
 
-    $scope.applyRequest = function(friendInfo) {
+    $scope.applyRequest = function (friendInfo) {
         Loading.start();
-        FriendRequest.apply().update({ fromUid: friendInfo.fromUid }).$promise.then(function(result) {
+        FriendRequest.apply().update({ fromUid: friendInfo.fromUid }).$promise.then(function (result) {
             getRequests();
             Toast.show(friendInfo.firstName + "からのリクエストを承認しました。");
-        }).catch(function(data, status) {
+        }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
     };
 
-    $scope.openChat = function(friendInfo) {
+    $scope.openChat = function (friendInfo) {
         Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, friendInfo);
     };
 
-    $scope.openUserInfo = function(friendInfo) {
+    $scope.openUserInfo = function (friendInfo) {
         var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
-        Modal.open('UserInfo', templateUrl, {user: friendInfo})
+        Modal.open('UserInfo', templateUrl, { user: friendInfo })
     };
 
-    $scope.getMediaCount = function() {
+    $scope.getMediaCount = function () {
         return getMediaCount();
     };
     init();
