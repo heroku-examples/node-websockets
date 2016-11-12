@@ -94,7 +94,7 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
         Loading.start();
         FriendRequest.all().get().$promise.then(function (result) {
             $scope.requests = [];
-            if (result.docs.allList) {
+            if (result.docs) {
                 angular.forEach(result.docs.allList, function (request, key) {
                     var uid = '';
                     if (request.uid == currentUser.uid) {

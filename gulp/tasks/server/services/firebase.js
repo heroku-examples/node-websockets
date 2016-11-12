@@ -160,7 +160,7 @@ module.exports = {
         });
     },
     webPush2: function (req, endpoint, auth, p256dh, text, data) {
-        if (!req.session.token && !req.session.isDebug) return;
+        if (!req.session.token) return;
         if( !data) data = false;
         return new Promise(function (resolve, reject) {
             var webpush = require('web-push');
@@ -200,7 +200,7 @@ module.exports = {
         });
     },
     webPushToFriend: function (req, targetUid, text, data) {
-        if (!req.session.token && !req.session.isDebug) return;
+        if (!req.session.token) return;
         if( !data) data = false;
         return new Promise(function (resolve, reject) {
             var mongoose = require('mongoose');
