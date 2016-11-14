@@ -143,8 +143,7 @@ app
 
                         // We have a subscription, so call unsubscribe on it  
                         pushSubscription.unsubscribe().then(function (successful) {
-                            $localStorage.setting.pushDisabled = false;
-                            // pushButton.textContent = 'Enable Push Messages';
+                            $localStorage.setting.pushDisabled = false;;
                             $localStorage.setting.isPushEnabled = false;
                         }).catch(function (e) {
                             // We failed to unsubscribe, this can lead to  
