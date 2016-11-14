@@ -2,7 +2,7 @@
     <md-content layout="row" layout-wrap layout-align="left center">
         <loading></loading>
         <md-list flex>
-        <md-virtual-repeat-container ng-show="!isModalOpen" ng-if="infiniteItems" id="vertical-container">
+        <md-virtual-repeat-container ng-if="infiniteItems" id="vertical-container">
             <md-subheader class="md-no-sticky">Friend Requests</md-subheader>
             <div md-virtual-repeat="infiniteItemIndex in ::infiniteItems" md-on-demand class="repeated-item" layout="row">
                 <span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/friendRequest/userCard.html?v={{deviceCacheKey}}'" include-replace></span>

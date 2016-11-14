@@ -1,0 +1,65 @@
+CACHE MANIFEST
+# 2010-11-07:v22
+
+# Explicitly cached 'master entries'.
+CACHE:
+/css/angular-material.css
+/css/material_icon.css
+/css/animate.css
+/css/angular-range-slider.css
+/js/libs/jquery/jquery.min.js
+/js/libs/angular/angular.min.js
+/js/libs/firebase/firebase.js
+/js/libs/firebase/angularfire.min.js
+/js/libs/angular/angular-route.min.js
+/js/libs/angular/angular-ui-router.js
+/js/libs/angular/angular-resource.min.js
+/js/libs/angular/angular-animate.min.js
+/js/libs/angular/angular-lazy-img.min.js
+/js/libs/angular/angular-filter.min.js
+/js/libs/angular/angular-range-slider.min.js
+/js/libs/angular/angular-aria.min.js
+/js/libs/angular/angular-material.min.js
+/js/libs/angular/angular-cookies.min.js
+/js/libs/angular/angular-translate.js
+/js/libs/angular/angular-messages.min.js
+/js/libs/angular/storage-cookie.js
+/js/libs/angular/angular-material-icons.min.js
+/js/libs/angular/ngStorage.min.js
+/js/libs/angular/loader-static-files.js
+/js/libs/angular/angular-translate-storage-local.min.js
+/js/libs/angular/angular-images-resizer.js
+/js/libs/angular/ng-img-crop.js
+/js/libs/angular/ocLazyLoad.min.js
+/fonts/MaterialIcons-Regular.woff2
+/fonts/MaterialIcons-Regular.woff
+/fonts/MaterialIcons-Regular.ttf
+
+/js/base.js?v=22
+/js/configs/base.js?v=22
+/js/filters/base.js?v=22
+/js/models/api.js?v=22
+/js/services/base.js?v=22
+/js/services/error.js?v=22
+/js/services/modal.js?v=22
+/js/services/link.js?v=22
+/js/services/user.js?v=22
+/js/services/login.js?v=22
+/js/directives/base.js?v=22
+/js/services/fireBase.js?v=22
+/js/services/loading.js?v=22
+/js/services/file.js?v=22
+/js/services/chat.js?v=22
+/js/services/worker.js?v=22
+/js/modals/chat.js?v=22
+/js/modals/friend.js?v=22
+/js/controllers/base.js?v=22
+
+NETWORK:
+*
+
+# static.html will be served if main.py is inaccessible
+# offline.jpg will be served in place of all images in images/large/
+# offline.html will be served in place of all other .html files
+FALLBACK:
+*.html /static/offline.html

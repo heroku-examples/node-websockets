@@ -1,6 +1,6 @@
 function UserSerch($scope, $filter, $controller, $mdDialog, locals, $translate, Login) {
 
-    $controller('ModalCtrl', { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     var setUser = function () {
         $scope.targetUserCondition = {};
@@ -51,24 +51,10 @@ function UserInfo(
     Error,
     Login
 ) {
-    $scope.hide = function () {
-        $mdDialog.hide();
-        Loading.finish();
-    };
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-        Loading.finish();
-    };
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
-        Loading.finish();
-    };
-    $scope.login = function (type) {
-        Login.login(type);
-    };
+    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+    angular.merge($scope, locals);
 
     $scope.init = function () {
-        angular.merge($scope, locals);
         Loading.start();
         FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function (result) {
             console.log("msg", result)
@@ -96,5 +82,5 @@ function UserInfo(
     $scope.cancel = function () {
         $mdDialog.cancel();
     };
-
+    
 }

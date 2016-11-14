@@ -1,4 +1,4 @@
-app.controller('ModalCtrl', function ($scope, $mdDialog, Loading, locals, Login){
+function  ModalCtrl ($scope, $mdDialog, Loading, locals, Login){
     $scope.locals = locals;
     Loading.finish();
     $scope.setPager = function(result) {
@@ -25,7 +25,7 @@ app.controller('ModalCtrl', function ($scope, $mdDialog, Loading, locals, Login)
     $scope.login = function(type) {
         Login.login(type);
     };
-});
+};
 
 app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
     var _this = {
@@ -61,7 +61,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
                 },
                 onRemoving: function(element, removePromise) {
                     $timeout(function() {
-                        element.find('md-dialog').removeClass("center").addClass("slideUp");
+                        element.find('md-dialog').removeClass("center").addClass("slideDown");
                     }, 50);
                 },
             },
@@ -73,7 +73,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
                 },
                 onRemoving: function (element, removePromise) {
                     $timeout(function () {
-                        element.find('md-dialog').removeClass("center").addClass("slideDown")
+                        element.find('md-dialog').removeClass("center").addClass("slideUp")
                     }, 50)
                 }
             },
@@ -147,7 +147,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
         Loading.start();
         var template = _this.getTemplateFunc(size);
         var animation = _this.getTemplateFunc(animationName);
-        this.ref =  $mdDialog.show({
+        var ref =  $mdDialog.show({
             controller: $window[controllerName],
             targetEvent: template.targetEvent,
             clickOutsideToClose: true,
@@ -155,16 +155,17 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
             locals: locals,
             fullscreen: template.fullscreen,
             onShowing: animation.onShowing,
-            onRemoving: animation.onRemoving
+            onRemoving: animation.onRemoving,
+            clickOutsideToClose: true
         });
-        return this.ref;
+        return ref;
     };
     _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
         Loading.start();
         var template = _this.getTemplateFunc('large');
         var animation = _this.getTemplateFunc('slideUp');
-        this.ref = $mdDialog.show({
-            controller: 'ModalCtrl',
+        var ref = $mdDialog.show({
+            controller: ModalCtrl,
             targetEvent: template.targetEvent,
             templateUrl: templateUrl ? templateUrl : _this.templates.errorTemplateUrl,
             clickOutsideToClose: true,
@@ -174,10 +175,11 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
                 codeInfo: codeInfo,
                 isUnauthorized : isUnauthorized
             },
+            fullscreen: template.fullscreen,
             onShowing: animation.onShowing,
             onRemoving: animation.onRemoving
         });
-        return this.ref;
+        return ref;
     };
     _this.closeAll = function () {
         if(this.ref){

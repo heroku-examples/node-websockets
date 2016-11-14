@@ -22,7 +22,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             return lazyDeferred.promise;
         };
         states[stateKey].resolve.load = function ($ocLazyLoad, $q, $http) {
-            lazyDeferred = $q.defer();
+            var lazyDeferred = $q.defer();
             return $ocLazyLoad.load(stateKey).then(function () {
                 return $http.get( state.path.templateUrl)
                     .success(function (data, status, headers, config) {

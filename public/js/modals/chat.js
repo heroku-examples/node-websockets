@@ -11,7 +11,7 @@ function ChatCtrl($scope,
     Toast,
     FriendRequest,
     FireBaseService) {
-    $controller('ModalCtrl', { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
     angular.merge($scope, locals);
     $scope.pager = Pager.getDefault();
 
