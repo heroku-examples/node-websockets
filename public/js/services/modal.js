@@ -23,7 +23,7 @@ function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
         Login.login(type);
     };
 }
-app.factory('Modal', function($window, $mdDialog, $timeout) {
+app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
     var _this = {
         ref : false,
         templates: {
