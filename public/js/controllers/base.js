@@ -39,12 +39,19 @@ app.controller('AppCtrl', function ($scope,
     $scope.getUrlWithCacheNumber = function (path) {
         return path + window.deviceCacheKey;
     };
-    $scope.menu = [{
-        link: '/main#/',
-        title: 'Main',
-        icon: 'dashboard'
-    }, {
-        link: location.pathname + '#friend',
+    $scope.menu = [
+    //     {
+    //     link: '/main#/',
+    //     title: 'Main',
+    //     icon: 'dashboard'
+    // },  
+    {
+        link: '/index#/',
+        title: 'Index',
+        icon: 'group'
+    },
+    {
+        link: '/index#friend',
         title: 'Friend',
         icon: 'group'
     }, {
@@ -52,28 +59,22 @@ app.controller('AppCtrl', function ($scope,
         title: 'User Update',
         icon: 'group'
     }, {
-        link: location.pathname + '#setting',
+        link: '/index#setting',
         title: 'setting',
-        icon: 'group'
-    }, {
-        link: '/index#/',
-        title: 'Index',
-        icon: 'group'
-    }, {
-        link: '',
-        title: 'Messages',
-        icon: 'message'
-    }, {
-        link: '',
-        title: 'Settings',
         icon: 'settings'
-    }];
+    },
+    //  {
+    //     link: '',
+    //     title: 'Messages',
+    //     icon: 'message'
+    // }
+    ];
     $scope.admin = [{
-        link: '/debug#/',
+        link: '/debug#',
         title: 'Debug',
         icon: 'adb'
     }, {
-        link: '/debug#/memo',
+        link: '/debug#memo',
         title: 'Memo',
         icon: 'adb'
     }];
