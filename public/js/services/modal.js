@@ -1,4 +1,4 @@
-function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
+app.controller('ModalCtrl', function ($scope, $mdDialog, Loading, locals, Login){
     $scope.locals = locals;
     Loading.finish();
     $scope.setPager = function(result) {
@@ -12,17 +12,21 @@ function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
     };
     $scope.hide = function() {
         $mdDialog.hide();
+        Loading.finish();
     };
     $scope.cancel = function() {
         $mdDialog.cancel();
+        Loading.finish();
     };
     $scope.answer = function(answer) {
         $mdDialog.hide(answer);
+        Loading.finish();
     };
     $scope.login = function(type) {
         Login.login(type);
     };
-}
+});
+
 app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
     var _this = {
         ref : false,
@@ -160,7 +164,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
         var template = _this.getTemplateFunc('large');
         var animation = _this.getTemplateFunc('slideUp');
         this.ref = $mdDialog.show({
-            controller: ModalCtrl,
+            controller: 'ModalCtrl',
             targetEvent: template.targetEvent,
             templateUrl: templateUrl ? templateUrl : _this.templates.errorTemplateUrl,
             clickOutsideToClose: true,

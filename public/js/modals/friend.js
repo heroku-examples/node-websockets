@@ -1,4 +1,6 @@
-function UserSerch($scope, $filter, $mdDialog, locals, $translate) {
+function UserSerch($scope, $filter, $controller, $mdDialog, locals, $translate, Login) {
+
+    $controller('ModalCtrl', { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     var setUser = function () {
         $scope.targetUserCondition = {};
@@ -19,21 +21,10 @@ function UserSerch($scope, $filter, $mdDialog, locals, $translate) {
         setUser();
     };
 
-
     $scope.selectAvatar = function (avatarNo) {
         $scope.targetUserCondition.avatarNo = avatarNo;
     };
 
-    $scope.hide = function () {
-
-        $mdDialog.hide();
-    };
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
-    };
     $scope.search = function () {
         $mdDialog.hide($filter('removeEmptyInObject')($scope.targetUserCondition));
     };
@@ -60,16 +51,30 @@ function UserInfo(
     Error,
     Login
 ) {
-    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
-    angular.merge($scope, locals);
-    var init = function () {
+    $scope.hide = function () {
+        $mdDialog.hide();
+        Loading.finish();
+    };
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+        Loading.finish();
+    };
+    $scope.answer = function (answer) {
+        $mdDialog.hide(answer);
+        Loading.finish();
+    };
+    $scope.login = function (type) {
+        Login.login(type);
+    };
+
+    $scope.init = function () {
+        angular.merge($scope, locals);
         Loading.start();
         FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function (result) {
             console.log("msg", result)
             if (result) {
                 if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
             }
-
             Loading.finish();
         }).catch(function (data, status) {
             Loading.finish();
@@ -91,5 +96,5 @@ function UserInfo(
     $scope.cancel = function () {
         $mdDialog.cancel();
     };
-    init();
+
 }

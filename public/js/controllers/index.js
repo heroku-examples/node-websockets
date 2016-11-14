@@ -139,16 +139,14 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
         var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
         Modal.open('UserInfo', templateUrl, { user: $scope.users[index] })
             .then(function (answer) {
-                $scope.isModalOpen = false;
+
             }, function () {
-                $scope.isModalOpen = false;
+
             });
     };
 
     $scope.openSearch = function (ev) {
         var templateUrl = "/templates/modal/userSerch.html?v=" + $window.deviceCacheKey;
-        $scope.isModalOpen = true;
-
         Modal.open('UserSerch', templateUrl, {
             profiles: _profiles,
             selects: _selects,
@@ -156,14 +154,12 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
             prefectures: _prefectures,
             subTitles: _subTitles
         },'large').then(function (answer) {
-            $scope.isModalOpen = false;
             angular.forEach(answer, function (value, key) {
                 _selects[key].default = value;
             });
             $localStorage.targetUserCondition = _selects;
             $rootScope.$broadcast('UserSearchEvent', answer);
         }, function () {
-            $scope.isModalOpen = false;
             $scope.alert = 'You cancelled the dialog.';
         });
     };

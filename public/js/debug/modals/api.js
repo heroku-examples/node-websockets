@@ -1,5 +1,5 @@
 function ConfigModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller, Config, Configs) {
-    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+    $controller('ModalCtrl', { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     $scope.init = function() {
         Loading.start();
@@ -50,7 +50,7 @@ function ConfigModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $cont
 }
 
 function DebugModalCtrl($scope, $mdDialog, locals, Error, Login, Loading, $controller, Debug, Debugs) {
-    $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
+    $controller('ModalCtrl', { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
 
     $scope.init = function() {
         Loading.start();
