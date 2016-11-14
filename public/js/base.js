@@ -15,7 +15,7 @@ var app = angular.module('StarterApp', [
     'angular.filter',
     'oc.lazyLoad'
 ])
-    .config(function($mdThemingProvider) {
+    .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('grey')
             .primaryPalette('grey')
             .accentPalette('grey')
@@ -41,8 +41,8 @@ var app = angular.module('StarterApp', [
             .primaryPalette('brown')
             .accentPalette('yellow');
 
-    }).config(['$translateProvider', function($translateProvider, $window) {
-        var findLanguage = function() {
+    }).config(['$translateProvider', function ($translateProvider, $window) {
+        var findLanguage = function () {
             return document.documentElement.lang;
         };
         $translateProvider.useStaticFilesLoader({
@@ -52,31 +52,31 @@ var app = angular.module('StarterApp', [
         $translateProvider.preferredLanguage(findLanguage());
         lang = findLanguage();
         $translateProvider.useLocalStorage();
-    }]).config(function($httpProvider) {
-        $httpProvider.interceptors.push(function($q) {
+    }]).config(function ($httpProvider) {
+        $httpProvider.interceptors.push(function ($q) {
             return {
-                request: function(config) {
+                request: function (config) {
                     //console.log('request: config', config);
                     return config;
                 },
-                requestError: function(rejection) {
+                requestError: function (rejection) {
                     //console.log('requestError: rejection', rejection);
                     return $q.reject(rejection);
                 },
-                response: function(response) {
+                response: function (response) {
                     if (!response.data) {
                         console.log('response: response', response);
                         response.data = { isEmpty: true };
                     }
                     return response;
                 },
-                responseError: function(rejection) {
+                responseError: function (rejection) {
                     console.log('responseError: rejection', rejection);
                     return $q.reject(rejection);
                 }
             };
         });
-    }).config(["$ocLazyLoadProvider", function($ocLazyLoadProvider) {
+    }).config(["$ocLazyLoadProvider", function ($ocLazyLoadProvider) {
         $ocLazyLoadProvider.config({
             debug: true,
             modules: [
@@ -109,7 +109,7 @@ var app = angular.module('StarterApp', [
                 }]
         });
     }]).config(['$provide', '$controllerProvider', '$animateProvider', '$filterProvider', '$compileProvider',
-        function($provide, $controllerProvider, $animateProvider, $filterProvider, $compileProvider) {
+        function ($provide, $controllerProvider, $animateProvider, $filterProvider, $compileProvider) {
 
             // Service 系 (service, factory, value, constant) は $provide
             app.$provide = $provide;
@@ -119,4 +119,7 @@ var app = angular.module('StarterApp', [
             app.$animateProvider = $animateProvider;
             app.$filterProvider = $filterProvider;
             app.compileProvider = $compileProvider;
-        }]);
+        }])
+    .run(function ($localStorage) {
+        if(!$localStorage.setting) $localStorage.setting = {};
+    });

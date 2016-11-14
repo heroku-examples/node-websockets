@@ -1,5 +1,5 @@
 app
-    .factory('Worker', function ($q, $sessionStorage, Push, Toast, Error) {
+    .factory('Worker', function ($q, $sessionStorage, $localStorage, Push, Toast, Error) {
         var _this = {
             worker: {},
             resouces: {
@@ -7,28 +7,7 @@ app
             }
         };
 
-        var isPushEnabled = true;
-
-        window.addEventListener('load', function () {
-            var pushButton = document.querySelector('.js-push-button');
-            // pushButton.addEventListener('click', function () {
-            //     if (isPushEnabled) {
-            //         unsubscribe();
-            //    } else {
-                   subscribe();
-            //    }
-            //});
-
-            // Check that service workers are supported, if so, progressively  
-            // enhance and add push messaging support, otherwise continue without it.  
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register(_this.resouces['simple'])
-                    .then(initialiseState);
-            } else {
-                console.warn('Service workers aren\'t supported in this browser.');
-            }
-        });
-
+        $localStorage.setting.isPushEnabled = true;
 
         var sendSubscriptionToServer = function (subscription) {
             var registrationId = "";
@@ -39,8 +18,8 @@ app
                 endpoint = 'https://android.googleapis.com/gcm/send';
                 endpointParts = subscription.endpoint.split('/');
                 registrationId = endpointParts[endpointParts.length - 1];
-                
-                Push.root().send({ endpoint : subscriptionJson.endpoint, registrationIds: [registrationId], p256dh : subscriptionJson.keys.p256dh, auth : subscriptionJson.keys.auth }).$promise.then(function (result) {
+
+                Push.root().send({ endpoint: subscriptionJson.endpoint, registrationIds: [registrationId], p256dh: subscriptionJson.keys.p256dh, auth: subscriptionJson.keys.auth }).$promise.then(function (result) {
                     console.info(result)
                     Toast.show("Pushed");
                 }).catch(function (data, status) {
@@ -78,7 +57,7 @@ app
                         // Enable any UI which subscribes / unsubscribes from  
                         // push messages.  
                         //var pushButton = document.querySelector('.js-push-button');
-                        //pushButton.disabled = false;
+                        $localStorage.setting.pushDisabled = false;
 
                         if (!subscription) {
                             // We aren't subscribed to push, so set UI  
@@ -92,7 +71,7 @@ app
                         // Set your UI to show they have subscribed for  
                         // push messages  
                         //pushButton.textContent = 'Disable Push Messages';
-                        //isPushEnabled = true;
+                        $localStorage.setting.isPushEnabled = true;
                     })
                     .catch(function (err) {
                         console.warn('Error during getSubscription()', err);
@@ -103,16 +82,16 @@ app
         var subscribe = function () {
             // Disable the button so it can't be changed while  
             // we process the permission request  
-           // var pushButton = document.querySelector('.js-push-button');
-            //pushButton.disabled = true;
+            // var pushButton = document.querySelector('.js-push-button');
+            $localStorage.setting.pushDisabled = true;
 
             navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
                 serviceWorkerRegistration.pushManager.subscribe({ userVisibleOnly: true })
                     .then(function (subscription) {
                         // The subscription was successful  
-                        //isPushEnabled = true;
+                        $localStorage.setting.isPushEnabled = true;
                         //pushButton.textContent = 'Disable Push Messages';
-                        //pushButton.disabled = false;
+                        $localStorage.setting.pushDisabled = false;
 
                         // TODO: Send the subscription.endpoint to your server  
                         // and save it to send a push message at a later date
@@ -125,13 +104,13 @@ app
                             // to manually change the notification permission to  
                             // subscribe to push messages  
                             console.warn('Permission for Notifications was denied');
-                            //pushButton.disabled = true;
+                            $localStorage.setting.pushDisabled = true;
                         } else {
                             // A problem occurred with the subscription; common reasons  
                             // include network errors, and lacking gcm_sender_id and/or  
                             // gcm_user_visible_only in the manifest.  
                             console.error('Unable to subscribe to push.', e);
-                            //pushButton.disabled = false;
+                            $localStorage.setting.pushDisabled = false;
                             //pushButton.textContent = 'Enable Push Messages';
                         }
                     });
@@ -140,7 +119,7 @@ app
 
         var unsubscribe = function () {
             //var pushButton = document.querySelector('.js-push-button');
-            //pushButton.disabled = true;
+            $localStorage.setting.pushDisabled = true;
 
             navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
                 // To unsubscribe from push messaging, you need get the  
@@ -151,8 +130,8 @@ app
                         if (!pushSubscription) {
                             // No subscription object, so set the state  
                             // to allow the user to subscribe to push  
-                            //isPushEnabled = false;
-                            // pushButton.disabled = false;
+                            $localStorage.setting.isPushEnabled = false;
+                            $localStorage.setting.pushDisabled = false;
                             // pushButton.textContent = 'Enable Push Messages';
                             return;
                         }
@@ -164,9 +143,9 @@ app
 
                         // We have a subscription, so call unsubscribe on it  
                         pushSubscription.unsubscribe().then(function (successful) {
-                            // pushButton.disabled = false;
+                            $localStorage.setting.pushDisabled = false;
                             // pushButton.textContent = 'Enable Push Messages';
-                            //isPushEnabled = false;
+                            $localStorage.setting.isPushEnabled = false;
                         }).catch(function (e) {
                             // We failed to unsubscribe, this can lead to  
                             // an unusual state, so may be best to remove
@@ -174,8 +153,8 @@ app
                             // inform the user that you have done so
 
                             console.log('Unsubscription error: ', e);
-                            pushButton.disabled = false;
-                            pushButton.textContent = 'Enable Push Messages';
+                            $localStorage.setting.pushDisabled = false;
+                            //pushButton.textContent = 'Enable Push Messages';
                         });
                     }).catch(function (e) {
                         console.error('Error thrown while unsubscribing from push messaging.', e);
@@ -198,6 +177,21 @@ app
             //         console.log(`GCM EndPoint is: ${subscription.endpoint}`);
             //     })
             //     .catch(console.error.bind(console));
+
+            if ($localStorage.setting.pushDisabled) {
+                unsubscribe();
+            } else {
+                subscribe();
+            }
+
+            // Check that service workers are supported, if so, progressively  
+            // enhance and add push messaging support, otherwise continue without it.  
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register(_this.resouces['simple'])
+                    .then(initialiseState);
+            } else {
+                console.warn('Service workers aren\'t supported in this browser.');
+            }
         };
         _this.postMessage = function (data) {
             // var d = $q.defer();

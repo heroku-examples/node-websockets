@@ -26,8 +26,6 @@ app
                     }else{
                         location.href = "/index";
                     }
-                } else{
-                    _this.logOut();
                 }
             }else if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
                 location.href = "main";
@@ -51,6 +49,27 @@ app
             }
         };
 
+        // auth.getRedirectResult().then(function(result) {
+        //     console.log('getRedirectResult', result)
+        //     if (result.credential) {
+        //         // This gives you a Google Access Token. You can use it to access the Google API.
+        //         var token = result.credential.accessToken;
+        //         // ...
+        //     }
+
+        //     // The signed-in user info.
+        //     var user = result.user;
+        //     }).catch(function(error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     // The email of the user's account used.
+        //     var email = error.email;
+        //     // The firebase.auth.AuthCredential type that was used.
+        //     var credential = error.credential;
+        // // ...
+        // });
+
         var stateChangedCount = 0;
         auth.$onAuthStateChanged(function(firebaseUser) {
             console.log('firebaseUser', firebaseUser)
@@ -67,6 +86,7 @@ app
                 user.getToken().then(function(idToken) {
                     Token.find({ token: idToken }).$promise.then(function(_token) {
                         $sessionStorage.token = _token;
+                        if($localStorage.setting.enableSaveAuth)$localStorage.setting.token = _token;
                         checkUserToRedirect();
 
                     }).catch(function(error) {
@@ -104,7 +124,13 @@ app
 
         _this.login = function(type) {
             _this.isLoading = true;
-            if (type != 'google') {
+            if($sessionStorage.token && $localStorage.setting.enableSaveAuth){
+                auth.$signInWithCustomToken($sessionStorage.token).then(function() {
+                    // Never called because of page redirect
+                }).catch(function(error) {
+                    console.error("Authentication failed:", error);
+                });
+            }else if (type != 'google') {
                 auth.$signInWithEmailAndPassword($localStorage.user.email, $localStorage.user.password).then(function(firebaseUser) {
                     console.log("Signed in as:", firebaseUser.uid);
                 }).catch(function(error) {
@@ -116,19 +142,22 @@ app
                 }).catch(function(error) {
                     console.error("Authentication failed:", error);
                 });
-            } else {
+            }else{
                 auth.$signInWithRedirect(type).then(function() {
                     // Never called because of page redirect
                 }).catch(function(error) {
                     console.error("Authentication failed:", error);
                 });
             }
+
+            
         };
         _this.logOut = function() {
             Token.delete().$promise.then(function(_token) {
                 auth.$signOut();
                 $sessionStorage.token = false;
                 $sessionStorage.firebaseUser = false;
+                if(!$localStorage.setting.enableSaveAuth)$localStorage.setting.enableSaveAuth = false;
             }).catch(function(error) {
                 Error.openMessage(error);
             });

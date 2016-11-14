@@ -21,6 +21,16 @@
             <p translate="subTitle.sound.read"></p>
             <md-switch class="md-secondary" ng-model="$storage.setting.enableSound"></md-switch>
         </md-list-item>
+        <md-list-item>
+            <p>通知</p>
+            <md-switch class="md-secondary" ng-model="$storage.setting.isPushEnabled"></md-switch>
+            <md-switch class="md-secondary" ng-model="$storage.setting.pushDisabled"></md-switch>
+        </md-list-item>
+        <md-list-item>
+            <p>認証情報の保存</p>
+            <md-switch class="md-secondary" ng-model="$storage.setting.enableSaveAuth"></md-switch>
+        </md-list-item>
+
         <md-divider></md-divider>
         <md-list-item>
             <md-input-container class="md-block" flex>
