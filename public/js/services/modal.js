@@ -1,5 +1,6 @@
 function ModalCtrl($scope, $mdDialog, Loading, locals, Login) {
     $scope.locals = locals;
+    Loading.finish();
     $scope.setPager = function(result) {
         $scope.pager = {
             length: result.docs.length,
@@ -139,6 +140,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         return animation;
     };
     _this.open = function(controllerName, templateUrl, locals, size, animationName) {
+        Loading.start();
         var template = _this.getTemplateFunc(size);
         var animation = _this.getTemplateFunc(animationName);
         this.ref =  $mdDialog.show({
@@ -154,6 +156,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout) {
         return this.ref;
     };
     _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
+        Loading.start();
         var template = _this.getTemplateFunc('large');
         var animation = _this.getTemplateFunc('slideUp');
         this.ref = $mdDialog.show({

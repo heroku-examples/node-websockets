@@ -2,6 +2,8 @@ app.controller('AppCtrl', function ($scope,
     $window,
     $timeout,
     Toast,
+    Vibration,
+    Speech,
     $location,
     $rootScope,
     $mdMedia,
@@ -20,6 +22,7 @@ app.controller('AppCtrl', function ($scope,
     $scope.sessionStorage = $sessionStorage;
     $scope.$storage = $localStorage;
     $scope.mdMedia = $mdMedia;
+    $scope.loading = Loading;
     $scope.deviceCacheKey = window.deviceCacheKey;
     Worker.init('simple')
     // .postMessage('test').then(function(data) {
@@ -137,6 +140,8 @@ app.controller('AppCtrl', function ($scope,
                         if ($scope.messages[key].count) {
                             var friendUid = (request.uid == $scope.currentUser.uid) ? request.fromUid : request.uid;
                             Toast.show($scope.messages[key].text + ' from ' + $sessionStorage.friends[friendUid].firstName);
+                            Vibration.play();
+                            if($state.current.name !== 'signUp') Speech.play($scope.messages[key].text);
                         }
                     });
                 });

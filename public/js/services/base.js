@@ -136,9 +136,9 @@ app.factory('Json', function ($http, $q, $localStorage) {
                 if (confirm('A new version of this site is available. Load it?')) {
                     $window.location.reload();
                 }
-            } else if(appCache.status == appCache.CACHED){
+            } else if (appCache.status == appCache.CACHED) {
                 // Manifest didn't changed. Nothing new to server.
-                if($window.deviceCacheKey != $localStorage.deviceCacheKey){
+                if ($window.deviceCacheKey != $localStorage.deviceCacheKey) {
                     appCache.update();
                     $localStorage.deviceCacheKey = $window.deviceCacheKey;
                 }
@@ -164,3 +164,98 @@ app.factory('Json', function ($http, $q, $localStorage) {
         };
         return _this;
     })
+
+    .factory('Speech', function ($localStorage) {
+        var playTypes = {
+            play: 'play',
+            pause: 'pause',
+            cancel: 'cancel'
+        };
+        var _this = {
+            playSituation: playTypes.cancel,
+            playTypes: playTypes
+        };
+        var msg = {};
+        var msgs = [];
+        var _text = '';
+
+        _this.play = function (text) {
+            if (_text == text) {
+                window.speechSynthesis.cancel(msg);
+                msg = {};
+                _text = '';
+                return;
+            }
+            if (!$localStorage.setting) return;
+            if (!$localStorage.setting.enableSound) return;
+            _text = text;
+            msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+            msg.onend = function (event) {
+                msg = {};
+                _text = '';
+            };
+        };
+
+        var count = 0;
+        var countMax = 0;
+        var addSpeechEvent = function (records) {
+            msgs[count] = new SpeechSynthesisUtterance(records[count].detail);
+            window.speechSynthesis.speak(msgs[count]);
+            msgs[count].onend = function (event) {
+                if (count == countMax || !_this.playSituation) {
+                    _this.playSituation = playTypes.cancel;
+                    count = 0;
+                    countMax = 0;
+                    msgs = [];
+                    return;
+                }
+                count++;
+                addSpeechEvent(records);
+            };
+
+        };
+
+        _this.playContinuity = function (records) {
+            if (!$localStorage.setting) return;
+            if (!$localStorage.setting.enableSound) return;
+            msgs = [];
+            _this.playSituation = playTypes.play;
+            count = 0;
+            countMax = records.length;
+            addSpeechEvent(records);
+        };
+
+        _this.pause = function () {
+            for (var i = 0; i < msgs.length; i++) {
+                window.speechSynthesis.pause(msgs[i]);
+            }
+
+            _this.playSituation = playTypes.pause;
+        };
+
+        _this.cancel = function () {
+            for (var i = 0; i < msgs.length; i++) {
+                window.speechSynthesis.cancel(msgs[i]);
+            }
+            count = 0;
+            countMax = 0;
+            _this.playSituation = playTypes.cancel;
+        };
+
+        return _this;
+    })
+
+    .factory('Vibration', function ($localStorage) {
+        var _this = { secound : 1};
+
+        _this.play = function (secound) {
+            if (!$localStorage.setting) return;
+            if (!$localStorage.setting.enableViblate) return;
+            var isVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+            if (isVibrate) {
+                navigator.vibrate(secound ? secound : _this.secound);
+            }
+        };
+        return _this;
+    });

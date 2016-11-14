@@ -2,9 +2,9 @@ app
     .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Loading, Link, User, Token, Json) {
 
         var auth = $firebaseAuth();
-        var _this = { isLoading: true, user: {} };
+        var _this = { user: {} };
 
-        Loading.start();
+        Loading.initStart();
 
         var getCurrentUser = function(){
             User.current().get().$promise.then(function(_user) {
@@ -40,6 +40,7 @@ app
                         if($state.current.name !== 'userUpdate' ) $state.go('userUpdate');
                         return;
                     }
+                    Loading.initFinish();
                 }).catch(function(error) {
                     Error.openMessage(error);
                 });
@@ -48,27 +49,6 @@ app
                 getCurrentUser();
             }
         };
-
-        // auth.getRedirectResult().then(function(result) {
-        //     console.log('getRedirectResult', result)
-        //     if (result.credential) {
-        //         // This gives you a Google Access Token. You can use it to access the Google API.
-        //         var token = result.credential.accessToken;
-        //         // ...
-        //     }
-
-        //     // The signed-in user info.
-        //     var user = result.user;
-        //     }).catch(function(error) {
-        //     // Handle Errors here.
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     // The email of the user's account used.
-        //     var email = error.email;
-        //     // The firebase.auth.AuthCredential type that was used.
-        //     var credential = error.credential;
-        // // ...
-        // });
 
         var stateChangedCount = 0;
         auth.$onAuthStateChanged(function(firebaseUser) {
@@ -123,14 +103,8 @@ app
         };
 
         _this.login = function(type) {
-            _this.isLoading = true;
-            if($sessionStorage.token && $localStorage.setting.enableSaveAuth){
-                auth.$signInWithCustomToken($sessionStorage.token).then(function() {
-                    // Never called because of page redirect
-                }).catch(function(error) {
-                    console.error("Authentication failed:", error);
-                });
-            }else if (type != 'google') {
+            Loading.initStart();
+            if (type != 'google') {
                 auth.$signInWithEmailAndPassword($localStorage.user.email, $localStorage.user.password).then(function(firebaseUser) {
                     console.log("Signed in as:", firebaseUser.uid);
                 }).catch(function(error) {
@@ -153,11 +127,13 @@ app
             
         };
         _this.logOut = function() {
+            Loading.initStart();
             Token.delete().$promise.then(function(_token) {
                 auth.$signOut();
                 $sessionStorage.token = false;
                 $sessionStorage.firebaseUser = false;
-                if(!$localStorage.setting.enableSaveAuth)$localStorage.setting.enableSaveAuth = false;
+                if(!$localStorage.setting.enableSaveAuth)$localStorage.setting.token = false;
+                Loading.initFinish();
             }).catch(function(error) {
                 Error.openMessage(error);
             });
