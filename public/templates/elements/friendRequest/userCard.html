@@ -8,7 +8,7 @@
     </div>
     <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChat(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
         <h3>{{getFriend(rangeIndex, infiniteItemIndex).firstName}} {{getFriend(rangeIndex, infiniteItemIndex).age}}</h3>
-        <p>{{notifies[getIndex(rangeIndex, infiniteItemIndex)].count}} {{notifies[getIndex(rangeIndex, infiniteItemIndex)].text}}</p>
+        <p> ・ {{notifies[getIndex(rangeIndex, infiniteItemIndex)].count}} {{notifies[getIndex(rangeIndex, infiniteItemIndex)].text}}</p>
     </div>
     <md-button class="md-secondary md-icon-button" ng-if="(getRequest(rangeIndex, infiniteItemIndex).isApplyed) == false" ng-click="applyRequest(getRequest(rangeIndex, infiniteItemIndex))">
         <ng-md-icon icon="add"></ng-md-icon>
