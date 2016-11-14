@@ -9,6 +9,18 @@ var pageConfig = {
     limit: 50
 };
 
+var getUserInfo = function(req, uid){
+    if(req.session.userInfos){
+        if(req.session.userInfos[uid]){
+            return req.session.userInfos[uid];
+        }else{
+            return {'firstName' : ''};
+        }
+    }else{
+        return {'firstName' : ''};
+    }
+}
+
 //before filter
 router.use(function (req, res, next) {
     if (process.env.NODE_ENV != 'production') {
@@ -32,7 +44,7 @@ router.route('/webPush')
         var registrationIds = req.body.registrationIds;
         var endpoint = req.body.endpoint;
         var FireBaseSearvice = require('../../services/firebase');
-        var text = req.session.token.uid;
+        var text = getUserInfo(req, req.session.token.uid).firstName;
         FireBaseSearvice.webPush2(req, endpoint, auth, p256dh, text, false).then(function (comment) {
             res.status(resCodes.OK.code).json({ comment: comment });
         }, function (err) {
@@ -46,7 +58,7 @@ router.route('/webPush/friend')
     .post(function (req, res) {
 
         var FireBaseSearvice = require('../../services/firebase');
-        var text = req.session.token.uid;
+        var text = getUserInfo(req, req.session.token.uid).firstName;
         FireBaseSearvice.webPushToFriend(req, req.body.uid, text).then(function (comment) {
             res.status(resCodes.OK.code).json({ comment: comment });
         }, function (err) {

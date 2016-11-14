@@ -49,6 +49,31 @@ self.addEventListener('push', function (event) {
     );
 });
 
+self.addEventListener('notificationclick', function(event) {  
+  console.log('On notification click: ', event.notification.tag);  
+  // Android doesn't close the notification when you click on it  
+  // See: http://crbug.com/463146  
+  event.notification.close();
+
+  // This looks to see if the current is already open and  
+  // focuses if it is  
+  event.waitUntil(
+    clients.matchAll({  
+      type: "window"  
+    })
+    .then(function(clientList) {  
+      for (var i = 0; i < clientList.length; i++) {  
+        var client = clientList[i];  
+        if (client.url == '/' && 'focus' in client)  
+          return client.focus();  
+      }  
+      if (clients.openWindow) {
+        return clients.openWindow('/');  
+      }
+    })
+  );
+});
+
 
 //https://developers.google.com/web/fundamentals/engage-and-retain/push-notifications/sending-messages
 //curl --header "Authorization: key=AIzaSyABUweSPHa_1XDaXmhXU0RhMGZokiJIapY" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"frx00nNJx6k:APA91bFDsvSXLxDIVMlrKbtYMwwJI0mqicxJpKJUJw18gMawtMNkxljpd34ilE4aL7uvvHSz5PR8LxlfyONWbtsRA2R7j7P2uzw1pWQjpc5VJKA_J0Y0i15d4ASV35jB7jpyFHMbvexn\"],\"data\":{\"message\":\"Hello\"}}"

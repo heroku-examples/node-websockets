@@ -240,7 +240,7 @@ router.route('/friend_requests')
                     var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
 
                     var uids = _.union(fromUids, toUids);
-                    uids = _.reject(uids, function(uid){ return uid == req.session.token.uid; });
+                    // uids = _.reject(uids, function(uid){ return uid == req.session.token.uid; });
 
                     var result = _.groupBy(requests.docs, function (o) {
                         return o.fromUid != req.session.token.uid;
@@ -248,12 +248,15 @@ router.route('/friend_requests')
                     UserSearvice.getList(uids).then(function (friends) {
                         if(!result.false) result.false = [];
                         if(!result.true) result.true = [];
+                        
+                        var userInfos =_.indexBy(friends, 'uid');
+                        req.session.userInfos = userInfos;
                         res.status(resCodes.OK.code).json({
                             docs: {
                                 sendList : result.false,
                                 receiveList : result.true,
                                 allList : _.union(result.false, result.true),
-                                userInfos : _.indexBy(friends, 'uid'),
+                                userInfos : userInfos,
                                 requests : requests.docs
                             },
                             total: requests.total,
