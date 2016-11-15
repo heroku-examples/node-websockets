@@ -1,6 +1,6 @@
 app
     .factory('Loading', function($timeout) {
-        var _this = {isLoding :true, isIniting :true, speed : 60};
+        var _this = {isLoding :false, isIniting :false, speed : 60};
         _this.start = function(){
             _this.isLoding = true;
         };

@@ -2,7 +2,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     var dir = '/templates/';
 
     var states = {
-        index: {
+        login: {
             controller: 'LoginCtrl',
             resolve: {},
             path: {
@@ -33,6 +33,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             });
     });
-    $urlRouterProvider.otherwise('/index');
-    $urlRouterProvider.when('', '/index');
+    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.when('', '/login');
 });

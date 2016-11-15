@@ -23,10 +23,10 @@ app
                 if(($window.session.token || $sessionStorage.token) && $sessionStorage.user){
                     location.href = "/index";
                 }else{
-                    $state.go('index');
+                    $state.go('login');
                 }
             }else{
-                $state.go('index');
+                $state.go('login');
             }
         };
 

@@ -93,7 +93,7 @@ var app = angular.module('StarterApp', [
                     files: ['/js/controllers/setting.js?v=' + window.deviceCacheKey]
                 },
                 {
-                    name: 'signUp',
+                    name: 'login',
                     files: ['/js/controllers/login.js?v=' + window.deviceCacheKey]
                 },
                 {

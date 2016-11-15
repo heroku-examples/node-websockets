@@ -25,7 +25,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: dir + 'index/setting.html?v=' + window.deviceCacheKey,
             }
         },
-        signUp: {
+        login: {
             controller: 'LoginCtrl',
             resolve: {},
             path: {
