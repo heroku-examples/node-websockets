@@ -94,6 +94,7 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
         Loading.start();
         FriendRequest.all().get().$promise.then(function (result) {
             $scope.requests = [];
+            result.docs = false
             if (result.docs) {
                 angular.forEach(result.docs.allList, function (request, key) {
                     var uid = '';
@@ -109,6 +110,20 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
                 });
                 setPager(result);
                 if (!$scope.infiniteItems) setInfiniteitems();
+            }else{
+                angular.forEach($window.userInfos, function (userInfo, key) {
+                    $scope.requests.push({
+                        friend_request: {},
+                        friend: userInfo
+                    });
+                });
+                $scope.pager = {
+                    length: Object.keys($window.userInfos).length,
+                    limit: 100,
+                    page: 1,
+                    pages: 1,
+                    total: Object.keys($window.userInfos).length
+                };
             }
             Loading.finish();
         }).catch(function (data, status) {

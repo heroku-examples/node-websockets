@@ -14,7 +14,7 @@
 <html lang="ja" ng-app="StarterApp" manifest="/manifest/manifest.mf?v=<%= deviceCacheKey %>">
 
 <head>
-    <title>Socket.IO chat '<%= env %>'</title>
+    <title>Socket.IO chat '<%= typeof env !== 'undefined' ? env : 'development'%>'</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">

@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
     res.render('main', {
         message: 'main',
         session: req.session,
-        env : process.env.NODE_ENV
+        env: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
     });
 });
 
@@ -37,7 +37,7 @@ router.get('/redirect', function(req, res, next) {
     res.render('main', {
         message: 'main',
         session: req.session,
-        env : process.env.NODE_ENV
+        env: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
     });
 });
 
