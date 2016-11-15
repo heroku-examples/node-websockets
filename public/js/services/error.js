@@ -566,7 +566,10 @@ app
                 _this.isUnauthorized = true;
             }
 
+
             Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
+            
+            
         };
         _this.searchErrorByKey = function(key) {
             return $filter('where')(_this.codes, { key: key });

@@ -25,7 +25,7 @@ app.controller('AppCtrl', function ($scope,
     $scope.mdMedia = $mdMedia;
     $scope.loading = Loading;
     $scope.deviceCacheKey = window.deviceCacheKey;
-    Worker.init('simple')
+
     // .postMessage('test').then(function(data) {
     //     console.log(data)
     // });
@@ -130,7 +130,8 @@ app.controller('AppCtrl', function ($scope,
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.currentUser = Login.getUser();
         if ($scope.currentUser) {
-            if (!$scope.messages && $sessionStorage.requests) {
+            if (!$scope.messages && $sessionStorage.requests && location.pathname.includes('/index')) {
+                Worker.init('simple');
                 // $scope.messages = FireBaseService.getArrayRef('/notify/' + $scope.currentUser.uid, 'messages');
                 // $scope.messages.$watch(function () {
                 //     Toast.show($scope.messages[$scope.messages.length - 1].text + $scope.messages[$scope.messages.length - 1].createDate);
