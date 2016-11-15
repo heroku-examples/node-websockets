@@ -132,10 +132,6 @@ app.controller('AppCtrl', function ($scope,
         if ($scope.currentUser) {
             if (!$scope.messages && $sessionStorage.requests && location.pathname.includes('/index')) {
                 Worker.init('simple');
-                // $scope.messages = FireBaseService.getArrayRef('/notify/' + $scope.currentUser.uid, 'messages');
-                // $scope.messages.$watch(function () {
-                //     Toast.show($scope.messages[$scope.messages.length - 1].text + $scope.messages[$scope.messages.length - 1].createDate);
-                // });
                 $scope.messages = [];
                 angular.forEach($sessionStorage.requests, function (request, key) {
                     $scope.messages[key] = FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + $scope.currentUser.uid);
@@ -144,7 +140,7 @@ app.controller('AppCtrl', function ($scope,
                             var friendUid = (request.uid == $scope.currentUser.uid) ? request.fromUid : request.uid;
                             Toast.show($scope.messages[key].text + ' from ' + $sessionStorage.friends[friendUid].firstName);
                             Vibration.play();
-                            if($state.current.name !== 'signUp') Speech.play($scope.messages[key].text);
+                            Speech.play($scope.messages[key].text);
                         }
                     });
                 });
