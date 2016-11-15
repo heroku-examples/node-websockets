@@ -25,8 +25,6 @@ app
                 }else{
                     $state.go('login');
                 }
-            }else{
-                $state.go('login');
             }
         };
 
