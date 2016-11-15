@@ -30,7 +30,8 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res, next) {
     res.render('debug', {
         message: 'debug',
-        session: req.session
+        session: req.session,
+        env : process.env.NODE_ENV
     });
 });
 

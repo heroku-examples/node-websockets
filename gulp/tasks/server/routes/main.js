@@ -28,14 +28,16 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res, next) {
     res.render('main', {
         message: 'main',
-        session: req.session
+        session: req.session,
+        env : process.env.NODE_ENV
     });
 });
 
 router.get('/redirect', function(req, res, next) {
     res.render('main', {
         message: 'main',
-        session: req.session
+        session: req.session,
+        env : process.env.NODE_ENV
     });
 });
 

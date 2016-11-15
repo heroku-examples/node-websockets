@@ -14,7 +14,7 @@
 <html lang="ja" ng-app="StarterApp" manifest="/manifest/manifest.mf?v=<%= deviceCacheKey %>">
 
 <head>
-    <title>Socket.IO chat</title>
+    <title>Socket.IO chat '<%= env %>'</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
@@ -106,9 +106,13 @@
 
      <span ng-include="'/templates/sidenav.html?v=<%= deviceCacheKey %>'" include-replace></span>
      <%- body %>
-    <script id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.16.0'><\/script>".replace("HOST", location.hostname));
-    //]]></script>
+
+    <% if ( env == 'development' ) { %>
+        <script id="__bs_script__">//<![CDATA[
+            document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.16.0'><\/script>".replace("HOST", location.hostname));
+        //]]></script>
+    <% } %>
+
      <span id="bottom"></span>
 </body>
 

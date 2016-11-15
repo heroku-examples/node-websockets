@@ -22,7 +22,8 @@ router.get('/', function(req, res, next) {
             res.render('index', {
                 users: records,
                 message: 'index',
-                session: req.session
+                session: req.session,
+                env : process.env.NODE_ENV
             });
         }, function(error) {
             console.log("Rejected:", error.message);

@@ -2,18 +2,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     var dir = '/templates/';
 
     var states = {
-        signUp: {
+        index: {
             controller: 'LoginCtrl',
             resolve: {},
             path: {
                 templateUrl: dir + 'main/signUp.html?v=' + window.deviceCacheKey,
-            }
-        },
-        userUpdate: {
-            controller: 'UserUpdateCtrl',
-            resolve: {},
-            path: {
-                templateUrl: dir + 'main/userUpdate.html?v=' + window.deviceCacheKey,
             }
         }
     };
@@ -22,13 +15,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             return lazyDeferred.promise;
         };
         states[stateKey].resolve.load = function ($ocLazyLoad, $q, $http) {
-            var lazyDeferred = $q.defer();
+            lazyDeferred = $q.defer();
             return $ocLazyLoad.load(stateKey).then(function () {
                 return $http.get( state.path.templateUrl)
                     .success(function (data, status, headers, config) {
                         return lazyDeferred.resolve(data);
-                    }).
-                    error(function (data, status, headers, config) {
+                    }).error(function (data, status, headers, config) {
                         return lazyDeferred.resolve(data);
                     });
             });
@@ -41,14 +33,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             });
     });
-    $stateProvider
-        .state('/index', {
-            url: "",
-            views: {
-                "main": states.signUp,
-            }
-        });
-
-    $urlRouterProvider.otherwise('/signUp');
-    $urlRouterProvider.when('', '/signUp');
+    $urlRouterProvider.otherwise('/index');
+    $urlRouterProvider.when('', '/index');
 });

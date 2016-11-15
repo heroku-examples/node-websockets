@@ -21,32 +21,12 @@ app
         var checkUserToRedirect = function() {
             if(location.pathname.includes('/main')){
                 if(($window.session.token || $sessionStorage.token) && $sessionStorage.user){
-                    if($sessionStorage.user.isEntry){
-                        $state.go('userUpdate')
-                    }else{
-                        location.href = "/index";
-                    }
+                    location.href = "/index";
+                }else{
+                    $state.go('index');
                 }
-            }else if (!$sessionStorage.token && (location.pathname !== "/main" && location.pathname !== "/" && location.pathname !== "")) {
-                location.href = "main";
-            } else {
-                if(!$sessionStorage.token) return;
-                User.current().create().$promise.then(function(_user) {
-                    if (!_user) {
-                        if($state.current.name !== 'signUp' ) $state.go('signUp');
-                        return;
-                    } else if(_user.isEntry ){
-                        _this.setUserSession(_user);
-                        if($state.current.name !== 'userUpdate' ) $state.go('userUpdate');
-                        return;
-                    }
-                    Loading.initFinish();
-                }).catch(function(error) {
-                    Error.openMessage(error);
-                });
-            }
-            if($filter('isEmptyObj')(_this.user)){
-                getCurrentUser();
+            }else{
+                $state.go('index');
             }
         };
 
