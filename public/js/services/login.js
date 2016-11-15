@@ -2,7 +2,7 @@ app
     .factory('Login', function($window, $filter, $location, $state, $localStorage, $sessionStorage, $firebaseAuth, Error, Loading, Link, User, Token, Json) {
 
         var auth = $firebaseAuth();
-        var _this = { user: {} };
+        var _this = {};
 
         Loading.initStart();
 
@@ -25,6 +25,9 @@ app
                 }else{
                     $state.go('login');
                 }
+            }
+            if($filter('isEmptyObj')($sessionStorage.user)){
+                getCurrentUser();
             }
         };
 
