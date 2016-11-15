@@ -120,6 +120,12 @@ var app = angular.module('StarterApp', [
             app.$filterProvider = $filterProvider;
             app.compileProvider = $compileProvider;
         }])
-    .run(function ($localStorage) {
+    .run(function ($localStorage, $timeout, $window) {
+        $timeout(function () {
+            $window.scrollTo(0, 1);
+        }, 1000);
+        document.addEventListener('DOMContentLoaded', function(){
+            $('#loadingContent').hide();
+        }, false);
         if(!$localStorage.setting) $localStorage.setting = {};
     });

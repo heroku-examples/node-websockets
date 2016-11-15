@@ -1,3 +1,8 @@
+body{
+    background-image:url(../images/avatar2.png);
+    background-size: 100% auto;
+}
+
 .md-card-image{
     width: 100%;
 }
