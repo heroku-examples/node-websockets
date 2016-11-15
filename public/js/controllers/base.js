@@ -85,11 +85,8 @@ app.controller('AppCtrl', function ($scope,
             if (result) {
                 if (result.docs) {
                     $sessionStorage.requests = result.docs.requests;
-                    $sessionStorage.friends = result.docs.friends;
                 }
             }
-            console.log($sessionStorage.requests)
-            console.log($sessionStorage.friends)
         }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
@@ -130,15 +127,15 @@ app.controller('AppCtrl', function ($scope,
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.currentUser = Login.getUser();
         if ($scope.currentUser) {
-            if (!$scope.messages && $sessionStorage.requests && location.pathname.includes('/index')) {
+            if (!$scope.messages && $window.userInfos && location.pathname.includes('/index')) {
                 Worker.init('simple');
                 $scope.messages = [];
-                angular.forEach($sessionStorage.requests, function (request, key) {
+                angular.forEach($window.userInfos, function (request, key) {
                     $scope.messages[key] = FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + $scope.currentUser.uid);
                     $scope.messages[key].$watch(function () {
                         if ($scope.messages[key].count) {
                             var friendUid = (request.uid == $scope.currentUser.uid) ? request.fromUid : request.uid;
-                            Toast.show($scope.messages[key].text + ' from ' + $sessionStorage.friends[friendUid].firstName);
+                            Toast.show($scope.messages[key].text + ' from ' + $window.userInfos[friendUid].firstName);
                             Vibration.play();
                             Speech.play($scope.messages[key].text);
                         }
