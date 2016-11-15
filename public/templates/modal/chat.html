@@ -28,9 +28,9 @@
     <md-toolbar class="md-tall md-warn md-hue-3">
         <div layout="row" layout-padding>
             <md-input-container flex>
-                <textarea style="margin-top: -4px;" ng-model="comment" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+                <textarea style="margin-top: -4px;" aria-label="comment" ng-model="comment" md-maxlength="150" rows="2" md-select-on-focus></textarea>
             </md-input-container>
-            <md-button ng-if="!user.requested" class="material-icons md-fab" ng-click="sendMeaage()">
+            <md-button ng-if="!user.requested" aria-label="send message" class="material-icons md-fab" ng-click="sendMessage()">
                 <ng-md-icon icon="add"></ng-md-icon>
             </md-button>
         </div>

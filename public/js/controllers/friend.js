@@ -178,6 +178,11 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     $scope.openUserInfo = function (friendInfo) {
         var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
         Modal.open('UserInfo', templateUrl, { user: friendInfo })
+            .then(function (answer) {
+
+            }, function () {
+
+            });
     };
 
     $scope.getMediaCount = function () {

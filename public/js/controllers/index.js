@@ -153,7 +153,7 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
             type: modeTypes.search,
             prefectures: _prefectures,
             subTitles: _subTitles
-        },'large').then(function (answer) {
+        },'large', 'slideLeft').then(function (answer) {
             angular.forEach(answer, function (value, key) {
                 _selects[key].default = value;
             });

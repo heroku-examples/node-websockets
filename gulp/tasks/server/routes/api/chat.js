@@ -4,9 +4,21 @@ var firebase = require("firebase");
 
 var resCodes = require('../.././json/http/http_code_names.json');
 
+var getUserInfo = function(req, uid){
+    if(req.session.userInfos){
+        if(req.session.userInfos[uid]){
+            return req.session.userInfos[uid];
+        }else{
+            return {'firstName' : ''};
+        }
+    }else{
+        return {'firstName' : ''};
+    }
+}
+
 var sendNotify = function (req, res, result) {
     var FireBaseSearvice = require('../../services/firebase');
-    var text = req.session.token.uid + 'からメッセージを受信しました。';
+    var text = getUserInfo(req, req.session.token.uid).firstName;
     var data = { title : "受信", photoURL : req.body.photoURL? req.body.photoURL : false}
     FireBaseSearvice.webPushToFriend(req, req.body.targetUid, text, data).then(function (comment) {
         res.status(resCodes.OK.code).json({ result: result });
@@ -51,7 +63,7 @@ router.route('/chat')
         var FireBaseSearvice = require('../../services/firebase');
         FireBaseSearvice.sendFriendChatComment(req, req.body.url, req.body.targetUid, req.body.text, req.body.photoURL).then(function (comment) {
 
-            var text = 'message from :' + req.session.token.uid;
+            var text = getUserInfo(req, req.session.token.uid).firstName;
             FireBaseSearvice.sendNotify(req, text, req.session.token.uid, req.body.targetUid, req.body.photoURL).then(function (notify) {
                 sendNotify(req, res, notify);
             }, function (err) {

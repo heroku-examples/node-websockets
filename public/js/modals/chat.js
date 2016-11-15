@@ -147,7 +147,7 @@ function ChatCtrl($scope,
         return getMediaCount();
     };
 
-    $scope.sendMeaage = function () {
+    $scope.sendMessage = function () {
         if (!$scope.comment) return;
         Chat.root().send(
             {

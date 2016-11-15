@@ -57,7 +57,6 @@ function UserInfo(
     $scope.init = function () {
         Loading.start();
         FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function (result) {
-            console.log("msg", result)
             if (result) {
                 if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
             }
@@ -78,9 +77,5 @@ function UserInfo(
             Loading.finish();
             Error.openMessage(data, status);
         });
-    };
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-    };
-    
+    };   
 }
