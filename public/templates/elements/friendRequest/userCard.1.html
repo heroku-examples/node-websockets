@@ -1,0 +1,39 @@
+<md-list-item class="md-2-line md-long-text" style="width: 100%;" ng-init="setNotify(friendInfo)">
+    <div class="md-avatar" ng-click="openUserInfo(result.userInfos[friendInfo.uid])">
+        <div class="avatar-wrapper" ng-click="openUserInfo(result.userInfos[friendInfo.uid])">
+            <img ng-if="result.userInfos[friendInfo.uid].photoURL" ng-src="{{result.userInfos[friendInfo.uid].photoURL}}" class="md-card-image" />
+            <img ng-if="!result.userInfos[friendInfo.uid].photoURL" class="md-card-image" />
+        </div>
+    </div>
+    <div ng-click="openChat(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
+        <h3>{{result.userInfos[friendInfo.uid].firstName}} {{result.userInfos[friendInfo.uid].age}}</h3>
+        <p> ・ </p>
+    </div>
+    <md-button class="md-secondary md-icon-button" ng-if="(friendInfo.isApplyed) == false" ng-click="applyRequest(friendInfo)">
+        <ng-md-icon icon="add"></ng-md-icon>
+        <md-menu md-theme="grey" class="md-secondary">
+            <md-button class="md-icon-button">
+                <ng-md-icon icon="settings"></ng-md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        Redial
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        Check voicemail
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button>
+                        Notifications
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </md-button>
+</md-list-item>
+<md-divider ></md-divider>
