@@ -20,7 +20,7 @@ app
 
         var checkUserToRedirect = function() {
             if(location.pathname.includes('/main')){
-                if(($window.session.token || $sessionStorage.token) && $sessionStorage.user){
+                if(($window.session.token || $sessionStorage.token)){
                     location.href = "/index";
                 }else{
                     $state.go('login');
