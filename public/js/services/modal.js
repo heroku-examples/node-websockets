@@ -146,7 +146,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
     _this.open = function(controllerName, templateUrl, locals, size, animationName) {
         Loading.start();
         var template = _this.getTemplateFunc(size);
-        var animation = _this.getTemplateFunc(animationName);
+        var animation = _this.getAnimation(animationName);
         var ref =  $mdDialog.show({
             controller: $window[controllerName],
             targetEvent: template.targetEvent,
@@ -163,7 +163,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
     _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
         Loading.start();
         var template = _this.getTemplateFunc('large');
-        var animation = _this.getTemplateFunc('slideUp');
+        var animation = _this.getAnimation('slideUp');
         var ref = $mdDialog.show({
             controller: ModalCtrl,
             targetEvent: template.targetEvent,
