@@ -38,7 +38,7 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
 
     var tabTypes = {
         friends: { key: 'friendUids' },
-        requests: { key: 'notFriendUids' },
+        requests: { key: 'receivedUids' },
         sendUids: { key: 'sendUids' },
         rejects: { key: 'rejectedUids' }
     }

@@ -44,7 +44,7 @@
 				<md-tab-label>not Friends</md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(uid, request) in ::result.notFriendUids" layout="row">
+						<div ng-repeat="(uid, request) in ::result.receivedUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>

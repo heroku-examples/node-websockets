@@ -236,10 +236,10 @@ router.route('/friend_requests')
             } else {
                 if (requests.docs.length) {
                     var _ = require('underscore');
-                    var friendUids = _.find(requests.docs, function (friend) { return friend.isApplyed && !friend.isRejected; });
-                    var rejectedUids = _.find(requests.docs, function (friend) { return friend.isRejected; });
-                    var notFriendUids = _.find(requests.docs, function (friend) { return friend.fromUid != req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
-                    var sendUids = _.find(requests.docs, function (friend) { return friend.fromUid == req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
+                    var friendUids = _.filter(requests.docs, function (friend) { return friend.isApplyed && !friend.isRejected; });
+                    var rejectedUids = _.filter(requests.docs, function (friend) { return friend.isRejected; });
+                    var receivedUids = _.filter(requests.docs, function (friend) { return friend.fromUid != req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
+                    var sendUids = _.filter(requests.docs, function (friend) { return friend.fromUid == req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
 
                     var fromUids = _.map(requests.docs, function (friend) { return friend.fromUid; });
                     var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
@@ -262,7 +262,7 @@ router.route('/friend_requests')
                                 userInfos : userInfos,
                                 friendUids :friendUids ? _.indexBy(friendUids, 'uid') : false,
                                 rejectedUids : rejectedUids ? _.indexBy(rejectedUids, 'uid') : false,
-                                notFriendUids : notFriendUids ? _.indexBy(notFriendUids, 'uid') : false,
+                                receivedUids : notFriendUids ? _.indexBy(receivedUids, 'uid') : false,
                                 sendUids : sendUids ? _.indexBy(sendUids, 'uid') : false,
                                 requests : _.indexBy(requests.docs, 'uid')
                             },
