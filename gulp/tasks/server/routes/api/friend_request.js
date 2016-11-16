@@ -262,7 +262,7 @@ router.route('/friend_requests')
                                 userInfos : userInfos,
                                 friendUids :friendUids ? _.indexBy(friendUids, 'uid') : false,
                                 rejectedUids : rejectedUids ? _.indexBy(rejectedUids, 'uid') : false,
-                                receivedUids : notFriendUids ? _.indexBy(receivedUids, 'uid') : false,
+                                receivedUids : receivedUids ? _.indexBy(receivedUids, 'uid') : false,
                                 sendUids : sendUids ? _.indexBy(sendUids, 'uid') : false,
                                 requests : _.indexBy(requests.docs, 'uid')
                             },
