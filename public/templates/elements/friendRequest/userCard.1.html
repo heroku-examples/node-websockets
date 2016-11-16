@@ -1,15 +1,15 @@
-<md-list-item class="md-2-line md-long-text" style="width: 100%;" ng-init="setNotify(friendInfo)">
-    <div class="md-avatar" ng-click="openUserInfo(result.userInfos[friendInfo.uid])">
-        <div class="avatar-wrapper" ng-click="openUserInfo(result.userInfos[friendInfo.uid])">
-            <img ng-if="result.userInfos[friendInfo.uid].photoURL" ng-src="{{result.userInfos[friendInfo.uid].photoURL}}" class="md-card-image" />
-            <img ng-if="!result.userInfos[friendInfo.uid].photoURL" class="md-card-image" />
+<md-list-item class="md-2-line md-long-text" style="width: 100%;" ng-init="setNotify(result.requestInfos[uid])">
+    <div class="md-avatar" ng-click="openUserInfo(result.userInfos[uid])">
+        <div class="avatar-wrapper" ng-click="openUserInfo(result.userInfos[uid])">
+            <img ng-if="result.userInfos[uid].photoURL" ng-src="{{result.userInfos[uid].photoURL}}" class="md-card-image" />
+            <img ng-if="!result.userInfos[uid].photoURL" class="md-card-image" />
         </div>
     </div>
-    <div ng-click="openChat(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
-        <h3>{{result.userInfos[friendInfo.uid].firstName}} {{result.userInfos[friendInfo.uid].age}}</h3>
+    <div ng-click="openChat({friend : result.userInfos[uid], friend_request : result.requestInfos[uid]})" class="md-list-item-text" layout="column">
+        <h3>{{result.userInfos[uid].firstName}} {{result.userInfos[uid].age}}</h3>
         <p> ・ </p>
     </div>
-    <md-button class="md-secondary md-icon-button" ng-if="(friendInfo.isApplyed) == false" ng-click="applyRequest(friendInfo)">
+    <md-button class="md-secondary md-icon-button" ng-if="(result.requestInfos[uid].isApplyed) == false" ng-click="applyRequest(result.requestInfos[uid])">
         <ng-md-icon icon="add"></ng-md-icon>
         <md-menu md-theme="grey" class="md-secondary">
             <md-button class="md-icon-button">

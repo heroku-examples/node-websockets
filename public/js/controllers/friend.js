@@ -37,51 +37,13 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     var tabTypes = {
-        friends: { key: 'sendList' },
-        requests: { key: 'requests' },
-        rejects: { key: 'requests' }
+        friends: { key: 'friendUids' },
+        requests: { key: 'notFriendUids' },
+        sendUids: { key: 'sendUids' },
+        rejects: { key: 'rejectedUids' }
     }
 
     var setInfiniteitems = function () {
-
-        $scope.infiniteItemList = {};
-        angular.forEach(tabTypes, function (type,typeKey) {
-            $scope.infiniteItemList[typeKey] = {
-                numLoaded_: 0,
-                toLoad_: 0,
-                mediaCount_: getMediaCount(),
-
-                // Required.
-                getItemAtIndex: function (index) {
-                    if (index > this.numLoaded_) {
-                        this.fetchMoreItems_(index);
-                        return null;
-                    }
-                    return index;
-                },
-
-                // Required.
-                // For infinite scroll behavior, we always return a slightly higher
-                // number than the previously loaded items.
-                getLength: function () {
-                    //return result.docs[].length;
-                    var result = 1;
-                    if ($scope.result[type.key].length >= this.mediaCount_) result = Math.floor($scope.result[type.key].length / this.mediaCount_) + 1;
-                    if ($scope.result[type.key].length < this.mediaCount_) result = $scope.result[type.key].length;
-                    return result;
-                },
-                fetchMoreItems_: function (index) {
-                    // For demo purposes, we simulate loading more items with a timed
-                    // promise. In real code, this function would likely contain an
-                    // $http request.
-
-                    if (this.toLoad_ < index) {
-                        this.toLoad_ += this.mediaCount_;
-                        this.numLoaded_ = this.toLoad_;
-                    }
-                }
-            };
-        });
 
         // In this example, we set up our model using a plain object.
         // Using a class works too. All that matters is that we implement
@@ -136,24 +98,20 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     var getRequests = function () {
-        Loading.start();
+        Loading.start();                                
+                                // requestInfos : requestInfos,
+                                // userInfos : userInfos,
+                                // friendUids : friendUids,
+                                // rejectedUids : rejectedUids,
+                                // notFriendUids : notFriendUids,
+                                // sendUids : sendUids,
+                                // requests : requests.docs
+
         FriendRequest.all().get().$promise.then(function (result) {
             $scope.requests = [];
             $scope.result = false;
             if (result.docs) {
                 $scope.result = result.docs;
-                angular.forEach(result.docs.allList, function (request, key) {
-                    var uid = '';
-                    if (request.uid == currentUser.uid) {
-                        uid = request.fromUid;
-                    } else {
-                        uid = request.uid;
-                    }
-                    $scope.requests.push({
-                        friend_request: request,
-                        friend: result.docs.userInfos[uid]
-                    });
-                });
                 setPager(result);
                 if (!$scope.infiniteItems) setInfiniteitems();
             } else {

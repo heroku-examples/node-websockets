@@ -2,7 +2,7 @@
 	<md-content layout="row" layout-wrap layout-align="left center">
 		<loading></loading>
 		<md-tabs flex class="md-accent" md-selected="0" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
-			<md-tab id="tab1">
+			<!--<md-tab id="tab1">
 				<md-tab-label>
 					<md-tab-label>Friends</md-tab-label>
 				</md-tab-label>
@@ -29,32 +29,42 @@
 						</md-virtual-repeat-container>
 					</md-list>
 				</md-tab-body>
-			</md-tab>
-			<md-tab id="tab2">
-				<md-tab-label>Rquests</md-tab-label>
+			</md-tab>-->
+			<md-tab id="tab1">
+				<md-tab-label>friend</md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(friendInfoKey, friendInfo) in ::result.requests" layout="row">
+						<div ng-repeat="(uid, request) in ::result.friendUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>
 				</md-tab-body>
 			</md-tab>
-			<md-tab id="tab3">
-				<md-tab-label>Send</md-tab-label>
+			<md-tab id="tab2">
+				<md-tab-label>not Friends</md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(friendInfoKey, friendInfo) in ::result.sendList" layout="row">
+						<div ng-repeat="(uid, request) in ::result.notFriendUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>
 				</md-tab-body>
 			</md-tab>
             <md-tab id="tab3">
+				<md-tab-label>send Friends</md-tab-label>
+				<md-tab-body>
+					<md-list flex>
+						<div ng-repeat="(uid, request) in ::result.sendUids" layout="row">
+							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
+						</div>
+					</md-list>
+				</md-tab-body>
+			</md-tab>
+            <md-tab id="tab4">
 				<md-tab-label>Rejects</md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(friendInfoKey, friendInfo) in ::result.sendList" layout="row">
+						<div ng-repeat="(uid, request) in ::result.rejectedUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>
