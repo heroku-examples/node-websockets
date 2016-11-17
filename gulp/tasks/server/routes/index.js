@@ -25,6 +25,7 @@ router.get('/', function (req, res, next) {
                     res.render('index', {
                         users: records,
                         userInfos : req.session.userInfos,
+                        requestInfos : req.session.requestInfos,
                         message: 'index',
                         session: req.session,
                         env: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
@@ -35,6 +36,7 @@ router.get('/', function (req, res, next) {
             }else{
                 res.render('index', {
                     userInfos : req.session.userInfos,
+                    requestInfos : req.session.requestInfos,
                     users: records,
                     message: 'index',
                     session: req.session,

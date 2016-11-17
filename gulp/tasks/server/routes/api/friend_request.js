@@ -252,10 +252,11 @@ router.route('/friend_requests')
                     UserSearvice.getList(uids).then(function (friends) {
                         if(!result.false) result.false = [];
                         if(!result.true) result.true = [];
-                        var requestInfos =_.indexBy(requests.docs, 'uid');
                         var userInfos =_.indexBy(friends, 'uid');
-                        req.session.requestInfos = requestInfos;
+                        var requestInfos =_.indexBy(requests.docs, 'uid');
+
                         req.session.userInfos = userInfos;
+                        req.session.requestInfos = requestInfos;
                         res.status(resCodes.OK.code).json({
                             docs: {
                                 requestInfos : requestInfos,

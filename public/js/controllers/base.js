@@ -131,10 +131,10 @@ app.controller('AppCtrl', function ($scope,
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.currentUser = Login.getUser();
         if ($scope.currentUser) {
-            if (!$scope.messages && $window.userInfos && location.pathname.includes('/index')) {
+            if (!$scope.messages && $window.requestInfos && $window.userInfos && location.pathname.includes('/index')) {
                 Worker.init('simple');
                 $scope.messages = [];
-                angular.forEach($window.userInfos, function (request, key) {
+                angular.forEach($window.requestInfos, function (request, key) {
                     $scope.messages[key] = FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + $scope.currentUser.uid);
                     $scope.messages[key].$watch(function () {
                         if ($scope.messages[key].count) {
