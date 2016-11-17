@@ -128,7 +128,7 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
 
     var init = function () {
         Loading.start();
-        $scope.users = $window.userInfos);
+        $scope.users = $window.userInfos;
         setPager($window.users);
         if (!$scope.infiniteItems) setInfiniteitems();
     };
