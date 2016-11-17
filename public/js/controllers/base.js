@@ -77,6 +77,10 @@ app.controller('AppCtrl', function ($scope,
         link: '/debug#memo',
         title: 'Memo',
         icon: 'adb'
+    },{
+        link: '/debug#test',
+        title: 'Test',
+        icon: 'adb'
     }];
 
     var getFriends = function () {

@@ -1,7 +1,8 @@
-app.$controllerProvider.register('TestCtrl', function($scope, Loading, $timeout, Worker) {
-    Loading.start();
+app.$controllerProvider.register('TestCtrl', function($scope, Loading, $timeout, Worker, Panel) {
+
     $timeout(function(){
-        Loading.finish();
+        Panel.showDialog()
+ 
     }, 1500);
 
     Worker.initialiseState();

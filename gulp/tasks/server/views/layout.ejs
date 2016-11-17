@@ -95,6 +95,7 @@
     <script src="/js/services/loading.js?v=<%= deviceCacheKey %>"></script>
     <script src="/js/services/file.js?v=<%= deviceCacheKey %>"></script>
     <script src="/js/services/chat.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/services/panel.js?v=<%= deviceCacheKey %>"></script>
     <script src="/js/services/worker.js?v=<%= deviceCacheKey %>"></script>
     <script src="/js/modals/chat.js?v=<%= deviceCacheKey %>"></script>
     <script src="/js/modals/friend.js?v=<%= deviceCacheKey %>"></script>
@@ -102,7 +103,7 @@
 
 </head>
 
-<body layout="row" ng-controller="AppCtrl" ng-cloak>
+<body class="animation-target" layout="row" ng-controller="AppCtrl" ng-cloak>
      <span ng-include="'/templates/sidenav.html?v=<%= deviceCacheKey %>'" include-replace></span>
      <%- body %>
 
