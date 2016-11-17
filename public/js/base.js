@@ -5,6 +5,7 @@ var app = angular.module('StarterApp', [
     'ngResource',
     'ngMessages',
     'ngStorage',
+    'ngTouch',
     'pascalprecht.translate',
     'ngCookies',
     'firebase',
@@ -13,7 +14,8 @@ var app = angular.module('StarterApp', [
     'angularLazyImg',
     'angularRangeSlider',
     'angular.filter',
-    'oc.lazyLoad'
+    'oc.lazyLoad',
+    'angular-carousel'
 ])
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('grey')
@@ -103,6 +105,9 @@ var app = angular.module('StarterApp', [
                 {
                     name: 'debug',
                     files: ['/js/debug/controllers/debug.js?v=' + window.deviceCacheKey]
+                },{
+                    name: 'memo',
+                    files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]
                 }, {
                     name: 'test',
                     files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]

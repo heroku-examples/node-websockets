@@ -2,8 +2,16 @@
     <loading></loading>
     <md-content layout="row" layout-wrap layout-align="left center">
         test
-
-    <button class="js-push-button" disabled>
+        <ul rn-carousel style="height:150px;width:100%" class="image" rn-carousel-index="carouselIndex">
+            <li ng-repeat="banner in banners">
+                <div class="layer" style="text-align:center">
+                    <img ng-src="{{banner.image}}" class="user-avatar" style="height:150px;width:150px" />
+                </div>
+            </li>
+        </ul>
+        <div rn-carousel-indicators slides="banners" rn-carousel-index="carouselIndex"></div>
+        <br/>
+        <button class="js-push-button" disabled>
         Enable Push Messages  
     </button>
     </md-content>
