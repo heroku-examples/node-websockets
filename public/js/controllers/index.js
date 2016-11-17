@@ -128,14 +128,8 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
 
     var init = function () {
         Loading.start();
-        $scope.users = $window.userInfos;
-        $scope.pager = {
-            length: Object.keys($window.userInfos).length,
-            limit:100,
-            page: 1,
-            pages: 1,
-            total: Object.keys($window.userInfos).length
-        };
+        $scope.users = $window.recommendUsers.docs;
+        setPager( $window.recommendUsers );
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 

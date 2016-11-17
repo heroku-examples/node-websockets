@@ -18,14 +18,14 @@ router.get('/', function (req, res, next) {
     Config.get('deviceCacheKey').then(function (records) {
         res.locals.deviceCacheKey = records.number;
         var User = require('./../services/user');
-        User.getRecommends(req).then(function (records) {
+        User.getRecommends(req).then(function (recommendUsers) {
             if(!req.session.userInfos){
                 User.getFriends(req).then(function (friends) {
                     req.session.userInfos = friends;
                     res.render('index', {
-                        users: records,
+                        recommendUsers: recommendUsers,
                         userInfos : req.session.userInfos,
-                        requestInfos : req.session.requestInfos,
+                        requestInfos : req.session.requestInfos ? req.session.requestInfos : {},
                         message: 'index',
                         session: req.session,
                         env: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'
@@ -35,8 +35,9 @@ router.get('/', function (req, res, next) {
                 });
             }else{
                 res.render('index', {
-                    userInfos : req.session.userInfos,
-                    requestInfos : req.session.requestInfos,
+                    recommendUsers: recommendUsers,
+                    userInfos : {},
+                    requestInfos : {},
                     users: records,
                     message: 'index',
                     session: req.session,
