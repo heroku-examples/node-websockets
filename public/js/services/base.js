@@ -81,7 +81,11 @@ app.factory('Json', function ($http, $q, $localStorage) {
             };
         };
         _this.get = function (result) {
-            if (result.isEmpty) {
+            if(!result){
+                return _this.getDefault();
+            }else if (result.isEmpty) {
+                return _this.getDefault();
+            }else if (!result.docs) {
                 return _this.getDefault();
             } else {
                 return {
