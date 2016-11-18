@@ -544,11 +544,12 @@ app
             }
         };
         _this.openErrorJson = function(error, status) {
+            if(!status && error.status) status = error.status;
             var codeInfo = {};
             if (_this.codes[status]) {
                 codeInfo = _this.codes[status];
-            }else if (error.status && _this.codes[error.status]){
-                codeInfo = _this.codes[error.status];
+            }else if (status && _this.codes[status]){
+                codeInfo = _this.codes[status];
             }
 
             var BAD_REQUEST = _this.searchErrorByKey("BAD_REQUEST");
@@ -557,13 +558,14 @@ app
 
             var templateUrl = "";
 
-            if(!error.status || _this.isUnauthorized){
+            if(!status || _this.isUnauthorized){
                 //nothing todo
-            } else if (error.status == BAD_REQUEST.status || error.status == UNAUTHORIZED_1.status || error.status == UNAUTHORIZED_2.status) {
+            } else if (status == BAD_REQUEST.status || status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
                 if(_this.isUnauthorize) return;
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED_1;
                 _this.isUnauthorized = true;
+                _this.reLogin();
             }
 
 
@@ -572,6 +574,7 @@ app
             
         };
         _this.searchErrorByKey = function(key) {
+            if(key == 'UNAUTHORIZED') key = 'UNAUTHORIZED_1'
             return $filter('where')(_this.codes, { key: key });
         };
         _this.searchErrorByCode = function(code) {
@@ -580,6 +583,21 @@ app
             } else {
                 return false;
             }
+        };
+        _this.reLogin = function () {
+            var user = firebase.auth().currentUser;
+            if(!user) return;
+            user.getToken().then(function (idToken) {
+                Token.find({ token: idToken }).$promise.then(function (_token) {
+                    $sessionStorage.token = _token;
+                    if ($localStorage.setting.enableSaveAuth) $localStorage.setting.token = _token;
+
+                }).catch(function (error) {
+                    Error.openMessage(error);
+                });
+            }).catch(function (error) {
+                Error.openMessage(error);
+            });
         };
         return _this;
     });
