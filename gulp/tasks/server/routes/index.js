@@ -25,6 +25,7 @@ router.get('/', function (req, res, next) {
             req.session.userInfos = friends;
             User.getRecommends(req).then(function (recommendUsers) {
                 res.render('index', {
+                    useragent: req.useragent,
                     recommendUsers: recommendUsers,
                     userInfos: req.session.userInfos,
                     requestInfos: req.session.requestInfos ? req.session.requestInfos : {},

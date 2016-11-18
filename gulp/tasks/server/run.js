@@ -15,6 +15,9 @@ app.use(log4js.connectLogger(logger, { level: 'auto' }));
 
 logger.info('sever start');
 
+var useragent = require('express-useragent');
+app.use(useragent.express());
+
 var session = require('express-session');
 app.use(session({
     secret: 'anal fuck',

@@ -50,16 +50,22 @@
 
         <md-divider></md-divider>
         <md-list-item>
-            <md-input-container class="md-block" flex>
-                <label translate="subTitle.platform.read"></label>
-                <input ng-disabled="true" ng-model="currentPlatform" ng-disabled="true">
-            </md-input-container>
+
+                <p>OS</p>
+                {{useragent.os}}
+ 
         </md-list-item>
         <md-list-item>
-            <md-input-container class="md-block" flex>
-                <label translate="subTitle.platformVersion.read"></label>
-                <input ng-disabled="true" ng-model="currentPlatformVersion" ng-disabled="true">
-            </md-input-container>
+
+                <p translate="subTitle.platform.read"></p>
+                {{useragent.browser}}
+ 
+        </md-list-item>
+        <md-list-item>
+
+                <p translate="subTitle.platformVersion.read"></p>
+                {{useragent.version}}
+ 
         </md-list-item>
     </md-list>
 </md-content>
