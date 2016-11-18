@@ -23,6 +23,11 @@ var app = angular.module('StarterApp', [
             .accentPalette('grey')
             .warnPalette('grey')
             .backgroundPalette('grey').dark();
+        $mdThemingProvider.theme('dark-grey')
+            .primaryPalette('grey')
+            .accentPalette('grey')
+            .warnPalette('grey')
+            .backgroundPalette('grey').dark();
         $mdThemingProvider.theme('default')
             .primaryPalette('orange')
             .accentPalette('orange')

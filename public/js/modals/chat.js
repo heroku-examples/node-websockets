@@ -9,6 +9,7 @@ function ChatCtrl($scope,
     $mdMedia,
     Pager,
     Toast,
+    Vibration,
     FriendRequest,
     FireBaseService) {
     $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
@@ -108,16 +109,27 @@ function ChatCtrl($scope,
     };
 
 
+    
     var setFireBase = function () {
+        var isLoaded = false;
         $scope.friendChat = FireBaseService.getObjectRef('/private_chats/' + locals.friend_request.url);
         $scope.messages = FireBaseService.getArrayRef('/private_chats/' + locals.friend_request.url, '/comments');
         $scope.messages.$loaded(
             function (x) {
+                console.log(x)
                 readMessage();
+                isLoaded = true;
             }, function (error) {
-                 Error.openMessage(error, 401);
+                Error.openMessage(error, 401);
             });
+        $scope.messages.$watch(function (event) {
+            if (isLoaded && $scope.messages[$scope.messages.length - 1].uid != $scope.currentUser.uid) {
+                Vibration.play();
+            }
+        });
+
     };
+
 
 
     $scope.init = function () {

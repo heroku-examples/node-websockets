@@ -19,7 +19,7 @@ var getUserInfo = function(req, uid){
 var sendNotify = function (req, res, result) {
     var FireBaseSearvice = require('../../services/firebase');
     var text = getUserInfo(req, req.session.token.uid).firstName;
-    var data = { title : "受信", photoURL : req.body.photoURL? req.body.photoURL : false}
+    var data = { title : req.body.text, photoURL : req.body.photoURL? req.body.photoURL : false}
     FireBaseSearvice.webPushToFriend(req, req.body.targetUid, text, data).then(function (comment) {
         res.status(resCodes.OK.code).json({ result: result });
     }, function (err) {

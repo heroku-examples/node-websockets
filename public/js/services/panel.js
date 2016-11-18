@@ -22,8 +22,8 @@ app
         _this.showDialog = function () {
             var position = _this._mdPanel.newPanelPosition()
                 .absolute()
-                .right()
-                .top();
+                .center()
+                .center();
 
             var animation = _this._mdPanel.newPanelAnimation();
 
