@@ -27,6 +27,7 @@
     "log4js": "^0.6.38",
     "log4js-extend": "^0.1.2",
     "mongoose": "^4.5.10",
+    "mongoose-auto-increment": "^5.0.1",
     "mongoose-paginate": "^5.0.3",
     "node-run-cmd": "^1.0.1",
     "node-sass": "^3.8.0",
