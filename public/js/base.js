@@ -55,7 +55,7 @@ var app = angular.module('StarterApp', [
         lang = findLanguage();
         $translateProvider.useLocalStorage();
     }]).config(function ($httpProvider) {
-        $httpProvider.interceptors.push(function ($q) {
+        $httpProvider.interceptors.push(function ($q, $rootScope) {
             return {
                 request: function (config) {
                     //console.log('request: config', config);
@@ -73,6 +73,7 @@ var app = angular.module('StarterApp', [
                     return response;
                 },
                 responseError: function (rejection) {
+                    $rootScope.$broadcast('Error', rejection);
                     console.log('responseError: rejection', rejection);
                     return $q.reject(rejection);
                 }

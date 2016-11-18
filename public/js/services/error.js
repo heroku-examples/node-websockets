@@ -1,5 +1,5 @@
 app
-    .factory('Error', function($filter, Toast, Modal) {
+    .factory('Error', function ($rootScope, $filter, Toast, Modal) {
         var _this = {
             codes: {
                 "-1": {
@@ -508,10 +508,10 @@ app
                 }
             },
             unauthorizedTemplateUrl: '/templates/modal/unauthorized.html',
-            isUnauthorized : false,
+            isUnauthorized: false,
         };
 
-        _this.getMessage = function(error, status) {
+        _this.getMessage = function (error, status) {
             _this.openErrorJson(error, status);
             console.log("error", error, status);
             return;
@@ -522,7 +522,7 @@ app
             }
         };
 
-        _this.openMessage = function(error, status) {
+        _this.openMessage = function (error, status) {
             _this.openErrorJson(error, status);
             console.log("error", error, status);
             return;
@@ -533,7 +533,7 @@ app
             }
         };
 
-        _this.openMessageByCode = function(error, status) {
+        _this.openMessageByCode = function (error, status) {
             _this.openErrorJson(error, status);
             console.log("error", error, status);
             return;
@@ -543,41 +543,42 @@ app
                 Toast.show(_this.codes['403'].message);
             }
         };
-        _this.openErrorJson = function(error, status) {
-            if(!status && error.status) status = error.status;
+        _this.openErrorJson = function (error, status) {
+            if (!status && error.status) status = error.status;
             var codeInfo = {};
             if (_this.codes[status]) {
                 codeInfo = _this.codes[status];
-            }else if (status && _this.codes[status]){
+            } else if (status && _this.codes[status]) {
                 codeInfo = _this.codes[status];
             }
 
             var BAD_REQUEST = _this.searchErrorByKey("BAD_REQUEST");
+            var UNAUTHORIZED = _this.searchErrorByKey("UNAUTHORIZED")[0];
             var UNAUTHORIZED_1 = _this.searchErrorByKey("UNAUTHORIZED_1")[0];
             var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED_2")[0];
 
             var templateUrl = "";
 
-            if(!status || _this.isUnauthorized){
+            if (!status || _this.isUnauthorized) {
                 //nothing todo
-            } else if (status == BAD_REQUEST.status || status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
-                if(_this.isUnauthorize) return;
+            } else if (status == BAD_REQUEST.status || status == UNAUTHORIZED.status 　|| status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
+                if (_this.isUnauthorize) return;
                 templateUrl = _this.unauthorizedTemplateUrl;
-                error = UNAUTHORIZED_1;
+                error = UNAUTHORIZED;
                 _this.isUnauthorized = true;
                 _this.reLogin();
             }
 
 
             Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
-            
-            
+
+
         };
-        _this.searchErrorByKey = function(key) {
-            if(key == 'UNAUTHORIZED') key = 'UNAUTHORIZED_1'
+        _this.searchErrorByKey = function (key) {
+            if (key == 'UNAUTHORIZED') key = 'UNAUTHORIZED_1'
             return $filter('where')(_this.codes, { key: key });
         };
-        _this.searchErrorByCode = function(code) {
+        _this.searchErrorByCode = function (code) {
             if (_this.codes[errorCode]) {
                 return _this.codes[errorCode];
             } else {
@@ -586,7 +587,7 @@ app
         };
         _this.reLogin = function () {
             var user = firebase.auth().currentUser;
-            if(!user) return;
+            if (!user) return;
             user.getToken().then(function (idToken) {
                 Token.find({ token: idToken }).$promise.then(function (_token) {
                     $sessionStorage.token = _token;
@@ -599,5 +600,10 @@ app
                 Error.openMessage(error);
             });
         };
+
+        $rootScope.$on('Error', function (event, data) {
+            _this.openErrorJson(data);
+        });
+        
         return _this;
     });

@@ -81,12 +81,12 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
                 onShowing: function (scope, element) {
                     element.find('md-dialog').addClass("beforeSlideLeft")
                     $timeout(function () {
-                        element.find('md-dialog').addClass("center")
+                        element.find('md-dialog').removeClass("beforeSlideLeft").addClass("center")
                     }, 50)
                 },
                 onRemoving: function (element, removePromise) {
                     $timeout(function () {
-                        element.find('md-dialog').removeClass("center").addClass("slideRight")
+                        element.find('md-dialog').removeClass("center").addClass("slideLeft")
                     }, 50)
                 }
             },
@@ -94,12 +94,12 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
                 onShowing: function (scope, element) {
                     element.find('md-dialog').addClass("beforeSlideRight")
                     $timeout(function () {
-                        element.find('md-dialog').addClass("center")
+                        element.find('md-dialog').removeClass("beforeSlideRight").addClass("center")
                     }, 50)
                 },
                 onRemoving: function (element, removePromise) {
                     $timeout(function () {
-                        element.find('md-dialog').removeClass("center").addClass("slideLeft")
+                        element.find('md-dialog').removeClass("center").addClass("slideRight")
                     }, 50)
                 }
             }

@@ -13,7 +13,7 @@
             <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
         </div>
         <div ng-if="false" layout="row" layout-align="center center" flex>
-            <md-input-container class="md-block" flex="50" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type != 'multi_select'">
+            <md-input-container class="md-block" flex="50" ng-repeat="(profileKey, profile) in profiles track by $index" ng-if="profile.type != 'multi_select'">
                 <label>{{profile.name}}</label>
                 <md-select ng-model="targetUserCondition[profile.name]" ng-repeat="(valueKey, value) in profile.values">
                     <md-option value=""> - </md-option>
@@ -33,7 +33,7 @@
                 </div>
             </md-input-container>
         </div>
-         <div layout="row" layout-align="center center" flex ng-if="false" ng-repeat="(profileKey, profile) in profiles" ng-if="profile.type == 'multi_select'">
+         <div layout="row" layout-align="center center" flex ng-if="false" ng-repeat="(profileKey, profile) in profiles track by $index" ng-if="profile.type == 'multi_select'">
             <md-input-container class="chip-select" class="layout-fill" style="width: 100%;min-height: 60px;">
                 <label>{{subTitles[profileKey].read}}</label>
                 <md-chips ng-model="targetUserCondition.hobbies" md-max-chips="50">
