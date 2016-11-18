@@ -25,7 +25,10 @@ var session = require('express-session');
 app.use(session({
     secret: 'anal fuck',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 30 * 60 * 1000
+    }
 }));
 
 Object.assign = require('object-assign');
