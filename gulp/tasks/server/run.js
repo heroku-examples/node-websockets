@@ -1,5 +1,8 @@
 var app = require('express')();
 
+var compression = require('compression');
+app.use(compression({level: 6}));
+
 var log4js = require('log4js');
 log4js_extend = require("log4js-extend");
 log4js.configure(require('./json/log4js/config.json'));
