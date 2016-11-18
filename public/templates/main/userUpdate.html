@@ -1,4 +1,21 @@
-<md-content class="md-padding">
+<md-toolbar class="header" ng-show="!showSearch">
+	<div class="md-toolbar-tools">
+		<md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+			<ng-md-icon icon="menu"></ng-md-icon>
+		</md-button>
+		<h3>
+			User Update
+		</h3>
+		<span flex></span>
+		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+			<ng-md-icon icon="search"></ng-md-icon>
+		</md-button>
+		<md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+			<ng-md-icon icon="more_vert"></ng-md-icon>
+		</md-button>
+	</div>
+</md-toolbar>
+<md-content class="md-padding main">
     <md-tabs class="md-accent" md-selected="data.selectedIndex">
         <md-tab ng-repeat="(tabKey, tab) in tabs" id="{{tab.id}}">
             <md-tab-label>{{tab.name}}</md-tab-label>

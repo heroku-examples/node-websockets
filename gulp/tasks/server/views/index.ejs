@@ -4,23 +4,6 @@ var userInfos = <%-JSON.stringify(userInfos)%>;
 var requestInfos = <%-JSON.stringify(requestInfos)%>;
 </script>
 <div layout="column" class="relative" layout-fill role="main" ng-init="init()">
-    <md-toolbar ng-show="!showSearch">
-        <div class="md-toolbar-tools">
-            <md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
-                <ng-md-icon icon="menu"></ng-md-icon>
-            </md-button>
-            <h3>
-              <%= message %>
-            </h3>
-            <span flex></span>
-            <md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
-                <ng-md-icon icon="search"></ng-md-icon>
-            </md-button>
-            <md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-                <ng-md-icon icon="more_vert"></ng-md-icon>
-            </md-button>
-        </div>
-    </md-toolbar>
     <md-content layout="column" flex ui-view="main"></md-content>
 </div>
 <script src="/js/routes/index.js"></script>
