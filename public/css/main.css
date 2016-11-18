@@ -383,6 +383,12 @@ img-crop canvas {
     transition: 0.4s height, 0.4s padding;
 }
 
+.profileImage{
+    height: 200px;
+    width: 200px;
+    margin: auto;
+}
+
 .slide-up-md-panel {
     min-height: 500px;
 }
@@ -394,7 +400,6 @@ img-crop canvas {
 }
 
 .slide-up-dialog-content {
-    padding: 0 15px;
     width: 100vw;
     max-width: 800px;
     height: 100vh;
