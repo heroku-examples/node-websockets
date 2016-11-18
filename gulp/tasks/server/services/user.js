@@ -9,13 +9,26 @@ module.exports = {
             var User = require('../models/user');
             var page = req.query.page ? req.query.page : pageConfig.page;
             var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-            User.paginate({ uid: { '$ne': req.session.token.uid } }, { page: page, limit: limit }, function (err, result) {
+            if(!req.session.userInfos){
+                User.paginate({ uid: { '$ne': req.session.token.uid } }, { page: page, limit: limit }, function (err, result) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            }else{
+              var _ = require('underscore');
+              var knownUids = _.map(req.session.userInfos, function (friend) { return friend.uid; });
+              User.paginate({ uid: { '$ne': req.session.token.uid , "$nin": knownUids } }, { page: page, limit: limit }, function (err, result) {
                 if (err) {
                     reject(err);
                 } else {
                     resolve(result);
                 }
-            });
+            });          
+            }
+
         });
     },
     get: function (uid) {

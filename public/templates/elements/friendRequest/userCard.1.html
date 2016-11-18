@@ -10,11 +10,11 @@
 		<p> ・ </p>
 	</div>
 	<ng-md-icon icon="add" ng-if="(result.requestInfos[uid].isApplyed) == false" ng-click="applyRequest(result.requestInfos[uid])"></ng-md-icon>
-	<md-menu md-theme="grey" class="md-secondary">
-		<md-button class="md-icon-button">
+	<md-menu md-offset="0 -7">
+		<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 			<ng-md-icon icon="settings"></ng-md-icon>
 		</md-button>
-		<md-menu-content width="4">
+		<md-menu-content md-theme="grey" width="2">
 			<md-menu-item>
 				<md-button>
 					Redial
