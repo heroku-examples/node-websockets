@@ -1,4 +1,4 @@
-app.$controllerProvider.register('TestCtrl', function ($scope, Loading, $timeout, Worker, Panel) {
+app.$controllerProvider.register('TestCtrl', function ($scope, Loading, $timeout, Banner, Worker, Panel) {
 
     $timeout(function () {
         Panel.showDialog()
@@ -7,13 +7,10 @@ app.$controllerProvider.register('TestCtrl', function ($scope, Loading, $timeout
 
     Worker.initialiseState();
         $scope.carousel = {index : 0}
-    $scope.banners = [
-        { image: '/images/user.png', id: 1 },
-        { image: '/images/user.png', id: 2 },
-        { image: '/images/user.png', id: 3 },
-        { image: '/images/user.png', id: 4 },
-        { image: '/images/user.png', id: 5 },
-        { image: '/images/user.png', id: 6 }
-    ];
+    Banner.all.get().$promise.then(function (result) {
+        $scope.banners = result.docs;
+        }).catch(function (data, status) {
+        });
+
 
 });

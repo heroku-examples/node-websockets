@@ -29,7 +29,11 @@ app = socket.set(app);
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
+var autoIncrement = require('mongoose-auto-increment');
+app.set('autoIncrement', autoIncrement); 
+var connection = mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
+
+autoIncrement.initialize(connection);
 
 //http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/1290__Node.js_underscore_Package.htm
 
@@ -48,6 +52,7 @@ var _firebase = require('./routes/api/firebase');
 var privateChat = require('./routes/api/private_chat');
 var friendRequest = require('./routes/api/friend_request');
 var config = require('./routes/api/config');
+var banner = require('./routes/api/banner');
 var debug = require('./routes/api/debug');
 var resCodes = require('./json/http/http_code_names.json');
 
@@ -73,6 +78,7 @@ app.use('/api', _firebase);
 app.use('/api', privateChat);
 app.use('/api', friendRequest);
 app.use('/api', config);
+app.use('/api', banner);
 app.use('/api', debug);
 
 

@@ -1,4 +1,4 @@
-app.factory('Token', function($resource) {
+app.factory('Token', function ($resource) {
     return $resource('/api/token', {}, {
         find: {
             method: 'POST',
@@ -11,9 +11,9 @@ app.factory('Token', function($resource) {
     });
 });
 
-app.factory('User', function($resource) {
+app.factory('User', function ($resource) {
     return {
-        current : function(){
+        current: function () {
             return $resource('/api/current_user', {}, {
                 get: {
                     method: 'GET',
@@ -32,7 +32,7 @@ app.factory('User', function($resource) {
                 }
             });
         },
-        token : function(){
+        token: function () {
             return $resource('/api/current_user/token', {}, {
                 get: {
                     method: 'GET',
@@ -40,17 +40,17 @@ app.factory('User', function($resource) {
                 }
             });
         },
-        root :function(){
+        root: function () {
             return $resource('/api/user', {
                 uid: '@uid'
             }, {
-                get: {
-                    method: 'GET',
-                    isArray: false
-                }
-            });
+                    get: {
+                        method: 'GET',
+                        isArray: false
+                    }
+                });
         },
-        all :function(){
+        all: function () {
             return $resource('/api/users', {}, {
                 get: {
                     method: 'GET',
@@ -65,15 +65,15 @@ app.factory('User', function($resource) {
     };
 });
 
-app.factory('Chat', function($resource) {
+app.factory('Chat', function ($resource) {
     return {
-        root : function(){
-            return $resource('/api/Chat/:targetUid', {url: '@url'}, {
+        root: function () {
+            return $resource('/api/Chat/:targetUid', { url: '@url' }, {
                 send: {
                     method: 'POST',
                     isArray: false
                 },
-               read: {
+                read: {
                     method: 'PUT',
                     isArray: false
                 }
@@ -83,9 +83,9 @@ app.factory('Chat', function($resource) {
     };
 });
 
-app.factory('Push', function($resource) {
+app.factory('Push', function ($resource) {
     return {
-        root : function(){
+        root: function () {
             return $resource('/api/webPush/:targetUid', {}, {
                 send: {
                     method: 'POST',
@@ -97,10 +97,21 @@ app.factory('Push', function($resource) {
     };
 });
 
-app.factory('FriendRequest', function($resource) {
+app.factory('Banner', function ($resource) {
     return {
-        root :function(){
-            return $resource('/api/friend_request/:targetUid', {targetUid: '@targetUid'}, {
+        all: $resource('/api/banners', {}, {
+            get: {
+                method: 'GET',
+                isArray: false
+            }
+        }),
+    };
+});
+
+app.factory('FriendRequest', function ($resource) {
+    return {
+        root: function () {
+            return $resource('/api/friend_request/:targetUid', { targetUid: '@targetUid' }, {
                 get: {
                     method: 'GET',
                     isArray: false
@@ -119,22 +130,22 @@ app.factory('FriendRequest', function($resource) {
                 }
             });
         },
-        reject :function(){
+        reject: function () {
             return $resource('/api/friend_request/reject', {
                 fromUid: '@fromUid'
             }, {
-                get: {
-                    method: 'GET',
-                    isArray: false
-                }, // apiの戻り値が配列の場合は「isArray: true」を指定する
-                update: {
-                    method: 'POST',
-                    isArray: false
-                },
-            });
+                    get: {
+                        method: 'GET',
+                        isArray: false
+                    }, // apiの戻り値が配列の場合は「isArray: true」を指定する
+                    update: {
+                        method: 'POST',
+                        isArray: false
+                    },
+                });
         },
-        apply :function(){
-            return $resource('/api/friend_request/apply/:fromUid', {fromUid: '@fromUid'}, {
+        apply: function () {
+            return $resource('/api/friend_request/apply/:fromUid', { fromUid: '@fromUid' }, {
                 get: {
                     method: 'GET',
                     isArray: false
@@ -145,7 +156,7 @@ app.factory('FriendRequest', function($resource) {
                 },
             });
         },
-        all :function(){
+        all: function () {
             return $resource('/api/friend_requests', {}, {
                 get: {
                     method: 'GET',
@@ -157,7 +168,7 @@ app.factory('FriendRequest', function($resource) {
                 }
             });
         },
-        friends :function(){
+        friends: function () {
             return $resource('/api/friends', {}, {
                 get: {
                     method: 'GET',

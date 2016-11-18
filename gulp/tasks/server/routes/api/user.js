@@ -41,6 +41,7 @@ router.route('/current_user')
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else if (user) {
+                if(req.session.isDebug) user.isDebug = true;
                 res.status(resCodes.OK.code).json(user);
             } else {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);

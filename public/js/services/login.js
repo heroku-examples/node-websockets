@@ -7,6 +7,7 @@ app
         Loading.initStart();
 
         var getCurrentUser = function(){
+            if($sessionStorage.user) return;
             User.current().get().$promise.then(function(_user) {
                 if (_user) {
                     _this.setUserSession(_user);
@@ -26,6 +27,7 @@ app
                     $state.go('login');
                 }
             }
+            if(!$sessionStorage.token) return;
             if($filter('isEmptyObj')($sessionStorage.user)){
                 getCurrentUser();
             }
@@ -110,9 +112,10 @@ app
         _this.logOut = function() {
             Loading.initStart();
             Token.delete().$promise.then(function(_token) {
-                auth.$signOut();
                 $sessionStorage.token = false;
                 $sessionStorage.firebaseUser = false;
+                $sessionStorage.user = false;
+                auth.$signOut();
                 if(!$localStorage.setting.enableSaveAuth)$localStorage.setting.token = false;
                 Loading.initFinish();
             }).catch(function(error) {
