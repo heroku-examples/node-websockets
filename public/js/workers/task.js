@@ -1,19 +1,19 @@
 'use strict';
 
 self.addEventListener('install', function(event){
-    console.info('install', event);
+    // console.info('install', event);
     
     event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener('activate', function(event){
-    console.info('activate', event);
+    // console.info('activate', event);
     
     event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener('fetch', function(event){
-    console.info('fetch', event);
+    // console.info('fetch', event);
 });
 
 self.addEventListener('push', function(event){

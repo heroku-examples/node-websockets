@@ -12,8 +12,21 @@ body{
     -ms-box-shadow: 3px 0px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
+.header > div > h3{
+    color: white !important;
+    font-weight: bold;
+}
+
 .main{
     margin-top: 56px;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
+
+.selectedSideMenu{
+  background-color:currentColor;
 }
 .md-card-image{
     width: 100%;

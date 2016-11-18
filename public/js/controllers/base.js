@@ -47,20 +47,24 @@ app.controller('AppCtrl', function ($scope,
     // },  
     {
         link: '/index#/',
-        title: 'Index',
+        title: 'index',
+        key : "index",
         icon: 'group'
     },
     {
         link: '/index#friend',
-        title: 'Friend',
+        title: 'friend',
+        key : "friend",
         icon: 'group'
     }, {
         link: location.pathname + '#userUpdate',
         title: 'User Update',
+        key : "userUpdate",
         icon: 'group'
     }, {
         link: '/index#setting',
         title: 'setting',
+        key : "setting",
         icon: 'settings'
     },
     //  {
@@ -71,15 +75,18 @@ app.controller('AppCtrl', function ($scope,
     ];
     $scope.admin = [{
         link: '/debug#',
-        title: 'Debug',
+        title: 'debug',
+        key : "debug",
         icon: 'adb'
     }, {
         link: '/debug#memo',
-        title: 'Memo',
+        title: 'memo',
+        key : "memo",
         icon: 'adb'
     },{
         link: '/debug#test',
-        title: 'Test',
+        title: 'test',
+        key : "test",
         icon: 'adb'
     }];
 
@@ -119,6 +126,7 @@ app.controller('AppCtrl', function ($scope,
             };
         }
         $sessionStorage.fromState = fromState;
+        $sessionStorage.toState = toState;
 
         // if (toState.name == 'login' || toState.name == 'blog' || toState.name == 'blogList') return;
         // if (!Login.checkUser()) {
