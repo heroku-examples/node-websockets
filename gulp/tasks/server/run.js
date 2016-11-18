@@ -64,7 +64,19 @@ var path = require('path');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(require('express').static('public'));
+var options = {
+  //dotfiles: 'ignore',
+  //etag: false,
+  extensions: ['htm', 'html', 'js', 'json', "css", "mf", "png", "jpg", "ttf", "woff", "woff2"],
+  index: false,
+  maxAge: '7d',
+  redirect: false,
+  setHeaders: function (res, path, stat) {
+    res.set('x-timestamp', Date.now());
+  }
+}
+
+app.use(require('express').static('public', options));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(partials());
