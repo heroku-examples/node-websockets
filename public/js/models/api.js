@@ -86,8 +86,8 @@ app.factory('Chat', function ($resource) {
 app.factory('Push', function ($resource) {
     return {
         root: function () {
-            return $resource('/api/webPush/:targetUid', {}, {
-                send: {
+            return $resource('/api/setWebPush', {}, {
+                set: {
                     method: 'POST',
                     isArray: false
                 }
