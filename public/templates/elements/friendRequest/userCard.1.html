@@ -1,4 +1,4 @@
-<md-list-item class="md-2-line md-long-text noright" style="width: 100%;" ng-init="setNotify(result.requestInfos[uid])" ng-click="openChat({friend : result.userInfos[uid], friend_request : result.requestInfos[uid]})">
+<md-list-item class="md-2-line md-long-text noright" style="width: 100%;" ng-init="setNotify(request)" ng-click="openChat({friend : result.userInfos[uid], friend_request : request})">
 	<div class="md-avatar" ng-click="openUserInfo(result.userInfos[uid])">
 		<div class="avatar-wrapper">
 			<img ng-if="result.userInfos[uid].photoURL" ng-src="{{result.userInfos[uid].photoURL}}" class="md-card-image" />
@@ -9,7 +9,7 @@
 		<h3>{{result.userInfos[uid].firstName}} {{result.userInfos[uid].age}}</h3>
 		<p> ・ </p>
 	</div>
-	<ng-md-icon icon="add" ng-if="(result.requestInfos[uid].isApplyed) == false" ng-click="applyRequest(result.requestInfos[uid])"></ng-md-icon>
+	<ng-md-icon icon="add" ng-if="request.isApplyed == false && request.fromUid != currentUser.uid" ng-click="applyRequest(request)"></ng-md-icon>
 	<md-menu md-offset="0 -7">
 		<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 			<ng-md-icon icon="settings"></ng-md-icon>
@@ -17,18 +17,18 @@
 		<md-menu-content md-theme="grey" width="2">
 			<md-menu-item>
 				<md-button>
-					Redial
+					<ng-md-icon icon="delete_sweep"></ng-md-icon> delete
 				</md-button>
 			</md-menu-item>
 			<md-menu-item>
 				<md-button>
-					Check voicemail
+					<ng-md-icon icon="star_rate"></ng-md-icon> favarite
 				</md-button>
 			</md-menu-item>
 			<md-menu-divider></md-menu-divider>
 			<md-menu-item>
 				<md-button>
-					Notifications
+					<ng-md-icon icon="volume_up"></ng-md-icon> notification
 				</md-button>
 			</md-menu-item>
 		</md-menu-content>

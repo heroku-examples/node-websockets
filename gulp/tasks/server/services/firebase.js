@@ -159,7 +159,7 @@ module.exports = {
             reject(err);
         });
     },
-    webPush2: function (req, endpoint, auth, p256dh, text, data) {
+    setWebPush: function (req, endpoint, auth, p256dh, text, data) {
         if (!req.session.token) return;
         if( !data) data = false;
         return new Promise(function (resolve, reject) {
@@ -190,7 +190,6 @@ module.exports = {
                 if (err) {
                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                 } else {
-                    webpush.sendNotification(pushSubscription,JSON.stringify({text : text, data : data}) );
                     resolve(pushSubscription);
                 }
             });

@@ -121,16 +121,12 @@ router.route('/friend_request/:targetUid')
 
     // 一つのフレンドリクエストの情報を削除 (DELETE http://localhost:8000/api/friend_request/:name)
     .delete(function (req, res) {
-        FriendRequest.remove({
-            uid: req.session.token.uid,
-            fromUid: req.body.targetUid
-        }, function (err, friend_request) {
+        // ユーザーへのフレンドリクエスト情報を破棄する（isRejectedをtrue）．
+        FriendRequest.findOneAndUpdate({ uid: req.session.token.uid , fromUid: req.body.targetUid}, { isRejected : true }, function (err, user) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
-                res.status(resCodes.OK.code).json({
-                    message: 'Successfully deleted!'
-                });
+                res.status(resCodes.OK.code).json(friend_request);
             }
         });
     });
@@ -250,22 +246,22 @@ router.route('/friend_requests')
                         return o.fromUid != req.session.token.uid;
                     });
                     UserSearvice.getList(uids).then(function (friends) {
-                        if(!result.false) result.false = [];
-                        if(!result.true) result.true = [];
-                        var userInfos =_.indexBy(friends, 'uid');
-                        var requestInfos =_.indexBy(requests.docs, 'uid');
+                        if (!result.false) result.false = [];
+                        if (!result.true) result.true = [];
+                        var userInfos = _.indexBy(friends, 'uid');
+                        var requestInfos = _.indexBy(requests.docs, 'uid');
 
                         req.session.userInfos = userInfos;
                         req.session.requestInfos = requestInfos;
                         res.status(resCodes.OK.code).json({
                             docs: {
-                                requestInfos : requestInfos,
-                                userInfos : userInfos,
-                                friendUids :friendUids ? _.indexBy(friendUids, 'uid') : false,
-                                rejectedUids : rejectedUids ? _.indexBy(rejectedUids, 'uid') : false,
-                                receivedUids : receivedUids ? _.indexBy(receivedUids, 'uid') : false,
-                                sendUids : sendUids ? _.indexBy(sendUids, 'uid') : false,
-                                requests : _.indexBy(requests.docs, 'uid')
+                                requestInfos: requestInfos,
+                                userInfos: userInfos,
+                                friendUids: friendUids ? _.indexBy(friendUids, 'uid') : false,
+                                rejectedUids: rejectedUids ? _.indexBy(rejectedUids, 'uid') : false,
+                                receivedUids: receivedUids ? _.indexBy(receivedUids, 'uid') : false,
+                                sendUids: sendUids ? _.indexBy(sendUids, 'uid') : false,
+                                requests: _.indexBy(requests.docs, 'uid')
                             },
                             total: requests.total,
                             limit: requests.limit,
@@ -303,8 +299,8 @@ router.route('/friends')
         var limit = req.query.limit ? req.query.limit : pageConfig.limit;
         var query = FriendRequest.find({
             $or: [
-                { uid: req.session.token.uid, fromUid: { '$ne': req.session.token.uid }, isApplyed : true, isRejected : false},
-                { uid: { '$ne': req.session.token.uid }, fromUid: req.session.token.uid, isApplyed : true, isRejected : false }
+                { uid: req.session.token.uid, fromUid: { '$ne': req.session.token.uid }, isApplyed: true, isRejected: false },
+                { uid: { '$ne': req.session.token.uid }, fromUid: req.session.token.uid, isApplyed: true, isRejected: false }
             ]
         }).sort([['uid', 1], ['fromUid', 1]]);
         FriendRequest.paginate(query, { page: page, limit: limit }, function (err, requests) {
@@ -317,13 +313,13 @@ router.route('/friends')
                     var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
 
                     var uids = _.union(fromUids, toUids);
-                    uids = _.reject(uids, function(uid){ return uid == req.session.token.uid; });
+                    uids = _.reject(uids, function (uid) { return uid == req.session.token.uid; });
 
                     UserSearvice.getList(uids).then(function (friends) {
                         res.status(resCodes.OK.code).json({
                             docs: {
-                                requests : requests.docs,
-                                friends : _.indexBy(friends, 'uid')
+                                requests: requests.docs,
+                                friends: _.indexBy(friends, 'uid')
                             },
                             total: requests.total,
                             limit: requests.limit,

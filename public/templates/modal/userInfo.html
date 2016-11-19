@@ -8,12 +8,14 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<div style="height:200px;text-align:center">
+	<div style="height:200px;text-align:center;position: relative;">
+		<div ng-if="(user.isApplyed && !user.isRejected)" class="side-corner-tag">Friend</div>
 		<img ng-if="user.photoURL" style="height:200px" ng-src="{{user.photoURL}}" class="profileImage" />
 		<img ng-if="!user.photoURL" style="height:200px" ng-src="/images/user.png"  class="profileImage"/>
 	</div>
 
 	<md-content layout-padding>
+		
 		<div>
 			<form name="userForm">
 
@@ -78,7 +80,7 @@
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<div class="md-toolbar-tools">
-				<md-button ng-if="!user.requested" class="material-icons md-fab" aria-label="friend request" ng-click="friendRequest()">
+				<md-button ng-if="(!user.isApplyed && !user.isRejected) && user.fromUid != currentUser.uid" class="material-icons md-fab" aria-label="friend request" ng-click="friendRequest()">
 					<ng-md-icon icon="add"></ng-md-icon>
 				</md-button>
 			</div>

@@ -18,9 +18,6 @@ router.get('/', function (req, res, next) {
     Config.get('deviceCacheKey').then(function (records) {
         res.locals.deviceCacheKey = records.number;
         var User = require('./../services/user');
-
-
-
         User.getFriends(req).then(function (friends) {
             req.session.userInfos = friends;
             User.getRecommends(req).then(function (recommendUsers) {

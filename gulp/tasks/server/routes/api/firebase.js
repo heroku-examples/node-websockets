@@ -36,7 +36,7 @@ router.use(function (req, res, next) {
         res.status(resCodes.UNAUTHORIZED.code).json();
     }
 });
-router.route('/webPush')
+router.route('/setWebPush')
     // セッションチャットの取得 (POST http://localhost:3000/api/push)
     .post(function (req, res) {
         var p256dh = req.body.p256dh;
@@ -45,7 +45,7 @@ router.route('/webPush')
         var endpoint = req.body.endpoint;
         var FireBaseSearvice = require('../../services/firebase');
         var text = getUserInfo(req, req.session.token.uid).firstName;
-        FireBaseSearvice.webPush2(req, endpoint, auth, p256dh, text, false).then(function (comment) {
+        FireBaseSearvice.setWebPush(req, endpoint, auth, p256dh, text, false).then(function (comment) {
             res.status(resCodes.OK.code).json({ comment: comment });
         }, function (err) {
             console.log('err', err, err.lineNumber);

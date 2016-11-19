@@ -19,12 +19,10 @@ app
                 endpointParts = subscription.endpoint.split('/');
                 registrationId = endpointParts[endpointParts.length - 1];
 
-                // Push.root().send({ endpoint: subscriptionJson.endpoint, registrationIds: [registrationId], p256dh: subscriptionJson.keys.p256dh, auth: subscriptionJson.keys.auth }).$promise.then(function (result) {
-                //     console.info(result)
-                //     Toast.show("Pushed");
-                // }).catch(function (data, status) {
-                //     Error.openMessage(data, status);
-                // });
+                Push.root().set({ endpoint: subscriptionJson.endpoint, registrationIds: [registrationId], p256dh: subscriptionJson.keys.p256dh, auth: subscriptionJson.keys.auth }).$promise.then(function (result) {
+                }).catch(function (data, status) {
+                    Error.openMessage(data, status);
+                });
             }
         }
 

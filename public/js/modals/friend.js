@@ -49,16 +49,25 @@ function UserInfo(
     FriendRequest,
     Loading,
     Error,
-    Login
+    Login,
+    $window
 ) {
     $controller(ModalCtrl, { $scope: $scope, $mdDialog: $mdDialog, locals: locals, Login: Login });
     angular.merge($scope, locals);
 
+    $scope.currentUser = Login.getUser();
+    
     $scope.init = function () {
+        var request = $window.requestInfos[$scope.user.uid]
+        if(request){
+            angular.merge($scope.user, request);
+        }
+    };
+    $scope.friendRequest = function () {
         Loading.start();
-        FriendRequest.root().get({ targetUid: $scope.user.uid }).$promise.then(function (result) {
+        FriendRequest.root().create({ targetUid: $scope.user.uid }).$promise.then(function (result) {
             if (result) {
-                if (!result.isApplyed && !result.isRejected && !result.isEmpty) $scope.user.requested = true;
+                if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
             }
             Loading.finish();
         }).catch(function (data, status) {
@@ -66,11 +75,11 @@ function UserInfo(
             Error.openMessage(data, status);
         });
     };
-    $scope.friendRequest = function () {
+    $scope.friendReject = function () {
         Loading.start();
-        FriendRequest.root().create({ targetUid: $scope.user.uid }).$promise.then(function (result) {
+        FriendRequest.reject().update({ fromUid: $scope.user.uid }).$promise.then(function (result) {
             if (result) {
-                if (!result.isApplyed && !result.isRejected) $scope.user.requested = true;
+                if (result.isRejected) $scope.user.isRejected = true;
             }
             Loading.finish();
         }).catch(function (data, status) {
