@@ -161,7 +161,7 @@ module.exports = {
     },
     setWebPush: function (req, endpoint, auth, p256dh, text, data) {
         if (!req.session.token) return;
-        if( !data) data = false;
+        if (!data) data = false;
         return new Promise(function (resolve, reject) {
             var webpush = require('web-push');
 
@@ -200,7 +200,7 @@ module.exports = {
     },
     webPushToFriend: function (req, targetUid, text, data) {
         if (!req.session.token) return;
-        if( !data) data = false;
+        if (!data) data = false;
         return new Promise(function (resolve, reject) {
             var mongoose = require('mongoose');
             var Identification = mongoose.model('Identification');
@@ -221,27 +221,8 @@ module.exports = {
                         vapidKeys.publicKey,
                         vapidKeys.privateKey
                     );
-
-                    // This is the same output of calling JSON.stringify on a PushSubscription
-                    var pushSubscription = {
-                        endpoint: identification.pushSubscription.endpoint,
-                        keys: {
-                            auth: identification.pushSubscription.keys.auth,
-                            p256dh: identification.pushSubscription.keys.p256dh
-                        }
-                    };
-
-                    var mongoose = require('mongoose');
-                    var Identification = mongoose.model('Identification');
-                    Identification.findOneAndUpdate({ uid: req.session.token.uid }, { pushSubscription: pushSubscription }, function (err, identification) {
-                        if (err) {
-                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-                        } else {
-                            webpush.sendNotification(pushSubscription,JSON.stringify({text : text, data : data}) );
-                            resolve(pushSubscription);
-                        }
-                    });
-
+                    webpush.sendNotification(identification.pushSubscription, JSON.stringify({ text: text, data: data }));
+                    resolve(identification.pushSubscription);
                 } else {
                     resolve();
                 }
