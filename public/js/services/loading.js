@@ -19,6 +19,16 @@ app
                 _this.isIniting = false;
             }, 1000);
         };
+        _this.stateChangeStart = function(){
+            $timeout(function(){
+                _this.isStateChanging = true;
+            }, 1000);
+        };
+        _this.sateChangeFinish = function(){
+            $timeout(function(){
+                _this.isStateChanging = false;
+            }, 1000);
+        };
         return _this;
     });
 
@@ -31,7 +41,7 @@ app.controller('LoadingCtrl', function($scope, Loading, $element, $timeout) {
 app.directive('loading', function(Loading) {
     return {
         replace: true,
-        template: '<md-backdrop is-loading="{{loading.isLoding}}" ng-show="loading.isIniting || loading.isLoding" flex ng-class="{fadeOut : !loading.isLoding, animated : !loading.isLoding}" class="md-opaque" style="position: fixed;z-index:1" layout="row" layout-align="center center"><div style="width: 60px;height: 60px;"><md-progress-circular class="md-warn md-hue-3" md-diameter="{{loading.speed}}"></md-progress-circular></div></md-backdrop>',
+        template: '<md-backdrop is-loading="{{loading.isLoding}}" ng-show="loading.isIniting || loading.isLoding && loading.isStateChanging" flex ng-class="{fadeOut : !loading.isLoding && !loading.isStateChanging, animated : !loading.isLoding && !loading.isStateChanging}" class="md-opaque" style="position: fixed;z-index:1" layout="row" layout-align="center center"><div style="width: 60px;height: 60px;"><md-progress-circular class="md-warn md-hue-3" md-diameter="{{loading.speed}}"></md-progress-circular></div></md-backdrop>',
         controller: 'LoadingCtrl'
     };
 });

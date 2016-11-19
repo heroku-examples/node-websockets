@@ -119,6 +119,7 @@ app.controller('AppCtrl', function ($scope,
     }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        Loading.stateChangeStart();
         if (toParams.value || toParams.key) {
             $sessionStorage.toParams = {
                 value: toParams.value,
@@ -153,6 +154,7 @@ app.controller('AppCtrl', function ($scope,
                         }
                     });
                 });
+                Loading.sateChangeFinish();
             }
         }
         $mdSidenav('left').close();
