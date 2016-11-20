@@ -18,6 +18,7 @@ app.controller('AppCtrl', function ($scope,
     Loading,
     Worker,
     Modal,
+    Configs,
     Manifest,
     Login) {
     $scope.sessionStorage = $sessionStorage;
@@ -25,6 +26,7 @@ app.controller('AppCtrl', function ($scope,
     $scope.mdMedia = $mdMedia;
     $scope.loading = Loading;
     $scope.deviceCacheKey = window.deviceCacheKey;
+    $scope.configs = Configs;
 
     // .postMessage('test').then(function(data) {
     //     console.log(data)

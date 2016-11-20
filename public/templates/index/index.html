@@ -1,4 +1,4 @@
-<md-toolbar class="header" ng-show="!showSearch">
+<md-toolbar class="header">
 	<div class="md-toolbar-tools">
 		<md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
 			<ng-md-icon icon="menu"></ng-md-icon>
@@ -7,12 +7,32 @@
 			Index
 		</h3>
 		<span flex></span>
-		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="openSearch($event)">
 			<ng-md-icon icon="search"></ng-md-icon>
 		</md-button>
-		<md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-			<ng-md-icon icon="more_vert"></ng-md-icon>
-		</md-button>
+		<md-menu md-offset="0 -7">
+			<md-button class="material-icons md-icon-button" ng-click="$mdOpenMenu($event)">
+				<ng-md-icon icon="help"></ng-md-icon>
+			</md-button>
+			<md-menu-content md-theme="grey" width="2">
+				<md-menu-item>
+					<md-button>
+						<ng-md-icon icon="delete_sweep"></ng-md-icon> delete
+					</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button>
+						<ng-md-icon icon="star_rate"></ng-md-icon> favarite
+					</md-button>
+				</md-menu-item>
+				<md-menu-divider></md-menu-divider>
+				<md-menu-item>
+					<md-button>
+						<ng-md-icon icon="volume_up"></ng-md-icon> notification
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
 	</div>
 </md-toolbar>
 <md-content class="main" flex md-scroll-y>
@@ -38,7 +58,7 @@
 			</div>
 		</md-virtual-repeat-container>
 	</md-content>
-	<md-button class="material-icons md-fab md-fab-bottom-right" aria-label="Add" ng-click="openSearch($event)">
-		<ng-md-icon icon="add"></ng-md-icon>
+	<md-button class="material-icons md-fab md-fab-bottom-right" aria-label="search" ng-click="openSearch($event)">
+		<ng-md-icon icon="search"></ng-md-icon>
 	</md-button>
 </md-content>

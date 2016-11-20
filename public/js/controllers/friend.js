@@ -98,14 +98,14 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     var getRequests = function () {
-        Loading.start();                                
-                                // requestInfos : requestInfos,
-                                // userInfos : userInfos,
-                                // friendUids : friendUids,
-                                // rejectedUids : rejectedUids,
-                                // notFriendUids : notFriendUids,
-                                // sendUids : sendUids,
-                                // requests : requests.docs
+        Loading.start();
+        // requestInfos : requestInfos,
+        // userInfos : userInfos,
+        // friendUids : friendUids,
+        // rejectedUids : rejectedUids,
+        // notFriendUids : notFriendUids,
+        // sendUids : sendUids,
+        // requests : requests.docs
 
         FriendRequest.all().get().$promise.then(function (result) {
             $scope.requests = [];
@@ -205,7 +205,21 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     $scope.getMediaCount = function () {
-        return getMediaCount();
+        return getMediaCount();s
+    };
+
+    $scope.tabSelectedIndex = 0;
+    $scope.clickIcon === 'thumb_up'
+
+    $scope.clickIconMorph = function () {
+        if ($scope.clickIcon === 'thumb_up') {
+            $scope.clickIcon = 'thumb_down';
+        }
+        else {
+            $scope.clickIcon = 'thumb_up';
+        }
     };
     init();
+
+
 });

@@ -139,4 +139,6 @@ var app = angular.module('StarterApp', [
             $('#loadingContent').hide();
         }, false);
         if(!$localStorage.setting) $localStorage.setting = {};
+
+        location.pathname.includes('/main') 
     });

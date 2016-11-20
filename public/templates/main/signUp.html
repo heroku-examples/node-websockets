@@ -1,8 +1,5 @@
 <md-toolbar class="header" ng-show="!showSearch">
 	<div class="md-toolbar-tools">
-		<md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
-			<ng-md-icon icon="menu"></ng-md-icon>
-		</md-button>
 		<h3>
 			Sign Up
 		</h3>
@@ -17,11 +14,11 @@
 </md-toolbar>
 <md-content class="main" flex md-scroll-y layout="row" layout-align="center center">
 	<loading></loading>
-	<div ng-if="loading.isIniting">
+	<div ng-if="loading.isIniting" class="text-center">
 		<md-subheader class="md-primary text-center">認証中</md-subheader>
 		<ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="security"></ng-md-icon>
 	</div>
-	<div ng-if="!loading.isIniting">
+	<div ng-if="!loading.isIniting" class="text-center">
 		<md-subheader ng-if="sessionStorage.firebaseUser" class="md-primary text-center">認証完了</md-subheader>
 		<md-subheader ng-if="!sessionStorage.firebaseUser" class="md-primary text-center">未認証</md-subheader>
         <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="security"></ng-md-icon>

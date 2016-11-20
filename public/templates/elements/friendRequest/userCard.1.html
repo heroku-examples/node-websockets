@@ -9,7 +9,10 @@
 		<h3>{{result.userInfos[uid].firstName}} {{result.userInfos[uid].age}}</h3>
 		<p> ・ </p>
 	</div>
-	<ng-md-icon icon="add" ng-if="request.isApplyed == false && request.fromUid != currentUser.uid" ng-click="applyRequest(request)"></ng-md-icon>
+	<md-button aria-label="Open demo menu" class="md-icon-button" ng-if="request.isApplyed == false && request.fromUid != currentUser.uid"
+		ng-click="applyRequest(request)">
+		<ng-md-icon icon="add"></ng-md-icon>
+	</md-button>
 	<md-menu md-offset="0 -7">
 		<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 			<ng-md-icon icon="settings"></ng-md-icon>

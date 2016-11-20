@@ -18,37 +18,9 @@
 <md-content class="main" flex md-scroll-y>
 	<md-content layout="row" layout-wrap layout-align="left center">
 		<loading></loading>
-		<md-tabs flex class="md-accent" md-selected="0" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
-			<!--<md-tab id="tab1">
-				<md-tab-label>
-					<md-tab-label>Friends</md-tab-label>
-				</md-tab-label>
-				<md-tab-body>
-					<md-list flex>
-						<md-virtual-repeat-container ng-if="infiniteItems" id="vertical-container">
-
-							<div md-virtual-repeat="infiniteItemIndex in ::infiniteItems" md-on-demand class="repeated-item" layout="row">
-								<span ng-if="mdMedia('xs')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/friendRequest/userCard.html?v={{deviceCacheKey}}'"
-									include-replace></span>
-								<span ng-if="mdMedia('sm')" ng-repeat="rangeIndex in ::[] | range:1" ng-include="'/templates/elements/friendRequest/userCard.html?v={{deviceCacheKey}}'"
-									include-replace></span>
-								<span ng-if="mdMedia('md')" ng-repeat="rangeIndex in ::[] | range:2" ng-include="'/templates/elements/friendRequest/userCard.html?v={{deviceCacheKey}}'"
-									include-replace></span>
-								<span ng-if="mdMedia('lg')" ng-repeat="rangeIndex in ::[] | range:4" ng-include="'/templates/elements/friendRequest/userCard.html?v={{deviceCacheKey}}'"
-									include-replace></span>
-							</div>
-							<div ng-if="!pager.total" layout-align="center center" layout="column">
-								<ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="sentiment_very_dissatisfied"></ng-md-icon>
-								<span>
-                                0件でした。検索条件を少なくしてみよう！
-                                </span>
-							</div>
-						</md-virtual-repeat-container>
-					</md-list>
-				</md-tab-body>
-			</md-tab>-->
+		<md-tabs flex class="md-accent" md-center-tabs="true" md-selected="tabSelectedIndex" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
 			<md-tab id="tab1">
-				<md-tab-label>friend</md-tab-label>
+				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 0 ? 'favorite' :'favorite_border'}}" ng-attr-style="fill: {{tabSelectedIndex == 0 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
 						<div ng-repeat="(uid, request) in ::result.friendUids" layout="row">
@@ -58,7 +30,7 @@
 				</md-tab-body>
 			</md-tab>
 			<md-tab id="tab2">
-				<md-tab-label>not Friends</md-tab-label>
+				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 1 ? 'announcement' :'announcement'}}" ng-attr-style="fill: {{tabSelectedIndex == 1 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
 						<div ng-repeat="(uid, request) in ::result.receivedUids" layout="row">
@@ -68,7 +40,7 @@
 				</md-tab-body>
 			</md-tab>
             <md-tab id="tab3">
-				<md-tab-label>send Friends</md-tab-label>
+				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 2 ? 'person_add' :'person_add'}}" ng-attr-style="fill: {{tabSelectedIndex == 2 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
 						<div ng-repeat="(uid, request) in ::result.sendUids" layout="row">
@@ -78,7 +50,7 @@
 				</md-tab-body>
 			</md-tab>
             <md-tab id="tab4">
-				<md-tab-label>Rejects</md-tab-label>
+				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 3 ? 'thumb_down' :'thumb_down'}}" ng-attr-style="fill: {{tabSelectedIndex == 3 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
 						<div ng-repeat="(uid, request) in ::result.rejectedUids" layout="row">
@@ -89,7 +61,4 @@
 			</md-tab>
 		</md-tabs>
 	</md-content>
-	<md-button class="material-icons md-fab md-fab-bottom-right" aria-label="Add" ng-click="openSearch($event)">
-		<ng-md-icon icon="add"></ng-md-icon>
-	</md-button>
 </md-content>
