@@ -21,16 +21,6 @@ logger.info('sever start');
 var useragent = require('express-useragent');
 app.use(useragent.express());
 
-var session = require('express-session');
-app.use(session({
-    secret: 'anal fuck',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 30 * 60 * 1000
-    }
-}));
-
 Object.assign = require('object-assign');
 
 var socket = require('./routes/socket');
@@ -41,8 +31,22 @@ mongoose.Promise = global.Promise;
 var autoIncrement = require('mongoose-auto-increment');
 app.set('autoIncrement', autoIncrement); 
 var connection = mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
-
 autoIncrement.initialize(connection);
+
+var session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+
+app.use(session({
+    secret: 'anal fuck',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: false,
+        maxAge: new Date(Date.now() + 60 * 60 * 1000)
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
 
 //http://www.java2s.com/Tutorials/Javascript/Node.js_Tutorial/1290__Node.js_underscore_Package.htm
 
