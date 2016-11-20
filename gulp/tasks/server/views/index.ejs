@@ -6,7 +6,8 @@ var useragent = <%-JSON.stringify(useragent)%>;
 </script>
 <div layout="column" class="relative" layout-fill role="main" ng-init="init()">
     <md-content layout="column" flex ui-view="main"></md-content>
-    <md-toolbar class="footer">
+</div>
+<md-toolbar class="footer">
 	<div class="md-toolbar-tools">
 		<div class="md-toolbar-tools">
 			<ul rn-carousel style="height:150px;width:100%" class="image" rn-carousel-index="carouselIndex">
@@ -19,7 +20,5 @@ var useragent = <%-JSON.stringify(useragent)%>;
 		</div>
 	</div>
 </md-toolbar>
-</div>
-
 <script src="/js/routes/index.js"></script>
 <link rel="stylesheet" href="/css/index/index.css">
