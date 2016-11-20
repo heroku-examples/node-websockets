@@ -19,6 +19,7 @@ app.controller('AppCtrl', function ($scope,
     Worker,
     Modal,
     Configs,
+    Banner,
     Manifest,
     Login) {
     $scope.sessionStorage = $sessionStorage;
@@ -165,4 +166,9 @@ app.controller('AppCtrl', function ($scope,
     $window.onhashchange = function() {
         Modal.close();
     };
+
+    Banner.all.get().$promise.then(function (result) {
+        $scope.banners = result.docs;
+    }).catch(function (data, status) {
+    });
 });

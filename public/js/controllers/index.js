@@ -10,7 +10,6 @@ app.$controllerProvider.register('IndexCtrl', function ($window,
     Json,
     Pager,
     Error,
-    Banner,
     Loading,
     Modal) {
 
@@ -270,11 +269,6 @@ app.$controllerProvider.register('IndexCtrl', function ($window,
 
     $rootScope.$on('UserSearchEvent', function (event, data) {
         $scope.searchUser(data);
-    });
-
-    Banner.all.get().$promise.then(function (result) {
-        $scope.banners = result.docs;
-    }).catch(function (data, status) {
     });
 });
 
