@@ -5,7 +5,7 @@ app.$controllerProvider.register('TestCtrl', function ($scope, Loading, $timeout
 
     }, 1500);
 
-    Worker.initialiseState();
+    // Worker.initialiseState();
         $scope.carousel = {index : 0}
     Banner.all.get().$promise.then(function (result) {
         $scope.banners = result.docs;

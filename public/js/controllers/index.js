@@ -1,4 +1,18 @@
-app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootScope, $timeout, $localStorage, $mdMedia, $mdDialog, $mdBottomSheet, User, Json, Pager, Error, Loading, Modal) {
+app.$controllerProvider.register('IndexCtrl', function ($window,
+    $scope,
+    $rootScope,
+    $timeout,
+    $localStorage,
+    $mdMedia,
+    $mdDialog,
+    $mdBottomSheet,
+    User,
+    Json,
+    Pager,
+    Error,
+    Banner,
+    Loading,
+    Modal) {
 
 
     var layoutConfig = {
@@ -129,7 +143,7 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
     var init = function () {
         Loading.start();
         $scope.users = $window.recommendUsers.docs;
-        setPager( $window.recommendUsers );
+        setPager($window.recommendUsers);
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
@@ -153,7 +167,7 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
             type: modeTypes.search,
             prefectures: _prefectures,
             subTitles: _subTitles
-        },'large', 'slideLeft').then(function (answer) {
+        }, 'large', 'slideLeft').then(function (answer) {
             angular.forEach(answer, function (value, key) {
                 _selects[key].default = value;
             });
@@ -258,6 +272,10 @@ app.$controllerProvider.register('IndexCtrl', function ($window, $scope, $rootSc
         $scope.searchUser(data);
     });
 
+    Banner.all.get().$promise.then(function (result) {
+        $scope.banners = result.docs;
+    }).catch(function (data, status) {
+    });
 });
 
 app.$controllerProvider.register('ListBottomSheetCtrl', function ($scope, $mdBottomSheet, locals) {
