@@ -93,20 +93,6 @@ app.controller('AppCtrl', function ($scope,
         icon: 'adb'
     }];
 
-    var getFriends = function () {
-        Loading.start();
-        FriendRequest.friends().get().$promise.then(function (result) {
-            if (result) {
-                if (result.docs) {
-                    $sessionStorage.requests = result.docs.requests;
-                }
-            }
-        }).catch(function (data, status) {
-            Loading.finish();
-            Error.openMessage(data, status);
-        });
-    };
-
     $scope.alert = '';
 
     $scope.checkButtonClick = function (type) {
@@ -116,10 +102,6 @@ app.controller('AppCtrl', function ($scope,
             Login.login(type);
         }
     };
-
-    $scope.init = function () {
-        getFriends();
-    }
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         Loading.stateChangeStart();

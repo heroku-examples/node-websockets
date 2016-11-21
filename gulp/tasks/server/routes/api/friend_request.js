@@ -238,50 +238,5 @@ router.route('/friend_requests')
         });
     });
 
-router.route('/friends')
-    // 全てのフレンド許可済み一覧を取得 (GET http://localhost:8080/api/friends)
-    // 全てのフレンドリクエスト一覧を取得 (GET http://localhost:8080/api/friend_requests)
-    .get(function (req, res) {
-        var page = req.query.page ? req.query.page : pageConfig.page;
-        var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-        var query = FriendRequest.find({
-            $or: [
-                { uid: req.session.token.uid, fromUid: { '$ne': req.session.token.uid }, isApplyed: true, isRejected: false },
-                { uid: { '$ne': req.session.token.uid }, fromUid: req.session.token.uid, isApplyed: true, isRejected: false }
-            ]
-        }).sort([['uid', 1], ['fromUid', 1]]);
-        FriendRequest.paginate(query, { page: page, limit: limit }, function (err, requests) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else {
-                if (requests.docs.length) {
-                    var _ = require('underscore');
-                    var fromUids = _.map(requests.docs, function (friend) { return friend.fromUid; });
-                    var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
-
-                    var uids = _.union(fromUids, toUids);
-                    uids = _.reject(uids, function (uid) { return uid == req.session.token.uid; });
-
-                    UserSearvice.getList(uids).then(function (friends) {
-                        res.status(resCodes.OK.code).json({
-                            docs: {
-                                requests: requests.docs,
-                                friends: _.indexBy(friends, 'uid')
-                            },
-                            total: requests.total,
-                            limit: requests.limit,
-                            page: requests.page,
-                            pages: requests.pages
-                        });
-                    }, function (error) {
-                        console.log("Rejected:", error.message);
-                    });
-                } else {
-                    res.status(resCodes.OK.code).json(requests);
-                }
-            }
-        });
-    })
-
 // ルーティング登録
 module.exports = router;

@@ -161,21 +161,9 @@ app.factory('FriendRequest', function ($resource) {
                 get: {
                     method: 'GET',
                     isArray: false
-                },
-                find: {
-                    method: 'POST',
-                    isArray: false
                 }
             });
-        },
-        friends: function () {
-            return $resource('/api/friends', {}, {
-                get: {
-                    method: 'GET',
-                    isArray: false
-                }
-            });
-        },
+        }
     };
 });
 
