@@ -1,5 +1,5 @@
 app
-    .factory('Error', function ($rootScope, $filter, Toast, Modal) {
+    .factory('Error', function ($rootScope, $filter, Toast, Modal, Loading) {
         var _this = {
             codes: {
                 "-1": {
@@ -544,6 +544,7 @@ app
             }
         };
         _this.openErrorJson = function (error, status) {
+            if(Loading.isIniting) return;
             if (!status && error.status) status = error.status;
             var codeInfo = {};
             if (_this.codes[status]) {
