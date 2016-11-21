@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
                     friendUids : req.session.friendUids,
                     rejectedUids : req.session.rejectedUids,
                     receivedUids : req.session.receivedUids,
-                    sendUids : req.session.sendUid,
+                    sendUids : req.session.sendUids,
                     message: 'index',
                     session: req.session,
                     env: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'

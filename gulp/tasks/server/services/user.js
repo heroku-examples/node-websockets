@@ -64,6 +64,15 @@ module.exports = {
         });
     },
     getFriends: function (req) {
+        var _ = require('underscore');
+        var getUidsFromRequests = function (requests) {
+            var fromUids = _.map(requests, function (friend) { return friend.fromUid; });
+            var toUids = _.map(requests, function (friend) { return friend.uid; });
+            var uids = _.union(fromUids, toUids);
+            return _.filter(uids, function (uid) {
+                return uid !== req.session.token.uid;
+            });
+        }
         return new Promise(function (resolve, reject) {
             var pageConfig = {
                 page: 1,
@@ -83,7 +92,6 @@ module.exports = {
                     reject(err);
                 } else {
                     if (requests.docs.length) {
-                        var _ = require('underscore');
                         var friendUids = _.filter(requests.docs, function (friend) { return friend.isApplyed && !friend.isRejected; });
                         var rejectedUids = _.filter(requests.docs, function (friend) { return friend.isRejected; });
                         var receivedUids = _.filter(requests.docs, function (friend) { return friend.fromUid != req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
@@ -104,10 +112,10 @@ module.exports = {
                                 var requestInfos = _.indexBy(requests.docs, 'uid');
                                 req.session.userInfos = userInfos;
                                 req.session.requestInfos = requestInfos;
-                                req.session.friendUids = friendUids ? _.indexBy(friendUids, 'uid') : false;
-                                req.session.rejectedUids = rejectedUids ? _.indexBy(rejectedUids, 'uid') : false;
-                                req.session.receivedUids = receivedUids ? _.indexBy(receivedUids, 'uid') : false;
-                                req.session.sendUid = sendUids ? _.indexBy(sendUids, 'uid') : false;
+                                req.session.friendUids = friendUids ? getUidsFromRequests(friendUids) : false;
+                                req.session.rejectedUids = rejectedUids ? getUidsFromRequests(rejectedUids) : false;
+                                req.session.receivedUids = receivedUids ? getUidsFromRequests(receivedUids) : false;
+                                req.session.sendUids = sendUids ? getUidsFromRequests(sendUids) : false;
                                 if (err) {
                                     reject(err);
                                 } else if (users) {

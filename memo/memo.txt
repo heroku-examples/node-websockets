@@ -6,3 +6,10 @@ git update-index --no-skip-worktree  /d/node-websockets/gulp/tasks/server/log
 git update-index --skip-worktree /d/node-websockets/gulp/tasks/server/log/access.log
 git update-index --skip-worktree /d/node-websockets/gulp/tasks/server/log/system.log
 git update-index --skip-worktree /d/node-websockets/gulp/tasks/server/log/error.log
+
+mongodump --db heroku_s6shs0qr --out /Users/kobayashiyousuke/mongo_dump
+
+mongorestore -v --db jsonApi ~/mongo_dump/heroku_s6shs0qr
+
+db.copyDatabase('heroku_s6shs0qr','jsonApi','ds019866.mlab.com:19866',
+'parmalatinter','gundam00')

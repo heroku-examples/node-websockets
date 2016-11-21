@@ -1,0 +1,335 @@
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a74"), 
+    "age" : NumberInt(36), 
+    "date" : NumberInt(1471401218), 
+    "message" : "I am debug user.", 
+    "name" : "うんこ", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471401218", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a76"), 
+    "age" : NumberInt(15), 
+    "date" : NumberInt(1471418566), 
+    "message" : "I am a debug user.", 
+    "name" : "あばずれ", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(2), 
+    "uid" : "debug_1471418566", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a77"), 
+    "age" : NumberInt(18), 
+    "date" : NumberInt(1471418735), 
+    "message" : "可愛い娘と出会えます", 
+    "name" : "婚活サイト", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471418735", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7e9c7c41bcd11008eb795"), 
+    "age" : NumberInt(22), 
+    "name" : "test13", 
+    "uid" : "47", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7ffc83e4bff1100797a0d"), 
+    "age" : NumberInt(44), 
+    "name" : "test5", 
+    "uid" : "25", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c863eb4a6d241100800dde"), 
+    "age" : NumberInt(68), 
+    "name" : "test37", 
+    "uid" : "58", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a69"), 
+    "age" : NumberInt(22), 
+    "cityId" : NumberInt(0), 
+    "currentPlatform" : "android", 
+    "currentPlatformVersion" : NumberInt(6), 
+    "date" : NumberInt(1467899848), 
+    "message" : "小学生の子供がいます☺️", 
+    "name" : "しずかママ", 
+    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468997733.jpeg?alt=media&token=0f000c1b-2853-45cd-9f00-238900878793", 
+    "prefectureId" : NumberInt(1), 
+    "sexType" : NumberInt(1), 
+    "uid" : "Bva95fwO4jTs4FCQ4qdIsYO9fh02", 
+    "photos" : [
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468511226.jpeg?alt=media&token=d52b49bc-248f-4f3f-8edc-a6476126b27d", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468511272.jpeg?alt=media&token=ce1c85d7-4c82-45db-a805-cc8fb14099d4", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468567571.jpeg?alt=media&token=8bc9bf2f-025a-4aa2-ae54-e766de74696c", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468850878.jpeg?alt=media&token=87c1939e-09e2-4ef0-9921-d94d7c790d80", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468887620.jpeg?alt=media&token=effd7d90-a805-4b9c-a804-b39b9f12f227", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468887700.jpeg?alt=media&token=242e208a-bbbb-472a-8be8-3f01e0856f33", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468910874.jpeg?alt=media&token=b317368e-46b6-45c1-8914-da02be83575d", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468997733.jpeg?alt=media&token=0f000c1b-2853-45cd-9f00-238900878793"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a6b"), 
+    "age" : NumberInt(37), 
+    "cityId" : NumberInt(8), 
+    "currentPlatform" : "android", 
+    "currentPlatformVersion" : NumberInt(6), 
+    "date" : NumberInt(1467700761), 
+    "message" : "しずかが好きです。", 
+    "name" : "のび太", 
+    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1479357595.jpeg?alt=media&token=9e573f1a-2df8-4ee8-8b56-1b4a99df2b22", 
+    "prefectureId" : NumberInt(3), 
+    "sexType" : NumberInt(1), 
+    "uid" : "azaStIAnxHe96HTAQUbx5Tc5Bj02", 
+    "photos" : [
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1470812100.jpeg?alt=media&token=2115be06-4bff-4d35-8b47-a3fa6025c393", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1471503238.jpeg?alt=media&token=237f83a3-a0b5-4e87-8814-f2d0b6777df7"
+    ], 
+    "__v" : NumberInt(0), 
+    "createDate" : ISODate("2016-11-14T08:42:27.748+0000"), 
+    "firstName" : "のび太", 
+    "isEntry" : false, 
+    "lastName" : "野比", 
+    "updateDate" : ISODate("2016-11-17T04:40:12.121+0000")
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a6c"), 
+    "age" : NumberInt(68), 
+    "date" : NumberInt(1471366540), 
+    "message" : "I am debug user.", 
+    "name" : "debug_80", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471366540", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a6d"), 
+    "age" : NumberInt(52), 
+    "date" : NumberInt(1471366615), 
+    "message" : "I am debug user.", 
+    "name" : "debug_39", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471366615", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a6e"), 
+    "age" : NumberInt(95), 
+    "date" : NumberInt(1471366700), 
+    "message" : "I am debug user.", 
+    "name" : "ミカ", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471366700", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a6f"), 
+    "age" : NumberInt(30), 
+    "date" : NumberInt(1471366820), 
+    "message" : "I am debug user.", 
+    "name" : "トーマス", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471366820", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a70"), 
+    "age" : NumberInt(12), 
+    "date" : NumberInt(1471367121), 
+    "message" : "ポケモン！", 
+    "name" : "サトミ", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471367121", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a71"), 
+    "age" : NumberInt(52), 
+    "date" : NumberInt(1471370829), 
+    "message" : "I am debug user.", 
+    "name" : "清原", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471370829", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a72"), 
+    "age" : NumberInt(19), 
+    "date" : NumberInt(1471370829), 
+    "message" : "クソなアプリだね！", 
+    "name" : "debug_51", 
+    "photoURL" : "https://s-media-cache-ak0.pinimg.com/236x/29/09/24/2909240d918a2f24e17df4971e664004.jpg", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471390005", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a73"), 
+    "age" : NumberInt(19), 
+    "date" : NumberInt(1471390009), 
+    "message" : "I am debug user.", 
+    "name" : "福原愛", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471390009", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a75"), 
+    "age" : NumberInt(9), 
+    "date" : NumberInt(1471418254), 
+    "message" : "I am a debug user.", 
+    "name" : "ちんこ", 
+    "photoURL" : "", 
+    "sexType" : NumberInt(1), 
+    "uid" : "debug_1471418254", 
+    "photos" : [
+
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a78"), 
+    "age" : NumberInt(25), 
+    "currentPlatform" : "win32", 
+    "currentPlatformVersion" : NumberInt(0), 
+    "date" : NumberInt(1467694986), 
+    "message" : "よろしくね", 
+    "name" : "コアラ", 
+    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468915271.jpeg?alt=media&token=ce1697ad-207b-46c2-bdff-bd75596df970", 
+    "sexType" : NumberInt(1), 
+    "uid" : "usuPopor41d429eHmEb48EXgPMv2", 
+    "photos" : [
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468295234.jpeg?alt=media&token=60f0fd54-fffc-4ef8-9e43-ac618c4be023", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468915271.jpeg?alt=media&token=ce1697ad-207b-46c2-bdff-bd75596df970"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a79"), 
+    "age" : NumberInt(22), 
+    "cityId" : NumberInt(1), 
+    "currentPlatform" : "macintel", 
+    "currentPlatformVersion" : NumberInt(0), 
+    "date" : NumberInt(1467680995), 
+    "message" : "こじはるですー！ヨロシクね🤣", 
+    "name" : "な  か", 
+    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1479357548.jpeg?alt=media&token=609507e6-e3eb-4bbf-b893-ba5f82e14366", 
+    "prefectureId" : NumberInt(16), 
+    "sexType" : NumberInt(1), 
+    "uid" : "zcMTtpFeKEhmGPiJWno0310Sv5p1", 
+    "photos" : [
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1468686087.jpeg?alt=media&token=4ac601d6-e5f2-46a0-9006-529c4d0c34db", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1469029758.jpeg?alt=media&token=2083a431-ba78-4be5-a848-a9d0c806eff3", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1470762436.jpeg?alt=media&token=947eb69e-635b-4483-8d1e-4c8dd272befa"
+    ], 
+    "__v" : NumberInt(0), 
+    "createDate" : ISODate("2016-10-13T08:36:18.416+0000"), 
+    "isEntry" : false, 
+    "isDebug" : true, 
+    "updateDate" : ISODate("2016-11-20T23:10:00.693+0000"), 
+    "firstName" : "Nexus5x", 
+    "lastName" : "はるな"
+}
+{ 
+    "_id" : ObjectId("57c7d4311859331100980a6a"), 
+    "age" : NumberInt(21), 
+    "cityId" : NumberInt(36), 
+    "currentPlatform" : "android", 
+    "currentPlatformVersion" : NumberInt(6), 
+    "date" : NumberInt(1467697107), 
+    "message" : "italia人と結婚しました！", 
+    "name" : "宇多田ヒカル", 
+    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1476411214.jpeg?alt=media&token=77005c50-eb73-4356-bed8-9b458c413b17", 
+    "prefectureId" : NumberInt(16), 
+    "sexType" : NumberInt(2), 
+    "uid" : "PdgCuopiL3dvwsuSMLC1D8pzM792", 
+    "photos" : [
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1467714543.jpeg?alt=media&token=dc659f63-74ac-4d6d-b868-5324f9896014", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1470788469.jpeg?alt=media&token=ce40281b-0d4b-4eb8-8a64-304012f26f95", 
+        "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1470790366.jpeg?alt=media&token=9fba2b36-c01f-4929-8f1f-4cf3870cccac"
+    ], 
+    "__v" : NumberInt(0), 
+    "createDate" : ISODate("2016-10-14T02:13:36.446+0000"), 
+    "firstName" : "Nexus5", 
+    "isEntry" : false, 
+    "lastName" : "Mmmmm", 
+    "updateDate" : ISODate("2016-11-12T06:04:52.228+0000")
+}
+{ 
+    "_id" : ObjectId("5825ee23418e8112008d01a2"), 
+    "uid" : "ceAIAsq5RJQTyFImWmt3kGtUACD3", 
+    "updateDate" : ISODate("2016-11-17T00:41:24.921+0000"), 
+    "createDate" : ISODate("2016-11-11T16:13:23.708+0000"), 
+    "isDebug" : false, 
+    "isEntry" : false, 
+    "sexType" : NumberInt(2), 
+    "prefectureId" : NumberInt(2), 
+    "cityId" : NumberInt(3), 
+    "photos" : [
+
+    ], 
+    "photoURL" : "https://firebasestorage.googleapis.com/v0/b/project-3597707734440258770.appspot.com/o/users%2F1478941118.jpeg?alt=media&token=af2596a4-db48-4226-9afe-cc34f83706c6", 
+    "message" : "PCからのアクセスです", 
+    "age" : NumberInt(23), 
+    "lastName" : "Test", 
+    "firstName" : "PC", 
+    "__v" : NumberInt(0)
+}

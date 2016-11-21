@@ -23,7 +23,7 @@
 				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 0 ? 'favorite' :'favorite_border'}}" ng-attr-style="fill: {{tabSelectedIndex == 0 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(uid, request) in ::result.friendUids" layout="row">
+						<div ng-repeat="uid in ::result.friendUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>
@@ -33,7 +33,7 @@
 				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 1 ? 'announcement' :'announcement'}}" ng-attr-style="fill: {{tabSelectedIndex == 1 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(uid, request) in ::result.receivedUids" layout="row">
+						<div ng-repeat="uid in ::result.receivedUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>
@@ -43,7 +43,7 @@
 				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 2 ? 'person_add' :'person_add'}}" ng-attr-style="fill: {{tabSelectedIndex == 2 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(uid, request) in ::result.sendUids" layout="row">
+						<div ng-repeat="uid in ::result.sendUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>
@@ -53,7 +53,7 @@
 				<md-tab-label><ng-md-icon icon="{{tabSelectedIndex == 3 ? 'thumb_down' :'thumb_down'}}" ng-attr-style="fill: {{tabSelectedIndex == 3 ? 'white' :'red'}}" options='{"duration": 375, "rotation": "none"}' ng-click="clickIconMorph()"></ng-md-icon></md-tab-label>
 				<md-tab-body>
 					<md-list flex>
-						<div ng-repeat="(uid, request) in ::result.rejectedUids" layout="row">
+						<div ng-repeat="uid in ::result.rejectedUids" layout="row">
 							<span ng-include="'/templates/elements/friendRequest/userCard.1.html?v={{deviceCacheKey}}'" include-replace></span>
 						</div>
 					</md-list>

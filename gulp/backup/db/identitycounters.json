@@ -1,0 +1,7 @@
+{ 
+    "_id" : ObjectId("582e76a15a0f4112001ecca7"), 
+    "model" : "Banner", 
+    "field" : "bannerId", 
+    "count" : NumberInt(-1), 
+    "__v" : NumberInt(0)
+}

@@ -1,0 +1,22 @@
+{ 
+    "_id" : ObjectId("580ad0d0dcba0f490c72ae97"), 
+    "name" : "deviceCacheKey", 
+    "values" : {
+        "deviceCacheKey" : {
+            "number" : NumberInt(201)
+        }
+    }, 
+    "delFlag" : false, 
+    "createDate" : ISODate("2016-10-17T10:18:45.276+0000"), 
+    "updateDate" : ISODate("2016-11-09T17:02:57.081+0000")
+}
+{ 
+    "_id" : ObjectId("58235d8adcba0f326cc62b58"), 
+    "name" : "adminToken", 
+    "values" : {
+        "adminToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJjbGFpbXMiOnsiYWRtaW5Ub2tlbiI6dHJ1ZX0sInVpZCI6IlBkZ0N1b3BpTDNkdndzdVNNTEMxRDhwek03OTIiLCJpYXQiOjE0Nzk3MzE4MTcsImV4cCI6MTQ3OTczNTQxNywiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJpc3MiOiJwcm9qZWN0LTM1OTc3MDc3MzQ0NDAyNTg3NzBAYXBwc3BvdC5nc2VydmljZWFjY291bnQuY29tIiwic3ViIjoicHJvamVjdC0zNTk3NzA3NzM0NDQwMjU4NzcwQGFwcHNwb3QuZ3NlcnZpY2VhY2NvdW50LmNvbSJ9.oTdPS2tVvNPy8uROHdDQ99WNdLdn9bC9pQCdEt0rewurLsKJ5xnduCrCIsgzMncC_gGoznrDeStJH9FNZFDv2dCt9JEPM9VYDFoHoRJPKCHhcBgrUKhRg82_yn5siY70gkm7mfRg6G-NLiYG6LhyyXAxRsdJD8-bSdpuSsV1p6V2y_c1Jy-UXwOwu8vkQqQkDT2_L0fswDY12GB663fnGrg0V_i-3iewKL94NzPPblv0aFi2dcnG8QUm9o7c2sTpkIoArSrJjECsXZX18lWmzV1Gb0iz78l-MF3OtfqliqfFS5b3FM5tni3ykS2Rtr5zog2y44-mYVAyTrXsPIMTlg"
+    }, 
+    "delFlag" : false, 
+    "createDate" : ISODate("2016-10-17T10:18:45.276+0000"), 
+    "updateDate" : ISODate("2016-11-09T17:02:57.081+0000")
+}
