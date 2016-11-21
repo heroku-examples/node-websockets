@@ -1,5 +1,5 @@
-<md-list-item class="md-2-line md-long-text noright" style="width: 100%;" ng-init="setNotify(result.requestInfos[uid])" ng-click="openChat({friend : result.userInfos[uid], friend_request : result.requestInfos[uid]})">
-	<div class="md-avatar" ng-click="openUserInfo(result.userInfos[uid])">
+<md-list-item class="md-2-line md-long-text noright" style="width: 100%;" ng-init="setNotify(uid)" ng-click="openChat(uid)">
+	<div class="md-avatar" ng-click="openUserInfo(uid)">
 		<div class="avatar-wrapper">
 			<img ng-if="result.userInfos[uid].photoURL" ng-src="{{result.userInfos[uid].photoURL}}" class="md-card-image" />
 			<img ng-if="!result.userInfos[uid].photoURL" class="md-card-image" />
@@ -7,10 +7,9 @@
 	</div>
 	<div class="md-list-item-text" layout="column">
 		<h3>{{result.userInfos[uid].firstName}} {{result.userInfos[uid].age}}</h3>
-		<p> ・ </p>
+		 <p> ・ {{notifies[uid].text}}</p>
 	</div>
-	<md-button aria-label="Open demo menu" class="md-icon-button" ng-if="!result.requestInfos[uid].isApplyed && result.requestInfos[uid].fromUid != currentUser.uid"
-		ng-click="applyRequest(result.requestInfos[uid])">
+	<md-button aria-label="Open demo menu" class="md-icon-button" ng-if="result.requestInfos[uid].isApplyed == false && result.requestInfos[uid].fromUid != currentUser.uid" ng-click="applyRequest(uid)">
 		<ng-md-icon icon="add"></ng-md-icon>
 	</md-button>
 	<md-menu md-offset="0 -7">

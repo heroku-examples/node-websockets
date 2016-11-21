@@ -114,28 +114,22 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
         //if (!$scope.infiniteItems) setInfiniteitems();
     };
 
-    $scope.getRequest = function (_rangeIndex, _infiniteItemIndex) {
-        var result = $window.friendRequestInfo.requestInfos[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+    $scope.getRequest = function (uid) {
+        var result = $window.friendRequestInfo.requestInfos[uid];
         return result ? result.friend_request : false;
     };
 
-    $scope.getFriend = function (_rangeIndex, _infiniteItemIndex) {
-        var result = $window.friendRequestInfo.requestInfos[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+    $scope.getFriend = function (uid) {
+        var result = $window.friendRequestInfo.userInfos[uid];
         return result ? result.friend : false;
     };
 
-    $scope.getIndex = function (_rangeIndex, _infiniteItemIndex) {
-        var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
-        return index;
-    }
-
-    $scope.notifies = [];
-    $scope.setNotify = function (_rangeIndex, _infiniteItemIndex) {
-        var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
-        if (!$window.friendRequestInfo.requestInfos[index]) return;
-        if ($scope.notifies[index]) return;
-        $scope.notifies[index] = FireBaseService.getObjectRef('/private_chats/' + $window.friendRequestInfo.requestInfos[index].friend_request.url + '/unread/' + currentUser.uid);
-        $scope.notifies[index].$loaded(
+    $scope.notifies = {};
+    $scope.setNotify = function (uid) {
+        if (!$window.friendRequestInfo.requestInfos[uid]) return;
+        if ($scope.notifies[uid]) return;
+        $scope.notifies[uid] = FireBaseService.getObjectRef('/private_chats/' + $window.friendRequestInfo.requestInfos[uid].friend_request.url + '/unread/' + currentUser.uid);
+        $scope.notifies[uid].$loaded(
             function (data) {
                 console.log(data); // true
             },
@@ -145,29 +139,29 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
         );
     };
 
-    $scope.getFriendInfo = function (_rangeIndex, _infiniteItemIndex) {
-        var result = $window.friendRequestInfo.requestInfos[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+    $scope.getFriendInfo = function (uid) {
+        var result = $window.friendRequestInfo.requestInfos[uid];
         return result ? result : false;
     };
 
-    $scope.applyRequest = function (friendInfo) {
+    $scope.applyRequest = function (fromUid) {
         Loading.start();
-        FriendRequest.apply().update({ fromUid: friendInfo.fromUid }).$promise.then(function (result) {
+        FriendRequest.apply().update({ fromUid: fromUid }).$promise.then(function (result) {
             getRequests();
-            Toast.show(friendInfo.firstName + "からのリクエストを承認しました。");
+            Toast.show($window.friendRequestInfo.userInfos[fromUid].firstName + "からのリクエストを承認しました。");
         }).catch(function (data, status) {
             Loading.finish();
             Error.openMessage(data, status);
         });
     };
 
-    $scope.openChat = function (friendInfo) {
-        Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, friendInfo);
+    $scope.openChat = function (uid) {
+        Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, {friend_request : $window.friendRequestInfo.requestInfos[uid], friend : $window.friendRequestInfo.userInfos[uid]});
     };
 
-    $scope.openUserInfo = function (friendInfo) {
+    $scope.openUserInfo = function (uid) {
         var templateUrl = "/templates/modal/userInfo.html?v=" + $window.deviceCacheKey;
-        Modal.open('UserInfo', templateUrl, { user: friendInfo })
+        Modal.open('UserInfo', templateUrl, { user: $window.friendRequestInfo.userInfos[uid] })
             .then(function (answer) {
 
             }, function () {
