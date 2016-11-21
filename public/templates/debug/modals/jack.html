@@ -1,0 +1,36 @@
+<div ng-init="init()" role="dialog" layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{locals.title}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Please input jack target Uid</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                {{jack}}
+                <form name="myForm" flex>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>targetUid</label>
+                        <textarea name="targetUid" ng-model="targetUid" required></textarea>
+                    </md-input-container>
+                </form>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-disabled="!myForm.targetUid.$valid" ng-click="set()">Set</md-button>
+            </md-card-actions>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="delete()">Delete</md-button>
+            </md-card-actions>
+        </md-card>
+
+    </md-content>
+</div>

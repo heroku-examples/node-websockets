@@ -53,18 +53,38 @@ router.route('/debug/updateAdminToken')
     });
 
 router.route('/debug/jack')
-    // セッションチャットの取得 (POST http://localhost:3000/api/chats)
+    .get(function (req, res) {
+        res.status(resCodes.OK.code).json({token :req.session.token, isJack :req.session.isJack});
+    })
     .post(function (req, res) {
         var Identification = require('../../models/identification');
         Identification.findOne({
-            uid: req.body.token.uid
-        }, function(err, user) {
+            uid: req.body.uid
+        }, function(err, identification) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else if (identification) {
                 req.session.token = identification;
                 req.session.isJack = true;
-                req.session.isEntry = user.isEntry;
+                identification.isJack = true;
+                res.status(resCodes.OK.code).json(identification);
+            } else {
+                res.status(resCodes.NOT_FOUND.code).json(err);
+            }
+        });
+    })
+    .delete(function (req, res) {
+        var Identification = require('../../models/identification');
+        Identification.findOne({
+            uid: req.session.token.uid
+        }, function(err, identification) {
+            if (err) {
+                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+            } else if (identification) {
+                req.session.token = identification;
+                req.session.isJack = false;
+                identification.isJack = false;
+                res.status(resCodes.OK.code).json(identification);
             } else {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             }

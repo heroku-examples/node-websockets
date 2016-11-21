@@ -130,3 +130,21 @@ app.factory('Debug', function($resource) {
         }
     });
 });
+
+app.factory('Jack', function($resource) {
+    return $resource('/api/debug/jack', {}, {
+        get: {
+            method: 'GET',
+            isArray: false
+        },
+        set: {
+            method: 'POST',
+            isArray: false
+        },
+        delete: {
+            method: 'DELETE',
+            isArray: false
+        }
+    });
+});
+

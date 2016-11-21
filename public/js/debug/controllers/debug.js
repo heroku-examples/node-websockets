@@ -21,7 +21,11 @@ app.$controllerProvider.register('DebugCtrl', function(
             controllerName : 'DebugModalCtrl',
             size : 'large'
         },
-
+        jack : {
+            templateUrl : '/templates/debug/modals/jack.html?v=' + window.deviceCacheKey,
+            controllerName : 'JackModalCtrl',
+            size : 'large'
+        },
     };
 
     $scope.openModal = function(modalName){
