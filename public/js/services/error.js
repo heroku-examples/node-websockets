@@ -557,12 +557,11 @@ app
             var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED_2")[0];
 
             var templateUrl = "";
-{
             if (_this.isUnauthorized){
                 //nothing todo
-            }else if (!status) {
+            } else if (!status) {
                 Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
-            } else if (status == UNAUTHORIZED.status 　|| status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
+            } else if (status == UNAUTHORIZED.status || status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED;
                 _this.isUnauthorized = true;
