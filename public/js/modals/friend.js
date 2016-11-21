@@ -58,7 +58,7 @@ function UserInfo(
     $scope.currentUser = Login.getUser();
     
     $scope.init = function () {
-        var request = $window.requestInfos[$scope.user.uid]
+        var request = $window.friendRequestInfo.requestInfos[$scope.user.uid]
         if(request){
             angular.merge($scope.user, request);
         }

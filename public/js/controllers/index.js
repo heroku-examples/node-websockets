@@ -141,8 +141,8 @@ app.$controllerProvider.register('IndexCtrl', function ($window,
 
     var init = function () {
         Loading.start();
-        $scope.users = $window.recommendUsers.docs;
-        setPager($window.recommendUsers);
+        $scope.users = $window.friendRequestInfo.recommendUsers.docs;
+        setPager( $window.friendRequestInfo.recommendUsers);
         if (!$scope.infiniteItems) setInfiniteitems();
     };
 
