@@ -48,7 +48,8 @@ app
                 var user = firebase.auth().currentUser;
                 user.getToken().then(function (idToken) {
                     Token.find({ token: idToken }).$promise.then(function (_token) {
-                        $sessionStorage.token = _token;
+                        $sessionStorage.token = _token.identification;
+                        $sessionStorage.user = _token.user;
                         if ($localStorage.setting.enableSaveAuth) $localStorage.setting.token = _token;
                         checkUserToRedirect();
 

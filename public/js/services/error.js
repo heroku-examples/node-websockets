@@ -586,19 +586,19 @@ app
             }
         };
         _this.reLogin = function () {
-            var user = firebase.auth().currentUser;
-            if (!user) return;
-            user.getToken().then(function (idToken) {
-                Token.find({ token: idToken }).$promise.then(function (_token) {
-                    $sessionStorage.token = _token;
-                    if ($localStorage.setting.enableSaveAuth) $localStorage.setting.token = _token;
+            // var user = firebase.auth().currentUser;
+            // if (!user) return;
+            // user.getToken().then(function (idToken) {
+            //     Token.find({ token: idToken }).$promise.then(function (_token) {
+            //         $sessionStorage.token = _token;
+            //         if ($localStorage.setting.enableSaveAuth) $localStorage.setting.token = _token;
 
-                }).catch(function (error) {
-                    Error.openMessage(error);
-                });
-            }).catch(function (error) {
-                Error.openMessage(error);
-            });
+            //     }).catch(function (error) {
+            //         Error.openMessage(error);
+            //     });
+            // }).catch(function (error) {
+            //     Error.openMessage(error);
+            // });
         };
 
         $rootScope.$on('Error', function (event, data) {
