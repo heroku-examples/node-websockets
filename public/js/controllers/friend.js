@@ -19,7 +19,7 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     $scope.pager = Pager.getDefault();
     var setPager = function (result) {
         $scope.pager = {
-            length: $scope.requests.length,
+            length: $window.friendRequestInfo.requestInfos.length,
             limit: result.limit,
             page: result.page,
             pages: result.pages,
@@ -115,12 +115,12 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     $scope.getRequest = function (_rangeIndex, _infiniteItemIndex) {
-        var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+        var result = $window.friendRequestInfo.requestInfos[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result.friend_request : false;
     };
 
     $scope.getFriend = function (_rangeIndex, _infiniteItemIndex) {
-        var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+        var result = $window.friendRequestInfo.requestInfos[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result.friend : false;
     };
 
@@ -132,9 +132,9 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     $scope.notifies = [];
     $scope.setNotify = function (_rangeIndex, _infiniteItemIndex) {
         var index = _rangeIndex + (_infiniteItemIndex * getMediaCount());
-        if (!$scope.requests[index]) return;
+        if (!$window.friendRequestInfo.requestInfos[index]) return;
         if ($scope.notifies[index]) return;
-        $scope.notifies[index] = FireBaseService.getObjectRef('/private_chats/' + $scope.requests[index].friend_request.url + '/unread/' + currentUser.uid);
+        $scope.notifies[index] = FireBaseService.getObjectRef('/private_chats/' + $window.friendRequestInfo.requestInfos[index].friend_request.url + '/unread/' + currentUser.uid);
         $scope.notifies[index].$loaded(
             function (data) {
                 console.log(data); // true
@@ -146,7 +146,7 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     $scope.getFriendInfo = function (_rangeIndex, _infiniteItemIndex) {
-        var result = $scope.requests[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
+        var result = $window.friendRequestInfo.requestInfos[_rangeIndex + (_infiniteItemIndex * getMediaCount())];
         return result ? result : false;
     };
 

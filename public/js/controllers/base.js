@@ -143,15 +143,15 @@ app.controller('AppCtrl', function ($scope,
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.currentUser = Login.getUser();
         if ($scope.currentUser) {
-            if (!$scope.messages && $window.requestInfos && $window.userInfos && location.pathname.includes('/index')) {
+            if (!$scope.messages && $window.friendRequestInfo.requestInfos && $window.friendRequestInfo.userInfos && location.pathname.includes('/index')) {
                 Worker.init('simple');
                 $scope.messages = [];
-                angular.forEach($window.requestInfos, function (request, key) {
+                angular.forEach($window.friendRequestInfo.requestInfos, function (request, key) {
                     $scope.messages[key] = FireBaseService.getObjectRef('/private_chats/' + request.url + '/unread/' + $scope.currentUser.uid);
                     $scope.messages[key].$watch(function () {
                         if ($scope.messages[key].count) {
                             var friendUid = (request.uid == $scope.currentUser.uid) ? request.fromUid : request.uid;
-                            Toast.show($scope.messages[key].text + ' from ' + $window.userInfos[friendUid].firstName);
+                            Toast.show($scope.messages[key].text + ' from ' + $window.friendRequestInfo.userInfos[friendUid].firstName);
                             Vibration.play();
                             Speech.play($scope.messages[key].text);
                         }
