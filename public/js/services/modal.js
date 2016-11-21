@@ -162,7 +162,7 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
     };
     _this.error = function(error, status, codeInfo, templateUrl, isUnauthorized) {
         Loading.start();
-        var template = _this.getTemplateFunc('large');
+        var template = _this.getTemplateFunc('medium');
         var animation = _this.getAnimation('slideUp');
         var ref = $mdDialog.show({
             controller: ModalCtrl,
