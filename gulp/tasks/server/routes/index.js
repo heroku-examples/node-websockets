@@ -19,13 +19,16 @@ router.get('/', function (req, res, next) {
         res.locals.deviceCacheKey = records.number;
         var User = require('./../services/user');
         User.getFriends(req).then(function (friends) {
-            req.session.userInfos = friends;
             User.getRecommends(req).then(function (recommendUsers) {
                 res.render('index', {
                     useragent: req.useragent,
                     recommendUsers: recommendUsers,
-                    userInfos: req.session.userInfos,
-                    requestInfos: req.session.requestInfos ? req.session.requestInfos : {},
+                    userInfos :  req.session.userInfos,
+                    requestInfos : req.session.requestInfos,
+                    friendUids : req.session.friendUids,
+                    rejectedUids : req.session.rejectedUids,
+                    receivedUids : req.session.receivedUids,
+                    sendUids : req.session.sendUid,
                     message: 'index',
                     session: req.session,
                     env: process.env.NODE_ENV ? process.env.NODE_ENV : 'development'

@@ -9,7 +9,7 @@ module.exports = {
             var User = require('../models/user');
             var page = req.query.page ? req.query.page : pageConfig.page;
             var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-            if(!req.session.userInfos){
+            if (!req.session.userInfos) {
                 User.paginate({ uid: { '$ne': req.session.token.uid } }, { page: page, limit: limit }, function (err, result) {
                     if (err) {
                         reject(err);
@@ -17,16 +17,16 @@ module.exports = {
                         resolve(result);
                     }
                 });
-            }else{
-              var _ = require('underscore');
-              var knownUids = _.map(req.session.userInfos, function (friend) { return friend.uid; });
-              User.paginate({ uid: { '$ne': req.session.token.uid , "$nin": knownUids } }, { page: page, limit: limit }, function (err, result) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            });          
+            } else {
+                var _ = require('underscore');
+                var knownUids = _.map(req.session.userInfos, function (friend) { return friend.uid; });
+                User.paginate({ uid: { '$ne': req.session.token.uid, "$nin": knownUids } }, { page: page, limit: limit }, function (err, result) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
             }
 
         });
@@ -84,9 +84,15 @@ module.exports = {
                 } else {
                     if (requests.docs.length) {
                         var _ = require('underscore');
+                        var friendUids = _.filter(requests.docs, function (friend) { return friend.isApplyed && !friend.isRejected; });
+                        var rejectedUids = _.filter(requests.docs, function (friend) { return friend.isRejected; });
+                        var receivedUids = _.filter(requests.docs, function (friend) { return friend.fromUid != req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
+                        var sendUids = _.filter(requests.docs, function (friend) { return friend.fromUid == req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
+
                         var fromUids = _.map(requests.docs, function (friend) { return friend.fromUid; });
                         var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
                         var uids = _.union(fromUids, toUids);
+
                         var User = require('../models/user');
                         User.find({
                             uid: { "$in": uids }
@@ -95,11 +101,41 @@ module.exports = {
                                 reject(err);
                             } else if (users) {
                                 var userInfos = _.indexBy(users, 'uid');
-                                resolve(userInfos);
+                                var requestInfos = _.indexBy(requests.docs, 'uid');
+                                req.session.userInfos = userInfos;
+                                req.session.requestInfos = requestInfos;
+                                req.session.friendUids = friendUids ? _.indexBy(friendUids, 'uid') : false;
+                                req.session.rejectedUids = rejectedUids ? _.indexBy(rejectedUids, 'uid') : false;
+                                req.session.receivedUids = receivedUids ? _.indexBy(receivedUids, 'uid') : false;
+                                req.session.sendUid = sendUids ? _.indexBy(sendUids, 'uid') : false;
+                                if (err) {
+                                    reject(err);
+                                } else if (users) {
+                                    var userInfos = userInfos;
+                                    resolve(
+                                        {
+                                            docs: {
+                                                requestInfos: requestInfos,
+                                                userInfos: userInfos,
+                                                friendUids: friendUids,
+                                                rejectedUids: rejectedUids,
+                                                receivedUids: receivedUids,
+                                                sendUids: sendUids,
+                                                requests: requests
+                                            },
+                                            total: requests.total,
+                                            limit: requests.limit,
+                                            page: requests.page,
+                                            pages: requests.pages
+                                        });
+                                } else {
+                                    resolve(false);
+                                }
                             } else {
                                 resolve(false);
                             }
                         });
+
                     } else {
                         resolve(false);
                     }

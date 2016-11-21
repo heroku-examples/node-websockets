@@ -1,8 +1,16 @@
 <script>
-var recommendUsers = <%-JSON.stringify(recommendUsers)%>;
-var userInfos = <%-JSON.stringify(userInfos)%>;
-var requestInfos = <%-JSON.stringify(requestInfos)%>;
-var useragent = <%-JSON.stringify(useragent)%>;       
+var useragent = <%-JSON.stringify(useragent)%>;
+var friendRequestInfo = {
+	recommendUsers :<%-JSON.stringify(recommendUsers)%>,
+	userInfos :<%-JSON.stringify(userInfos)%>,
+	requestInfos :<%-JSON.stringify(requestInfos)%>,
+	friendUids :<%-JSON.stringify(friendUids)%>,
+	rejectedUids :<%-JSON.stringify(rejectedUids)%>,
+	receivedUids :<%-JSON.stringify(receivedUids)%>,
+	sendUids :<%-JSON.stringify(sendUids)%>
+}
+
+
 </script>
 <div layout="column" class="relative" layout-fill role="main" ng-init="init()">
     <md-content layout="column" flex ui-view="main"></md-content>
@@ -10,7 +18,7 @@ var useragent = <%-JSON.stringify(useragent)%>;
 <md-toolbar class="footer">
 	<div class="md-toolbar-tools">
 		<div class="md-toolbar-tools">
-			<ul rn-carousel style="height:150px;width:100%" class="image" rn-carousel-index="carouselIndex">
+			<ul ng-if="banners.length" rn-carousel style="height:150px;width:100%" class="image" rn-carousel-index="carouselIndex">
 				<li ng-repeat="banner in banners">
 					<div class="layer" style="text-align:center">
 						<img ng-src="{{banner.imageUrl}}" class="user-avatar" style="height:150px;width:150px" />

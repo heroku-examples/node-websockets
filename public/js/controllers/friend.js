@@ -99,36 +99,8 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
 
     var getRequests = function () {
         Loading.start();
-        // requestInfos : requestInfos,
-        // userInfos : userInfos,
-        // friendUids : friendUids,
-        // rejectedUids : rejectedUids,
-        // notFriendUids : notFriendUids,
-        // sendUids : sendUids,
-        // requests : requests.docs
-
         FriendRequest.all().get().$promise.then(function (result) {
-            $scope.requests = [];
-            $scope.result = false;
-            if (result.docs) {
-                $scope.result = result.docs;
-                setPager(result);
-                if (!$scope.infiniteItems) setInfiniteitems();
-            } else {
-                angular.forEach($window.userInfos, function (userInfo, key) {
-                    $scope.requests.push({
-                        friend_request: {},
-                        friend: userInfo
-                    });
-                });
-                $scope.pager = {
-                    length: Object.keys($window.userInfos).length,
-                    limit: 100,
-                    page: 1,
-                    pages: 1,
-                    total: Object.keys($window.userInfos).length
-                };
-            }
+            
             Loading.finish();
         }).catch(function (data, status) {
             Loading.finish();
@@ -138,9 +110,8 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     var init = function () {
-        Loading.start();
-        getRequests();
-        if (!$scope.infiniteItems) setInfiniteitems();
+        $scope.result = $window.friendRequestInfo;
+        //if (!$scope.infiniteItems) setInfiniteitems();
     };
 
     $scope.getRequest = function (_rangeIndex, _infiniteItemIndex) {

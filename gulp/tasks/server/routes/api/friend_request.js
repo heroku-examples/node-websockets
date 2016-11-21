@@ -122,7 +122,7 @@ router.route('/friend_request/:targetUid')
     // 一つのフレンドリクエストの情報を削除 (DELETE http://localhost:8000/api/friend_request/:name)
     .delete(function (req, res) {
         // ユーザーへのフレンドリクエスト情報を破棄する（isRejectedをtrue）．
-        FriendRequest.findOneAndUpdate({ uid: req.session.token.uid , fromUid: req.body.targetUid}, { isRejected : true }, function (err, user) {
+        FriendRequest.findOneAndUpdate({ uid: req.session.token.uid, fromUid: req.body.targetUid }, { isRejected: true }, function (err, user) {
             if (err) {
                 res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
             } else {
@@ -218,63 +218,10 @@ router.route('/friend_request/apply/:fromUid')
 router.route('/friend_requests')
     // 全てのフレンドリクエスト一覧を取得 (GET http://localhost:8080/api/friend_requests)
     .get(function (req, res) {
-        var page = req.query.page ? req.query.page : pageConfig.page;
-        var limit = req.query.limit ? req.query.limit : pageConfig.limit;
-        var query = FriendRequest.find({
-            $or: [
-                { uid: req.session.token.uid, fromUid: { '$ne': req.session.token.uid } },
-                { uid: { '$ne': req.session.token.uid }, fromUid: req.session.token.uid }
-            ]
-        }).sort([['uid', 1], ['fromUid', 1]]);
-        FriendRequest.paginate(query, { page: page, limit: limit }, function (err, requests) {
-            if (err) {
-                res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
-            } else {
-                if (requests.docs.length) {
-                    var _ = require('underscore');
-                    var friendUids = _.filter(requests.docs, function (friend) { return friend.isApplyed && !friend.isRejected; });
-                    var rejectedUids = _.filter(requests.docs, function (friend) { return friend.isRejected; });
-                    var receivedUids = _.filter(requests.docs, function (friend) { return friend.fromUid != req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
-                    var sendUids = _.filter(requests.docs, function (friend) { return friend.fromUid == req.session.token.uid && !friend.isApplyed && !friend.isRejected; });
-
-                    var fromUids = _.map(requests.docs, function (friend) { return friend.fromUid; });
-                    var toUids = _.map(requests.docs, function (friend) { return friend.uid; });
-                    var uids = _.union(fromUids, toUids);
-                    // uids = _.reject(uids, function(uid){ return uid == req.session.token.uid; });
-
-                    var result = _.groupBy(requests.docs, function (o) {
-                        return o.fromUid != req.session.token.uid;
-                    });
-                    UserSearvice.getList(uids).then(function (friends) {
-                        if (!result.false) result.false = [];
-                        if (!result.true) result.true = [];
-                        var userInfos = _.indexBy(friends, 'uid');
-                        var requestInfos = _.indexBy(requests.docs, 'uid');
-
-                        req.session.userInfos = userInfos;
-                        req.session.requestInfos = requestInfos;
-                        res.status(resCodes.OK.code).json({
-                            docs: {
-                                requestInfos: requestInfos,
-                                userInfos: userInfos,
-                                friendUids: friendUids ? _.indexBy(friendUids, 'uid') : false,
-                                rejectedUids: rejectedUids ? _.indexBy(rejectedUids, 'uid') : false,
-                                receivedUids: receivedUids ? _.indexBy(receivedUids, 'uid') : false,
-                                sendUids: sendUids ? _.indexBy(sendUids, 'uid') : false,
-                                requests: _.indexBy(requests.docs, 'uid')
-                            },
-                            total: requests.total,
-                            limit: requests.limit,
-                            page: requests.page,
-                            pages: requests.pages
-                        });
-                    }, function (error) {
-                        console.log("Rejected:", error.message);
-                    });
-                } else {
-                    res.status(resCodes.OK.code).json();
-                }
-            }
+        UserSearvice.getFriends(req).then(function (friends) {
+            res.status(resCodes.OK.code).json(friends);
+        }, function (error) {
+            console.log("Rejected:", error.message);
         });
     })
 
