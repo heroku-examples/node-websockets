@@ -15,6 +15,7 @@ router.route('/token')
         // if (req.session.token) {
         //     res.status(resCodes.OK.code).json(req.session.token);
         // } else {
+        req.session.token = false;
         firebase.auth().verifyIdToken(req.body.token).then(function (decodedToken) {
             if (typeof decodedToken != 'object') res.status(resCodes.UNAUTHORIZED.code).json();
             if (!decodedToken.uid) res.status(resCodes.UNAUTHORIZED.code).json();
