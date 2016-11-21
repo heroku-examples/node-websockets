@@ -1,19 +1,19 @@
 <md-toolbar class="header" ng-show="!showSearch">
-	<div class="md-toolbar-tools">
-		<md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
-			<ng-md-icon icon="menu"></ng-md-icon>
-		</md-button>
-		<h3>
-			Setting
-		</h3>
-		<span flex></span>
-		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
-			<ng-md-icon icon="search"></ng-md-icon>
-		</md-button>
-		<md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
-			<ng-md-icon icon="more_vert"></ng-md-icon>
-		</md-button>
-	</div>
+    <div class="md-toolbar-tools">
+        <md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+            <ng-md-icon icon="menu"></ng-md-icon>
+        </md-button>
+        <h3>
+            Setting
+        </h3>
+        <span flex></span>
+        <md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+            <ng-md-icon icon="search"></ng-md-icon>
+        </md-button>
+        <md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+            <ng-md-icon icon="more_vert"></ng-md-icon>
+        </md-button>
+    </div>
 </md-toolbar>
 <md-content class="main" flex md-scroll-y>
     <md-list style="text-align: left;">
@@ -40,8 +40,10 @@
         </md-list-item>
         <md-list-item>
             <p>通知</p>
-            isPushEnabled<md-switch class="md-secondary" ng-model="$storage.setting.isPushEnabled"></md-switch>
-            pushDisabled<md-switch class="md-secondary" ng-model="$storage.setting.pushDisabled"></md-switch>
+            isPushEnabled
+            <md-switch class="md-secondary" ng-model="$storage.setting.isPushEnabled"></md-switch>
+            pushDisabled
+            <md-switch class="md-secondary" ng-model="$storage.setting.pushDisabled"></md-switch>
         </md-list-item>
         <md-list-item>
             <p>認証情報の保存</p>
@@ -51,21 +53,35 @@
         <md-divider></md-divider>
         <md-list-item>
 
-                <p>OS</p>
-                {{useragent.os}}
- 
+            <p>OS</p>
+            {{useragent.os}}
+
         </md-list-item>
         <md-list-item>
 
-                <p translate="subTitle.platform.read"></p>
-                {{useragent.browser}}
- 
+            <p translate="subTitle.platform.read"></p>
+            {{useragent.browser}}
+
         </md-list-item>
         <md-list-item>
 
-                <p translate="subTitle.platformVersion.read"></p>
-                {{useragent.version}}
- 
+            <p translate="subTitle.platformVersion.read"></p>
+            {{useragent.version}}
+
         </md-list-item>
     </md-list>
+    <md-toolbar class="footer">
+        <div class="md-toolbar-tools">
+            <div class="md-toolbar-tools">
+                <ul rn-carousel rn-carousel-auto-slide rn-carousel-transition="none" style="height:150px;width:100%" class="image" rn-carousel-index="carouselIndex">
+                    <li ng-repeat="banner in banners">
+                        <div class="layer" style="text-align:center">
+                            <img ng-src="{{banner.imageUrl}}" class="user-avatar" style="height:150px;width:150px" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </md-toolbar>
+</md-content>
 </md-content>

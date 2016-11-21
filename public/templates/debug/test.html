@@ -18,7 +18,7 @@
 <md-content class="main" flex md-scroll-y>
     <loading></loading>
     <md-content layout="row" layout-wrap layout-align="left center">
-        <ul rn-carousel style="height:150px;width:100%" class="image" rn-carousel-index="carouselIndex">
+        <ul rn-carousel style="height:150px;width:100%" rn-carousel-auto-slide class="image" rn-carousel-index="carouselIndex">
             <li ng-repeat="banner in banners">
                 <div class="layer" style="text-align:center">
                     <img ng-src="{{banner.imageUrl}}" class="user-avatar" style="height:150px;width:150px" />
