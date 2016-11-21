@@ -558,21 +558,18 @@ app
             var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED_2")[0];
 
             var templateUrl = "";
-
-            if (!status || _this.isUnauthorized) {
+{
+            if (_this.isUnauthorized){
                 //nothing todo
+            }else if (!status) {
+                Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
             } else if (status == BAD_REQUEST.status || status == UNAUTHORIZED.status 　|| status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
-                if (_this.isUnauthorize) return;
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED;
                 _this.isUnauthorized = true;
                 _this.reLogin();
+                Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
             }
-
-
-            Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
-
-
         };
         _this.searchErrorByKey = function (key) {
             if (key == 'UNAUTHORIZED') key = 'UNAUTHORIZED_1'
