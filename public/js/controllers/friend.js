@@ -156,7 +156,10 @@ app.$controllerProvider.register('FriendCtrl', function ($window,
     };
 
     $scope.openChat = function (uid) {
-        Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, {friend_request : $window.friendRequestInfo.requestInfos[uid], friend : $window.friendRequestInfo.userInfos[uid]});
+        var friend_request = $window.friendRequestInfo.requestInfos[uid]
+        if(!friend_request.isApplyed) return;
+        var friend = $window.friendRequestInfo.userInfos[uid]
+        Modal.open('ChatCtrl', "/templates/modal/chat.html?v=" + window.deviceCacheKey, {friend_request : friend_request, friend : friend});
     };
 
     $scope.openUserInfo = function (uid) {

@@ -109,7 +109,14 @@ module.exports = {
                                 reject(err);
                             } else if (users) {
                                 var userInfos = _.indexBy(users, 'uid');
-                                var requestInfos = _.indexBy(requests.docs, 'uid');
+                                var requestInfos = {};
+                                for (var i = 0; i < requests.docs.length; i++) {
+                                    if(requests.docs[i].uid != req.session.token.uid){
+                                        requestInfos[requests.docs[i].uid] = requests.docs[i];
+                                    }else{
+                                        requestInfos[requests.docs[i].fromUid] = requests.docs[i];
+                                    }
+                                }
                                 req.session.userInfos = userInfos;
                                 req.session.requestInfos = requestInfos;
                                 req.session.friendUids = friendUids ? getUidsFromRequests(friendUids) : false;
