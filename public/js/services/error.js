@@ -552,7 +552,6 @@ app
                 codeInfo = _this.codes[status];
             }
 
-            var BAD_REQUEST = _this.searchErrorByKey("BAD_REQUEST");
             var UNAUTHORIZED = _this.searchErrorByKey("UNAUTHORIZED")[0];
             var UNAUTHORIZED_1 = _this.searchErrorByKey("UNAUTHORIZED_1")[0];
             var UNAUTHORIZED_2 = _this.searchErrorByKey("UNAUTHORIZED_2")[0];
@@ -563,7 +562,7 @@ app
                 //nothing todo
             }else if (!status) {
                 Modal.error(error, status, codeInfo, templateUrl, _this.isUnauthorized);
-            } else if (status == BAD_REQUEST.status || status == UNAUTHORIZED.status 　|| status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
+            } else if (status == UNAUTHORIZED.status 　|| status == UNAUTHORIZED_1.status || status == UNAUTHORIZED_2.status) {
                 templateUrl = _this.unauthorizedTemplateUrl;
                 error = UNAUTHORIZED;
                 _this.isUnauthorized = true;
