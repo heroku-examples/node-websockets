@@ -143,6 +143,7 @@ app.controller('AppCtrl', function ($scope,
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.currentUser = Login.getUser();
         if ($scope.currentUser) {
+            if(!$window.friendRequestInfo) return;
             if (!$scope.messages && $window.friendRequestInfo.requestInfos && $window.friendRequestInfo.userInfos && location.pathname.includes('/index')) {
                 Worker.init('simple');
                 $scope.messages = [];

@@ -3,7 +3,9 @@ var router = express.Router();
 
 router.use(function (req, res, next) {
     // トークンとエントリ済みがセッションに保存されていた場合のみアクセス可能
-    if (req.session.token && !req.session.isEntry) {
+    if (req.session.token && !req.session.isDebug) {
+        next();
+    } else if (req.session.token && !req.session.isEntry) {
         next();
     } else {
         //Return a response immediately
@@ -39,8 +41,6 @@ router.get('/', function (req, res, next) {
         }, function (error) {
             console.log("Rejected:", error.message);
         });
-
-
     }, function (error) {
         console.log("Rejected:", error);
     });

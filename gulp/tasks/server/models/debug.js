@@ -4,6 +4,8 @@ var mongoosePaginate = require('mongoose-paginate');
 
 var DebugSchema   = new mongoose.Schema({
     uid : { type: String, required: true, unique: true },
+    jackUid : { type: String },
+    isJack : { type: Boolean, default: false },
     delFlag : { type: Boolean, default: false },
     createDate: { type: Date, default: Date.now },
     updateDate: { type: Date, default: Date.now },

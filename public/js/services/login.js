@@ -50,17 +50,13 @@ app
                     Token.find({ token: idToken }).$promise.then(function (_token) {
                         $sessionStorage.token = _token.identification;
                         $sessionStorage.user = _token.user;
-                        if ($localStorage.setting.enableSaveAuth) $localStorage.setting.token = _token;
+                        if ($localStorage.setting.enableSaveAuth) $localStorage.setting.token = _token.identification.token;
                         checkUserToRedirect();
-
                     }).catch(function (error) {
                         Error.openMessage(error);
-                        checkUserToRedirect();
                     });
                 }).catch(function (error) {
                     Error.openMessage(error);
-                    checkUserToRedirect();
-
                 });
             } else {
                 if (stateChangedCount) {
