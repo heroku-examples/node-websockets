@@ -156,7 +156,6 @@ app.factory('Modal', function($window, $mdDialog, $timeout, Loading) {
             fullscreen: template.fullscreen,
             onShowing: animation.onShowing,
             onRemoving: animation.onRemoving,
-            clickOutsideToClose: true
         });
         return ref;
     };

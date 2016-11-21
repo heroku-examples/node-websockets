@@ -63,8 +63,10 @@ router.route('/token')
                                         if(err){
                                             res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                                         }else if (debug) {
-                                            if (!debug.delFlag) req.session.isDebug = true;
-                                            identification.isDebug = true;
+                                            if (!debug.delFlag) {
+                                                req.session.isDebug = true;
+                                                user.isDebug = true;
+                                            }
                                         }
                                         setView(identification, user);
                                     });
