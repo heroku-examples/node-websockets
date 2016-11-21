@@ -12,6 +12,13 @@ router.route('/token')
     // 作成 (POST http://localhost:3000/api/users)
     .post(function (req, res) {
         var firebase = require("firebase");
+
+        var setView = function (identification, user){
+            res.status(resCodes.OK.code).json({
+                identification : identification,
+                user : user
+            });
+        }
         // if (req.session.token) {
         //     res.status(resCodes.OK.code).json(req.session.token);
         // } else {
@@ -38,7 +45,7 @@ router.route('/token')
                                 if (err) {
                                     res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                                 } else {
-                                    res.status(resCodes.OK.code).json(identification);
+                                    setView(identification, user);
                                 }
                             });
                         } else {
@@ -53,13 +60,13 @@ router.route('/token')
                                     Debug.findOne({
                                         uid: decodedToken.uid
                                     }, function (err, debug) {
-                                        if (debug) {
+                                        if(err){
+                                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
+                                        }else if (debug) {
                                             if (!debug.delFlag) req.session.isDebug = true;
                                             identification.isDebug = true;
-                                        } else if (err) {
-                                            res.status(resCodes.INTERNAL_SERVER_ERROR.code).json(err);
                                         }
-                                        res.status(resCodes.OK.code).json(identification);
+                                        setView(identification, user);
                                     });
                                 }
                             });
