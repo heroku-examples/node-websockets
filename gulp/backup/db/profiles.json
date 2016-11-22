@@ -1,0 +1,516 @@
+{ 
+    "_id" : ObjectId("57cc332e5b1287110010180b"), 
+    "type" : "range", 
+    "unit" : "cm", 
+    "name" : "height", 
+    "values" : [
+        {
+            "min" : NumberInt(120), 
+            "max" : NumberInt(220)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b1287110010180c"), 
+    "type" : "range", 
+    "unit" : "kg", 
+    "name" : "weight", 
+    "values" : [
+        {
+            "min" : NumberInt(30), 
+            "max" : NumberInt(150)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b1287110010180d"), 
+    "type" : "select", 
+    "name" : "maritalStatus", 
+    "values" : [
+        {
+            "divorce" : NumberInt(3), 
+            "unmarried" : NumberInt(2), 
+            "married" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b1287110010180e"), 
+    "type" : "select", 
+    "name" : "child", 
+    "values" : [
+        {
+            "noExist" : NumberInt(2), 
+            "exist" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b1287110010180f"), 
+    "type" : "select", 
+    "name" : "smoking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b12871100101810"), 
+    "type" : "select", 
+    "name" : "drinking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b12871100101812"), 
+    "type" : "select", 
+    "name" : "dayOff", 
+    "values" : [
+        {
+            "variably" : NumberInt(8), 
+            "saturday" : NumberInt(7), 
+            "friday" : NumberInt(6), 
+            "thursday" : NumberInt(5), 
+            "wensday" : NumberInt(4), 
+            "tuesday" : NumberInt(3), 
+            "monday" : NumberInt(2), 
+            "sunday" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b12871100101811"), 
+    "type" : "select", 
+    "name" : "study", 
+    "values" : [
+        {
+            "ocational" : NumberInt(4), 
+            "college" : NumberInt(3), 
+            "high" : NumberInt(2), 
+            "juniorHigh" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57cc332e5b12871100101813"), 
+    "type" : "multi_select", 
+    "name" : "hoby", 
+    "values" : [
+        "football", 
+        "baseball", 
+        "surf", 
+        "skate", 
+        "inline skate", 
+        "karate", 
+        "boxing", 
+        "swimming", 
+        "judo", 
+        "golf", 
+        "kendo", 
+        "bicycle", 
+        "rannning", 
+        "snow board"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbdd"), 
+    "type" : "range", 
+    "unit" : "cm", 
+    "name" : "height", 
+    "values" : [
+        {
+            "min" : NumberInt(120), 
+            "max" : NumberInt(220)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbde"), 
+    "type" : "range", 
+    "unit" : "kg", 
+    "name" : "weight", 
+    "values" : [
+        {
+            "min" : NumberInt(30), 
+            "max" : NumberInt(150)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbdf"), 
+    "type" : "select", 
+    "name" : "maritalStatus", 
+    "values" : [
+        {
+            "divorce" : NumberInt(3), 
+            "unmarried" : NumberInt(2), 
+            "married" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbe0"), 
+    "type" : "select", 
+    "name" : "child", 
+    "values" : [
+        {
+            "noExist" : NumberInt(2), 
+            "exist" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbe1"), 
+    "type" : "select", 
+    "name" : "smoking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbe2"), 
+    "type" : "select", 
+    "name" : "drinking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbe3"), 
+    "type" : "select", 
+    "name" : "study", 
+    "values" : [
+        {
+            "ocational" : NumberInt(4), 
+            "college" : NumberInt(3), 
+            "high" : NumberInt(2), 
+            "juniorHigh" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbe4"), 
+    "type" : "select", 
+    "name" : "dayOff", 
+    "values" : [
+        {
+            "variably" : NumberInt(8), 
+            "saturday" : NumberInt(7), 
+            "friday" : NumberInt(6), 
+            "thursday" : NumberInt(5), 
+            "wensday" : NumberInt(4), 
+            "tuesday" : NumberInt(3), 
+            "monday" : NumberInt(2), 
+            "sunday" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("57e493e9d7670d11001adbe5"), 
+    "type" : "multi_select", 
+    "name" : "hoby", 
+    "values" : [
+        "football", 
+        "baseball", 
+        "surf", 
+        "skate", 
+        "inline skate", 
+        "karate", 
+        "boxing", 
+        "swimming", 
+        "judo", 
+        "golf", 
+        "kendo", 
+        "bicycle", 
+        "rannning", 
+        "snow board"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e98"), 
+    "type" : "range", 
+    "unit" : "cm", 
+    "name" : "height", 
+    "values" : [
+        {
+            "min" : NumberInt(120), 
+            "max" : NumberInt(220)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e99"), 
+    "type" : "range", 
+    "unit" : "kg", 
+    "name" : "weight", 
+    "values" : [
+        {
+            "min" : NumberInt(30), 
+            "max" : NumberInt(150)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e9a"), 
+    "type" : "select", 
+    "name" : "maritalStatus", 
+    "values" : [
+        {
+            "divorce" : NumberInt(3), 
+            "unmarried" : NumberInt(2), 
+            "married" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e9b"), 
+    "type" : "select", 
+    "name" : "child", 
+    "values" : [
+        {
+            "noExist" : NumberInt(2), 
+            "exist" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e9c"), 
+    "type" : "select", 
+    "name" : "smoking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e9d"), 
+    "type" : "select", 
+    "name" : "drinking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e9e"), 
+    "type" : "select", 
+    "name" : "study", 
+    "values" : [
+        {
+            "ocational" : NumberInt(4), 
+            "college" : NumberInt(3), 
+            "high" : NumberInt(2), 
+            "juniorHigh" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36e9f"), 
+    "type" : "select", 
+    "name" : "dayOff", 
+    "values" : [
+        {
+            "variably" : NumberInt(8), 
+            "saturday" : NumberInt(7), 
+            "friday" : NumberInt(6), 
+            "thursday" : NumberInt(5), 
+            "wensday" : NumberInt(4), 
+            "tuesday" : NumberInt(3), 
+            "monday" : NumberInt(2), 
+            "sunday" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580b210200375a1100d36ea0"), 
+    "type" : "multi_select", 
+    "name" : "hoby", 
+    "values" : [
+        "football", 
+        "baseball", 
+        "surf", 
+        "skate", 
+        "inline skate", 
+        "karate", 
+        "boxing", 
+        "swimming", 
+        "judo", 
+        "golf", 
+        "kendo", 
+        "bicycle", 
+        "rannning", 
+        "snow board"
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a59"), 
+    "type" : "range", 
+    "unit" : "cm", 
+    "name" : "height", 
+    "values" : [
+        {
+            "min" : NumberInt(120), 
+            "max" : NumberInt(220)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a5a"), 
+    "type" : "range", 
+    "unit" : "kg", 
+    "name" : "weight", 
+    "values" : [
+        {
+            "min" : NumberInt(30), 
+            "max" : NumberInt(150)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a5b"), 
+    "type" : "select", 
+    "name" : "maritalStatus", 
+    "values" : [
+        {
+            "divorce" : NumberInt(3), 
+            "unmarried" : NumberInt(2), 
+            "married" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a5c"), 
+    "type" : "select", 
+    "name" : "child", 
+    "values" : [
+        {
+            "noExist" : NumberInt(2), 
+            "exist" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a5d"), 
+    "type" : "select", 
+    "name" : "smoking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a5e"), 
+    "type" : "select", 
+    "name" : "drinking", 
+    "values" : [
+        {
+            "no" : NumberInt(2), 
+            "yes" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a5f"), 
+    "type" : "select", 
+    "name" : "study", 
+    "values" : [
+        {
+            "ocational" : NumberInt(4), 
+            "college" : NumberInt(3), 
+            "high" : NumberInt(2), 
+            "juniorHigh" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a60"), 
+    "type" : "select", 
+    "name" : "dayOff", 
+    "values" : [
+        {
+            "variably" : NumberInt(8), 
+            "saturday" : NumberInt(7), 
+            "friday" : NumberInt(6), 
+            "thursday" : NumberInt(5), 
+            "wensday" : NumberInt(4), 
+            "tuesday" : NumberInt(3), 
+            "monday" : NumberInt(2), 
+            "sunday" : NumberInt(1)
+        }
+    ], 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("580cc1a44913cd11005d5a61"), 
+    "type" : "multi_select", 
+    "name" : "hoby", 
+    "values" : [
+        "football", 
+        "baseball", 
+        "surf", 
+        "skate", 
+        "inline skate", 
+        "karate", 
+        "boxing", 
+        "swimming", 
+        "judo", 
+        "golf", 
+        "kendo", 
+        "bicycle", 
+        "rannning", 
+        "snow board"
+    ], 
+    "__v" : NumberInt(0)
+}

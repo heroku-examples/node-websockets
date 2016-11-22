@@ -1,0 +1,9 @@
+{ 
+    "_id" : "configs", 
+    "panelWidth" : "wide"
+}
+{ 
+    "_id" : "users", 
+    "viewMode" : "list", 
+    "panelWidth" : "wide"
+}

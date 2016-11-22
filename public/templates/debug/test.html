@@ -1,0 +1,34 @@
+<md-toolbar class="header" ng-show="!showSearch">
+	<div class="md-toolbar-tools">
+		<md-button class="material-icons md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+			<ng-md-icon icon="menu"></ng-md-icon>
+		</md-button>
+		<h3>
+			Test
+		</h3>
+		<span flex></span>
+		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+			<ng-md-icon icon="search"></ng-md-icon>
+		</md-button>
+		<md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+			<ng-md-icon icon="more_vert"></ng-md-icon>
+		</md-button>
+	</div>
+</md-toolbar>
+<md-content class="main" flex md-scroll-y>
+    <loading></loading>
+    <md-content layout="row" layout-wrap layout-align="left center">
+        <ul rn-carousel style="height:150px;width:100%" rn-carousel-auto-slide class="image" rn-carousel-index="carouselIndex">
+            <li ng-repeat="banner in banners">
+                <div class="layer" style="text-align:center">
+                    <img ng-src="{{banner.imageUrl}}" class="user-avatar" style="height:150px;width:150px" />
+                </div>
+            </li>
+        </ul>
+        <div rn-carousel-indicators slides="banners" rn-carousel-index="carouselIndex"></div>
+        <br/>
+        <button class="js-push-button" disabled>
+        Enable Push Messages  
+    </button>
+    </md-content>
+</md-content>

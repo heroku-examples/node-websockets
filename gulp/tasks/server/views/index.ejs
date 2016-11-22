@@ -1,0 +1,22 @@
+<script>
+var useragent = <%-JSON.stringify(useragent)%>;
+var friendRequestInfo = {
+	recommendUsers :<%-JSON.stringify(recommendUsers)%>,
+	userInfos :<%-JSON.stringify(userInfos)%>,
+	requestInfos :<%-JSON.stringify(requestInfos)%>,
+	friendUids :<%-JSON.stringify(friendUids)%>,
+	rejectedUids :<%-JSON.stringify(rejectedUids)%>,
+	receivedUids :<%-JSON.stringify(receivedUids)%>,
+	sendUids :<%-JSON.stringify(sendUids)%>
+}
+
+
+</script>
+<div layout="column" class="relative" layout-fill role="main" ng-init="init()">
+    <md-content layout="column" flex ui-view="main"></md-content>
+</div>
+
+
+
+<script src="/js/dist/app/routes/index.<%= deviceCacheKey %>.js"></script>
+<link rel="stylesheet" href="/css/dist/app/index/index.<%= deviceCacheKey %>.css">

@@ -1,0 +1,36 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+    <div layout-gt-xs="row">
+      <form name="myForm" flex-gt-xs>
+        <md-datepicker name="dateField" ng-model="tab.values.birthday" md-placeholder="Enter date" required md-min-date="tab.params.birthday.min" md-max-date="tab.params.birthday.max"></md-datepicker>
+        <div class="validation-messages" ng-messages="myForm.dateField.$error">
+          <div ng-message="valid">The entered value is not a date!</div>
+          <div ng-message="required">This date is required!</div>
+          <div ng-message="mindate">Date is too early!</div>
+          <div ng-message="maxdate">Date is too late!</div>
+          <div ng-message="filtered">Only weekends are allowed!</div>
+        </div>
+        <md-input-container flex="50" class="layout-fill">
+          <label>Sex Type</label>
+          <md-select name="sexTypeField" required ng-model="tab.values.sexType">
+            <md-option ng-repeat="type in sexTypes" value="{{type.id}}">
+              {{type.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <div class="validation-messages" ng-messages="myForm.sexTypeField.$error">
+          <div ng-message="valid">The entered value is not a number!</div>
+          <div ng-message="required">This sex type is required!</div>
+        </div>
+      </form>
+    </div>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!myForm.dateField.$valid" ng-click="next()">Action 1</md-button>
+    </md-card-actions>
+</md-card>

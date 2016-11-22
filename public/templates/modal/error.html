@@ -1,0 +1,17 @@
+<div role="dialog" layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{locals.codeInfo.status}} {{locals.codeInfo.message}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+        <div ng-if="!locals.isUnauthorized">
+            description : {{locals.codeInfo.description}} </br>
+            error : {{locals.error}}
+        </div>
+    </md-content>
+</div>

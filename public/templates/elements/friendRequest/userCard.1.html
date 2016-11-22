@@ -1,0 +1,39 @@
+<md-list-item class="md-2-line md-long-text noright" style="width: 100%;" ng-init="setNotify(uid)" ng-click="openChat(uid)">
+	<div class="md-avatar" ng-click="openUserInfo(uid)">
+		<div class="avatar-wrapper">
+			<img ng-if="result.userInfos[uid].photoURL" ng-src="{{result.userInfos[uid].photoURL}}" class="md-card-image" />
+			<img ng-if="!result.userInfos[uid].photoURL" class="md-card-image" />
+		</div>
+	</div>
+	<div class="md-list-item-text" layout="column">
+		<h3>{{result.userInfos[uid].firstName}} {{result.userInfos[uid].age}}</h3>
+		 <p> ・ {{notifies[uid].text}}</p>
+	</div>
+	<md-button aria-label="Open demo menu" class="md-icon-button" ng-if="result.requestInfos[uid].isApplyed == false && result.requestInfos[uid].fromUid != currentUser.uid" ng-click="applyRequest(uid)">
+		<ng-md-icon icon="add"></ng-md-icon>
+	</md-button>
+	<md-menu md-offset="0 -7">
+		<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+			<ng-md-icon icon="settings"></ng-md-icon>
+		</md-button>
+		<md-menu-content md-theme="grey" width="2">
+			<md-menu-item>
+				<md-button>
+					<ng-md-icon icon="delete_sweep"></ng-md-icon> delete
+				</md-button>
+			</md-menu-item>
+			<md-menu-item>
+				<md-button>
+					<ng-md-icon icon="star_rate"></ng-md-icon> favarite
+				</md-button>
+			</md-menu-item>
+			<md-menu-divider></md-menu-divider>
+			<md-menu-item>
+				<md-button>
+					<ng-md-icon icon="volume_up"></ng-md-icon> notification
+				</md-button>
+			</md-menu-item>
+		</md-menu-content>
+	</md-menu>
+</md-list-item>
+<md-divider></md-divider>

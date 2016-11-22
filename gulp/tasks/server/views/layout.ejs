@@ -1,0 +1,129 @@
+<!doctype html>
+<% if ( typeof session !== 'undefined' ) { %>
+    <% if ( session.token) { %>
+        <% token = session.token.token %>
+    <% } else {%>
+        <% token = false %>
+    <% } %>
+<% } else {%>
+    <% token = false %>
+<% } %>
+<% if ( typeof deviceCacheKey == 'undefined' ) { %>
+    <% deviceCacheKey = 0 %>
+<% } %>
+<html lang="ja" ng-app="StarterApp" manifest="/manifest/manifest.mf?v=<%= deviceCacheKey %>">
+
+<head>
+    <title>Socket.IO chat '<%= typeof env !== 'undefined' ? env : 'development'%>'</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="pink" />
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#4285f4">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#4285f4">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
+
+    <link rel="apple-touch-startup-image" href="/images/icon.png?v=<%= deviceCacheKey %>">
+    <!-- icon in the highest resolution we need it for -->
+    <link rel="icon" sizes="192x192" href="/images/icon.png?v=<%= deviceCacheKey %>">
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="/images/icon.png?v=<%= deviceCacheKey %>">
+    <!-- multiple icons for IE -->
+    <meta name="app-ico" content="/images/icon.png?v=<%= deviceCacheKey %>">
+
+    <link rel="manifest" href="/json/manifest.json?v=<%= deviceCacheKey %>">
+
+    <script type="text/javascript">
+        var session = {token : '<%= token %>'};
+        var deviceCacheKey =  <%= deviceCacheKey %>;
+    </script>
+    <%# cache files -start %>
+    <link rel="stylesheet" href="/css/libs/angular-material.css">
+    <link rel="stylesheet" href="/css/libs/material_icon.css">
+    <link rel="stylesheet" href="/css/libs/animate.css">
+    <link rel="stylesheet" href="/css/libs/angular-range-slider.css">
+    <link rel="stylesheet" href="/css/libs/angular-carousel.css">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/libs/jquery/jquery.min.js"></script>
+    <script src="/js/libs/angular/angular.min.js"></script>
+    <script src="/js/libs/firebase/firebase.js"></script>
+    <script src="/js/libs/firebase/angularfire.min.js"></script>
+
+    <script src="/js/libs/angular/angular-route.min.js"></script>
+    <script src="/js/libs/angular/angular-ui-router.js"></script>
+    <script src="/js/libs/angular/angular-resource.min.js"></script>
+    <script src="/js/libs/angular/angular-animate.min.js"></script>
+    <script src="/js/libs/angular/angular-lazy-img.min.js"></script>
+    <script src="/js/libs/angular/angular-filter.min.js"></script>
+    <script src="/js/libs/angular/angular-range-slider.min.js"></script>
+    <script src="/js/libs/angular/angular-aria.min.js"></script>
+    <script src="/js/libs/angular/angular-material.min.js"></script>
+    <script src="/js/libs/angular/angular-cookies.min.js"></script>
+    <script src="/js/libs/angular/angular-touch.js"></script>
+    <script src="/js/libs/angular/angular-translate.js"></script>
+    <script src="/js/libs/angular/angular-messages.min.js"></script>
+    <script src="/js/libs/angular/storage-cookie.js"></script>
+    <script src="/js/libs/angular/angular-material-icons.min.js"></script>
+    <script src="/js/libs/angular/svg-morpheus.js"></script>
+    <script src="/js/libs/angular/ngStorage.min.js"></script>
+    <script src="/js/libs/angular/loader-static-files.js"></script>
+    <script src="/js/libs/angular/angular-translate-storage-local.min.js"></script>
+    <script src="/js/libs/angular/angular-images-resizer.js"></script>
+    <script src="/js/libs/angular/ng-img-crop.js"></script>
+    <script src="/js/libs/angular/angular-carousel.js"></script>
+    <script src="/js/libs/angular/ocLazyLoad.min.js"></script>
+    <%# cache files -end %>
+
+    <link rel="stylesheet" href="/css/dist/app/main.<%= deviceCacheKey %>.css">
+    <link rel="stylesheet" href="/css/dist/modal.<%= deviceCacheKey %>.css">
+
+    <script src="/js/dist/app/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/configs/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/filters/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/models/api.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/error.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/modal.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/link.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/user.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/login.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/directives/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/fireBase.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/loading.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/file.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/chat.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/panel.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/worker.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/socket.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/modals/chat.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/modals/friend.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/controllers/base.<%= deviceCacheKey %>.js"></script>
+
+</head>
+
+<body class="animation-target" layout="row" ng-controller="AppCtrl" ng-cloak>
+     <span ng-include="'/templates/sidenav.html?v=<%= deviceCacheKey %>'" include-replace></span>
+     <%- body %>
+
+    <% if ( typeof env == 'undefined' ) { %>
+        <script id="__bs_script__">//<![CDATA[
+            document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.16.0'><\/script>".replace("HOST", location.hostname));
+        //]]></script>
+    <% } else if(env ==  'development') {%>
+        <script id="__bs_script__">//<![CDATA[
+            document.write("<script async src='http://HOST:3001/browser-sync/browser-sync-client.js?v=2.16.0'><\/script>".replace("HOST", location.hostname));
+        //]]></script>
+    <% }%>
+
+     <span id="bottom"></span>
+</body>
+
+</html>

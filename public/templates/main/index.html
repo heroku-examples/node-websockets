@@ -1,0 +1,18 @@
+<md-toolbar class="header" ng-show="!showSearch">
+	<div class="md-toolbar-tools">
+		<h3>
+			Sign Up
+		</h3>
+		<span flex></span>
+		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+			<ng-md-icon icon="search"></ng-md-icon>
+		</md-button>
+		<md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+			<ng-md-icon icon="more_vert"></ng-md-icon>
+		</md-button>
+	</div>
+</md-toolbar>
+<md-content class="main" flex md-scroll-y>
+    <loading></loading>
+    <md-button md-no-ink class="md-primary full" ng-click="checkButtonClick('google')">{{getButtonText()}}</md-button>
+</md-content>

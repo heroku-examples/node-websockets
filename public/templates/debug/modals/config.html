@@ -1,0 +1,20 @@
+<div ng-init="init()" role="dialog" layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{locals.title}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex ayout-padding style="padding-top:56px">
+        <div ng-repeat="(configKey , config) in configs">
+            {{config}}
+            <md-button class="md-warn md-raised" ng-click="update(configKey , config)">Update</md-button>
+            <md-button class="md-warn md-raised" ng-click="updateValue(configKey , config)">incrementValue</md-button>
+        </div>
+        {{locals}}</br>
+        {{config}}</br>
+    </md-content>
+</div>

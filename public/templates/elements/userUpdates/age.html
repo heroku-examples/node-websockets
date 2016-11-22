@@ -1,0 +1,38 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div layout-gt-xs="row">
+            <form name="myForm" flex-gt-xs>
+                <md-input-container class="md-block" flex="50">
+                    <label>Age</label>
+                    <md-select name="ageField" ng-model="tab.values.age" required>
+                        <md-option ng-repeat="n in [] | range:tab.params.age.max : tab.params.age.min" value="{{n+1}}">
+                            {{n+1}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="validation-messages" ng-messages="myForm.ageField.$error">
+                    <div ng-message="required">This age is required!</div>
+                </div>
+                <md-input-container flex="50" class="layout-fill">
+                    <label>Sex Type</label>
+                    <md-select name="sexTypeField" required ng-model="tab.values.sexType">
+                        <md-option ng-repeat="type in sexTypes" value="{{type.id}}">
+                            {{type.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div class="validation-messages" ng-messages="myForm.sexTypeField.$error">
+                    <div ng-message="required">This sex type is required!</div>
+                </div>
+            </form>
+        </div>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!myForm.ageField.$valid" ng-click="next()">Action 1</md-button>
+    </md-card-actions>
+</md-card>

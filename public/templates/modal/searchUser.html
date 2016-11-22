@@ -1,0 +1,32 @@
+<div role="dialog" layout="column" layout-align="center center" layout-fill="" md-theme="grey">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white" ng-if="mode == modeTypes.search">Search User</h2>
+            <span flex></span>
+            <md-button ng-click="closeDialog()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex="" layout-padding="" style="padding-top:56px">
+        <div layout-padding="" layout-align="center center">
+            <div ng-repeat="n in [] | range:11" ng-click="selectAvatar(n+1)" style="    width: 100px;
+    display: inline-block;">
+                <div class="avatar-wrapper">
+                    <div class=" avatar avatar-{{n+1}}" ng-class="{grayOut: user.avatarNo != (n+1)}"></div>
+                </div>
+            </div>
+        </div>
+        <md-input-container ng-repeat="(key, select) in selects" class="md-block">
+            <label>{{key}}</label>
+            <input ng-model="user[key]" type="{{type}}">
+        </md-input-container>
+        <div layout="row" style="margin-bottom: 20px;">
+            <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
+        </div>
+        <button ng-if="mode == modeTypes.add" class="button button-block button-positive" translate="subTitle.save.read" ng-click="saveUser()">
+        </button>
+        <button ng-if="mode == modeTypes.update" class="button button-block button-positive" translate="subTitle.save.read" ng-click="updateUser()">
+        </button>
+    </md-content>
+</div>

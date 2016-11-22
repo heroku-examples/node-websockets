@@ -1,0 +1,32 @@
+<md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">{{tab.explain}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <form name="myForm" flex>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>First name</label>
+                <input name="firstName" ng-model="tab.values.firstName" required md-minlength="tab.params.firstName.min" md-maxlength="tab.params.firstName.max">
+            </md-input-container>
+            <div ng-messages="userForm.firstName.$error" ng-show="userForm.firstName.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-minlength">That's too short!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+            </div>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Second name</label>
+                <input name="lastName" ng-model="tab.values.lastName" required md-minlength="tab.params.lastName.min" md-maxlength="tab.params.lastName.max">
+            </md-input-container>
+            <div ng-messages="userForm.lastName.$error" ng-show="userForm.lastName.$dirty">
+              <div ng-message="required">This is required!</div>
+              <div ng-message="md-minlength">That's too short!</div>
+              <div ng-message="md-maxlength">That's too long!</div>
+            </div>
+        </form>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button ng-disabled="!myForm.firstName.$valid || !myForm.lastName.$valid" ng-click="next()">Action 1</md-button>
+    </md-card-actions>
+</md-card>

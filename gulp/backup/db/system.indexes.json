@@ -1,0 +1,220 @@
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.users"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.objectlabs-system"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.objectlabs-system.admin.collections"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "uid" : NumberInt(1)
+    }, 
+    "name" : "uid_1", 
+    "ns" : "heroku_s6shs0qr.users", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.profiles"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.langjas"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.prefectures"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.tokens"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "uid" : NumberInt(1)
+    }, 
+    "name" : "uid_1", 
+    "ns" : "heroku_s6shs0qr.tokens", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.chats"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "chatId" : NumberInt(1)
+    }, 
+    "name" : "chatId_1", 
+    "ns" : "heroku_s6shs0qr.chats", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.privatechats"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "privateChatId" : NumberInt(1)
+    }, 
+    "name" : "privateChatId_1", 
+    "ns" : "heroku_s6shs0qr.privatechats", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.debugs"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "uid" : NumberInt(1)
+    }, 
+    "name" : "uid_1", 
+    "ns" : "heroku_s6shs0qr.debugs", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.configs"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.friendrequests"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.identifications"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "uid" : NumberInt(1)
+    }, 
+    "name" : "uid_1", 
+    "ns" : "heroku_s6shs0qr.identifications", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.identitycounters"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "field" : NumberInt(1), 
+        "model" : NumberInt(1)
+    }, 
+    "name" : "field_1_model_1", 
+    "ns" : "heroku_s6shs0qr.identitycounters", 
+    "required" : true, 
+    "index" : NumberInt(-1), 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.banners"
+}
+{ 
+    "v" : NumberInt(1), 
+    "unique" : true, 
+    "key" : {
+        "bannerId" : NumberInt(1)
+    }, 
+    "name" : "bannerId_1", 
+    "ns" : "heroku_s6shs0qr.banners", 
+    "background" : true
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "_id" : NumberInt(1)
+    }, 
+    "name" : "_id_", 
+    "ns" : "heroku_s6shs0qr.sessions"
+}
+{ 
+    "v" : NumberInt(1), 
+    "key" : {
+        "expires" : NumberInt(1)
+    }, 
+    "name" : "expires_1", 
+    "ns" : "heroku_s6shs0qr.sessions", 
+    "expireAfterSeconds" : NumberInt(0)
+}

@@ -1,0 +1,26 @@
+<div role="dialog" layout="column" layout-align="center center" layout-fill md-theme="purple">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 translate="subTitle.addImage.read"></h2>
+            <span flex></span>
+            <md-button ng-click="closeDialog()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex layout-padding style="padding-top:56px">
+        <md-subheader class="md-primary md-no-sticky" translate="subTitle.select.read"></md-subheader>
+        <md-button class="md-primary md-raised full" translate="subTitle.select.read" ng-click="upload()"></md-button>
+        <input type="file" id="upload_photo_modal" ng-model="selectedFile" style="display:none" />
+        <div class="cropArea" >
+            <img-crop image="myImage" result-image="file" area-type="square" result-image-size='{w: cropper[imageType].w, h: cropper[imageType].h}'></img-crop>
+        </div>
+        <md-subheader class="md-warn md-no-sticky" translate="subTitle.crop.read"></md-subheader>
+        <div class="cropAreaResult" layout="row" layout-align="center center">
+            <img ng-src="{{file}}" />
+        </div>
+        <md-button class="md-warn md-raised full" ng-click="imageCroped()" translate="subTitle.save.read">
+        </md-button>
+        <md-button class="md-accent  md-raised full" ng-click="closeDialog()" translate="subTitle.cancel.read"></md-button>
+    </md-content>
+</div>

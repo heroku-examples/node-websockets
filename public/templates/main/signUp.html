@@ -1,0 +1,27 @@
+<md-toolbar class="header" ng-show="!showSearch">
+	<div class="md-toolbar-tools">
+		<h3>
+			Sign Up
+		</h3>
+		<span flex></span>
+		<md-button class="material-icons md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+			<ng-md-icon icon="search"></ng-md-icon>
+		</md-button>
+		<md-button class="material-icons md-icon-button" aria-label="Open Settings" ng-click="showListBottomSheet($event)">
+			<ng-md-icon icon="more_vert"></ng-md-icon>
+		</md-button>
+	</div>
+</md-toolbar>
+<md-content class="main" flex md-scroll-y layout="row" layout-align="center center">
+	<loading></loading>
+	<div ng-if="loading.isIniting" class="text-center">
+		<md-subheader class="md-primary text-center">認証中</md-subheader>
+		<ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="security"></ng-md-icon>
+	</div>
+	<div ng-if="!loading.isIniting" class="text-center">
+		<md-subheader ng-if="sessionStorage.firebaseUser" class="md-primary text-center">認証完了</md-subheader>
+		<md-subheader ng-if="!sessionStorage.firebaseUser" class="md-primary text-center">未認証</md-subheader>
+        <ng-md-icon class="zoom-10" style="margin-top: 5px;" icon="security"></ng-md-icon>
+		<md-button md-no-ink class="md-primary full" ng-click="checkButtonClick('google')">{{getButtonText()}}</md-button>
+	</div>
+</md-content>

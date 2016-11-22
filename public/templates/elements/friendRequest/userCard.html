@@ -1,0 +1,40 @@
+<md-list-item class="md-2-line md-long-text" style="width: 100%;" ng-init="setNotify(rangeIndex, infiniteItemIndex)">
+    <!--<div ng-if="getRequest(rangeIndex, infiniteItemIndex).isApplyed" class="side-corner-tag">承認済み</div>-->
+    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-avatar" ng-click="openUserInfo(getFriend(rangeIndex, infiniteItemIndex))">
+        <div class="avatar-wrapper" ng-click="openUserInfo(getFriend(rangeIndex, infiniteItemIndex))">
+            <img ng-if="getFriend(rangeIndex, infiniteItemIndex).photoURL" ng-src="{{getFriend(rangeIndex, infiniteItemIndex).photoURL}}" class="md-card-image" />
+            <img ng-if="!getFriend(rangeIndex, infiniteItemIndex).photoURL" class="md-card-image" />
+        </div>
+    </div>
+    <div ng-if="getRequest(rangeIndex, infiniteItemIndex)" ng-click="openChat(getFriendInfo(rangeIndex, infiniteItemIndex))" class="md-list-item-text" layout="column">
+        <h3>{{getFriend(rangeIndex, infiniteItemIndex).firstName}} {{getFriend(rangeIndex, infiniteItemIndex).age}}</h3>
+        <p> ・ {{notifies[getIndex(rangeIndex, infiniteItemIndex)].count}} {{notifies[getIndex(rangeIndex, infiniteItemIndex)].text}}</p>
+    </div>
+    <md-button class="md-secondary md-icon-button" ng-if="(getRequest(rangeIndex, infiniteItemIndex).isApplyed) == false" ng-click="applyRequest(getRequest(rangeIndex, infiniteItemIndex))">
+        <ng-md-icon icon="add"></ng-md-icon>
+        <md-menu md-theme="grey" ng-if="getRequest(rangeIndex, infiniteItemIndex)" class="md-secondary">
+            <md-button class="md-icon-button">
+                <ng-md-icon icon="settings"></ng-md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        Redial
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        Check voicemail
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button>
+                        Notifications
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </md-button>
+</md-list-item>
+<md-divider ></md-divider>

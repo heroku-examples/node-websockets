@@ -1,0 +1,13 @@
+<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader>メニュー</md-subheader>
+    <md-list>
+        <md-item ng-repeat="item in items">
+            <md-item-content flex>
+                <md-button class="material-icons md-fab" ng-click="listItemClick(item)">
+                    <ng-md-icon icon="{{ item.icon }}"></ng-md-icon>
+                </md-button>
+                {{ item.name }}
+            </md-item-content>
+        </md-item>
+    </md-list>
+</md-bottom-sheet>

@@ -1,0 +1,63 @@
+<div role="dialog" ng-init="init()" layout="column" md-theme="grey">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">Search</h2>
+            <span flex=""></span>
+            <md-button ng-click="hide()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content class="slide-up-dialog-content" flex style="padding-top:56px">
+        <div layout="row" layout-align="center center" flex>
+            <span ng-include="'/templates/elements/userSelectPrefectures.html'" include-replace></span>
+        </div>
+        <div ng-if="false" layout="row" layout-align="center center" flex>
+            <md-input-container class="md-block" flex="50" ng-repeat="(profileKey, profile) in profiles track by $index" ng-if="profile.type != 'multi_select'">
+                <label>{{profile.name}}</label>
+                <md-select ng-model="targetUserCondition[profile.name]" ng-repeat="(valueKey, value) in profile.values">
+                    <md-option value=""> - </md-option>
+                    <md-option ng-if="profile.type == 'select'" ng-repeat="(_valueKey, _value) in value" value="{{_value}}">
+                        {{_valueKey}}
+                    </md-option>
+                    <md-option ng-if="profile.type == 'range'" ng-repeat="n in [] | range:value.max : value.min" value="{{n}}">
+                        {{n}}{{profile.unit}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+         <div layout="row" layout-align="center center" flex>
+            <md-input-container class="chip-select" class="layout-fill" style="width: 100%;">
+                <label style="top: -35px;">Age {{upperValue}} ~ {{lowerValue}}</label>
+                <div range-slider floor="20" ceiling="100" dragstop="true" ng-model-low="lowerValue" ng-model-high="upperValue">
+                </div>
+            </md-input-container>
+        </div>
+         <div layout="row" layout-align="center center" flex ng-if="false" ng-repeat="(profileKey, profile) in profiles track by $index" ng-if="profile.type == 'multi_select'">
+            <md-input-container class="chip-select" class="layout-fill" style="width: 100%;min-height: 60px;">
+                <label>{{subTitles[profileKey].read}}</label>
+                <md-chips ng-model="targetUserCondition.hobbies" md-max-chips="50">
+                    <md-chip-template>
+                        <strong>{{$chip}}</strong>
+                    </md-chip-template>
+                </md-chips>
+                <md-menu>
+                    <md-button class="md-icon-button-square square md-warn md-raised" ng-click="$mdOpenMenu($event)">
+                        <i class="material-icons">add</i>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item ng-repeat="(selectKey, select) in profile.values" ng-if="!(targetUserCondition.hobbies | inArray : select)">
+                            <md-button ng-click="addHobbyToTargetUserCondition(select)">{{select}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-input-container>
+        </div>
+        <md-input-container ng-if="false" class="md-block" ng-repeat="(key, select) in selects" ng-hide="select.isHide">
+            <label key="{{key}}">{{subTitles[key].read}}</label>
+            <input type="{{select.type}}" ng-model="targetUserCondition[key]" type="{{type}}">
+        </md-input-container>
+        <md-button class="md-warn md-raised full" ng-click="search()" translate="subTitle.search.read"></md-button>
+    </md-content>
+
+</div>

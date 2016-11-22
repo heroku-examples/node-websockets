@@ -1,0 +1,89 @@
+<div role="dialog" layout="column" ng-init="init()">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 class="font_white">{{user.firstName}} {{user.age}}</h2>
+			<span flex=""></span>
+			<md-button ng-click="cancel()" class="md-icon-button">
+				<i class="md-fab material-icons">cancel</i>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<div style="height:200px;text-align:center;position: relative;">
+		<div ng-if="(user.isApplyed && !user.isRejected)" class="side-corner-tag">Friend</div>
+		<img ng-if="user.photoURL" style="height:200px" ng-src="{{user.photoURL}}" class="profileImage" />
+		<img ng-if="!user.photoURL" style="height:200px" ng-src="/images/user.png"  class="profileImage"/>
+	</div>
+
+	<md-content layout-padding>
+		
+		<div>
+			<form name="userForm">
+
+				<div layout-gt-xs="row">
+					<md-input-container class="md-block" flex-gt-xs>
+						<label>Company (Disabled)</label>
+						<input ng-model="user.company" disabled>
+					</md-input-container>
+
+					<md-input-container>
+						<label>Enter date</label>
+						<md-datepicker ng-model="user.submissionDate"></md-datepicker>
+					</md-input-container>
+				</div>
+
+				<div layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>First name</label>
+						<input ng-model="user.firstName">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Long Last Name That Will Be Truncated And 3 Dots (Ellipsis) Will Appear At The End</label>
+						<input ng-model="user.uid">
+					</md-input-container>
+				</div>
+
+				<md-input-container class="md-block">
+					<label>Address</label>
+					<input ng-model="user.address">
+				</md-input-container>
+
+				<md-input-container md-no-float class="md-block">
+					<input ng-model="user.address2" placeholder="Address 2">
+				</md-input-container>
+
+				<div layout-gt-sm="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>City</label>
+						<input ng-model="user.cityId">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>State</label>
+						<input ng-model="user.prefectureId">
+					</md-input-container>
+
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Age</label>
+						<input ng-model="user.age">
+					</md-input-container>
+				</div>
+
+				<md-input-container class="md-block">
+					<label>Biography</label>
+					<textarea ng-model="user.message" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+				</md-input-container>
+
+			</form>
+		</div>
+	</md-content>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<div class="md-toolbar-tools">
+				<md-button ng-if="(!user.isApplyed && !user.isRejected) && user.fromUid != currentUser.uid" class="material-icons md-fab" aria-label="friend request" ng-click="friendRequest()">
+					<ng-md-icon icon="add"></ng-md-icon>
+				</md-button>
+			</div>
+		</div>
+	</md-toolbar>
+</div>

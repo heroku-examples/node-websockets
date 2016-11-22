@@ -1,0 +1,38 @@
+<div role="dialog" layout="column" ng-init="init()">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="font_white">{{friend.firstName}}</h2>
+            <span flex=""></span>
+            <md-button ng-click="cancel()" class="md-icon-button">
+                <i class="md-fab material-icons">cancel</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content id="slide-up-dialog-content" class="slide-up-dialog-content" flex layout-align="center center">
+        <md-list flex>
+            <md-list-item ng-repeat="(messageKey, message) in messages" class="md-3-line">
+
+                <img ng-if="currentUser.uid != message.uid" ng-src="{{message.photoURL}}" class="md-avatar"/>
+
+                <div class="md-list-item-text" layout="column">
+                    <p ng-if="currentUser.uid != message.uid">{{ friend.firstName }} {{message.createDate | date:'MM/dd HH:mm'}}</p>
+                    <p ng-if="currentUser.uid == message.uid">{{ currentUser.firstName }} {{message.createDate | date:'MM/dd HH:mm'}}</p>
+                    <h3>{{message.text}}</h3>
+                </div>
+                <img ng-if="currentUser.uid == message.uid" ng-src="{{currentUser.photoURL}}" class="md-avatar"/>
+
+                <a ng-if="$last" id="bottom" ng-init="gotoBottom()"></a>
+            </md-list-item>
+        </md-list>
+    </md-content>
+    <md-toolbar class="md-tall md-warn md-hue-3">
+        <div layout="row" layout-padding>
+            <md-input-container flex>
+                <textarea style="margin-top: -4px;" aria-label="comment" ng-model="comment" md-maxlength="150" rows="2" md-select-on-focus></textarea>
+            </md-input-container>
+            <md-button ng-if="!user.requested" aria-label="send message" class="material-icons md-fab" ng-click="sendMessage()">
+                <ng-md-icon icon="add"></ng-md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+</div>

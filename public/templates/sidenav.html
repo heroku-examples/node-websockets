@@ -1,0 +1,33 @@
+<md-sidenav layout="column" md-theme="purple" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+	<md-toolbar class="md-tall md-hue-2" style="padding-top: 10px;max-height: 138px;height: 138px;">
+		<span flex></span>
+		<div layout="row" style="margin-left: 10px">
+			<img ng-src="{{sessionStorage.user.photoURL}}" class="user-avatar" style="height:50px;width:50px" />
+		</div>
+		<div layout="column" class="md-toolbar-tools-bottom inset">
+			<div ng-if="sessionStorage.firebaseUser">{{sessionStorage.user.firstName}}</div>
+			<div ng-if="sessionStorage.firebaseUser">{{sessionStorage.firebaseUser.email}}</div>
+		</div>
+		</div>
+	</md-toolbar>
+	<md-list>
+		<md-list-item style="background-color: midnightblue;" ng-click="checkButtonClick('google')">
+			<ng-md-icon icon="done"></ng-md-icon>
+			<p class="capitalize" style="color:white">{{sessionStorage.firebaseUser ? 'Logout' : 'Login'}}</p>
+		</md-list-item>
+		<span ng-repeat="item in menu" ng-link="{{item.link}}">
+            <md-list-item md-ink-ripple ng-class="{selectedSideMenu : sessionStorage.toState.name == item.key}">
+                <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                <p class="capitalize">{{item.title}}</p>
+            </md-list-item>
+        </span>
+		<md-divider></md-divider>
+		<md-subheader ng-if="sessionStorage.user.isDebug">Management</md-subheader>
+		<span ng-if="sessionStorage.user.isDebug" ng-repeat="item in admin" ng-link="{{item.link}}">
+            <md-list-item md-ink-ripple ng-class="{selectedSideMenu : sessionStorage.toState.name == item.key}">
+                <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                <p class="capitalize">{{item.title}}</p>
+            </md-list-item>
+        </span>
+	</md-list>
+</md-sidenav>
