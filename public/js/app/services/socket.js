@@ -4,12 +4,12 @@ app
         var _this = { socket: $window.io() };
         _this.init = function () {
             _this.socket.on('chat message', function (msg) {
-                if(msg == 'resource update'){
+                if (msg == 'resource update'){
                     Toast.show(msg);
                     $timeout(function () {
                         $window.location.reload();
                     }, 1000);
-                }else{
+                } else {
                     Toast.show('hello ' +  msg);
                 }
             });
