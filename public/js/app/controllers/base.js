@@ -2,6 +2,7 @@ app.controller('AppCtrl', function ($scope,
     $window,
     $timeout,
     Toast,
+    Socket,
     Vibration,
     Speech,
     $location,
@@ -33,6 +34,8 @@ app.controller('AppCtrl', function ($scope,
     //     console.log(data)
     // });
     Manifest.init();
+    Socket.init();
+    Socket.send();
 
     $scope.toggleSidenav = function (menuId) {
         $timeout(function () {

@@ -23,9 +23,6 @@ app.use(useragent.express());
 
 Object.assign = require('object-assign');
 
-var socket = require('./routes/socket');
-app = socket.set(app);
-
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var autoIncrement = require('mongoose-auto-increment');
@@ -169,17 +166,23 @@ var setDeviceCacheKey = function (number) {
 
     var rename = require('gulp-rename');
     var del = require('del');
-    del(['public/js/dist']).then(function(path){
+    del(['public/js/dist']).then(function (path) {
         gulp.src('public/js/app/**/*.js')
             .pipe(rename({ suffix: '.' + number }))
             .pipe(gulp.dest('public/js/dist/app'));
 
     });
 
-    del(['public/css/dist']).then(function(path){
+    del(['public/css/dist']).then(function (path) {
         gulp.src('public/css/app/**/*.css')
             .pipe(rename({ suffix: '.' + number }))
             .pipe(gulp.dest('public/css/dist/app'));
+    });
+
+    var socket = require('./routes/socket');
+    app = socket.set(app, number);
+    socket.getServer().listen(app.get('port'), function () {
+        console.log('Express socket server (server side) listening on port ' + app.get('port'));
     });
 };
 
@@ -199,8 +202,6 @@ Config.get('deviceCacheKey').then(function (record) {
 
 app.set('port', process.env.PORT || 3000);
 
-socket.getServer().listen(app.get('port'), function () {
-    console.log('Express socket server (server side) listening on port ' + app.get('port'));
-});
+
 
 module.exports = app;
