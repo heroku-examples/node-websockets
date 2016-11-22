@@ -45,11 +45,11 @@
         var deviceCacheKey =  <%= deviceCacheKey %>;
     </script>
     <%# cache files -start %>
-    <link rel="stylesheet" href="/css/angular-material.css">
-    <link rel="stylesheet" href="/css/material_icon.css">
-    <link rel="stylesheet" href="/css/animate.css">
-    <link rel="stylesheet" href="/css/angular-range-slider.css">
-    <link rel="stylesheet" href="/css/angular-carousel.css">
+    <link rel="stylesheet" href="/css/libs/angular-material.css">
+    <link rel="stylesheet" href="/css/libs/material_icon.css">
+    <link rel="stylesheet" href="/css/libs/animate.css">
+    <link rel="stylesheet" href="/css/libs/angular-range-slider.css">
+    <link rel="stylesheet" href="/css/libs/angular-carousel.css">
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery/jquery.min.js"></script>
@@ -82,29 +82,29 @@
     <script src="/js/libs/angular/ocLazyLoad.min.js"></script>
     <%# cache files -end %>
 
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/dist/app/main.<%= deviceCacheKey %>.css">
+    <link rel="stylesheet" href="/css/dist/modal.<%= deviceCacheKey %>.css">
 
-    <script src="/js/base.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/configs/base.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/filters/base.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/models/api.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/base.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/error.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/modal.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/link.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/user.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/login.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/directives/base.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/fireBase.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/loading.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/file.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/chat.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/panel.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/services/worker.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/modals/chat.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/modals/friend.js?v=<%= deviceCacheKey %>"></script>
-    <script src="/js/controllers/base.js?v=<%= deviceCacheKey %>"></script>
+    <script src="/js/dist/app/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/configs/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/filters/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/models/api.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/error.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/modal.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/link.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/user.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/login.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/directives/base.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/fireBase.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/loading.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/file.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/chat.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/panel.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/services/worker.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/modals/chat.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/modals/friend.<%= deviceCacheKey %>.js"></script>
+    <script src="/js/dist/app/controllers/base.<%= deviceCacheKey %>.js"></script>
 
 </head>
 

@@ -1,5 +1,5 @@
 body{
-    background-image:url(../images/avatar2.png);
+    background-image:url(https://desolate-crag-38483.herokuapp.com/images/avatar2.png);
     background-size: 100% auto;
 }
 
@@ -211,7 +211,7 @@ body{
 
 @font-face {
     font-family: PixelMplus10-Regular;
-    src: url('../fonts/PixelMplus10-Regular.ttf') format("truetype");
+    src: url('https://desolate-crag-38483.herokuapp.com/fonts/PixelMplus10-Regular.ttf') format("truetype");
 }
 
 .font-game {
@@ -644,7 +644,7 @@ md-sidenav {
 .avatar {
     width: 100%;
     height: 100%;
-    background: url(../images/avatar2.png);
+    background: url(https://desolate-crag-38483.herokuapp.com/images/avatar2.png);
     background-size: 610%;
     display: inline-block;
     background-repeat: no-repeat;
@@ -672,7 +672,7 @@ md-sidenav {
     right: 0;
     height:inherit !important;
     background-color: #ebffd9;
-    background-image:url(../images/user.png);
+    background-image:url(https://desolate-crag-38483.herokuapp.com/images/user.png);
     background-size: 100% 100%;
     min-height: 100%;
 }

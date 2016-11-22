@@ -90,33 +90,33 @@ var app = angular.module('StarterApp', [
             modules: [
                 {
                     name: 'index',
-                    files: ['/js/controllers/index.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/controllers/index.' + window.deviceCacheKey + '.js']
                 },
                 {
                     name: 'friend',
-                    files: ['/js/services/chat.js?v=' + window.deviceCacheKey, '/js/controllers/friend.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/services/chat.' + window.deviceCacheKey + '.js', '/js/dist/app/controllers/friend.' + window.deviceCacheKey + '.js']
                 },
                 {
                     name: 'setting',
-                    files: ['/js/controllers/setting.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/controllers/setting.' + window.deviceCacheKey + '.js']
                 },
                 {
                     name: 'login',
-                    files: ['/js/controllers/login.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/controllers/login.' + window.deviceCacheKey + '.js']
                 },
                 {
                     name: 'userUpdate',
-                    files: ['/js/controllers/userUpdate.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/controllers/userUpdate.' + window.deviceCacheKey + '.js']
                 },
                 {
                     name: 'debug',
-                    files: ['/js/debug/controllers/debug.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/debug/controllers/debug.' + window.deviceCacheKey + '.js']
                 },{
                     name: 'memo',
-                    files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/debug/controllers/test.' + window.deviceCacheKey + '.js']
                 }, {
                     name: 'test',
-                    files: ['/js/debug/controllers/test.js?v=' + window.deviceCacheKey]
+                    files: ['/js/dist/app/debug/controllers/test.' + window.deviceCacheKey + '.js']
                 }]
         });
     }]).config(['$provide', '$controllerProvider', '$animateProvider', '$filterProvider', '$compileProvider',

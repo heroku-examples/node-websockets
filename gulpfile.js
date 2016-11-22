@@ -7,7 +7,7 @@ gulp.task('serve', function () {
     browserSync.init();
     var requireDir = require('require-dir');
     requireDir('./gulp/tasks', { recurse: true });
-    gulp.watch(["public/**"]).on('change', browserSync.reload);
+    gulp.watch(["public/css/app/**", "public/js/app/**", "public/templates/**"], ]).on('change', browserSync.reload);
 });
 
 

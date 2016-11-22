@@ -6,3 +6,5 @@ log.
 *.3
 .vscode/launch.json
 public/manifest/manifest.mf
+public/js/dist/
+public/css/dist/

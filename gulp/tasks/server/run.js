@@ -1,7 +1,7 @@
 var app = require('express')();
 
 var compression = require('compression');
-app.use(compression({level: 6}));
+app.use(compression({ level: 6 }));
 
 var log4js = require('log4js');
 log4js_extend = require("log4js-extend");
@@ -29,13 +29,14 @@ app = socket.set(app);
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var autoIncrement = require('mongoose-auto-increment');
-app.set('autoIncrement', autoIncrement); 
+app.set('autoIncrement', autoIncrement);
 var connection = mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/jsonAPI');
 autoIncrement.initialize(connection);
 
+var gulp = require('gulp');
+
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-
 
 app.use(session({
     secret: 'anal fuck',
@@ -75,15 +76,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var options = {
-  //dotfiles: 'ignore',
-  //etag: false,
-  extensions: ['htm', 'html', 'js', 'json', "css", "mf", "png", "jpg", "ttf", "woff", "woff2"],
-  index: false,
-  maxAge: '7d',
-  redirect: false,
-  setHeaders: function (res, path, stat) {
-    res.set('x-timestamp', Date.now());
-  }
+    //dotfiles: 'ignore',
+    //etag: false,
+    extensions: ['htm', 'html', 'js', 'json', "css", "mf", "png", "jpg", "ttf", "woff", "woff2"],
+    index: false,
+    maxAge: '7d',
+    redirect: false,
+    setHeaders: function (res, path, stat) {
+        res.set('x-timestamp', Date.now());
+    }
 }
 
 app.use(require('express').static('public', options));
@@ -134,15 +135,10 @@ if (app.get('env') === 'development') {
             });
         }
     });
-
-    var gulp = require('gulp');
-    var browserSync = require('browser-sync').create();
-    gulp.watch(["public/**"]).on('change', browserSync.reload);
-
     var FireBaseSearvice = require('./services/firebase');
     var uid = "zcMTtpFeKEhmGPiJWno0310Sv5p1";
     FireBaseSearvice.init(uid)
-}else{
+} else {
     var FireBaseSearvice = require('./services/firebase');
     var uid = "PdgCuopiL3dvwsuSMLC1D8pzM792";
     FireBaseSearvice.init(uid)
@@ -170,13 +166,28 @@ var setDeviceCacheKey = function (number) {
         }))
         .pipe(rename({ extname: '.mf' }))
         .pipe(gulp.dest("public/manifest/"));
-}
+
+    var rename = require('gulp-rename');
+    var del = require('del');
+    del(['public/js/dist']).then(function(path){
+        gulp.src('public/js/app/**/*.js')
+            .pipe(rename({ suffix: '.' + number }))
+            .pipe(gulp.dest('public/js/dist/app'));
+
+    });
+
+    del(['public/css/dist']).then(function(path){
+        gulp.src('public/css/app/**/*.css')
+            .pipe(rename({ suffix: '.' + number }))
+            .pipe(gulp.dest('public/css/dist/app'));
+    });
+};
 
 var Config = require('./services/config');
 Config.get('deviceCacheKey').then(function (record) {
-    if(!record.number) record = {number : 0};
-    if(!Number(record.number)) record = {number : 0};
-    Config.update('deviceCacheKey', {number : record.number+1}).then(function (records) {
+    if (!record.number) record = { number: 0 };
+    if (!Number(record.number)) record = { number: 0 };
+    Config.update('deviceCacheKey', { number: record.number + 1 }).then(function (records) {
         setDeviceCacheKey(records.number);
     }, function (error) {
         console.log("Rejected:", error);
