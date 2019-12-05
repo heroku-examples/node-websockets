@@ -2,7 +2,7 @@
   "name": "websockets-vanilla",
   "version": "1.0.0",
   "engines": {
-    "node": "13.1.x"
+    "node": "12.x"
   },
   "description": "",
   "main": "index.js",
