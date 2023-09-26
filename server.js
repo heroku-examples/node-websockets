@@ -1,5 +1,5 @@
 const WebSocket = require('ws')
-const gdCom = require('@gd-com/utils')
+const gdCom = require('gd-com/utils')
 
 const wss = new WebSocket.Server({ port: 8080 })
 

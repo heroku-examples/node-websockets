@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@gd-com/utils": "^4.1.5",
+    "gd-com/utils": "^4.1.5",
     "bufferutil": "^4.0.1",
     "express": "^4.18.2",
     "utf-8-validate": "^5.0.2",
