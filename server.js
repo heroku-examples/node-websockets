@@ -50,4 +50,4 @@ wss.on('connection', (ws) => {
   	console.log(`player ${reason} disconnected`)
   })
  
-})
+});
